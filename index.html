@@ -3,152 +3,158 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம் - ஸ்மார்ட் பள்ளி</title>
+    <title>அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்</title>
+    
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#1259a1",
-                        "background-light": "#f6f7f8",
-                        "background-dark": "#111921",
-                    },
-                    fontFamily: {
-                        "display": ["Lexend", "sans-serif"]
-                    },
-                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
-                },
-            },
+
+    <style>
+        body { font-family: 'Lexend', sans-serif; scroll-behavior: smooth; }
+        
+        /* ஓடும் செய்தி வரி (Running News) Animation */
+        .news-scroll {
+            display: inline-block;
+            white-space: nowrap;
+            padding-left: 100%;
+            animation: scroll-news 20s linear infinite;
+        }
+        @keyframes scroll-news {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+
+        /* Carousel Styles */
+        .carousel-item { display: none; }
+        .carousel-item.active { display: block; }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-slate-900">
+
+    <div class="bg-primary bg-blue-800 text-white py-2 overflow-hidden border-b border-blue-700">
+        <div class="news-scroll font-medium text-sm">
+            📢 அறிவிப்பு: 2026-27 கல்வியாண்டிற்கான மாணவர் சேர்க்கை இப்போது நடைபெறுகிறது! | 🏆 நமது பள்ளி மாவட்ட அளவிலான விளையாட்டுப் போட்டியில் முதலிடம் பிடித்துள்ளது! | 📝 பொதுத்தேர்வு எழுதும் மாணவர்களுக்கான சிறப்பு வகுப்புகள் நடைபெறுகின்றன.
+        </div>
+    </div>
+
+    <header class="flex items-center justify-between px-6 md:px-20 py-4 bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <div class="flex items-center gap-3">
+            <div class="bg-blue-800 text-white p-2 rounded-lg">
+                <span class="material-symbols-outlined">school</span>
+            </div>
+            <h1 class="text-sm md:text-lg font-bold uppercase tracking-tight">அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்</h1>
+        </div>
+        <nav class="hidden md:flex items-center gap-8 font-medium text-sm">
+            <a href="#home" class="hover:text-blue-700 transition">முகப்பு</a>
+            <a href="#initiatives" class="hover:text-blue-700 transition">சிறப்பம்சங்கள்</a>
+            <a href="#facilities" class="hover:text-blue-700 transition">வசதிகள்</a>
+            <a href="#contact" class="hover:text-blue-700 transition">தொடர்புக்கு</a>
+        </nav>
+        <button onclick="alert('விண்ணப்பப் படிவம் பதிவிறக்கம் செய்யப்படுகிறது...')" class="bg-blue-800 text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-blue-700 transition">விண்ணப்பிக்க</button>
+    </header>
+
+    <main id="home">
+        <section class="relative w-full h-[300px] md:h-[500px] bg-gray-200 overflow-hidden">
+            <div class="carousel-item active h-full w-full">
+                <img src="https://placehold.co/1200x500/1e3a8a/white?text=School+Building+Photo" class="w-full h-full object-cover" alt="School">
+                <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <h2 class="text-white text-3xl md:text-5xl font-bold text-center">சிறந்த கல்வி, சிறந்த எதிர்காலம்!</h2>
+                </div>
+            </div>
+            <div class="carousel-item h-full w-full">
+                <img src="https://placehold.co/1200x500/1e40af/white?text=Smart+Classroom+Photo" class="w-full h-full object-cover" alt="Classroom">
+                <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <h2 class="text-white text-3xl md:text-5xl font-bold text-center">நவீன டிஜிட்டல் வகுப்பறைகள்</h2>
+                </div>
+            </div>
+            <div class="carousel-item h-full w-full">
+                <img src="https://placehold.co/1200x500/1d4ed8/white?text=Sports+Ground+Photo" class="w-full h-full object-cover" alt="Sports">
+                <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <h2 class="text-white text-3xl md:text-5xl font-bold text-center">விளையாட்டு மற்றும் கலைத் திறன்கள்</h2>
+                </div>
+            </div>
+
+            <button onclick="changeSlide(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 p-2 rounded-full hover:bg-white/50 text-white">
+                <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+            <button onclick="changeSlide(1)" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 p-2 rounded-full hover:bg-white/50 text-white">
+                <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+        </section>
+
+        <section id="initiatives" class="py-16 px-6 md:px-20 text-center">
+            <h2 class="text-3xl font-bold mb-10">எங்கள் சிறப்புகள்</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-6 bg-white rounded-xl shadow-sm border hover:shadow-md transition cursor-pointer" onclick="location.href='#facilities'">
+                    <span class="material-symbols-outlined text-blue-700 text-5xl">computer</span>
+                    <h3 class="text-xl font-bold mt-4">ஹை-டெக் ஆய்வகம்</h3>
+                    <p class="text-gray-600 mt-2">அதிநவீன கணினி வசதிகளுடன் மாணவர்கள் கற்றுக்கொள்ளும் வசதி.</p>
+                </div>
+                <div class="p-6 bg-white rounded-xl shadow-sm border hover:shadow-md transition cursor-pointer" onclick="location.href='#facilities'">
+                    <span class="material-symbols-outlined text-blue-700 text-5xl">menu_book</span>
+                    <h3 class="text-xl font-bold mt-4">நூலகம்</h3>
+                    <p class="text-gray-600 mt-2">ஆயிரக்கணக்கான புத்தகங்கள் மற்றும் டிஜிட்டல் புத்தகங்கள்.</p>
+                </div>
+                <div class="p-6 bg-white rounded-xl shadow-sm border hover:shadow-md transition cursor-pointer" onclick="location.href='#facilities'">
+                    <span class="material-symbols-outlined text-blue-700 text-5xl">workspace_premium</span>
+                    <h3 class="text-xl font-bold mt-4">உதவித்தொகை</h3>
+                    <p class="text-gray-600 mt-2">அரசு வழங்கும் அனைத்து கல்வி உதவித்தொகைகளும் பெற்றுத் தரப்படும்.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact" class="bg-slate-900 text-white py-12 px-6 md:px-20">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 border-b border-slate-800 pb-10">
+            <div>
+                <h3 class="text-xl font-bold mb-4">தொடர்புக்கு</h3>
+                <p class="text-slate-400">பட்டீஸ்வரம், கும்பகோணம், தமிழ்நாடு.</p>
+                <p class="text-slate-400">அழைக்கவும்: <a href="tel:9443306341" class="hover:text-blue-400">9443306341</a></p>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold mb-4">முக்கிய இணைப்புகள்</h3>
+                <ul class="text-slate-400 space-y-2">
+                    <li><a href="#" class="hover:text-blue-400">பள்ளி வரலாறு</a></li>
+                    <li><a href="#" class="hover:text-blue-400">ஆசிரியர்கள்</a></li>
+                    <li><a href="#" class="hover:text-blue-400">தேர்வு முடிவுகள்</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold mb-4">கேள்விகளுக்கு</h3>
+                <button onclick="window.location.href='mailto:example@gmail.com'" class="bg-blue-700 px-6 py-2 rounded font-bold hover:bg-blue-600 transition w-full md:w-auto">மின்னஞ்சல் அனுப்பவும்</button>
+            </div>
+        </div>
+        <div class="mt-8 text-center text-slate-500 text-sm">
+            &copy; 2026 அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி.
+        </div>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-item');
+
+        function showSlide(index) {
+            slides.forEach(s => s.classList.remove('active'));
+            if (index >= slides.length) currentSlide = 0;
+            if (index < 0) currentSlide = slides.length - 1;
+            slides[currentSlide].classList.add('active');
+        }
+
+        function changeSlide(n) {
+            currentSlide += n;
+            showSlide(currentSlide);
+        }
+
+        // Auto change slide every 5 seconds
+        setInterval(() => {
+            changeSlide(1);
+        }, 5000);
+
+        // Simple alert for buttons
+        function contactAction() {
+            alert('உங்கள் தகவல் பெறப்பட்டது. விரைவில் தொடர்பு கொள்கிறோம்!');
         }
     </script>
-</head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
-<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
-<div class="layout-container flex h-full grow flex-col">
-
-<header class="flex items-center justify-between border-b border-solid border-primary/10 px-6 md:px-20 py-4 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md sticky top-0 z-50">
-    <div class="flex items-center gap-4 text-primary">
-        <div class="size-8">
-            <svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                <path d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z"></path>
-            </svg>
-        </div>
-        <h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold">அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்</h2>
-    </div>
-    <div class="flex flex-1 justify-end gap-4 md:gap-8 items-center">
-        <nav class="hidden md:flex items-center gap-8">
-            <a class="text-sm font-medium hover:text-primary" href="#initiatives">முயற்சிகள்</a>
-            <a class="text-sm font-medium hover:text-primary" href="#facilities">வசதிகள்</a>
-            <a class="text-sm font-medium hover:text-primary" href="#admission">சேர்க்கை</a>
-        </nav>
-        <button class="bg-primary text-white px-5 py-2 rounded-lg font-bold text-sm">விண்ணப்பிக்க</button>
-    </div>
-</header>
-
-<main class="flex flex-col flex-1">
-    <section class="px-6 md:px-20 py-12 md:py-20">
-        <div class="max-w-[1200px] mx-auto flex flex-col md:flex-row items-center gap-10">
-            <div class="flex flex-col gap-6 md:w-1/2">
-                <span class="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-bold w-fit">மாணவர் சேர்க்கை நடைபெறுகிறது 2026-27</span>
-                <h1 class="text-slate-900 dark:text-slate-100 text-4xl md:text-6xl font-black">
-                    அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி பட்டீஸ்வரம்
-                </h1>
-                <p class="text-slate-600 dark:text-slate-400 text-lg">
-                    LKG முதல் 9-ஆம் வகுப்பு மற்றும் 11-ஆம் வகுப்பு வரை சேர்க்கை நடைபெறுகிறது. நவீன டிஜிட்டல் தொழில்நுட்பம் மற்றும் பண்பாட்டு விழுமியங்களுடன் சிறந்த கல்வி.
-                </p>
-                <div class="flex flex-wrap gap-4">
-                    <button class="min-w-[160px] rounded-xl h-14 bg-primary text-white font-bold shadow-lg">பயணத்தைத் தொடங்குங்கள்</button>
-                    <button class="min-w-[160px] rounded-xl h-14 bg-white border border-slate-200 text-slate-900 font-bold">சுற்றிப் பார்க்க (Virtual Tour)</button>
-                </div>
-            </div>
-            <div class="w-full md:w-1/2 aspect-video bg-slate-200 rounded-xl shadow-2xl overflow-hidden relative" style='background-image: url("https://images.unsplash.com/photo-1523050853021-ea759f974055?q=80&w=2070&auto=format&fit=crop"); background-size: cover;'>
-                <div class="absolute inset-0 bg-primary/10"></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="px-6 md:px-20 py-16 bg-white dark:bg-slate-900/50" id="initiatives">
-        <div class="max-w-[1200px] mx-auto text-center mb-12">
-            <h2 class="text-3xl font-bold mb-4">நவீன கல்வி முறைகள்</h2>
-            <div class="h-1 w-20 bg-primary mx-auto rounded-full"></div>
-        </div>
-        <div class="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="p-8 border rounded-2xl bg-white dark:bg-background-dark">
-                <span class="material-symbols-outlined text-4xl text-primary">memory</span>
-                <h3 class="text-2xl font-bold mt-4">ஹை-டெக் ஆய்வகம்</h3>
-                <p class="text-slate-600 mt-2">அதிநவீன கணினிகள் மற்றும் அதிவேக இணைய வசதியுடன், மாணவர்கள் கணினி குறியீட்டு முறை மற்றும் ஆராய்ச்சிகளை மேற்கொள்ளலாம்.</p>
-            </div>
-            <div class="p-8 border rounded-2xl bg-white dark:bg-background-dark">
-                <span class="material-symbols-outlined text-4xl text-primary">cast_for_education</span>
-                <h3 class="text-2xl font-bold mt-4">ஸ்மார்ட் வகுப்பறைகள்</h3>
-                <p class="text-slate-600 mt-2">டிஜிட்டல் திரைகள் மற்றும் ஒலி-ஒளி கருவிகள் மூலம் பாடங்களை எளிமையாகவும் சுவாரஸ்யமாகவும் கற்கலாம்.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="px-6 md:px-20 py-16" id="facilities">
-        <div class="max-w-[1200px] mx-auto mb-12">
-            <h2 class="text-3xl font-bold">பள்ளியின் வசதிகள்</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="relative h-64 rounded-xl bg-slate-800 overflow-hidden group">
-                <div class="absolute inset-0 opacity-50 bg-black"></div>
-                <div class="absolute bottom-6 left-6 text-white">
-                    <h4 class="text-xl font-bold">பெரிய விளையாட்டு மைதானம்</h4>
-                    <p class="text-sm">கால்பந்து, கபடி மற்றும் தடகளப் போட்டிகளுக்கான பிரத்யேக இடம்.</p>
-                </div>
-            </div>
-            <div class="relative h-64 rounded-xl bg-slate-800 overflow-hidden group">
-                <div class="absolute bottom-6 left-6 text-white">
-                    <h4 class="text-xl font-bold">அறிவியல் ஆய்வகங்கள்</h4>
-                    <p class="text-sm">இயற்பியல், வேதியியல் மற்றும் உயிரியல் பாடங்களுக்கான நவீன உபகரணங்கள்.</p>
-                </div>
-            </div>
-            <div class="relative h-64 rounded-xl bg-slate-800 overflow-hidden group">
-                <div class="absolute bottom-6 left-6 text-white">
-                    <h4 class="text-xl font-bold">இலவச உணவுத் திட்டம்</h4>
-                    <p class="text-sm">அனைத்து மாணவர்களுக்கும் சத்தான காலை உணவு மற்றும் மதிய உணவு வழங்கப்படுகிறது.</p>
-                </div>
-            </div>
-            <div class="relative h-64 rounded-xl bg-slate-800 overflow-hidden group">
-                <div class="absolute bottom-6 left-6 text-white">
-                    <h4 class="text-xl font-bold">இருமொழி கல்வி</h4>
-                    <p class="text-sm">தமிழ் மற்றும் ஆங்கிலம் ஆகிய இரு வழிகளிலும் சிறந்த கல்வி கற்பிக்கப்படுகிறது.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-</main>
-
-<footer class="px-6 md:px-20 py-16 bg-slate-900 text-white" id="admission">
-    <div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between gap-12">
-        <div class="md:max-w-md">
-            <h2 class="text-xl font-bold text-primary mb-4">AGMHSS பட்டீஸ்வரம்</h2>
-            <p class="text-slate-400 text-sm leading-relaxed">நமது அண்ணா அரசு மாதிரிப் பள்ளியில் உங்கள் குழந்தையைச் சேர்த்து, அவர்களின் எதிர்காலத்தை வளமாக்குங்கள்.</p>
-        </div>
-        <div>
-            <h4 class="text-lg font-bold mb-4">தொடர்பு கொள்ள</h4>
-            <ul class="text-slate-400 text-sm flex flex-col gap-3">
-                <li>பட்டீஸ்வரம், கும்பகோணம், தமிழ்நாடு</li>
-                <li>தொலைபேசி: 9443306341</li>
-                <li>நேரம்: திங்கள் - வெள்ளி (காலை 9:20 - மாலை 4:20)</li>
-            </ul>
-        </div>
-        <div>
-            <h4 class="text-lg font-bold mb-4">மாணவர் சேர்க்கை</h4>
-            <button class="bg-primary text-white px-6 py-3 rounded-lg font-bold">சேர்க்கை குறித்த விவரங்கள்</button>
-        </div>
-    </div>
-    <div class="mt-16 pt-8 border-t border-slate-800 text-center text-slate-500 text-xs">
-        © 2026 அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.
-    </div>
-</footer>
-
-</div>
-</div>
 </body>
 </html>
