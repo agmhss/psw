@@ -2,159 +2,224 @@
 <html class="light" lang="ta">
 <head>
     <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>AGMHSS பட்டீஸ்வரம் | முழுமையான பள்ளி இணையதளம்</title>
     
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;800&family=Hind+Madurai:wght@400;700&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 
     <style>
-        body { font-family: 'Lexend', sans-serif; scroll-behavior: smooth; }
+        body { font-family: 'Hind Madurai', 'Lexend', sans-serif; scroll-behavior: smooth; }
+        .slide { display: none; animation: fade 1.5s; }
+        .active-slide { display: block; }
+        @keyframes fade { from {opacity: .4} to {opacity: 1} }
         
-        /* ஓடும் செய்தி வரி (Running News) Animation */
-        .news-scroll {
-            display: inline-block;
-            white-space: nowrap;
-            padding-left: 100%;
-            animation: scroll-news 20s linear infinite;
-        }
-        @keyframes scroll-news {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(-100%, 0); }
-        }
-
-        /* Carousel Styles */
-        .carousel-item { display: none; }
-        .carousel-item.active { display: block; }
+        /* ஓடும் செய்தி வரி */
+        .news-ticker { background: #1e3a8a; color: white; overflow: hidden; white-space: nowrap; padding: 10px 0; }
+        .news-content { display: inline-block; animation: ticker 30s linear infinite; font-weight: bold; }
+        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
     </style>
 </head>
 
-<body class="bg-gray-50 text-slate-900">
+<body class="bg-slate-50 text-slate-900">
 
-    <div class="bg-primary bg-blue-800 text-white py-2 overflow-hidden border-b border-blue-700">
-        <div class="news-scroll font-medium text-sm">
-            📢 அறிவிப்பு: 2026-27 கல்வியாண்டிற்கான மாணவர் சேர்க்கை இப்போது நடைபெறுகிறது! | 🏆 நமது பள்ளி மாவட்ட அளவிலான விளையாட்டுப் போட்டியில் முதலிடம் பிடித்துள்ளது! | 📝 பொதுத்தேர்வு எழுதும் மாணவர்களுக்கான சிறப்பு வகுப்புகள் நடைபெறுகின்றன.
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-blue-900 rounded-full flex items-center justify-center text-white shadow-inner">
+                    <span class="material-symbols-outlined text-3xl">school</span>
+                </div>
+                <div>
+                    <h1 class="text-blue-900 font-bold text-lg md:text-xl leading-none">அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி</h1>
+                    <p class="text-red-600 text-xs font-bold tracking-widest uppercase">பட்டீஸ்வரம், தஞ்சாவூர் மாவட்டம்</p>
+                </div>
+            </div>
+            <nav class="hidden lg:flex gap-6 font-bold text-blue-900 text-sm uppercase">
+                <a href="#home" class="hover:text-red-600 transition">முகப்பு</a>
+                <a href="#achievers" class="hover:text-red-600 transition">சாதனையாளர்கள்</a>
+                <a href="#extra" class="hover:text-red-600 transition">இயக்கங்கள்</a>
+                <a href="#staff" class="hover:text-red-600 transition">ஆசிரியர்கள்</a>
+                <a href="#downloads" class="hover:text-red-600 transition">பதிவிறக்கம்</a>
+            </nav>
+            <button onclick="alert('சேர்க்கை படிவம் தயார் நிலையில் உள்ளது!')" class="bg-red-600 text-white px-5 py-2 rounded-full font-bold hover:bg-blue-900 transition shadow-md">சேர்க்கை 2026</button>
+        </div>
+    </header>
+
+    <section id="home" class="relative h-[450px] md:h-[600px] overflow-hidden bg-slate-900">
+        <div class="slide active-slide h-full">
+            <img src="https://placehold.co/1920x800/1e3a8a/ffffff?text=Our+School+Campus" class="w-full h-full object-cover opacity-50">
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
+                <h2 class="text-4xl md:text-6xl font-black mb-4 drop-shadow-lg">அறிவே ஆற்றல்!</h2>
+                <p class="text-lg md:text-2xl max-w-2xl font-light">சிறந்த உட்கட்டமைப்பு மற்றும் நவீன கல்வி வசதிகளுடன் உங்கள் பிள்ளைகளின் எதிர்காலம் இங்கே தொடங்குகிறது.</p>
+            </div>
+        </div>
+        <div class="slide h-full">
+            <img src="https://placehold.co/1920x800/800000/ffffff?text=Smart+Classroom+In+Action" class="w-full h-full object-cover opacity-50">
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
+                <h2 class="text-4xl md:text-6xl font-black mb-4 drop-shadow-lg">டிஜிட்டல் கற்றல்</h2>
+                <p class="text-lg md:text-2xl max-w-2xl font-light">ஸ்மார்ட் வகுப்பறைகள் மற்றும் ஹை-டெக் லேப் மூலம் உலகத்தர கல்வி.</p>
+            </div>
+        </div>
+        <button onclick="changeSlide(-1)" class="absolute left-5 top-1/2 -translate-y-1/2 text-white text-4xl">❮</button>
+        <button onclick="changeSlide(1)" class="absolute right-5 top-1/2 -translate-y-1/2 text-white text-4xl">❯</button>
+    </section>
+
+    <div class="news-ticker border-y-4 border-red-600">
+        <div class="news-content">
+            🔥 முக்கிய அறிவிப்பு: 10 மற்றும் 12-ஆம் வகுப்பு திருப்புதல் தேர்வுகள் மார்ச் 15 முதல் தொடக்கம்! | 🏆 மாநில அளவிலான தடகளப் போட்டியில் பள்ளி அணி வெற்றி! | 📝 எல்.கே.ஜி முதல் 9-ஆம் வகுப்பு வரை புதிய சேர்க்கை நடைபெறுகிறது.
         </div>
     </div>
 
-    <header class="flex items-center justify-between px-6 md:px-20 py-4 bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
-        <div class="flex items-center gap-3">
-            <div class="bg-blue-800 text-white p-2 rounded-lg">
-                <span class="material-symbols-outlined">school</span>
-            </div>
-            <h1 class="text-sm md:text-lg font-bold uppercase tracking-tight">அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்</h1>
+    <section id="achievers" class="py-20 px-6 max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-black text-blue-900 uppercase">எங்கள் சாதனைகள்</h2>
+            <div class="w-20 h-1 bg-red-600 mx-auto mt-2"></div>
         </div>
-        <nav class="hidden md:flex items-center gap-8 font-medium text-sm">
-            <a href="#home" class="hover:text-blue-700 transition">முகப்பு</a>
-            <a href="#initiatives" class="hover:text-blue-700 transition">சிறப்பம்சங்கள்</a>
-            <a href="#facilities" class="hover:text-blue-700 transition">வசதிகள்</a>
-            <a href="#contact" class="hover:text-blue-700 transition">தொடர்புக்கு</a>
-        </nav>
-        <button onclick="alert('விண்ணப்பப் படிவம் பதிவிறக்கம் செய்யப்படுகிறது...')" class="bg-blue-800 text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-blue-700 transition">விண்ணப்பிக்க</button>
-    </header>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="bg-white p-4 rounded-xl shadow text-center border-b-4 border-yellow-500">
+                <img src="https://placehold.co/150x150/fde047/000000?text=Student+1" class="rounded-full mx-auto mb-4 border-4 border-yellow-100">
+                <h4 class="font-bold">செல்வன். கவின்</h4>
+                <p class="text-sm text-gray-500">12-ஆம் வகுப்பு (495/500)</p>
+            </div>
+            <div class="bg-white p-4 rounded-xl shadow text-center border-b-4 border-yellow-500">
+                <img src="https://placehold.co/150x150/fde047/000000?text=Student+2" class="rounded-full mx-auto mb-4 border-4 border-yellow-100">
+                <h4 class="font-bold">செல்வி. நிலா</h4>
+                <p class="text-sm text-gray-500">10-ஆம் வகுப்பு (488/500)</p>
+            </div>
+            <div class="bg-white p-4 rounded-xl shadow text-center border-b-4 border-blue-500">
+                <img src="https://placehold.co/150x150/60a5fa/000000?text=Sports" class="rounded-full mx-auto mb-4 border-4 border-blue-100">
+                <h4 class="font-bold">விளையாட்டுத் துறை</h4>
+                <p class="text-sm text-gray-500">தடகளம் - முதலிடம்</p>
+            </div>
+            <div class="bg-white p-4 rounded-xl shadow text-center border-b-4 border-green-500">
+                <img src="https://placehold.co/150x150/4ade80/000000?text=Science" class="rounded-full mx-auto mb-4 border-4 border-green-100">
+                <h4 class="font-bold">அறிவியல் கண்காட்சி</h4>
+                <p class="text-sm text-gray-500">மாவட்ட அளவிலான வெற்றி</p>
+            </div>
+        </div>
+    </section>
 
-    <main id="home">
-        <section class="relative w-full h-[300px] md:h-[500px] bg-gray-200 overflow-hidden">
-            <div class="carousel-item active h-full w-full">
-                <img src="https://placehold.co/1200x500/1e3a8a/white?text=School+Building+Photo" class="w-full h-full object-cover" alt="School">
-                <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                    <h2 class="text-white text-3xl md:text-5xl font-bold text-center">சிறந்த கல்வி, சிறந்த எதிர்காலம்!</h2>
+    <section id="extra" class="bg-blue-900 py-20 px-6 text-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-black text-center mb-16 uppercase italic">மாணவர் இயக்கங்கள்</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="bg-white/10 p-8 rounded-3xl backdrop-blur-md border border-white/20">
+                    <span class="material-symbols-outlined text-5xl mb-4 text-yellow-400">military_tech</span>
+                    <h3 class="text-2xl font-bold mb-3">NCC</h3>
+                    <p class="text-blue-100 italic">ஒழுக்கம், தலைமைப் பண்பு மற்றும் தேசப்பற்றை மாணவர்களிடையே வளர்க்கும் தேசிய மாணவர் படை.</p>
+                </div>
+                <div class="bg-white/10 p-8 rounded-3xl backdrop-blur-md border border-white/20">
+                    <span class="material-symbols-outlined text-5xl mb-4 text-red-400">explore</span>
+                    <h3 class="text-2xl font-bold mb-3">SCOUTS</h3>
+                    <p class="text-blue-100 italic">சுய கட்டுப்பாடு மற்றும் சமூக சேவையை வலியுறுத்தும் சாரண சாரணியர் இயக்கம்.</p>
+                </div>
+                <div class="bg-white/10 p-8 rounded-3xl backdrop-blur-md border border-white/20">
+                    <span class="material-symbols-outlined text-5xl mb-4 text-green-400">volunteer_activism</span>
+                    <h3 class="text-2xl font-bold mb-3">NSS / JRC</h3>
+                    <p class="text-blue-100 italic">மனிதாபிமானம் மற்றும் இரத்த தான விழிப்புணர்வு பணிகளில் ஈடுபடும் இயக்கங்கள்.</p>
                 </div>
             </div>
-            <div class="carousel-item h-full w-full">
-                <img src="https://placehold.co/1200x500/1e40af/white?text=Smart+Classroom+Photo" class="w-full h-full object-cover" alt="Classroom">
-                <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                    <h2 class="text-white text-3xl md:text-5xl font-bold text-center">நவீன டிஜிட்டல் வகுப்பறைகள்</h2>
-                </div>
-            </div>
-            <div class="carousel-item h-full w-full">
-                <img src="https://placehold.co/1200x500/1d4ed8/white?text=Sports+Ground+Photo" class="w-full h-full object-cover" alt="Sports">
-                <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                    <h2 class="text-white text-3xl md:text-5xl font-bold text-center">விளையாட்டு மற்றும் கலைத் திறன்கள்</h2>
-                </div>
-            </div>
+        </div>
+    </section>
 
-            <button onclick="changeSlide(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 p-2 rounded-full hover:bg-white/50 text-white">
-                <span class="material-symbols-outlined">chevron_left</span>
-            </button>
-            <button onclick="changeSlide(1)" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 p-2 rounded-full hover:bg-white/50 text-white">
-                <span class="material-symbols-outlined">chevron_right</span>
-            </button>
-        </section>
+    <section id="staff" class="py-20 px-6 max-w-7xl mx-auto">
+        <h2 class="text-3xl font-black text-blue-900 text-center mb-12 uppercase">தலைமை ஆசிரியர் & ஆசிரியர்கள்</h2>
+        <div class="overflow-x-auto bg-white rounded-2xl shadow-lg border border-blue-100">
+            <table class="w-full text-left">
+                <thead class="bg-blue-900 text-white">
+                    <tr>
+                        <th class="p-4">பெயர்</th>
+                        <th class="p-4">பதவி / பாடம்</th>
+                        <th class="p-4">அனுபவம்</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    <tr class="hover:bg-blue-50">
+                        <td class="p-4 font-bold">திரு. அண்ணாமலை</td>
+                        <td class="p-4 italic text-blue-800">தலைமை ஆசிரியர்</td>
+                        <td class="p-4">25 ஆண்டுகள்</td>
+                    </tr>
+                    <tr class="hover:bg-blue-50">
+                        <td class="p-4 font-bold">திருமதி. சுதா</td>
+                        <td class="p-4">முதுகலை ஆசிரியர் (தமிழ்)</td>
+                        <td class="p-4">12 ஆண்டுகள்</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
 
-        <section id="initiatives" class="py-16 px-6 md:px-20 text-center">
-            <h2 class="text-3xl font-bold mb-10">எங்கள் சிறப்புகள்</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="p-6 bg-white rounded-xl shadow-sm border hover:shadow-md transition cursor-pointer" onclick="location.href='#facilities'">
-                    <span class="material-symbols-outlined text-blue-700 text-5xl">computer</span>
-                    <h3 class="text-xl font-bold mt-4">ஹை-டெக் ஆய்வகம்</h3>
-                    <p class="text-gray-600 mt-2">அதிநவீன கணினி வசதிகளுடன் மாணவர்கள் கற்றுக்கொள்ளும் வசதி.</p>
-                </div>
-                <div class="p-6 bg-white rounded-xl shadow-sm border hover:shadow-md transition cursor-pointer" onclick="location.href='#facilities'">
-                    <span class="material-symbols-outlined text-blue-700 text-5xl">menu_book</span>
-                    <h3 class="text-xl font-bold mt-4">நூலகம்</h3>
-                    <p class="text-gray-600 mt-2">ஆயிரக்கணக்கான புத்தகங்கள் மற்றும் டிஜிட்டல் புத்தகங்கள்.</p>
-                </div>
-                <div class="p-6 bg-white rounded-xl shadow-sm border hover:shadow-md transition cursor-pointer" onclick="location.href='#facilities'">
-                    <span class="material-symbols-outlined text-blue-700 text-5xl">workspace_premium</span>
-                    <h3 class="text-xl font-bold mt-4">உதவித்தொகை</h3>
-                    <p class="text-gray-600 mt-2">அரசு வழங்கும் அனைத்து கல்வி உதவித்தொகைகளும் பெற்றுத் தரப்படும்.</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer id="contact" class="bg-slate-900 text-white py-12 px-6 md:px-20">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 border-b border-slate-800 pb-10">
+    <section id="downloads" class="py-20 bg-slate-200 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
-                <h3 class="text-xl font-bold mb-4">தொடர்புக்கு</h3>
-                <p class="text-slate-400">பட்டீஸ்வரம், கும்பகோணம், தமிழ்நாடு.</p>
-                <p class="text-slate-400">அழைக்கவும்: <a href="tel:9443306341" class="hover:text-blue-400">9443306341</a></p>
+                <h3 class="text-2xl font-bold mb-6 text-blue-900">பதிவிறக்கங்கள் (Downloads)</h3>
+                <div class="space-y-4">
+                    <div class="bg-white p-4 rounded-lg flex justify-between items-center shadow-sm">
+                        <span>சேர்க்கை விண்ணப்பப் படிவம் (2026-27)</span>
+                        <button onclick="alert('Downloading...')" class="text-red-600 font-bold">பதிவிறக்கு</button>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg flex justify-between items-center shadow-sm">
+                        <span>பள்ளி ஆண்டு காலண்டர் (PDF)</span>
+                        <button onclick="alert('Downloading...')" class="text-red-600 font-bold">பதிவிறக்கு</button>
+                    </div>
+                </div>
             </div>
             <div>
-                <h3 class="text-xl font-bold mb-4">முக்கிய இணைப்புகள்</h3>
-                <ul class="text-slate-400 space-y-2">
-                    <li><a href="#" class="hover:text-blue-400">பள்ளி வரலாறு</a></li>
-                    <li><a href="#" class="hover:text-blue-400">ஆசிரியர்கள்</a></li>
-                    <li><a href="#" class="hover:text-blue-400">தேர்வு முடிவுகள்</a></li>
+                <h3 class="text-2xl font-bold mb-6 text-blue-900">அமைவிடம் (Location)</h3>
+                <div class="w-full h-48 bg-gray-300 rounded-xl overflow-hidden shadow-inner">
+                    <img src="https://placehold.co/600x400?text=Google+Map+Location" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-blue-950 text-white pt-16 pb-8 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div>
+                <h4 class="text-xl font-bold mb-6 border-l-4 border-red-600 pl-4 uppercase">தொடர்புக்கு</h4>
+                <p class="text-gray-400 leading-relaxed italic">அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி,<br>பட்டீஸ்வரம், கும்பகோணம் - 612703.</p>
+                <p class="mt-4 font-bold text-red-500">📞 9443306341</p>
+            </div>
+            <div>
+                <h4 class="text-xl font-bold mb-6 border-l-4 border-red-600 pl-4 uppercase">நேரம்</h4>
+                <p class="text-gray-400">காலை 9:20 முதல் மாலை 4:20 வரை</p>
+                <p class="text-gray-400">சனிக்கிழமை: காலை 9:20 - மதியம் 12:30</p>
+            </div>
+            <div>
+                <h4 class="text-xl font-bold mb-6 border-l-4 border-red-600 pl-4 uppercase">முக்கியமானவை</h4>
+                <ul class="text-gray-400 space-y-2">
+                    <li><a href="#" class="hover:text-white">ஆசிரியர்கள் லாகின்</a></li>
+                    <li><a href="#" class="hover:text-white">தேர்வு முடிவுகள்</a></li>
+                    <li><a href="#" class="hover:text-white">மாணவர் குறைகள்</a></li>
                 </ul>
             </div>
-            <div>
-                <h3 class="text-xl font-bold mb-4">கேள்விகளுக்கு</h3>
-                <button onclick="window.location.href='mailto:example@gmail.com'" class="bg-blue-700 px-6 py-2 rounded font-bold hover:bg-blue-600 transition w-full md:w-auto">மின்னஞ்சல் அனுப்பவும்</button>
-            </div>
         </div>
-        <div class="mt-8 text-center text-slate-500 text-sm">
-            &copy; 2026 அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி.
-        </div>
+        <p class="text-center mt-12 text-gray-600 text-xs italic">&copy; 2026 அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</p>
     </footer>
 
     <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.carousel-item');
-
-        function showSlide(index) {
-            slides.forEach(s => s.classList.remove('active'));
-            if (index >= slides.length) currentSlide = 0;
-            if (index < 0) currentSlide = slides.length - 1;
-            slides[currentSlide].classList.add('active');
+        let slideIndex = 0;
+        const slides = document.getElementsByClassName("slide");
+        
+        function showSlides() {
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove("active-slide");
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}
+            slides[slideIndex-1].classList.add("active-slide");
+            setTimeout(showSlides, 5000);
         }
 
         function changeSlide(n) {
-            currentSlide += n;
-            showSlide(currentSlide);
+            slideIndex += n - 1;
+            if (slideIndex >= slides.length) slideIndex = 0;
+            if (slideIndex < 0) slideIndex = slides.length - 1;
+            showSlides();
         }
 
-        // Auto change slide every 5 seconds
-        setInterval(() => {
-            changeSlide(1);
-        }, 5000);
-
-        // Simple alert for buttons
-        function contactAction() {
-            alert('உங்கள் தகவல் பெறப்பட்டது. விரைவில் தொடர்பு கொள்கிறோம்!');
-        }
+        showSlides();
     </script>
 </body>
 </html>
