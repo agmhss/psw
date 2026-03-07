@@ -45,31 +45,7 @@
         </div>
     </header>
 
-    <section id="home" class="relative h-[450px] md:h-[600px] overflow-hidden bg-slate-900">
-        <div class="slide active-slide h-full">
-            <img src="https://lh3.googleusercontent.com/u/0/d/1y0y5IxTVwSWHWEGDT7UVLO8OSn7sxa5P" class="w-full h-full object-cover opacity-50">
-            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
-                <h2 class="text-4xl md:text-6xl font-black mb-4 drop-shadow-lg">அறிவே ஆற்றல்!</h2>
-                <p class="text-lg md:text-2xl max-w-2xl font-light">சிறந்த உட்கட்டமைப்பு மற்றும் நவீன கல்வி வசதிகளுடன் உங்கள் பிள்ளைகளின் எதிர்காலம் இங்கே தொடங்குகிறது.</p>
-            </div>
-        </div>
-        <div class="slide h-full">
-            <img src="https://lh3.googleusercontent.com/u/0/d/1aTNAdNvAV5V33wV9Q6umNFl00GajOMT6" class="w-full h-full object-cover opacity-50">
-            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
-                <h2 class="text-4xl md:text-6xl font-black mb-4 drop-shadow-lg">டிஜிட்டல் கற்றல்</h2>
-                <p class="text-lg md:text-2xl max-w-2xl font-light">ஸ்மார்ட் வகுப்பறைகள் மற்றும் ஹை-டெக் லேப் மூலம் உலகத்தர கல்வி.</p>
-            </div>
-            <div class="slide h-full">
-            <img src="https://lh3.googleusercontent.com/u/0/d/1M6JrSr2rwtybQFiC_P-m5AZnurPaFj9-" class="w-full h-full object-cover opacity-50">
-            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
-                <h2 class="text-4xl md:text-6xl font-black mb-4 drop-shadow-lg">நவீன நூலகம்</h2>
-                <p class="text-lg md:text-2xl max-w-2xl font-light">ஆயிரக்கணக்கான புத்தகங்களுடன் மாணவர்களின் அறிவுத் தேடலுக்கு சிறந்த நூலகம்.</p>
-            </div>
-        </div>
-        <button onclick="changeSlide(-1)" class="absolute left-5 top-1/2 -translate-y-1/2 text-white text-4xl">❮</button>
-        <button onclick="changeSlide(1)" class="absolute right-5 top-1/2 -translate-y-1/2 text-white text-4xl">❯</button>
-  <button onclick="changeSlide(1)" class="absolute right-5 top-1/2 -translate-y-1/2 text-white text-4xl">❯</button>
-  </section>
+    
 
     <div class="news-ticker border-y-4 border-red-600">
         <div class="news-content">
@@ -79,6 +55,32 @@
 
     <section id="achievers" class="py-20 px-6 max-w-7xl mx-auto">
         <div class="text-center mb-12">
+           <section id="home" class="relative h-[450px] md:h-[600px] overflow-hidden bg-slate-900">
+        <div class="slide active-slide h-full">
+            <img src="https://lh3.googleusercontent.com/u/0/d/1y0y5IxTVwSWHWEGDT7UVLO8OSn7sxa5P" class="w-full h-full object-cover opacity-50">
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
+                <h2 class="text-4xl md:text-6xl font-black mb-4 drop-shadow-lg">அறிவே ஆற்றல்!</h2>
+                <p class="text-lg md:text-2xl max-w-2xl font-light">சிறந்த உட்கட்டமைப்பு மற்றும் நவீன கல்வி வசதிகளுடன் உங்கள் பிள்ளைகளின் எதிர்காலம் இங்கே தொடங்குகிறது.</p>
+            </div>
+        </div>
+
+        <div class="slide h-full">
+            <img src="https://lh3.googleusercontent.com/u/0/d/1aTNAdNvAV5V33wV9Q6umNFl00GajOMT6" class="w-full h-full object-cover opacity-50">
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
+                <h2 class="text-4xl md:text-6xl font-black mb-4 drop-shadow-lg">டிஜிட்டல் கற்றல்</h2>
+                <p class="text-lg md:text-2xl max-w-2xl font-light">ஸ்மார்ட் வகுப்பறைகள் மற்றும் ஹை-டெக் லேப் மூலம் உலகத்தர கல்வி.</p>
+            </div>
+        </div> <div class="slide h-full">
+            <img src="https://lh3.googleusercontent.com/u/0/d/1M6JrSr2rwtybQFiC_P-m5AZnurPaFj9-" class="w-full h-full object-cover opacity-50">
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
+                <h2 class="text-4xl md:text-6xl font-black mb-4 drop-shadow-lg">நவீன நூலகம்</h2>
+                <p class="text-lg md:text-2xl max-w-2xl font-light">ஆயிரக்கணக்கான புத்தகங்களுடன் மாணவர்களின் அறிவுத் தேடலுக்கு சிறந்த நூலகம்.</p>
+            </div>
+        </div>
+
+        <button onclick="changeSlide(-1)" class="absolute left-5 top-1/2 -translate-y-1/2 text-white text-4xl z-20">❮</button>
+        <button onclick="changeSlide(1)" class="absolute right-5 top-1/2 -translate-y-1/2 text-white text-4xl z-20">❯</button>
+           </section>
             <h2 class="text-3xl font-black text-blue-900 uppercase">எங்கள் சாதனைகள்</h2>
             <div class="w-20 h-1 bg-red-600 mx-auto mt-2"></div>
         </div>
