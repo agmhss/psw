@@ -25,16 +25,23 @@
 <body class="bg-slate-50 text-slate-900">
 
     <header class="bg-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="w-12 h-12 bg-blue-900 rounded-full flex items-center justify-center text-white shadow-inner">
+        <div class="w-full max-w-[1400px] mx-auto px-2 md:px-6 h-24 flex items-center justify-between gap-2">
+            
+            <div class="flex items-center gap-2 min-w-0">
+                <div class="hidden sm:flex w-12 h-12 bg-blue-900 rounded-full items-center justify-center text-white shrink-0 shadow-inner">
                     <span class="material-symbols-outlined text-3xl">school</span>
                 </div>
-                <div><h1 class="text-blue-900 font-bold text-2xl md:text-3xl leading-tight">அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி</h1>
-                    <p class="text-red-600 text-xs font-bold tracking-widest uppercase">பட்டீஸ்வரம், தஞ்சாவூர் மாவட்டம்</p>
+                <div class="truncate">
+                    <h1 class="text-blue-900 font-bold text-lg md:text-2xl lg:text-3xl leading-tight whitespace-nowrap">
+                        அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி
+                    </h1>
+                    <p class="text-red-600 text-[10px] md:text-xs font-bold tracking-widest uppercase">
+                        பட்டீஸ்வரம், தஞ்சாவூர் மாவட்டம்
+                    </p>
                 </div>
             </div>
-            <nav class="hidden lg:flex gap-6 font-bold text-blue-900 text-sm uppercase">
+
+            <nav class="hidden xl:flex gap-4 font-bold text-blue-900 text-[11px] uppercase whitespace-nowrap">
                 <a href="#home" class="hover:text-red-600 transition">முகப்பு</a>
                 <a href="#achievers" class="hover:text-red-600 transition">சாதனையாளர்கள்</a>
                 <a href="#clubs" class="hover:text-red-600 transition">மன்றங்கள்</a>
@@ -43,16 +50,21 @@
                 <a href="#staff" class="hover:text-red-600 transition">ஆசிரியர்கள்</a>
                 <a href="#downloads" class="hover:text-red-600 transition">பதிவிறக்கம்</a>
             </nav>
-            <button onclick="alert('சேர்க்கை படிவம் தயார் நிலையில் உள்ளது!')" class="bg-red-600 text-white px-5 py-2 rounded-full font-bold hover:bg-blue-900 transition shadow-md">சேர்க்கை 2026</button>
+
+            <div class="shrink-0">
+                <button onclick="alert('சேர்க்கை படிவம் தயார் நிலையில் உள்ளது!')" 
+                        class="bg-red-600 text-white px-3 py-2 md:px-5 md:py-2 rounded-full font-bold text-xs md:text-sm hover:bg-blue-900 transition shadow-md whitespace-nowrap">
+                    சேர்க்கை 2026
+                </button>
+            </div>
         </div>
     </header>
 
-    <div class="news-ticker border-y-4 border-red-600">
+    <div class="news-ticker border-y-2 border-red-600 relative z-40">
         <div class="news-content">
             🔥 முக்கிய அறிவிப்பு: 10 வகுப்பு பொதுத் தேர்வுகள் மார்ச் 11 முதல் தொடக்கம்! | 🏆 | 📝 எல்.கே.ஜி முதல் 9-ஆம் வகுப்பு வரை புதிய சேர்க்கை நடைபெறுகிறது.
         </div>
     </div>
-
     <section id="home" class="relative h-[450px] md:h-[600px] overflow-hidden bg-slate-900">
         <div class="slide active-slide h-full">
             <img src="https://lh3.googleusercontent.com/u/0/d/1y0y5IxTVwSWHWEGDT7UVLO8OSn7sxa5P" class="w-full h-full object-cover opacity-50">
