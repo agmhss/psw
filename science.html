@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>அறிவியல் திறன் மையம் | AGMHSS Patteeswaram</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <style>
+        :root { --sci-green: #15803d; --soc-orange: #ea580c; --dark: #0f172a; --light: #f8fafc; }
+        body { font-family: 'Arial', sans-serif; background: var(--light); margin: 0; padding: 0; }
+        .header { background: var(--dark); color: white; padding: 30px; text-align: center; position: relative; }
+        .home-btn { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background: white; color: var(--dark); border: none; padding: 10px; border-radius: 50%; cursor: pointer; text-decoration: none; display: flex; align-items: center; }
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .card { background: white; border-radius: 15px; padding: 25px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
+        .sci-card { border-top: 5px solid var(--sci-green); }
+        .soc-card { border-top: 5px solid var(--soc-orange); }
+        .icon { font-size: 48px; margin-bottom: 15px; }
+        .sci-icon { color: var(--sci-green); }
+        .soc-icon { color: var(--soc-orange); }
+        h3 { margin-bottom: 10px; }
+        p { color: #64748b; font-size: 0.9em; margin-bottom: 20px; min-height: 40px; }
+        .btn { display: inline-block; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; width: 80%; transition: 0.3s; }
+        .sci-btn { background: var(--sci-green); }
+        .soc-btn { background: var(--soc-orange); }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <a href="https://agmhss.github.io/psw/" class="home-btn" title="முகப்பிற்குச் செல்க">
+        <span class="material-symbols-outlined">home</span>
+    </a>
+    <h1>அறிவியல் மற்றும் சமூக அறிவியல் மையம்</h1>
+    <p>ஆராய்வோம்... அறிவோம்... வெல்வோம்!</p>
+</div>
+
+<div class="container">
+    <div class="grid">
+        <div class="card sci-card">
+            <span class="material-symbols-outlined icon sci-icon">science</span>
+            <h3>மெய்நிகர் வேதியியல் ஆய்வகம்</h3>
+            <p>சோதனைக் குழாய்கள் இன்றி வேதிவினைகளைச் செய்து பார்க்க உதவும் டிஜிட்டல் ஆய்வகம்.</p>
+            <a href="https://agmhss.github.io/Gtk-ChemLab/" class="sci-btn btn">ஆய்வகத்திற்குச் செல்</a>
+        </div>
+
+        <div class="card sci-card">
+            <span class="material-symbols-outlined icon sci-icon">grid_view</span>
+            <h3>தனிம வரிசை அட்டவணை</h3>
+            <p>வேதியியல் தனிமங்களின் பண்புகளை எளிதாகக் கண்டறிய உதவும் ஊடாடும் தளம்.</p>
+            <a href="https://agmhss.github.io/Gtk-Periodic-Table/" class="sci-btn btn">தொடங்கு</a>
+        </div>
+
+        <div class="card sci-card">
+            <span class="material-symbols-outlined icon sci-icon">biotech</span>
+            <h3>அறிவியல் விளக்கங்கள்</h3>
+            <p>இயற்பியல் மற்றும் உயிரியல் கருத்துகளை அனிமேஷன் மூலம் விளக்கும் பகுதி.</p>
+            <a href="https://agmhss.github.io/Gtk-Science-Sims/" class="sci-btn btn">பார்வையிடு</a>
+        </div>
+
+        <div class="card soc-card">
+            <span class="material-symbols-outlined icon soc-icon">map</span>
+            <h3>இந்திய வரைபடத் தேர்வு</h3>
+            <p>இந்தியாவின் மாநிலங்கள் மற்றும் முக்கிய நகரங்களைக் கண்டறியும் வரைபடப் பயிற்சி.</p>
+            <a href="https://agmhss.github.io/Gtk-MapTest/" class="soc-btn btn">பயிற்சி செய்</a>
+        </div>
+
+        <div class="card soc-card">
+            <span class="material-symbols-outlined icon soc-icon">history_edu</span>
+            <h3>வரலாற்றுத் திறன் தேர்வு</h3>
+            <p>சமூக அறிவியல் பாடத்தில் உள்ள முக்கிய வரலாற்று நிகழ்வுகள் குறித்த தேர்வுகள்.</p>
+            <a href="https://agmhss.github.io/Gtk-History-Quiz/" class="soc-btn btn">தேர்வு எழுது</a>
+        </div>
+
+        <div class="card soc-card">
+            <span class="material-symbols-outlined icon soc-icon">public</span>
+            <h3>புவியியல் மையம்</h3>
+            <p>நமது பூமி மற்றும் இயற்கை வளங்கள் குறித்த சுவாரசியமான தகவல்கள் மற்றும் பயிற்சிகள்.</p>
+            <a href="https://agmhss.github.io/Gtk-Geography-Test/" class="soc-btn btn">தொடங்கு</a>
+        </div>
+    </div>
+</div>
+
+<footer style="text-align: center; padding: 40px; color: #94a3b8; font-size: 0.9em;">
+    வடிவமைப்பு: அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்
+</footer>
+
+</body>
+</html>
