@@ -30,6 +30,21 @@
         .news-ticker { background: #1e3a8a; color: white; overflow: hidden; white-space: nowrap; padding: 10px 0; }
         .news-content { display: inline-block; animation: ticker 30s linear infinite; font-weight: bold; }
         @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+
+    /* மொபைலில் கார்டுகள் சுருங்குவதைத் தவிர்க்க */
+    .grid {
+        display: grid;
+        width: 100%;
+    }
+    
+    /* திரையின் அகலத்திற்கு ஏற்ப கார்டுகளைச் சீரமைக்க */
+    @media (max-width: 768px) {
+        .mobile-stack {
+            grid-template-columns: 1fr !important;
+        }
+    }
+
     </style>
 
 
