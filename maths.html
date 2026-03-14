@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>கணிதத் திறன் மையம் | AGMHSS Patteeswaram</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <style>
+        :root { --math-blue: #1e3a8a; --math-red: #dc2626; --math-light: #f8fafc; }
+        body { font-family: 'Arial', sans-serif; background: var(--math-light); margin: 0; padding: 0; }
+        .header { background: var(--math-blue); color: white; padding: 30px; text-align: center; position: relative; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .home-btn { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background: white; color: var(--math-blue); border: none; padding: 10px; border-radius: 50%; cursor: pointer; text-decoration: none; display: flex; align-items: center; }
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .card { background: white; border-radius: 15px; padding: 25px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 5px solid var(--math-blue); transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
+        .icon { font-size: 48px; color: var(--math-blue); margin-bottom: 15px; }
+        h3 { color: var(--math-blue); margin-bottom: 10px; }
+        p { color: #64748b; font-size: 0.9em; margin-bottom: 20px; min-height: 40px; }
+        .btn { display: inline-block; background: var(--math-blue); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; width: 80%; transition: 0.3s; }
+        .btn:hover { background: var(--math-red); }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <a href="https://agmhss.github.io/psw/" class="home-btn" title="முகப்பிற்குச் செல்க">
+        <span class="material-symbols-outlined">home</span>
+    </a>
+    <h1>கணிதத் திறன் மையம் (Mathematics Hub)</h1>
+    <p>அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்</p>
+</div>
+
+<div class="container">
+    <div class="grid">
+        <div class="card">
+            <span class="material-symbols-outlined icon">published_with_changes</span>
+            <h3>கணித ஸ்பின்னர்ஸ்</h3>
+            <p>கூட்டல், கழித்தல், பெருக்கல் மற்றும் வகுத்தல் பயிற்சிகளை விளையாட்டு முறையில் கற்கலாம்.</p>
+            <a href="https://agmhss.github.io/Spinners-Maths-Game/" class="btn">விளையாடு</a>
+        </div>
+
+        <div class="card">
+            <span class="material-symbols-outlined icon">quiz</span>
+            <h3>எண்கணிதப் புதிர்</h3>
+            <p>அடிப்படை எண்கணிதத் திறனை மேம்படுத்தும் வேகமான வினா-விடைப் போட்டி.</p>
+            <a href="https://agmhss.github.io/spl_arith_quiz/" class="btn">தொடங்கு</a>
+        </div>
+
+        <div class="card">
+            <span class="material-symbols-outlined icon">calculate</span>
+            <h3>வாய்ப்பாடு பயிற்சி</h3>
+            <p>1 முதல் 20 வரையிலான வாய்ப்பாடுகளை எளிதாகக் கற்கவும் பயிற்சி செய்யவும் உதவும் கருவி.</p>
+            <a href="https://agmhss.github.io/Gtk-Maths-Tables/" class="btn">பயிற்சி செய்</a>
+        </div>
+
+        <div class="card">
+            <span class="material-symbols-outlined icon">timer</span>
+            <h3>கணித வேகப் பயிற்சி</h3>
+            <p>குறிப்பிட்ட நேரத்திற்குள் கணக்குகளைச் செய்து முடிக்கும் வேகப்பயிற்சி தளம்.</p>
+            <a href="https://agmhss.github.io/Gtk-Math-Speed/" class="btn">தொடங்கு</a>
+        </div>
+
+        <div class="card">
+            <span class="material-symbols-outlined icon">architecture</span>
+            <h3>வடிவியல் உலகம்</h3>
+            <p>வடிவங்கள், கோணங்கள் மற்றும் பரப்பளவு குறித்த டிஜிட்டல் விளக்கங்கள்.</p>
+            <a href="https://agmhss.github.io/Gtk-Geometry/" class="btn">வாசிக்க</a>
+        </div>
+
+        <div class="card">
+            <span class="material-symbols-outlined icon">psychology</span>
+            <h3>மேக்ஸ் விஸ் (Quiz)</h3>
+            <p>6 முதல் 10-ஆம் வகுப்பு வரையிலான கணிதப் பாடக் கருத்துகளின் தொகுப்பு.</p>
+            <a href="https://agmhss.github.io/Gtk-Maths-Quiz/" class="btn">பங்கேற்க</a>
+        </div>
+    </div>
+</div>
+
+<footer style="text-align: center; padding: 40px; color: #94a3b8; font-size: 0.9em;">
+    வடிவமைப்பு: திரு. திரவிய குமார் ஜி | அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்
+</footer>
+
+</body>
+</html>
