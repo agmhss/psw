@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ஆசிரியர் பணி மேம்பாட்டு மையம் | AGMHSS</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <style>
+        :root { --teacher-blue: #1e3a8a; --teacher-gold: #b45309; --bg: #f8fafc; }
+        body { font-family: 'Arial', sans-serif; background: var(--bg); margin: 0; padding: 0; }
+        .header { background: var(--teacher-blue); color: white; padding: 30px; text-align: center; position: relative; }
+        .home-btn { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background: white; color: var(--teacher-blue); border: none; padding: 10px; border-radius: 50%; cursor: pointer; text-decoration: none; display: flex; align-items: center; }
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .card { background: white; border-radius: 15px; padding: 25px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 5px solid var(--teacher-gold); transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
+        .icon { font-size: 48px; color: var(--teacher-gold); margin-bottom: 15px; }
+        h3 { color: var(--teacher-blue); margin-bottom: 10px; }
+        p { color: #64748b; font-size: 0.9em; margin-bottom: 20px; min-height: 45px; }
+        .btn { display: inline-block; background: var(--teacher-blue); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; width: 85%; transition: 0.3s; }
+        .btn:hover { background: var(--teacher-gold); }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <a href="https://agmhss.github.io/psw/" class="home-btn" title="முகப்பிற்குச் செல்க">
+        <span class="material-symbols-outlined">home</span>
+    </a>
+    <h1>ஆசிரியர் பணி மேம்பாட்டு மையம் (Teacher Toolkit)</h1>
+    <p>கற்பித்தலை எளிதாக்க நவீன டிஜிட்டல் கருவிகள்</p>
+</div>
+
+<div class="container">
+    <div class="grid">
+        <div class="card">
+            <span class="material-symbols-outlined icon">edit_note</span>
+            <h3>பாடத் திட்டம் (Lesson Plan)</h3>
+            <p>AI தொழில்நுட்பம் மூலம் பாடப்புத்தகங்களிலிருந்து விரைவாகப் பாடத் திட்டங்களை உருவாக்கலாம்.</p>
+            <a href="https://agmhss.github.io/Lesson-Plan/" class="btn">உருவாக்குக</a>
+        </div>
+
+        <div class="card">
+            <span class="material-symbols-outlined icon">mail</span>
+            <h3>கடிதம் வரைதல் (Letter Draft)</h3>
+            <p>பள்ளி விடுப்பு விண்ணப்பங்கள் மற்றும் அதிகாரப்பூர்வ கடிதங்களை எளிதாக வடிவமைக்கலாம்.</p>
+            <a href="https://agmhss.github.io/Letter/" class="btn">கடிதம் எழுதுக</a>
+        </div>
+
+        <div class="card">
+            <span class="material-symbols-outlined icon">badge</span>
+            <h3>சான்றிதழ் உருவாக்கி (Certificate Gen)</h3>
+            <p>மாணவர்களுக்கான போனஃபைடு மற்றும் டிசி சான்றிதழ்களை தானியங்கி முறையில் உருவாக்கலாம்.</p>
+            <a href="https://agmhss.github.io/psw/certificates.html" class="btn">பயன்படுத்துக</a>
+        </div>
+
+        <div class="card">
+            <span class="material-symbols-outlined icon">fact_check</span>
+            <h3>மதிப்பீட்டுக் கருவி (GTK Evaluate)</h3>
+            <p>மாணவர்களின் விடைத்தாள்களை விரைவாக மதிப்பீடு செய்து மதிப்பெண்களைப் பதிவு செய்ய உதவும்.</p>
+            <a href="https://agmhss.github.io/Gtk-Evaluate/" class="btn">மதிப்பீடு செய்க</a>
+        </div>
+
+        <div class="card">
+            <span class="material-symbols-outlined icon">calendar_month</span>
+            <h3>கால அட்டவணை (Timetable)</h3>
+            <p>ஆசிரியர்களுக்கான மாற்றுப் பணி நேரத்தை (Substitution) மேலாண்மை செய்யும் தளம்.</p>
+            <a href="https://agmhss.github.io/Gtk-Substitue-Time-Table/" class="btn">அட்டவணை காண்க</a>
+        </div>
+
+        <div class="card">
+            <span class="material-symbols-outlined icon">present_to_all</span>
+            <h3>பிரசன்டேஷன் மேக்கர்</h3>
+            <p>பாடக் கருத்துகளை அழகான ஸ்லைடுகளாகவும் பிபிடியாகவும் மாற்ற உதவும் AI கருவி.</p>
+            <a href="https://agmhss.github.io/psw/ppt-maker.html" class="btn">PPT உருவாக்குக</a>
+        </div>
+    </div>
+</div>
+
+<footer style="text-align: center; padding: 40px; color: #94a3b8; font-size: 0.9em;">
+    வடிவமைப்பு: அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்
+</footer>
+
+</body>
+</html>
