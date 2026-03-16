@@ -51,37 +51,39 @@
 <body class="bg-slate-50 text-slate-900">
 
     <header class="bg-white shadow-lg sticky top-0 z-50">
-    <div class="w-full max-w-[1400px] mx-auto px-2 md:px-6 py-3 md:h-24 flex items-center justify-between gap-2 md:gap-4">
-        
-        <!-- Left: school name only -->
-        <div class="flex items-center gap-2 min-w-0">
-            <div class="hidden sm:flex w-12 h-12 bg-blue-900 rounded-full items-center justify-center text-white shrink-0 shadow-inner">
-                <span class="material-symbols-outlined text-3xl">school</span>
-            </div>
-            <div class="truncate">
-                <h1 class="text-blue-900 font-bold text-base md:text-xl lg:text-3xl leading-tight">
-                    அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி
-                </h1>
-                <p class="text-red-600 text-[10px] md:text-xs font-bold tracking-widest uppercase">
-                    பட்டீஸ்வரம், தஞ்சாவூர் மாவட்டம்
-                </p>
-            </div>
-        </div>
+  <div class="w-full max-w-[1400px] mx-auto px-2 md:px-6 py-3 md:h-24 flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-4">
 
-        <!-- Right: refresh + admission button in one row -->
-        <div class="flex items-center gap-2 shrink-0">
-            <button onclick="window.location.reload()" 
-                    class="flex items-center justify-center bg-blue-100 text-blue-900 p-1.5 rounded-full hover:bg-blue-200 transition shadow-sm" 
-                    title="முகப்பிற்குத் திரும்புக">
-                <span class="material-symbols-outlined text-2xl md:text-3xl">refresh</span>
-            </button>
-            <button onclick="alert('சேர்க்கை படிவம் தயார் நிலையில் உள்ளது!')" 
-                    class="bg-red-600 text-white px-3 py-2 md:px-5 md:py-2 rounded-full font-bold text-xs md:text-sm hover:bg-blue-900 transition shadow-md whitespace-nowrap">
-                சேர்க்கை 2026
-            </button>
-        </div>
+    <!-- Top: logo + school name -->
+    <div class="flex items-center gap-2 min-w-0">
+      <div class="hidden sm:flex w-12 h-12 bg-blue-900 rounded-full items-center justify-center text-white shrink-0 shadow-inner">
+        <span class="material-symbols-outlined text-3xl">school</span>
+      </div>
+      <div class="truncate">
+        <h1 class="text-blue-900 font-bold text-base md:text-xl lg:text-3xl leading-tight">
+          அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி
+        </h1>
+        <p class="text-red-600 text-[10px] md:text-xs font-bold tracking-widest uppercase">
+          பட்டீஸ்வரம், தஞ்சாவூர் மாவட்டம்
+        </p>
+      </div>
     </div>
+
+    <!-- Bottom on mobile / right on desktop: buttons -->
+    <div class="flex items-center justify-start md:justify-end gap-2 pt-1 md:pt-0">
+      <button onclick="window.location.reload()"
+              class="flex items-center justify-center bg-blue-100 text-blue-900 p-1.5 rounded-full hover:bg-blue-200 transition shadow-sm"
+              title="முகப்பிற்குத் திரும்புக">
+        <span class="material-symbols-outlined text-2xl md:text-3xl">refresh</span>
+      </button>
+      <button onclick="alert('சேர்க்கை படிவம் தயார் நிலையில் உள்ளது!')"
+              class="bg-red-600 text-white px-3 py-2 md:px-5 md:py-2 rounded-full font-bold text-xs md:text-sm hover:bg-blue-900 transition shadow-md whitespace-nowrap">
+        சேர்க்கை 2026
+      </button>
+    </div>
+
+  </div>
 </header>
+    
     <div class="news-ticker border-y-2 border-red-600 relative z-40">
         <div class="news-content">
             🔥 முக்கிய அறிவிப்பு:  🏆 8A வகுப்பு மாணவர் S.குருமூர்த்தி NMMS தேர்வில் வெற்றி!| 🏆 | 📝 எல்.கே.ஜி முதல் 9-ஆம் வகுப்பு வரை புதிய சேர்க்கை நடைபெறுகிறது.
