@@ -20,97 +20,139 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> 
 
   <style>
-    body { font-family: 'Hind Madurai', 'Lexend', sans-serif; scroll-behavior: smooth; }
-    .slide { display: none; animation: fade 1.5s; }
+    /* பொதுவான அமைப்புகள் */
+    body { 
+        font-family: 'Hind Madurai', 'Lexend', sans-serif; 
+        scroll-behavior: smooth; 
+        margin: 0; 
+        overflow-x: hidden; /* மொபைலில் பக்கவாட்டில் நகர்வதைத் தவிர்க்க */
+    }
+
+    /* ஸ்லைடு ஷோ அனிமேஷன் */
+    .slide { display: none; animation: fade 1.5s ease-in-out; }
     .active-slide { display: block; }
-    @keyframes fade { from {opacity: .4} to {opacity: 1} }
+    @keyframes fade { from { opacity: 0.4; } to { opacity: 1; } }
 
-    /* ஓடும் செய்தி வரி */
-    .news-ticker { background: #1e3a8a; color: white; overflow: hidden; white-space: nowrap; padding: 20px 0; }
-    .news-content { display: inline-block; animation: ticker 60s linear infinite; font-weight: bold; }
-    @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+    /* ஓடும் செய்தி வரி (News Ticker) */
+    .news-ticker { 
+        background: #1e3a8a; 
+        color: white; 
+        overflow: hidden; 
+        white-space: nowrap; 
+        padding: 12px 0; /* உயரத்தைக் குறைத்து நேர்த்தியாக்கல் */
+        position: relative;
+    }
+    .news-content { 
+        display: inline-block; 
+        padding-left: 100%; /* தொடக்கம் வலதுபுறம் இருக்க */
+        animation: ticker 30s linear infinite; /* வேகத்தை 30வி ஆகக் குறைத்துள்ளேன் (வாசிக்க எளிதாக இருக்க) */
+        font-weight: bold;
+        font-size: 14px;
+    }
+    @keyframes ticker { 
+        0% { transform: translateX(0); } 
+        100% { transform: translateX(-200%); } 
+    }
     
-    .scrolling-belt{
-  width: 100%;
-  height: 250px;              /* reduce block height (adjust as needed) */
-  background-image: url("https://lh3.googleusercontent.com/u/0/d/18LE1SmBnxom8krQCNyD-co_CU_R01Jlr");
-  background-repeat: repeat-x;
-  background-size: auto 100%; /* make image fill belt height */
-  background-position: 0 0;   /* put image at the TOP (no empty space above) */
-  animation: march-forward 40s linear infinite;
-}
-
-/* remove any extra whitespace from wrappers */
-.evolution-stage{
-  margin: 0;
-  padding: 0;
-  line-height: 0;
-}
-
-@keyframes march-forward {
-        from { background-position: 0px bottom; }
-        /* A positive number makes the scroll move left-to-right */
-        to { background-position: 1486px bottom; } 
+    /* ஸ்குரோலிங் பெல்ட் (Scrolling Belt) */
+    .scrolling-belt {
+        width: 100%;
+        height: 180px; /* மொபைலுக்கு ஏற்றவாறு உயரம் குறைக்கப்பட்டுள்ளது */
+        background-image: url("https://lh3.googleusercontent.com/u/0/d/18LE1SmBnxom8krQCNyD-co_CU_R01Jlr");
+        background-repeat: repeat-x;
+        background-size: contain; /* படத்தை முழுமையாகக் காட்ட */
+        background-position: center bottom;
+        animation: march-forward 40s linear infinite;
     }
 
+    @media (min-width: 768px) {
+        .scrolling-belt { height: 250px; } /* டெஸ்க்டாப்பில் மட்டும் பழைய உயரம் */
+    }
 
+    .evolution-stage { margin: 0; padding: 0; line-height: 0; overflow: hidden; }
+
+    @keyframes march-forward {
+        from { background-position: 0 0; }
+        to { background-position: 1486px 0; } 
+    }
+
+    /* சமூக வலைதள ஐகான்கள் (Social Icons) */
     .social-footer-container {
-    display: flex;
-    justify-content: center; /* Centers the icons horizontally */
-    align-items: center;
-    gap: 20px; /* Space between each icon */
-    padding: 20px 0; /* Space above and below the icons */
-}
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px; 
+        padding: 15px 0;
+    }
 
-.social-icon {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    background-color: rgba(255, 255, 255, 0.1); /* Subtle transparent background */
-    color: white; /* Icon color */
-    border-radius: 50%; /* Makes the background circular */
-    text-decoration: none;
-    font-size: 30px;
-    transition: all 0.3s ease; /* Smooth animation for hover */
-}
+    .social-icon {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 45px;
+        height: 45px;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        border-radius: 50%;
+        text-decoration: none;
+        font-size: 24px;
+        transition: transform 0.3s ease, background 0.3s ease;
+    }
 
-/* Hover Effect: Changes color and slightly lifts the icon */
-.social-icon:hover {
-    background-color: #ffffff; /* White background on hover */
-    color: #1a237e; /* Dark blue icon color to match your footer */
-    transform: translateY(-3px); /* Lifts the icon up slightly */
-}
+    .social-icon:hover {
+        background-color: #ffffff;
+        color: #1a237e;
+        transform: translateY(-5px);
+    }
 
-    
-    
-    /* மொபைலில் கார்டுகள் சுருங்குவதைத் தவிர்க்க */
-    .grid { display: grid; width: 100%; }
+    /* கிரிட் மற்றும் மொபைல் அடுக்கு (Grid Layout) */
+    .grid { 
+        display: grid; 
+        width: 100%; 
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* தானாகவே வரிசைகளைச் சரிசெய்யும் */
+        gap: 20px;
+        padding: 15px;
+        box-sizing: border-box;
+    }
 
-    /* திரையின் அகலத்திற்கு ஏற்ப கார்டுகளைச் சீரமைக்க */
     @media (max-width: 768px) {
-      .mobile-stack { grid-template-columns: 1fr !important; }
+        .mobile-stack { 
+            grid-template-columns: 1fr !important; 
+            padding: 10px;
+        }
     }
 
-    /* SVG butterfly */
-    #butterfly{
-      position: fixed;
-      left: 50%;
-      top: 50%;
-      width: 100px;
-      height: 55px;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      z-index: 9999;
-      will-change: left, top, transform;
+    /* பட்டாம்பூச்சி (Butterfly Animation) */
+    #butterfly {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        width: 60px; /* மொபைலுக்கு ஏற்ப அளவு குறைப்பு */
+        height: 35px;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 9999;
+        will-change: transform;
     }
-    #butterfly svg{
-      width: 100%;
-      height: 100%;
-      display: block;
+
+    @media (min-width: 768px) {
+        #butterfly { width: 100px; height: 55px; }
     }
-  </style>
+
+    #butterfly svg { width: 100%; height: 100%; display: block; }
+
+  /* ஹெடர் தலைப்பை மொபைலில் சீரமைக்க */
+@media (max-width: 600px) {
+    .header-title, h2, h1 { /truncate/
+        font-size: 18px !important; /* எழுத்தின் அளவைச் சற்று குறைத்தல் */
+        word-wrap: break-word;
+        text-align: center;
+        padding: 0 5px;
+        line-height: 1.2;
+    }
+}
+</style>
+
 </head>
 
 <body class="bg-slate-50 text-slate-900">
