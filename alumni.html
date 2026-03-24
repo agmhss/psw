@@ -191,7 +191,8 @@
                             <li><strong>உதவி:</strong> ${person.help}</li>
                             <li><strong>சாதனைகள்:</strong> ${person.ach}</li>
                         </ul>
-                        <button class="btn-download" onclick="downloadPDF('${id}', '${person.name}')">சான்றிதழ் பதிவிறக்கு 📥</button>
+                        
+                         <button class="btn-download" onclick="downloadPDF('${id}', '${person.name}')">சான்றிதழ் பதிவிறக்கு 📥</button>
                     </div>
                 `;
             });
@@ -200,7 +201,6 @@
             document.getElementById('hof-grid-container').innerHTML = "தரவுகளை லோடு செய்வதில் பிழை ஏற்பட்டுள்ளது.";
         }
     }
-
     initHallOfFame();
 </script>
 </body>
