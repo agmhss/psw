@@ -151,9 +151,10 @@
                     pic: clean(c[5]), 
                     edu: clean(c[6]), 
                     job: clean(c[7]), 
-                    ach: clean(c[8]), 
-                    score: parseFloat(clean(c[9])) || 0, 
-                    stars: clean(c[10]) || "☆☆☆☆☆" 
+                    help: clean(c[8]),
+                    ach: clean(c[9]), 
+                    score: parseFloat(clean(c[10])) || 0, 
+                    stars: clean(c[11]) || "☆☆☆☆☆" 
                 };
             })
             // தேவையற்ற வரிகளைத் தவிர்க்க
@@ -182,12 +183,13 @@
                              onerror="this.src='https://via.placeholder.com/150'">
                         <div class="student-info">
                             <h4>${person.name}</h4>
-                            <span class="batch">வகுப்பு: ${person.batch}</span>
+                            <span class="batch">ஆண்டு: ${person.batch}</span>
                         </div>
                         <ul class="details-list">
                             <li><strong>கல்வி:</strong> ${person.edu}</li>
                             <li><strong>பணி:</strong> ${person.job}</li>
-                            <li><strong>பங்களிப்பு:</strong> ${person.ach}</li>
+                            <li><strong>உதவி:</strong> ${person.help}</li>
+                            <li><strong>சாதனைகள்:</strong> ${person.ach}</li>
                         </ul>
                         <button class="btn-download" onclick="downloadPDF('${id}', '${person.name}')">சான்றிதழ் பதிவிறக்கு 📥</button>
                     </div>
