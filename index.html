@@ -376,10 +376,67 @@
     </div>
   </section>
 
-  <section style="text-align:center; padding:40px;">
-   <h2 class="text-3xl font-black text-blue-900 uppercase"> முன்னாள் மாணவர்கள் சாதனை கூடம் (Hall of Fame)</h2>
-   <a href="alumni.html" class="btn-primary" style="margin-top: 25px padding:15px 40px; background:#002366; color:white; text-decoration:none; border-radius:10px;">சாதனையாளர்களைக் காண்க →</a>
-  </section>
+  <section style="padding: 60px 20px; text-align: center; background: #f4f7f9;">
+    
+    <div class="alumni-card-container" 
+         style="max-width: 800px; margin: 0 auto; background: white; 
+                border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+                padding: 40px; border: 1px solid #eee; overflow: hidden; 
+                position: relative;">
+        
+        <div style="position: absolute; top: -50px; right: -50px; 
+                    width: 150px; height: 150px; background: rgba(0, 35, 102, 0.05); 
+                    border-radius: 50%;"></div>
+        
+        <div style="position: relative; z-index: 1;">
+            
+            <h2 class="text-3xl md:text-4xl font-black text-blue-900 uppercase" 
+                style="margin-bottom: 20px; color: #002366; line-height: 1.3;">
+                முன்னாள் மாணவர்கள் சாதனை கூடம்
+                <span style="display: block; font-size: 1.5rem; color: #D4AF37; font-weight: bold; margin-top: 5px;">
+                    (Hall of Fame)
+                </span>
+            </h2>
+            
+            <p style="color: #666; font-size: 1.1rem; max-width: 600px; margin: 0 auto 35px; line-height: 1.6;">
+                 பல்வேறு துறைகளில் சாதனை படைத்து வரும் எமது பள்ளியின் முன்னாள் மாணவர்களின் பங்களிப்புகளைக் கொண்டாடுவோம்.
+            </p>
+            
+            <a href="alumni.html" 
+               class="btn-hall-of-fame"
+               style="display: inline-block; padding: 18px 50px; 
+                      background: #002366; color: white; text-decoration: none; 
+                      border-radius: 50px; font-weight: bold; font-size: 1.1rem; 
+                      box-shadow: 0 5px 15px rgba(0, 35, 102, 0.3); 
+                      transition: all 0.3s ease; text-transform: uppercase; 
+                      letter-spacing: 1px;">
+                சாதனையாளர்களைக் காண்க →
+            </a>
+            
+        </div>
+    </div>
+</section>
+
+<style>
+    .btn-hall-of-fame:hover {
+        background: #D4AF37 !important; /* தங்க நிறத்திற்கு மாறும் */
+        transform: translateY(-3px); /* சற்றே மேலே எழும்பும் */
+        box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4) !important;
+    }
+    
+    /* மொபைலுக்கான பிரத்யேக மாற்றங்கள் */
+    @media (max-width: 768px) {
+        .alumni-card-container {
+            padding: 30px 20px !important; /* குறைந்த இடைவெளி */
+            border-radius: 15px !important;
+        }
+        .btn-hall-of-fame {
+            width: 100%; /* முழு அகலப் பொத்தான் */
+            padding: 15px 30px !important;
+            font-size: 1rem !important;
+        }
+    }
+</style>
 
   <section id="clubs" class="py-20 px-6 max-w-7xl mx-auto">
     <div class="text-center mb-12">
