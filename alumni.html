@@ -127,20 +127,25 @@
             container.innerHTML = '';
 
             let alumni = rows.map(row => {
-    // கமா (,) உள்ளடக்கத்தில் இருந்தால் தரவு சிதையாமல் இருக்க இந்த Regular Expression உதவும்
+    // தரவுகளுக்குள் கமா (,) இருந்தால் குழப்பம் வராமல் இருக்க இந்த regex உதவும்
     const c = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
     
+    // தரவுகளில் உள்ள தேவையற்ற மேற்கோள்களை (Quotes) நீக்க
+    const clean = (val) => (val || "").replace(/"/g, "").trim();
+
     return { 
-        name: (c[3] || "").replace(/"/g, ""),           // பெயர் (Column D)
-        batch: (c[4] || "").replace(/"/g, ""),          // ஆண்டு (Column E)
-        pic: (c[5] || "").trim().replace(/"/g, ""),     // புகைப்படம் (Column F)
-        edu: (c[6] || "தகவல் இல்லை").replace(/"/g, ""),  // மேற்படிப்பு (Column G)
-        job: (c[7] || "தகவல் இல்லை").replace(/"/g, ""),  // பணி/பங்களிப்பு (Column H)
-        ach: (c[8] || "தகவல் இல்லை").replace(/"/g, ""),  // சாதனைகள் (Column I)
-        score: parseFloat(c[9]) || 0,                   // AI Score (Column J)
-        stars: (c[10] || "☆☆☆☆☆").replace(/"/g, "")      // Stars (Column K)
+        name: clean(c[3]),          // Column D: பெயர்
+        batch: clean(c[4]),         // Column E: ஆண்டு
+        pic: clean(c[5]),           // Column F: புகைப்பட லிங்க்
+        edu: clean(c[6]),           // Column G: மேற்படிப்பு
+        job: clean(c[7]),           // Column H: பணி/பங்களிப்பு
+        ach: clean(c[8]),           // Column I: சாதனைகள்
+        score: parseFloat(clean(c[9])) || 0, // Column J: AI Score
+        stars: clean(c[10]) || "☆☆☆☆☆"        // Column K: Stars
     };
-}).filter(a => a.name && a.name.length > 1);
+})
+// தலைப்பு வரிசையை (Header row) நீக்க மற்றும் பெயர் இல்லாத வரிகளைத் தவிர்க்க
+.filter(a => a.name && a.name !== "பெயர்" && a.name.length > 2);
             alumni.forEach((person, i) => {
                 const id = `card-${i}`;
                 const topClass = i === 0 ? 'top-performer' : '';
