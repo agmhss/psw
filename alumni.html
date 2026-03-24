@@ -142,19 +142,19 @@
                 const c = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
                 const clean = (val) => (val || "").replace(/"/g, "").trim();
 
-                // காலம்களின் எண்ணிக்கை 8-க்கு மேல் இருந்தால் மட்டுமே தரவுகளை எடுக்க
-                if (c.length < 8) return null;
+                // காலம்களின் எண்ணிக்கை 6-க்கு மேல் இருந்தால் மட்டுமே தரவுகளை எடுக்க
+                if (c.length < 6) return null;
 
                 return { 
-                    name: clean(c[3]), 
-                    batch: clean(c[4]), 
-                    pic: clean(c[5]), 
-                    edu: clean(c[6]), 
-                    job: clean(c[7]), 
-                    help: clean(c[8]),
-                    ach: clean(c[9]), 
-                    score: parseFloat(clean(c[10])) || 0, 
-                    stars: clean(c[11]) || "☆☆☆☆☆" 
+                    name: clean(c[2]), 
+                    batch: clean(c[3]), 
+                    pic: clean(c[4]), 
+                    edu: clean(c[5]), 
+                    job: clean(c[6]), 
+                    help: clean(c[7]),
+                    ach: clean(c[8]), 
+                    score: parseFloat(clean(c[9])) || 0, 
+                    stars: clean(c[10]) || "☆☆☆☆☆" 
                 };
             })
             // தேவையற்ற வரிகளைத் தவிர்க்க
