@@ -92,7 +92,7 @@
 </div>
 
 <script>
-    // 1. உங்கள் Google Sheet CSV லிங்க் (சரிபார்க்கப்பட்டது)
+    // 1. உங்கள் Google Sheet CSV லிங்க்
     const csvURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR19oUMrVWftMtbEnGUQE5DZyDyn5iRFGEe3ObqeTyCEi2_i_E6__-fli6x4od_vz8PDncLDfpPaT7P/pub?output=csv";
 
     // 2. Google Drive படங்களை நேரடி லிங்காக மாற்ற (திருத்தப்பட்டது)
@@ -100,7 +100,6 @@
         if (!url) return 'https://via.placeholder.com/150';
         
         let fileId = '';
-        // 'open?id=' அல்லது '/d/file-id' ஆகிய இரண்டையும் கையாளும் முறை
         if (url.includes('id=')) {
             fileId = url.split('id=')[1].split('&')[0];
         } else if (url.includes('/d/')) {
@@ -108,7 +107,7 @@
         }
 
         if (fileId) {
-            // Google Drive நேரடிப் படக் காட்சி லிங்க் (Updated)
+            // முக்கியமான திருத்தம்: டாலர் ($) குறியீடு சேர்க்கப்பட்டுள்ளது
             return `https://lh3.googleusercontent.com/d/${fileId}`;
         }
         return url;
@@ -133,8 +132,8 @@
             const response = await fetch(csvURL);
             const data = await response.text();
             
-            // CSV வரிகளைப் பிரித்தல்
-            const rows = data.split('\n');
+            // CSV வரிகளைப் பிரித்தல் (Windows & Linux format support)
+            const rows = data.split(/\r?\n/);
             const container = document.getElementById('hof-grid-container');
             container.innerHTML = '';
 
@@ -143,7 +142,9 @@
                 const c = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
                 const clean = (val) => (val || "").replace(/"/g, "").trim();
 
-                // உங்கள் ஷீட் காலம்களின் வரிசைப்படி (D, E, F, G, H, I, J, K)
+                // காலம்களின் எண்ணிக்கை 8-க்கு மேல் இருந்தால் மட்டுமே தரவுகளை எடுக்க
+                if (c.length < 8) return null;
+
                 return { 
                     name: clean(c[3]), 
                     batch: clean(c[4]), 
@@ -155,11 +156,16 @@
                     stars: clean(c[10]) || "☆☆☆☆☆" 
                 };
             })
-            // தலைப்பு வரிசைகளைத் தவிர்த்து, பெயர் உள்ளவர்களை மட்டும் எடுக்க
-            .filter(a => a.name && a.name !== "பெயர்" && a.name !== "Name" && a.name.length > 1);
+            // தேவையற்ற வரிகளைத் தவிர்க்க
+            .filter(a => a !== null && a.name && a.name !== "பெயர்" && a.name !== "Name" && a.name.length > 1);
 
-            // அதிக ஸ்கோர் உள்ளவர்களை முதலில் காட்ட வரிசைப்படுத்துதல்
+            // அதிக ஸ்கோர் உள்ளவர்களை முதலில் காட்ட
             alumni.sort((a, b) => b.score - a.score);
+
+            if (alumni.length === 0) {
+                container.innerHTML = "<p>தற்போது தகவல்கள் ஏதும் இல்லை.</p>";
+                return;
+            }
 
             alumni.forEach((person, i) => {
                 const id = `card-${i}`;
