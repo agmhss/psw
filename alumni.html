@@ -127,10 +127,20 @@
             container.innerHTML = '';
 
             let alumni = rows.map(row => {
-                const c = row.split(',');
-                return { name: c[1], batch: c[2], pic: c[3], edu: c[4], job: c[5], ach: c[6], score: parseFloat(c[7]), stars: c[8] };
-            }).filter(a => a.name).sort((a, b) => b.score - a.score);
-
+    // கமா (,) உள்ளடக்கத்தில் இருந்தால் தரவு சிதையாமல் இருக்க இந்த Regular Expression உதவும்
+    const c = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+    
+    return { 
+        name: (c[3] || "").replace(/"/g, ""),           // பெயர் (Column D)
+        batch: (c[4] || "").replace(/"/g, ""),          // ஆண்டு (Column E)
+        pic: (c[5] || "").trim().replace(/"/g, ""),     // புகைப்படம் (Column F)
+        edu: (c[6] || "தகவல் இல்லை").replace(/"/g, ""),  // மேற்படிப்பு (Column G)
+        job: (c[7] || "தகவல் இல்லை").replace(/"/g, ""),  // பணி/பங்களிப்பு (Column H)
+        ach: (c[8] || "தகவல் இல்லை").replace(/"/g, ""),  // சாதனைகள் (Column I)
+        score: parseFloat(c[9]) || 0,                   // AI Score (Column J)
+        stars: (c[10] || "☆☆☆☆☆").replace(/"/g, "")      // Stars (Column K)
+    };
+}).filter(a => a.name && a.name.length > 1);
             alumni.forEach((person, i) => {
                 const id = `card-${i}`;
                 const topClass = i === 0 ? 'top-performer' : '';
