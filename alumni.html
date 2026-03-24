@@ -92,14 +92,24 @@
 </div>
 
 <script>
-    // 1. உங்கள் Google Sheet CSV லிங்கை இங்கே மாற்றவும்
-    const csvURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR19oUMrVWftMtbEnGUQE5DZyDyn5iRFGEe3ObqeTyCEi2_i_E6__-fli6x4od_vz8PDncLDfpPaT7P/pub?output=csv" ;
+    // 1. உங்கள் Google Sheet CSV லிங்க் (சரிபார்க்கப்பட்டது)
+    const csvURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR19oUMrVWftMtbEnGUQE5DZyDyn5iRFGEe3ObqeTyCEi2_i_E6__-fli6x4od_vz8PDncLDfpPaT7P/pub?output=csv";
 
-    // 2. Google Drive படங்களை நேரடி லிங்காக மாற்ற
+    // 2. Google Drive படங்களை நேரடி லிங்காக மாற்ற (திருத்தப்பட்டது)
     function fixDriveLink(url) {
-        if (url.includes('drive.google.com')) {
-            const id = url.split('/d/')[1].split('/')[0];
-            return `https://lh3.googleusercontent.com/d/${id}`;
+        if (!url) return 'https://via.placeholder.com/150';
+        
+        let fileId = '';
+        // 'open?id=' அல்லது '/d/file-id' ஆகிய இரண்டையும் கையாளும் முறை
+        if (url.includes('id=')) {
+            fileId = url.split('id=')[1].split('&')[0];
+        } else if (url.includes('/d/')) {
+            fileId = url.split('/d/')[1].split('/')[0];
+        }
+
+        if (fileId) {
+            // Google Drive நேரடிப் படக் காட்சி லிங்க் (Updated)
+            return `https://lh3.googleusercontent.com/d/${fileId}`;
         }
         return url;
     }
@@ -122,30 +132,35 @@
         try {
             const response = await fetch(csvURL);
             const data = await response.text();
-            const rows = data.split('\n').slice(1);
+            
+            // CSV வரிகளைப் பிரித்தல்
+            const rows = data.split('\n');
             const container = document.getElementById('hof-grid-container');
             container.innerHTML = '';
 
             let alumni = rows.map(row => {
-    // தரவுகளுக்குள் கமா (,) இருந்தால் குழப்பம் வராமல் இருக்க இந்த regex உதவும்
-    const c = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-    
-    // தரவுகளில் உள்ள தேவையற்ற மேற்கோள்களை (Quotes) நீக்க
-    const clean = (val) => (val || "").replace(/"/g, "").trim();
+                // கமா (,) உள்ளடக்கத்திற்குள் இருந்தால் தரவு சிதையாமல் இருக்க regex
+                const c = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                const clean = (val) => (val || "").replace(/"/g, "").trim();
 
-    return { 
-        name: clean(c[3]),          // Column D: பெயர்
-        batch: clean(c[4]),         // Column E: ஆண்டு
-        pic: clean(c[5]),           // Column F: புகைப்பட லிங்க்
-        edu: clean(c[6]),           // Column G: மேற்படிப்பு
-        job: clean(c[7]),           // Column H: பணி/பங்களிப்பு
-        ach: clean(c[8]),           // Column I: சாதனைகள்
-        score: parseFloat(clean(c[9])) || 0, // Column J: AI Score
-        stars: clean(c[10]) || "☆☆☆☆☆"        // Column K: Stars
-    };
-})
-// தலைப்பு வரிசையை (Header row) நீக்க மற்றும் பெயர் இல்லாத வரிகளைத் தவிர்க்க
-.filter(a => a.name && a.name !== "பெயர்" && a.name.length > 2);
+                // உங்கள் ஷீட் காலம்களின் வரிசைப்படி (D, E, F, G, H, I, J, K)
+                return { 
+                    name: clean(c[3]), 
+                    batch: clean(c[4]), 
+                    pic: clean(c[5]), 
+                    edu: clean(c[6]), 
+                    job: clean(c[7]), 
+                    ach: clean(c[8]), 
+                    score: parseFloat(clean(c[9])) || 0, 
+                    stars: clean(c[10]) || "☆☆☆☆☆" 
+                };
+            })
+            // தலைப்பு வரிசைகளைத் தவிர்த்து, பெயர் உள்ளவர்களை மட்டும் எடுக்க
+            .filter(a => a.name && a.name !== "பெயர்" && a.name !== "Name" && a.name.length > 1);
+
+            // அதிக ஸ்கோர் உள்ளவர்களை முதலில் காட்ட வரிசைப்படுத்துதல்
+            alumni.sort((a, b) => b.score - a.score);
+
             alumni.forEach((person, i) => {
                 const id = `card-${i}`;
                 const topClass = i === 0 ? 'top-performer' : '';
@@ -155,7 +170,10 @@
                             <span class="rating-val">${person.score}</span>
                             <span class="stars">${person.stars}</span>
                         </div>
-                        <img src="${fixDriveLink(person.pic)}" class="student-img" alt="Profile">
+                        <img src="${fixDriveLink(person.pic)}" 
+                             class="student-img" 
+                             alt="Profile" 
+                             onerror="this.src='https://via.placeholder.com/150'">
                         <div class="student-info">
                             <h4>${person.name}</h4>
                             <span class="batch">வகுப்பு: ${person.batch}</span>
@@ -171,12 +189,11 @@
             });
         } catch (e) {
             console.error("Error:", e);
-            document.getElementById('hof-grid-container').innerHTML = "தரவுகளைப் பெறுவதில் சிக்கல். CSV லிங்கைச் சரிபார்க்கவும்.";
+            document.getElementById('hof-grid-container').innerHTML = "தரவுகளை லோடு செய்வதில் பிழை ஏற்பட்டுள்ளது.";
         }
     }
 
     initHallOfFame();
 </script>
-
 </body>
 </html>
