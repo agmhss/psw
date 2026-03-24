@@ -90,9 +90,8 @@
         <p>விவரங்கள் சேகரிக்கப்படுகின்றன, தயவுசெய்து காத்திருக்கவும்...</p>
     </div>
 </div>
-
 <script>
-    // 1. உங்கள் Google Sheet CSV லிங்க்
+    // 1. உங்கள் Google Sheet CSV லிங்க் (சரிபார்க்கப்பட்டது)
     const csvURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR19oUMrVWftMtbEnGUQE5DZyDyn5iRFGEe3ObqeTyCEi2_i_E6__-fli6x4od_vz8PDncLDfpPaT7P/pub?output=csv";
 
     // 2. Google Drive படங்களை நேரடி லிங்காக மாற்ற (திருத்தப்பட்டது)
@@ -107,23 +106,54 @@
         }
 
         if (fileId) {
-            // முக்கியமான திருத்தம்: டாலர் ($) குறியீடு சேர்க்கப்பட்டுள்ளது
-            return `https://lh3.googleusercontent.com/d/${fileId}`;
+            // கூகுள் டிரைவ் நேரடிப் படக் காட்சி லிங்க் (lh3 முறை மிகவும் சிறந்தது)
+            return `https://lh3.googleusercontent.com/d/0{fileId}`;
         }
         return url;
     }
 
-    // 3. PDF பதிவிறக்க செயல்பாடு
-    function downloadPDF(id, name) {
-        const element = document.getElementById(id);
+    // 3. PDF பதிவிறக்க செயல்பாடு (திருத்தப்பட்டது - CORS பிரச்சனையைத் தவிர்க்க)
+    async function downloadPDF(id, name) {
+        const card = document.getElementById(id);
+        const img = card.querySelector('.student-img');
+        
+        // படத்தைச் சான்றிதழில் சேர்க்க Base64-க்கு மாற்ற வேண்டும்
+        const originalSrc = img.src;
+        
+        if (originalSrc && !originalSrc.startsWith('data:')) {
+            try {
+                const response = await fetch(originalSrc);
+                const blob = await response.blob();
+                const reader = new FileReader();
+                await new Promise((resolve) => {
+                    reader.onloadend = () => {
+                        img.src = reader.result; // படத்தைப் தற்காலிகமாக Base64-க்கு மாற்றுகிறோம்
+                        resolve();
+                    };
+                    reader.readAsDataURL(blob);
+                });
+            } catch (e) {
+                console.error("Image fetch failed, using placeholder:", e);
+                img.src = 'https://via.placeholder.com/150'; // படம் கிடைக்காவிட்டால் பிளேஸ்ஹோல்டர்
+            }
+        }
+
+        // PDF ஆப்ஷன்கள்
         const opt = {
-            margin: 10,
+            margin: 15,
             filename: name + '_Alumni_Award.pdf',
-            image: { type: 'jpeg', quality: 1 },
-            html2canvas: { scale: 2, useCORS: true },
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true, logging: false },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
         };
-        html2pdf().set(opt).from(element).save();
+
+        // PDF உருவாக்குதல்
+        try {
+            await html2pdf().set(opt).from(card).save();
+        } finally {
+            // PDF உருவாக்கிய பிறகு, பழைய பட லிங்கிற்குத் திருப்பிக் கொண்டு வருதல்
+            img.src = originalSrc;
+        }
     }
 
     // 4. தரவுகளைப் பெற்று அட்டைகளை உருவாக்குதல்
@@ -180,8 +210,8 @@
                         <img src="${fixDriveLink(person.pic)}" 
                              class="student-img" 
                              alt="Profile" 
-                             onerror="this.src='https://via.placeholder.com/150'">
-                        <div class="student-info">
+                             onerror="this.src='https://via.placeholder.com/150'"
+                             crossorigin="anonymous"> <div class="student-info">
                             <h4>${person.name}</h4>
                             <span class="batch">ஆண்டு: ${person.batch}</span>
                         </div>
@@ -191,8 +221,7 @@
                             <li><strong>உதவி:</strong> ${person.help}</li>
                             <li><strong>சாதனைகள்:</strong> ${person.ach}</li>
                         </ul>
-                        
-                         <button class="btn-download" onclick="downloadPDF('${id}', '${person.name}')">சான்றிதழ் பதிவிறக்கு 📥</button>
+                        <button class="btn-download" onclick="downloadPDF('${id}', '${person.name}')">சான்றிதழ் பதிவிறக்கு 📥</button>
                     </div>
                 `;
             });
@@ -201,7 +230,10 @@
             document.getElementById('hof-grid-container').innerHTML = "தரவுகளை லோடு செய்வதில் பிழை ஏற்பட்டுள்ளது.";
         }
     }
+
     initHallOfFame();
-</script>
+                </script>
+
+            
 </body>
 </html>
