@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>முன்னாள் மாணவர் சாதனையாளர் கூடம் | School Alumni</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <style>
+        :root {
+            --prestige-gold: #D4AF37;
+            --royal-blue: #002366;
+            --light-bg: #f8f9fa;
+        }
+
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--light-bg); margin: 0; padding: 20px; }
+        
+        .container { max-width: 1100px; margin: 0 auto; text-align: center; }
+        
+        .header { margin-bottom: 50px; }
+        .header h1 { color: var(--royal-blue); font-size: 2.5rem; margin-bottom: 10px; }
+        .header p { color: #666; max-width: 700px; margin: 0 auto; }
+
+        /* Hall of Fame Grid */
+        #hof-grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        /* Card Design */
+        .hof-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            position: relative;
+            transition: 0.3s;
+            border: 1px solid #eee;
+            text-align: left;
+        }
+
+        .hof-card:hover { transform: translateY(-10px); border-color: var(--prestige-gold); }
+
+        .ai-rating { position: absolute; top: 15px; right: 15px; text-align: right; }
+        .rating-val { font-weight: bold; color: var(--royal-blue); display: block; }
+        .stars { color: var(--prestige-gold); font-size: 0.9rem; }
+
+        .student-img {
+            width: 100px; height: 100px; border-radius: 50%;
+            object-fit: cover; border: 3px solid var(--prestige-gold);
+            margin: 0 auto 15px; display: block;
+        }
+
+        .student-info h4 { margin: 5px 0; color: #333; text-align: center; font-size: 1.3rem; }
+        .batch { display: block; text-align: center; color: #888; font-weight: bold; margin-bottom: 15px; }
+
+        .details-list { list-style: none; padding: 0; font-size: 0.9rem; color: #555; }
+        .details-list li { margin-bottom: 8px; padding-left: 20px; position: relative; }
+        .details-list li::before { content: '🏆'; position: absolute; left: 0; }
+
+        .btn-download {
+            width: 100%; padding: 10px; margin-top: 15px;
+            background: var(--royal-blue); color: white;
+            border: none; border-radius: 5px; cursor: pointer;
+            font-weight: bold; transition: 0.3s;
+        }
+
+        .btn-download:hover { background: var(--prestige-gold); }
+
+        /* Top Performer Ribbon */
+        .top-performer { border: 2px solid var(--prestige-gold); background: #fffdf2; }
+
+        @media print { .btn-download { display: none; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>சாதனையாளர் கூடம் (Hall of Fame)</h1>
+        <p>எமது பள்ளியின் பெருமைமிக்க முன்னாள் மாணவர்களின் சாதனைகள் AI தொழில்நுட்பம் மூலம் வரிசைப்படுத்தப்பட்டுள்ளது.</p>
+        <br>
+        <a href="YOUR_GOOGLE_FORM_LINK" target="_blank" style="color: var(--royal-blue); font-weight: bold;">நீங்களும் இணைய வேண்டுமா? இங்கே கிளிக் செய்யவும் →</a>
+    </div>
+
+    <div id="hof-grid-container">
+        <p>விவரங்கள் சேகரிக்கப்படுகின்றன, தயவுசெய்து காத்திருக்கவும்...</p>
+    </div>
+</div>
+
+<script>
+    // 1. உங்கள் Google Sheet CSV லிங்கை இங்கே மாற்றவும்
+    const csvURL = 'YOUR_PUBLISHED_CSV_LINK_HERE';
+
+    // 2. Google Drive படங்களை நேரடி லிங்காக மாற்ற
+    function fixDriveLink(url) {
+        if (url.includes('drive.google.com')) {
+            const id = url.split('/d/')[1].split('/')[0];
+            return `https://lh3.googleusercontent.com/d/${id}`;
+        }
+        return url;
+    }
+
+    // 3. PDF பதிவிறக்க செயல்பாடு
+    function downloadPDF(id, name) {
+        const element = document.getElementById(id);
+        const opt = {
+            margin: 10,
+            filename: name + '_Alumni_Award.pdf',
+            image: { type: 'jpeg', quality: 1 },
+            html2canvas: { scale: 2, useCORS: true },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+        };
+        html2pdf().set(opt).from(element).save();
+    }
+
+    // 4. தரவுகளைப் பெற்று அட்டைகளை உருவாக்குதல்
+    async function initHallOfFame() {
+        try {
+            const response = await fetch(csvURL);
+            const data = await response.text();
+            const rows = data.split('\n').slice(1);
+            const container = document.getElementById('hof-grid-container');
+            container.innerHTML = '';
+
+            let alumni = rows.map(row => {
+                const c = row.split(',');
+                return { name: c[1], batch: c[2], pic: c[3], edu: c[4], job: c[5], ach: c[6], score: parseFloat(c[7]), stars: c[8] };
+            }).filter(a => a.name).sort((a, b) => b.score - a.score);
+
+            alumni.forEach((person, i) => {
+                const id = `card-${i}`;
+                const topClass = i === 0 ? 'top-performer' : '';
+                container.innerHTML += `
+                    <div class="hof-card ${topClass}" id="${id}">
+                        <div class="ai-rating">
+                            <span class="rating-val">${person.score}</span>
+                            <span class="stars">${person.stars}</span>
+                        </div>
+                        <img src="${fixDriveLink(person.pic)}" class="student-img" alt="Profile">
+                        <div class="student-info">
+                            <h4>${person.name}</h4>
+                            <span class="batch">வகுப்பு: ${person.batch}</span>
+                        </div>
+                        <ul class="details-list">
+                            <li><strong>கல்வி:</strong> ${person.edu}</li>
+                            <li><strong>பணி:</strong> ${person.job}</li>
+                            <li><strong>பங்களிப்பு:</strong> ${person.ach}</li>
+                        </ul>
+                        <button class="btn-download" onclick="downloadPDF('${id}', '${person.name}')">சான்றிதழ் பதிவிறக்கு 📥</button>
+                    </div>
+                `;
+            });
+        } catch (e) {
+            console.error("Error:", e);
+            document.getElementById('hof-grid-container').innerHTML = "தரவுகளைப் பெறுவதில் சிக்கல். CSV லிங்கைச் சரிபார்க்கவும்.";
+        }
+    }
+
+    initHallOfFame();
+</script>
+
+</body>
+</html>
