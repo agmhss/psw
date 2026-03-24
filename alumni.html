@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>முன்னாள் மாணவர் சாதனையாளர் கூடம் | School Alumni</title>
+    <title>முன்னாள் மாணவர்கள் சாதனையாளர்கள் கூடம்| School Alumni</title>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     
@@ -148,11 +148,11 @@
                 return { 
                     name: clean(c[2]), 
                     batch: clean(c[3]), 
-                    pic: clean(c[4]), 
-                    edu: clean(c[5]), 
-                    job: clean(c[6]), 
-                    help: clean(c[7]),
-                    ach: clean(c[8]), 
+                    picture: clean(c[4]), 
+                    education: clean(c[5]), 
+                    career: clean(c[6]), 
+                    contribution: clean(c[7]),
+                    achievements: clean(c[8]), 
                     score: parseFloat(clean(c[9])) || 0, 
                     stars: clean(c[10]) || "☆☆☆☆☆" 
                 };
@@ -183,13 +183,13 @@
                              onerror="this.src='https://via.placeholder.com/150'">
                         <div class="student-info">
                             <h4>${person.name}</h4>
-                            <span class="batch">ஆண்டு: ${person.batch}</span>
+                            <span class="batch">தொகுதி: ${person.batch}</span>
                         </div>
                         <ul class="details-list">
-                            <li><strong>கல்வி:</strong> ${person.edu}</li>
-                            <li><strong>பணி:</strong> ${person.job}</li>
-                            <li><strong>உதவி:</strong> ${person.help}</li>
-                            <li><strong>சாதனைகள்:</strong> ${person.ach}</li>
+                            <li><strong>கல்வி:</strong> ${person.education}</li>
+                            <li><strong>பணி:</strong> ${person.career}</li>
+                            <li><strong>பங்களிப்பு:</strong> ${person.contribution}</li>
+                            <li><strong>சாதனைகள்:</strong> ${person.achievements}</li>
                         </ul>
                         <button class="btn-download" onclick="downloadPDF('${id}', '${person.name}')">சான்றிதழ் பதிவிறக்கு 📥</button>
                     </div>
