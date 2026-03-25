@@ -61,19 +61,11 @@
         .details-list li { margin-bottom: 8px; padding-left: 20px; position: relative; }
         .details-list li::before { content: '🏆'; position: absolute; left: 0; }
 
-        .btn-download {
-            width: 100%; padding: 10px; margin-top: 15px;
-            background: var(--royal-blue); color: white;
-            border: none; border-radius: 5px; cursor: pointer;
-            font-weight: bold; transition: 0.3s;
-        }
-
-        .btn-download:hover { background: var(--prestige-gold); }
 
         /* Top Performer Ribbon */
         .top-performer { border: 2px solid var(--prestige-gold); background: #fffdf2; }
 
-        @media print { .btn-download { display: none; } }
+        
     </style>
 </head>
 <body>
@@ -113,20 +105,7 @@
         return url;
     }
 
-    // 3. PDF பதிவிறக்க செயல்பாடு
-    function downloadPDF(id, name) {
-        const element = document.getElementById(id);
-        const opt = {
-            margin: 10,
-            filename: name + '_Alumni_Award.pdf',
-            image: { type: 'jpeg', quality: 1 },
-            html2canvas: { scale: 2, useCORS: true },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
-        };
-        html2pdf().set(opt).from(element).save();
-    }
-
-    // 4. தரவுகளைப் பெற்று அட்டைகளை உருவாக்குதல்
+    // 3. தரவுகளைப் பெற்று அட்டைகளை உருவாக்குதல்
     async function initHallOfFame() {
         try {
             const response = await fetch(csvURL);
@@ -183,7 +162,7 @@
                              onerror="this.src='https://via.placeholder.com/150'">
                         <div class="student-info">
                             <h4>${person.name}</h4>
-                            <span class="batch">தொகுதி: ${person.batch}</span>
+                            <span class="batch">முடித்த கல்வி ஆண்டு: ${person.batch}</span>
                         </div>
                         <ul class="details-list">
                             <li><strong>கல்வி:</strong> ${person.education}</li>
@@ -191,17 +170,7 @@
                             <li><strong>பங்களிப்பு:</strong> ${person.contribution}</li>
                             <li><strong>சாதனைகள்:</strong> ${person.achievements}</li>
                         </ul>
-                        <button class="btn-download" onclick="downloadPDF('${id}', '${person.name}')">சான்றிதழ் பதிவிறக்கு 📥</button>
-                    </div>
-                `;
-            });
-        } catch (e) {
-            console.error("Error:", e);
-            document.getElementById('hof-grid-container').innerHTML = "தரவுகளை லோடு செய்வதில் பிழை ஏற்பட்டுள்ளது.";
-        }
-    }
-
-    initHallOfFame();
+                        initHallOfFame();
 </script>
 </body>
 </html>
