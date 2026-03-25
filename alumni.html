@@ -149,7 +149,16 @@
                     stars: clean(c[10]) || "☆☆☆☆☆" 
                 };
             })
-            .filter(a => a !== null && a.name && a.name !== "பெயர்" && a.name !== "Name" && a.name.length > 1);
+                // இதுதான் புதிய மற்றும் பாதுகாப்பான .filter பகுதி:
+        .filter(a => {
+            if (a === null) return false;
+            // பெயர் மற்றும் கல்வி ஆகிய இரண்டு தகவல்களும் இருந்தால் மட்டுமே ஏற்கும்.
+            if (!a.name || !a.edu || a.name.length <= 1) return false;
+            
+            const isHeader = ["பெயர்", "Name", "FULL NAME"].includes(a.name);
+            return !isHeader;
+        });
+            
 
             // அதிக ஸ்கோர் உள்ளவர்களை முதலில் வரிசைப்படுத்த
             alumni.sort((a, b) => b.score - a.score);
