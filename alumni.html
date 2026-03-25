@@ -123,82 +123,90 @@
 
     // 3. தரவுகளைப் பெற்று கார்டுகளை உருவாக்குதல்
     async function initHallOfFame() {
-        try {
-            const response = await fetch(csvURL);
-            const data = await response.text();
-            
-            const rows = data.split(/\r?\n/);
-            const container = document.getElementById('hof-grid-container');
-            container.innerHTML = '';
+    async function initHallOfFame() {
+    try {
+        const response = await fetch(csvURL);
+        const data = await response.text();
+        
+        const rows = data.split(/\r?\n/);
+        const container = document.getElementById('hof-grid-container');
+        container.innerHTML = '';
 
-            let alumni = rows.map(row => {
-                const c = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                const clean = (val) => (val || "").replace(/"/g, "").trim();
+        let alumni = rows.map(row => {
+            const c = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+            const clean = (val) => (val || "").replace(/"/g, "").trim();
 
-                if (c.length < 6) return null;
+            if (c.length < 6) return null;
 
-                return { 
-                    name: clean(c[2]), 
-                    batch: clean(c[3]), 
-                    pic: clean(c[4]), 
-                    edu: clean(c[5]), 
-                    job: clean(c[6]), 
-                    help: clean(c[7]),
-                    ach: clean(c[8]), 
-                    score: parseFloat(clean(c[9])) || 0, 
-                    stars: clean(c[10]) || "☆☆☆☆☆" 
-                };
-            })
-                // இதுதான் புதிய மற்றும் பாதுகாப்பான .filter பகுதி:
+            return { 
+                name: clean(c[2]), 
+                batch: clean(c[3]), 
+                pic: clean(c[4]), 
+                edu: clean(c[5]), 
+                job: clean(c[6]), 
+                cont: clean(c[7]),
+                ach: clean(c[8]), 
+                score: parseFloat(clean(c[9])) || 0, 
+                stars: clean(c[10]) || "☆☆☆☆☆" 
+            };
+        })
         .filter(a => {
-            if (a === null) return false;
-            // பெயர் மற்றும் கல்வி ஆகிய இரண்டு தகவல்களும் இருந்தால் மட்டுமே ஏற்கும்.
-            if (!a.name || !a.edu || a.name.length <= 1) return false;
+            // மிக முக்கியமான பகுதி: 
+            // 1. 'a' காலியாக இருக்கக்கூடாது.
+            // 2. பெயர் (name) கண்டிப்பாக 2 எழுத்துக்களுக்கு மேல் இருக்க வேண்டும்.
+            // 3. கல்வி (edu) விவரம் கண்டிப்பாக இருக்க வேண்டும்.
+            // 4. இது தலைப்பு வரியாக (Header) இருக்கக்கூடாது.
             
-            const isHeader = ["பெயர்", "Name", "FULL NAME"].includes(a.name);
-            return !isHeader;
+            if (!a) return false;
+            
+            const hasName = a.name && a.name.length > 1;
+            const hasEdu = a.edu && a.edu.length > 2;
+            const isNotHeader = !["பெயர்", "NAME", "TIMESTAMP", "நேர"].includes(a.name.toUpperCase());
+
+            // பெயர் மற்றும் கல்வி இருந்தால் மட்டுமே கார்டு உருவாகும்
+            return hasName && hasEdu && isNotHeader;
         });
-            
 
-            // அதிக ஸ்கோர் உள்ளவர்களை முதலில் வரிசைப்படுத்த
-            alumni.sort((a, b) => b.score - a.score);
+        alumni.sort((a, b) => b.score - a.score);
 
-            if (alumni.length === 0) {
-                container.innerHTML = "<p>தற்போது தகவல்கள் ஏதும் இல்லை.</p>";
-                return;
-            }
-
-            alumni.forEach((person, i) => {
-                const topClass = i === 0 ? 'top-performer' : '';
-                container.innerHTML += `
-                    <div class="hof-card ${topClass}">
-                        <div class="ai-rating">
-                            <span class="rating-val">${person.score}</span>
-                            <span class="stars">${person.stars}</span>
-                        </div>
-                        <img src="${fixDriveLink(person.pic)}" 
-                             class="student-img" 
-                             alt="${person.name}" 
-                             onerror="this.src='https://via.placeholder.com/150'">
-                        <div class="student-info">
-                            <h4>${person.name}</h4>
-                            <span class="batch">12-ம் வகுப்பு முடித்த ஆண்டு: ${person.batch}</span>
-                        </div>
-                        <ul class="details-list">
-                            <li><strong>கல்வி:</strong> ${person.edu}</li>
-                            <li><strong>பணி:</strong> ${person.job}</li>
-                            <li><strong>பங்களிப்பு:</strong> ${person.help}</li>
-                            <li><strong>சாதனைகள்:</strong> ${person.ach}</li>
-                        </ul>
-                    </div>
-                `;
-            });
-        } catch (e) {
-            console.error("Error:", e);
-            document.getElementById('hof-grid-container').innerHTML = "தரவுகளை லோடு செய்வதில் பிழை ஏற்பட்டுள்ளது.";
+        if (alumni.length === 0) {
+            container.innerHTML = "<p style='grid-column: 1/-1;'>தற்போது தகவல்கள் ஏதும் இல்லை.</p>";
+            return;
         }
-    }
 
+        alumni.forEach((person, i) => {
+            const topClass = i === 0 ? 'top-performer' : '';
+            // இங்கும் ஒரு பாதுகாப்பு: பெயர் "undefined" என்று இருந்தால் காட்டாதே
+            if(person.name === "undefined") return;
+
+            container.innerHTML += `
+                <div class="hof-card ${topClass}">
+                    <div class="ai-rating">
+                        <span class="rating-val">${person.score}</span>
+                        <span class="stars">${person.stars}</span>
+                    </div>
+                    <img src="${fixDriveLink(person.pic)}" 
+                         class="student-img" 
+                         alt="${person.name}" 
+                         onerror="this.src='https://via.placeholder.com/150'">
+                    <div class="student-info">
+                        <h4>${person.name}</h4>
+                        <span class="batch">ஆண்டு: ${person.batch}</span>
+                    </div>
+                    <ul class="details-list">
+                        <li><strong>கல்வி:</strong> ${person.edu}</li>
+                        <li><strong>பணி:</strong> ${person.job}</li>
+                        <li><strong>பங்களிப்பு:</strong> ${person.cont}</li>
+                        <li><strong>சாதனைகள்:</strong> ${person.ach}</li>
+                    </ul>
+                </div>
+            `;
+        });
+    } catch (e) {
+        console.error("Error:", e);
+        document.getElementById('hof-grid-container').innerHTML = "தரவுகளை லோடு செய்வதில் பிழை ஏற்பட்டுள்ளது.";
+    }
+}
     initHallOfFame();
 </script>
 </body>
