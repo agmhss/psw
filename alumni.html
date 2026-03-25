@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>முன்னாள் மாணவர்கள் சாதனையாளர்கள் கூடம்| School Alumni</title>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <title>முன்னாள் மாணவர் சாதனையாளர் கூடம் | School Alumni</title>
     
     <style>
         :root {
@@ -14,7 +12,12 @@
             --light-bg: #f8f9fa;
         }
 
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--light-bg); margin: 0; padding: 20px; }
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            background: var(--light-bg); 
+            margin: 0; 
+            padding: 20px; 
+        }
         
         .container { max-width: 1100px; margin: 0 auto; text-align: center; }
         
@@ -61,11 +64,8 @@
         .details-list li { margin-bottom: 8px; padding-left: 20px; position: relative; }
         .details-list li::before { content: '🏆'; position: absolute; left: 0; }
 
-
-        /* Top Performer Ribbon */
+        /* Top Performer Highlight */
         .top-performer { border: 2px solid var(--prestige-gold); background: #fffdf2; }
-
-        
     </style>
 </head>
 <body>
@@ -75,7 +75,7 @@
         <h1>சாதனையாளர் கூடம் (Hall of Fame)</h1>
         <p>எமது பள்ளியின் பெருமைமிக்க முன்னாள் மாணவர்களின் சாதனைகள் AI தொழில்நுட்பம் மூலம் வரிசைப்படுத்தப்பட்டுள்ளது.</p>
         <br>
-        <a href="https://forms.gle/NgkcbPJ4QTfTYCdq6" target="_blank" style="color: var(--royal-blue); font-weight: bold;">நீங்களும் இணைய வேண்டுமா? இங்கே கிளிக் செய்யவும் →</a>
+        <a href="https://forms.gle/NgkcbPJ4QTfTYCdq6" target="_blank" style="color: var(--royal-blue); font-weight: bold; text-decoration: none;">நீங்களும் இணைய வேண்டுமா? இங்கே கிளிக் செய்யவும் →</a>
     </div>
 
     <div id="hof-grid-container">
@@ -84,10 +84,10 @@
 </div>
 
 <script>
-    // 1. உங்கள் Google Sheet CSV லிங்க்
+    // 1. Google Sheet CSV லிங்க்
     const csvURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR19oUMrVWftMtbEnGUQE5DZyDyn5iRFGEe3ObqeTyCEi2_i_E6__-fli6x4od_vz8PDncLDfpPaT7P/pub?output=csv";
 
-    // 2. Google Drive படங்களை நேரடி லிங்காக மாற்ற (திருத்தப்பட்டது)
+    // 2. Google Drive படங்களை நேரடி லிங்காக மாற்ற
     function fixDriveLink(url) {
         if (!url) return 'https://via.placeholder.com/150';
         
@@ -99,47 +99,42 @@
         }
 
         if (fileId) {
-            // முக்கியமான திருத்தம்: டாலர் ($) குறியீடு சேர்க்கப்பட்டுள்ளது
             return `https://lh3.googleusercontent.com/d/${fileId}`;
         }
         return url;
     }
 
-    // 3. தரவுகளைப் பெற்று அட்டைகளை உருவாக்குதல்
+    // 3. தரவுகளைப் பெற்று கார்டுகளை உருவாக்குதல்
     async function initHallOfFame() {
         try {
             const response = await fetch(csvURL);
             const data = await response.text();
             
-            // CSV வரிகளைப் பிரித்தல் (Windows & Linux format support)
             const rows = data.split(/\r?\n/);
             const container = document.getElementById('hof-grid-container');
             container.innerHTML = '';
 
             let alumni = rows.map(row => {
-                // கமா (,) உள்ளடக்கத்திற்குள் இருந்தால் தரவு சிதையாமல் இருக்க regex
                 const c = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
                 const clean = (val) => (val || "").replace(/"/g, "").trim();
 
-                // காலம்களின் எண்ணிக்கை 6-க்கு மேல் இருந்தால் மட்டுமே தரவுகளை எடுக்க
                 if (c.length < 6) return null;
 
                 return { 
                     name: clean(c[2]), 
                     batch: clean(c[3]), 
                     pic: clean(c[4]), 
-                    education: clean(c[5]), 
-                    career: clean(c[6]), 
-                    contribution: clean(c[7]),
-                    achievements: clean(c[8]), 
+                    edu: clean(c[5]), 
+                    job: clean(c[6]), 
+                    help: clean(c[7]),
+                    ach: clean(c[8]), 
                     score: parseFloat(clean(c[9])) || 0, 
                     stars: clean(c[10]) || "☆☆☆☆☆" 
                 };
             })
-            // தேவையற்ற வரிகளைத் தவிர்க்க
             .filter(a => a !== null && a.name && a.name !== "பெயர்" && a.name !== "Name" && a.name.length > 1);
 
-            // அதிக ஸ்கோர் உள்ளவர்களை முதலில் காட்ட
+            // அதிக ஸ்கோர் உள்ளவர்களை முதலில் வரிசைப்படுத்த
             alumni.sort((a, b) => b.score - a.score);
 
             if (alumni.length === 0) {
@@ -148,29 +143,37 @@
             }
 
             alumni.forEach((person, i) => {
-                const id = `card-${i}`;
                 const topClass = i === 0 ? 'top-performer' : '';
                 container.innerHTML += `
-                    <div class="hof-card ${topClass}" id="${id}">
+                    <div class="hof-card ${topClass}">
                         <div class="ai-rating">
                             <span class="rating-val">${person.score}</span>
                             <span class="stars">${person.stars}</span>
                         </div>
                         <img src="${fixDriveLink(person.pic)}" 
                              class="student-img" 
-                             alt="Profile" 
+                             alt="${person.name}" 
                              onerror="this.src='https://via.placeholder.com/150'">
                         <div class="student-info">
                             <h4>${person.name}</h4>
-                            <span class="batch">முடித்த கல்வி ஆண்டு: ${person.batch}</span>
+                            <span class="batch">ஆண்டு: ${person.batch}</span>
                         </div>
                         <ul class="details-list">
-                            <li><strong>கல்வி:</strong> ${person.education}</li>
-                            <li><strong>பணி:</strong> ${person.career}</li>
-                            <li><strong>பங்களிப்பு:</strong> ${person.contribution}</li>
-                            <li><strong>சாதனைகள்:</strong> ${person.achievements}</li>
+                            <li><strong>கல்வி:</strong> ${person.edu}</li>
+                            <li><strong>பணி:</strong> ${person.job}</li>
+                            <li><strong>உதவி:</strong> ${person.help}</li>
+                            <li><strong>சாதனைகள்:</strong> ${person.ach}</li>
                         </ul>
-                        initHallOfFame();
+                    </div>
+                `;
+            });
+        } catch (e) {
+            console.error("Error:", e);
+            document.getElementById('hof-grid-container').innerHTML = "தரவுகளை லோடு செய்வதில் பிழை ஏற்பட்டுள்ளது.";
+        }
+    }
+
+    initHallOfFame();
 </script>
 </body>
 </html>
