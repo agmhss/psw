@@ -96,15 +96,15 @@
                 if (c.length < 6) return null;
 
                 return { 
-                    name: clean(c[3]), // Column D: பெயர்
-                    batch: clean(c[4]), // Column E: ஆண்டு
-                    pic: clean(c[5]), // Column F: புகைப்படம்
-                    edu: clean(c[6]), // Column G: கல்வி
-                    job: clean(c[7]), // Column H: பணி
-                    cont: clean(c[8]), // Column I: பங்களிப்பு
-                    ach: clean(c[9]), // Column J: சாதனைகள்
-                    score: parseFloat(clean(c[10])) || 0, // Column K: Score
-                    stars: clean(c[11]) || "☆☆☆☆☆" // Column L: Stars
+                    name: clean(c[2]), // Column D: பெயர்
+                    batch: clean(c[3]), // Column E: ஆண்டு
+                    pic: clean(c[4]), // Column F: புகைப்படம்
+                    edu: clean(c[5]), // Column G: கல்வி
+                    job: clean(c[6]), // Column H: பணி
+                    cont: clean(c[7]), // Column I: பங்களிப்பு
+                    ach: clean(c[8]), // Column J: சாதனைகள்
+                    score: parseFloat(clean(c[9])) || 0, // Column K: Score
+                    stars: clean(c[10]) || "☆☆☆☆☆" // Column L: Stars
                 };
             }).filter(a => a && a.name && a.name.length > 1 && !a.name.includes("பெயர்"));
 
