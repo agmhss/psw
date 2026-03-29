@@ -222,21 +222,23 @@
         transform: translateY(-5px);
     }
 
-    .grid {
-        display: grid;
-        width: 100%;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 20px;
-        padding: 15px;
-        box-sizing: border-box;
-    }
+ /* மெயின் கிரிட் கன்டெய்னர் */
+.mobile-stack {
+    display: grid; /* இது மிக முக்கியம், அப்போதுதான் grid வேலை செய்யும் */
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 15px;
+    box-sizing: border-box;
+}
 
-    @media (max-width: 768px) {
-        .mobile-stack {
-            grid-template-columns: 1fr !important;
-            padding: 10px;
-        }
+/* டேப்லெட் மற்றும் மொபைல் திரைகளுக்கான மாற்றம் */
+@media (max-width: 768px) {
+    .mobile-stack {
+        grid-template-columns: 1fr !important;
+        padding: 10px;
     }
+}
 
     
 
