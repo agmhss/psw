@@ -82,17 +82,27 @@
         padding: 15px 0;
     }
 
-    .social-icon {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        width: 45px;
-        height: 45px;
-        background-color: rgba(255, 255, 255, 0.1);
-        color: white;
-        border-radius: 50%;
-        text-decoration: none;
-        font-size: 24px;
+       .social-icon:hover {
+        background-color: #ffffff;
+        color: #1a237e;
+        transform: translateY(-5px);
+    }
+
+    .grid {
+        display: grid;
+        width: 100%;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+
+    @media (max-width: 768px) {
+        .mobile-stack {
+            grid-template-columns: 1fr !important;
+            padding: 10px;
+        }
+    }
 
 /* Nilgiri tahr scene — Zig-Zag Motion */
 
