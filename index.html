@@ -93,38 +93,40 @@
         border-radius: 50%;
         text-decoration: none;
         font-size: 24px;
-    /* Nilgiri tahr scene — Place in your CSS file or <style> tags */
+    /* Nilgiri tahr scene — This block can go in your CSS file or within <style> tags in <head> */
 
+/* The outer container for the scene */
 #tahrScene {
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
-  /* Increased width to accommodate zig-zag movement space */
-  width: min(180px, 40vw); 
+  /* Setting a reasonable width, slightly wider to accommodate hopping space */
+  width: min(130px, 30vw); 
   height: 100vh;
   max-height: 100dvh;
-  pointer-events: none;
-  z-index: 9998;
-  overflow: hidden;
+  pointer-events: none; /* Clicking passes through to elements below */
+  z-index: 9998; /* Ensures it stays above other content */
+  overflow: hidden; /* Important: keeps the animation within bounds */
 }
 
+/* Base style for each Tahr element (could be a <div> containing an <img>) */
 .tahr {
   position: absolute;
-  width: 44px; /* Base width */
+  width: 44px; /* Base width for the largest Tahr */
   height: auto;
   filter: drop-shadow(0 2px 2px rgba(0,0,0,.35));
-  will-change: transform, opacity;
-  /* Smooth transition for when the Tahr turns */
-  transition: transform 0.1s ease-out; 
+  will-change: transform, opacity; /* Optimize for animation */
 }
 
+/* Ensuring images/SVGs scale correctly within their containers */
 .tahr svg,
 .tahr img {
   display: block;
   width: 100%;
   height: auto;
 }
+
 
 /* @keyframes zigZagHopAndClimb: The main animation logic for turning and hopping.
   X-axis movement (translateX) creates zig-zag, scaleX turns the Tahr.
