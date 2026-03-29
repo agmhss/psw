@@ -93,33 +93,31 @@
         border-radius: 50%;
         text-decoration: none;
         font-size: 24px;
-    /* Nilgiri tahr scene — This block can go in your CSS file or within <style> tags in <head> */
 
-/* The outer container for the scene */
+/* Nilgiri tahr scene — Zig-Zag Motion */
+
 #tahrScene {
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
-  /* Setting a reasonable width, slightly wider to accommodate hopping space */
-  width: min(130px, 30vw); 
+  /* இடது-வலது நகர வசதியாக அகலத்தை சற்று அதிகரித்துள்ளேன் */
+  width: min(160px, 35vw); 
   height: 100vh;
   max-height: 100dvh;
-  pointer-events: none; /* Clicking passes through to elements below */
-  z-index: 9998; /* Ensures it stays above other content */
-  overflow: hidden; /* Important: keeps the animation within bounds */
+  pointer-events: none;
+  z-index: 9998;
+  overflow: hidden;
 }
 
-/* Base style for each Tahr element (could be a <div> containing an <img>) */
 .tahr {
   position: absolute;
-  width: 44px; /* Base width for the largest Tahr */
+  width: 44px;
   height: auto;
   filter: drop-shadow(0 2px 2px rgba(0,0,0,.35));
-  will-change: transform, opacity; /* Optimize for animation */
+  will-change: transform, opacity;
 }
 
-/* Ensuring images/SVGs scale correctly within their containers */
 .tahr svg,
 .tahr img {
   display: block;
@@ -127,120 +125,69 @@
   height: auto;
 }
 
+/* அனிமேஷன்: மெதுவாக தாவுதல் மற்றும் திசை மாறுதல் */
+@keyframes continuousHopAndClimb {
+  0% { transform: translateY(100px) translateX(0) scaleX(1); opacity: 0; }
+  5% { opacity: 1; }
 
-/* @keyframes zigZagHopAndClimb: The main animation logic for turning and hopping.
-  X-axis movement (translateX) creates zig-zag, scaleX turns the Tahr.
-*/
-@keyframes zigZagHopAndClimb {
-  /* 0%: Start below bottom, facing right (scaleX 1), faded out. */
-  0% { transform: translateY(100px) translateX(0px) scaleX(1); opacity: 0; }
-  3% { opacity: 1; }
+  /* --- HOP 1: இடது பக்கம் (Turn Left) --- */
+  12% { transform: translateY(-80px) translateX(-20px) scaleX(-1); } 
+  18% { transform: translateY(-70px) translateX(-25px) scaleX(-1) scaleY(1.05); } 
 
-  /* --- HOP 1: Turn Left & Jump Left --- */
-  /* Turning in anticipation */
-  8% { transform: translateY(-30px) translateX(0px) scaleX(-1); } 
-  /* Peak jump */
-  14% { transform: translateY(-100px) translateX(-30px) scaleX(-1); } 
-  /* Landing (with slight scale squish) */
-  19% { transform: translateY(-90px) translateX(-35px) scaleX(-1) scaleY(1.05); } 
+  /* --- HOP 2: வலது பக்கம் (Turn Right) --- */
+  25% { transform: translateY(-160px) translateX(10px) scaleX(1) scaleY(1); }
+  32% { transform: translateY(-150px) translateX(5px) scaleX(1) scaleY(1.05); }
 
-  /* --- HOP 2: Turn Right & Jump Right --- */
-  /* Turning again */
-  24% { transform: translateY(-100px) translateX(-35px) scaleX(1) scaleY(1); }
-  /* Peak jump (moving back right) */
-  30% { transform: translateY(-180px) translateX(10px) scaleX(1); }
-  /* Landing */
-  35% { transform: translateY(-170px) translateX(5px) scaleX(1) scaleY(1.04); }
+  /* --- HOP 3: இடது பக்கம் (Turn Left) --- */
+  40% { transform: translateY(-240px) translateX(-20px) scaleX(-1) scaleY(1); }
+  47% { transform: translateY(-230px) translateX(-25px) scaleX(-1) scaleY(1.05); }
 
-  /* --- HOP 3: Turn Left & Jump Left --- */
-  /* Turning */
-  40% { transform: translateY(-180px) translateX(5px) scaleX(-1) scaleY(1); }
-  /* Peak jump */
-  46% { transform: translateY(-260px) translateX(-40px) scaleX(-1); }
-  /* Landing */
-  51% { transform: translateY(-250px) translateX(-45px) scaleX(-1) scaleY(1.04); }
+  /* --- HOP 4: வலது பக்கம் (Turn Right) --- */
+  55% { transform: translateY(-320px) translateX(10px) scaleX(1) scaleY(1); }
+  62% { transform: translateY(-310px) translateX(5px) scaleX(1) scaleY(1.05); }
 
-  /* --- HOP 4: Turn Right & Jump Right --- */
-  /* Turning */
-  56% { transform: translateY(-260px) translateX(-45px) scaleX(1) scaleY(1); }
-  /* Peak jump */
-  62% { transform: translateY(-340px) translateX(5px) scaleX(1); }
-  /* Landing */
-  67% { transform: translateY(-330px) translateX(0px) scaleX(1) scaleY(1.03); }
+  /* --- HOP 5: இடது பக்கம் (Turn Left) --- */
+  70% { transform: translateY(-400px) translateX(-20px) scaleX(-1) scaleY(1); }
+  77% { transform: translateY(-390px) translateX(-25px) scaleX(-1) scaleY(1.05); }
 
-  /* --- FINAL ASCENT (Straight up, turning back right) --- */
-  72% { transform: translateY(-340px) translateX(0px) scaleX(1) scaleY(1); }
-  
-  /* Moving higher smoothly */
-  85% { transform: translateY(-70vh) translateX(-10px) scaleX(1); opacity: 1; }
-
-  /* --- FINAL LOOP END (Past the top) --- */
-  100% { transform: translateY(-120vh) translateX(-15px) scaleX(1) opacity: 0; }
+  /* --- திரையைத் தாண்டி மேலே செல்லுதல் --- */
+  85% { opacity: 1; }
+  100% { transform: translateY(-120vh) translateX(0) scaleX(1); opacity: 0; }
 }
 
-/* Tahr 'a': Starts Lowest */
+/* வேகம் மெதுவாக இருக்க 15s - 20s வரை மாற்றியுள்ளேன் */
 .tahr.a {
-  right: 50px; /* Starting position away from the absolute edge to allow left/right movement */
-  bottom: 0%;
-  animation: zigZagHopAndClimb 14s ease-in-out infinite; 
+  right: 30px; 
+  bottom: 0%;  
+  animation: continuousHopAndClimb 16s ease-in-out infinite; 
 }
 
-/* Tahr 'b': Starts higher, different start right, delayed */
 .tahr.b {
-  right: 80px; 
-  bottom: 0%;
+  right: 50px; 
+  bottom: 0%; 
   width: 38px;
-  animation: zigZagHopAndClimb 15s ease-in-out infinite;
-  animation-delay: 3.5s; 
+  animation: continuousHopAndClimb 18s ease-in-out infinite;
+  animation-delay: 4s; 
 }
 
-/* Tahr 'c': Smallest, different start right, most delayed */
 .tahr.c {
-  right: 65px;
-  bottom: 0%;
+  right: 40px; 
+  bottom: 0%; 
   width: 34px;
-  animation: zigZagHopAndClimb 16s ease-in-out infinite;
-  animation-delay: 7s; 
+  animation: continuousHopAndClimb 20s ease-in-out infinite;
+  animation-delay: 8s; 
 }
 
-/* Mobile adjustments */
+/* Mobile View */
 @media (max-width: 480px) {
-  #tahrScene {
-    width: min(130px, 45vw); /* Wider container on mobile too */
-    height: 100vh;
-  }
-  .tahr { width: 36px; }
-  .tahr.a { right: 30px; } /* Adjust start positions for narrow screen */
-  .tahr.b { right: 50px; }
-  .tahr.c { right: 40px; }
-    }    transition: transform 0.3s ease, background 0.3s ease;
-    }
-
-    .social-icon:hover {
-        background-color: #ffffff;
-        color: #1a237e;
-        transform: translateY(-5px);
-    }
-
- /* மெயின் கிரிட் கன்டெய்னர் */
-.mobile-stack {
-    display: grid; /* இது மிக முக்கியம், அப்போதுதான் grid வேலை செய்யும் */
-    width: 100%;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    padding: 15px;
-    box-sizing: border-box;
+  #tahrScene { width: min(110px, 35vw); }
+  .tahr { width: 34px; }
+  .tahr.b { width: 30px; }
+  .tahr.c { width: 26px; }
 }
 
-/* டேப்லெட் மற்றும் மொபைல் திரைகளுக்கான மாற்றம் */
-@media (max-width: 768px) {
-    .mobile-stack {
-        grid-template-columns: 1fr !important;
-        padding: 10px;
-    }
-}
 
-    
+
 
     #butterfly {
         position: fixed;
