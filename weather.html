@@ -3,231 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>வானிலை மற்றும் வானியல் - பட்டீஸ்வரம்</title>
+    <title>பட்டீஸ்வரம் வானிலை & விண்வெளித் தகவல்கள்</title>
     <style>
-        :root {
-            --bg-color: #0b1026;
-            --card-bg: rgba(255, 255, 255, 0.1);
-            --accent: #ffeb3b;
-        }
-
-        body {
-            margin: 0;
-            background: radial-gradient(circle at top, #1b2735 0%, #090a0f 100%);
-            color: white;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            line-height: 1.6;
-        }
-
-        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        :root { --bg: #050a18; --accent: #ffd700; --card: rgba(255,255,255,0.08); }
+        body { background: var(--bg); color: #fff; font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 20px; }
+        .container { max-width: 1100px; margin: 0 auto; }
         
-        header { text-align: center; padding: 40px 0; }
-        header h1 { margin: 0; color: var(--accent); font-size: 2.5rem; }
+        h1 { text-align: center; color: var(--accent); margin-bottom: 5px; }
+        .loc { text-align: center; opacity: 0.7; margin-bottom: 30px; }
 
-        .section-title {
-            border-left: 5px solid var(--accent);
-            padding-left: 15px;
-            margin: 40px 0 20px;
-            font-size: 1.5rem;
-        }
+        /* Weather Section */
+        .section-title { border-bottom: 2px solid var(--accent); padding-bottom: 5px; margin: 40px 0 20px; font-size: 1.4rem; }
+        .forecast-row { display: flex; overflow-x: auto; gap: 12px; padding: 15px 0; scrollbar-width: none; }
+        .hour-box { min-width: 90px; background: var(--card); padding: 15px; border-radius: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+        .hour-box b { color: var(--accent); display: block; margin-bottom: 5px; }
 
-        /* 3-Day Forecast Grid */
-        .day-container {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 30px;
-            backdrop-filter: blur(10px);
-        }
+        /* Astro Cards */
+        .astro-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+        .astro-card { background: linear-gradient(145deg, #0f172a, #1e293b); border-radius: 20px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; }
+        .moon-art { font-size: 4.5rem; margin: 15px 0; text-shadow: 0 0 15px rgba(255,255,255,0.3); }
+        .data-point { margin: 10px 0; font-size: 1.05rem; }
+        .data-point span { color: var(--accent); font-weight: bold; }
 
-        .hourly-scroll {
-            display: flex;
-            overflow-x: auto;
-            gap: 15px;
-            padding: 10px 0;
-            scrollbar-width: thin;
-            scrollbar-color: var(--accent) transparent;
-        }
+        .compass { width: 100px; height: 100px; border: 2px dashed var(--accent); border-radius: 50%; margin: 20px auto; position: relative; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        .direction-dot { position: absolute; width: 12px; height: 12px; background: red; border-radius: 50%; box-shadow: 0 0 10px red; }
 
-        .hour-card {
-            min-width: 90px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .hour-card strong { color: var(--accent); display: block; margin-bottom: 5px; }
-
-        /* Astro Section */
-        .astro-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .astro-card {
-            background: linear-gradient(145deg, #16213e, #0f3460);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .moon-visual {
-            font-size: 5rem;
-            margin: 20px 0;
-            filter: drop-shadow(0 0 20px #fff);
-        }
-
-        .constellation-map {
-            width: 100%;
-            height: 200px;
-            background: url('https://www.transparenttextures.com/patterns/stardust.png');
-            border-radius: 50%;
-            margin-top: 20px;
-            position: relative;
-            border: 1px solid rgba(255,255,255,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-style: italic;
-        }
-
-        @media (max-width: 600px) {
-            header h1 { font-size: 1.8rem; }
-        }
+        .back-btn { display: inline-block; margin-bottom: 20px; color: var(--accent); text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header>
-        <h1>பட்டீஸ்வரம் வானிலை & வானியல்</h1>
-        <p>தஞ்சாவூர் மாவட்டம், தமிழ்நாடு</p>
-    </header>
+    <a href="index.html" class="back-btn">← முகப்புப் பக்கத்திற்கு</a>
+    <h1>பட்டீஸ்வரம் வானிலை & விண்வெளி</h1>
+    <p class="loc">தஞ்சாவூர் மாவட்டம் | 10.92° N, 79.35° E</p>
 
-    <div id="weather-section">
-        <p style="text-align: center;">தகவல்கள் சேகரிக்கப்படுகின்றன...</p>
-    </div>
+    <div id="weather-forecasts"></div>
 
-    <div class="section-title">இன்றைய இரவு வானம் (Astronomy)</div>
+    <div class="section-title">வானியல் தகவல்கள் (Astronomy)</div>
     <div class="astro-grid">
         <div class="astro-card">
-            <h3>சந்திரனின் நிலை (Moon Phase)</h3>
-            <div id="moon-icon" class="moon-visual">🌑</div>
-            <p id="moon-name" style="font-size: 1.2rem; font-weight: bold;"></p>
-            <p id="moon-details"></p>
+            <h3>சந்திரனின் நிலை</h3>
+            <div id="moon-icon" class="moon-art">🌑</div>
+            <div class="data-point">நிலை: <span id="moon-phase-name">...</span></div>
+            <div class="data-point">திதி/நாள்: <span id="moon-day">...</span>-ம் நாள்</div>
+            <p style="font-size: 0.9rem; opacity: 0.8;">(அமாவாசை/பவுர்ணமியிலிருந்து கணக்கிடப்படுகிறது)</p>
         </div>
 
         <div class="astro-card">
-            <h3>இன்று தெரியும் விண்மீன் மண்டலம்</h3>
-            <div class="constellation-map">
-                <span id="const-name" style="font-size: 1.5rem; color: var(--accent);">Loading...</span>
+            <h3>விண்மீன் மண்டலம்</h3>
+            <div class="compass">
+                <div id="target-dir" class="direction-dot"></div>
+                <span id="dir-text">N</span>
             </div>
-            <p id="const-desc" style="margin-top: 15px; font-size: 0.9rem; opacity: 0.8;"></p>
+            <div class="data-point">பெயர்: <span id="const-name">...</span></div>
+            <div class="data-point">காணப்படும் திசை: <span id="const-direction">...</span></div>
+            <div class="data-point">சிறந்த நேரம்: இரவு <span id="const-time">...</span> மணி</div>
+            <p id="const-desc" style="font-size: 0.85rem; opacity: 0.8; margin-top: 10px;"></p>
         </div>
     </div>
 </div>
 
 <script>
-    const LAT = 10.92;
-    const LON = 79.35;
-
-    async function initPage() {
-        fetchWeather();
-        updateMoonPhase();
-        updateConstellation();
-    }
-
-    // 1. Weather Data (3 Days Hourly)
-    async function fetchWeather() {
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&hourly=temperature_2m,precipitation_probability,weathercode&timezone=auto&forecast_days=3`;
-        
+    // 1. Weather Forecast (3 Days)
+    async function getWeatherData() {
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=10.92&longitude=79.35&hourly=temperature_2m,precipitation_probability&timezone=auto&forecast_days=3`;
         try {
-            const response = await fetch(url);
-            const data = await response.json();
-            const container = document.getElementById('weather-section');
-            container.innerHTML = '';
-
-            // Grouping data by day (24 hours per day)
-            for (let d = 0; d < 3; d++) {
-                const date = new Date();
-                date.setDate(date.getDate() + d);
-                const dayName = date.toLocaleDateString('ta-IN', { weekday: 'long', day: 'numeric', month: 'long' });
-
-                let dayHTML = `
-                    <div class="section-title">${dayName}</div>
-                    <div class="day-container">
-                        <div class="hourly-scroll">`;
-
-                for (let h = 0; h < 24; h++) {
+            const res = await fetch(url);
+            const data = await res.json();
+            const forecastDiv = document.getElementById('weather-forecasts');
+            
+            for(let d=0; d<3; d++) {
+                const dateObj = new Date();
+                dateObj.setDate(dateObj.getDate() + d);
+                const dayTitle = dateObj.toLocaleDateString('ta-IN', { weekday: 'long', day: 'numeric', month: 'long' });
+                
+                let html = `<div class="section-title">${dayTitle}</div><div class="forecast-row">`;
+                for(let h=0; h<24; h+=2) { // 2 மணிநேரத்திற்கு ஒருமுறை (இடம் கருதி)
                     const idx = (d * 24) + h;
-                    const temp = Math.round(data.hourly.temperature_2m[idx]);
-                    const rain = data.hourly.precipitation_probability[idx];
                     const time = h % 12 || 12;
                     const ampm = h >= 12 ? 'PM' : 'AM';
-
-                    dayHTML += `
-                        <div class="hour-card">
-                            <strong>${time} ${ampm}</strong>
-                            <span style="font-size: 1.2rem;">${temp}°C</span><br>
-                            <small>💧 ${rain}%</small>
+                    html += `
+                        <div class="hour-box">
+                            <b>${time} ${ampm}</b>
+                            ${Math.round(data.hourly.temperature_2m[idx])}°C<br>
+                            <small>💧 ${data.hourly.precipitation_probability[idx]}%</small>
                         </div>`;
                 }
-
-                dayHTML += `</div></div>`;
-                container.innerHTML += dayHTML;
+                html += `</div>`;
+                forecastDiv.innerHTML += html;
             }
-        } catch (e) {
-            console.error("Weather Error", e);
-        }
+        } catch(e) { console.error(e); }
     }
 
-    // 2. Moon Phase Calculation (Simplified)
-    function updateMoonPhase() {
-        const lp = 2551443; 
-        const now = new Date();
-        const new_moon = new Date(1970, 0, 7, 20, 35, 0);
-        const phase = ((now.getTime() - new_moon.getTime()) / 1000) % lp;
-        const res = Math.floor(phase / (24 * 3600));
+    // 2. Moon Phase & Age Calculation
+    function calculateMoon() {
+        const date = new Date();
+        const lp = 2551442.8; // Lunar cycle in seconds
+        const newMoonRef = new Date(1970, 0, 7, 20, 35, 0);
+        const phaseSeconds = ((date.getTime() - newMoonRef.getTime()) / 1000) % lp;
+        const moonAgeDays = Math.floor(phaseSeconds / (24 * 3600)); // எத்தனையாவது நாள்
         
-        const phases = [
-            { name: "அமாவாசை (New Moon)", icon: "🌑" },
-            { name: "வளர்பிறை (Waxing Crescent)", icon: "🌒" },
-            { name: "முதல் கால்பகுதி (First Quarter)", icon: "🌓" },
-            { name: "வளர்பிறை (Waxing Gibbous)", icon: "🌔" },
-            { name: "பவுர்ணமி (Full Moon)", icon: "🌕" },
-            { name: "தேய்பிறை (Waning Gibbous)", icon: "🌖" },
-            { name: "இறுதி கால்பகுதி (Last Quarter)", icon: "🌗" },
-            { name: "தேய்பிறை (Waning Crescent)", icon: "🌘" }
-        ];
+        let phaseName = "";
+        let icon = "";
+        
+        if (moonAgeDays === 0) { phaseName = "அமாவாசை"; icon = "🌑"; }
+        else if (moonAgeDays < 7) { phaseName = "வளர்பிறை (Crescent)"; icon = "🌒"; }
+        else if (moonAgeDays < 14) { phaseName = "வளர்பிறை (Gibbous)"; icon = "🌔"; }
+        else if (moonAgeDays === 14) { phaseName = "பவுர்ணமி"; icon = "🌕"; }
+        else if (moonAgeDays < 22) { phaseName = "தேய்பிறை (Gibbous)"; icon = "🌖"; }
+        else { phaseName = "தேய்பிறை (Crescent)"; icon = "🌘"; }
 
-        const index = Math.floor((res / 30) * 8) % 8;
-        document.getElementById('moon-icon').innerText = phases[index].icon;
-        document.getElementById('moon-name').innerText = phases[index].name;
-        document.getElementById('moon-details').innerText = "பட்டீஸ்வரத்தில் இன்று இரவு சந்திரனின் தோற்றம்.";
+        document.getElementById('moon-phase-name').innerText = phaseName;
+        document.getElementById('moon-day').innerText = moonAgeDays;
+        document.getElementById('moon-icon').innerText = icon;
     }
 
-    // 3. Constellation Logic (Seasonal Display)
-    function updateConstellation() {
-        const month = new Date().getMonth();
-        const constellations = [
-            { name: "Orion (வேடன்)", desc: "இன்று இரவு வானில் பிரகாசமான மூன்று நட்சத்திரங்களைக் கொண்ட வேடன் மண்டலம் தெரியும்." },
-            { name: "Leo (சிம்மம்)", desc: "வானின் உச்சியில் கம்பீரமான சிம்ம விண்மீன் மண்டலம் இன்று தெரியும்." },
-            { name: "Scorpius (விருச்சிகம்)", desc: "தெற்கு வானில் தேள் வடிவ விருச்சிக மண்டலத்தை இன்று காணலாம்." },
-            { name: "Pegasus (பெகாசஸ்)", desc: "பறக்கும் குதிரை வடிவிலான பெகாசஸ் மண்டலம் இன்று தெளிவாகத் தெரியும்." }
+    // 3. Constellation Guide
+    function updateSkyMap() {
+        const month = new Date().getMonth(); // 0-11
+        const skyData = [
+            { name: "Orion (வேடன்)", dir: "கிழக்கு - உச்சி", time: "8:00", deg: "top: 10%; left: 50%;", desc: "மூன்று நட்சத்திரங்கள் நேர்க்கோட்டில் அமைந்திருக்கும்." },
+            { name: "Leo (சிம்மம்)", dir: "தென்கிழக்கு", time: "9:30", deg: "bottom: 20%; right: 20%;", desc: "கேள்விக்குறி வடிவில் தலைப்பகுதி அமைந்திருக்கும்." },
+            { name: "Scorpius (விருச்சிகம்)", dir: "தெற்கு", time: "10:00", deg: "bottom: 10%; left: 50%;", desc: "S வடிவில் தேள் கொடுக்கு போல நட்சத்திரங்கள் மின்னும்." },
+            { name: "Cygnus (அன்னம்)", dir: "வடக்கு", time: "9:00", deg: "top: 10%; left: 50%;", desc: "சிலுவை வடிவில் வானில் தெரியும் விண்மீன் கூட்டம்." }
         ];
 
-        // Pick one based on season
-        const pick = constellations[Math.floor(month / 3)];
-        document.getElementById('const-name').innerText = pick.name;
-        document.getElementById('const-desc').innerText = pick.desc;
+        const current = skyData[Math.floor(month / 3)];
+        document.getElementById('const-name').innerText = current.name;
+        document.getElementById('const-direction').innerText = current.dir;
+        document.getElementById('const-time').innerText = current.time;
+        document.getElementById('const-desc').innerText = current.desc;
+        
+        // திசைகாட்டி புள்ளி மாற்றம்
+        const dot = document.getElementById('target-dir');
+        dot.style.cssText = `position: absolute; width: 12px; height: 12px; background: #ffeb3b; border-radius: 50%; box-shadow: 0 0 10px #ffeb3b; ${current.deg}`;
     }
 
-    initPage();
+    getWeatherData();
+    calculateMoon();
+    updateSkyMap();
 </script>
 
 </body>
-  </html>
+</html>
