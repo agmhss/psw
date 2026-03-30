@@ -227,83 +227,88 @@
         }
     }
 
-    /* முழு அகல கன்டெய்னர் */
+
+
+/* உயரத்தைக் குறைத்த முழு அகல கன்டெய்னர் */
 #weather-full-width {
     width: 100%;
     background: linear-gradient(135deg, #1e3c72, #2a5298);
     color: white;
-    padding: 30px 0;
+    padding: 10px 0; /* பாதியாகக் குறைக்கப்பட்ட பேடிங் */
     font-family: 'Segoe UI', Roboto, sans-serif;
-    box-shadow: inset 0 0 50px rgba(0,0,0,0.2);
-    margin: 20px 0;
+    margin: 10px 0;
 }
 
 .weather-container {
-    max-width: 1200px; /* பெரிய திரைகளில் தகவல் சிதறாமல் இருக்க மையப்படுத்துதல் */
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 15px;
+    display: flex;
+    align-items: center; /* அனைத்தும் ஒரே நேர்க்கோட்டில் வர */
+    justify-content: space-between;
+    gap: 20px;
 }
 
 .current-weather {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(255,255,255,0.2);
-    padding-bottom: 20px;
+    gap: 15px;
+    flex-shrink: 0;
 }
 
-.location-info h3 { margin: 0; font-size: 1.5rem; color: #ffeb3b; }
-.location-info p { margin: 5px 0 0; opacity: 0.8; }
+.location-info h3 { margin: 0; font-size: 1.1rem; color: #ffeb3b; }
+.location-info p { margin: 0; font-size: 0.8rem; opacity: 0.8; }
 
-#main-temp { font-size: 4rem; font-weight: bold; }
+#main-temp { font-size: 2.2rem; font-weight: bold; } /* அளவு குறைக்கப்பட்டுள்ளது */
 
-/* ஸ்க்ரோல் வசதி */
+/* மணிநேரப் பட்டியல் */
+.forecast-wrapper {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
 .forecast-scroll {
     display: flex;
     overflow-x: auto;
-    gap: 15px;
-    padding: 25px 0;
-    scrollbar-width: none; /* Firefox */
+    gap: 10px;
+    padding: 5px 0;
+    scrollbar-width: none;
 }
 
-.forecast-scroll::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+.forecast-scroll::-webkit-scrollbar { display: none; }
 
 .hour-block {
-    min-width: 100px;
+    min-width: 70px; /* அகலம் குறைப்பு */
     background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255,255,255,0.1);
-    padding: 15px;
-    border-radius: 12px;
+    padding: 8px 5px;
+    border-radius: 8px;
     text-align: center;
-    transition: transform 0.3s;
 }
 
-.hour-block:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-5px); }
-.hour-block strong { display: block; font-size: 1rem; margin-bottom: 8px; color: #fff; }
-.hour-block .temp-val { font-size: 1.4rem; font-weight: bold; display: block; }
-.hour-block .rain-val { font-size: 0.85rem; color: #81d4fa; margin-top: 5px; display: block; }
+.hour-block strong { display: block; font-size: 0.8rem; margin-bottom: 2px; }
+.hour-block .temp-val { font-size: 1rem; font-weight: bold; }
+.hour-block .rain-val { font-size: 0.7rem; color: #81d4fa; }
 
+/* எச்சரிக்கை செய்தி - சிறியதாக */
 .weather-msg {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 15px;
+    gap: 8px;
     background: rgba(0,0,0,0.2);
-    padding: 15px;
-    border-radius: 50px;
-    margin-top: 10px;
+    padding: 8px 15px;
+    border-radius: 20px;
+    flex-shrink: 0;
+    max-width: 250px;
 }
 
-#weather-icon { font-size: 1.5rem; }
-#weather-advice-text { margin: 0; font-size: 1.1rem; font-weight: 500; }
+#weather-icon { font-size: 1.1rem; }
+#weather-advice-text { margin: 0; font-size: 0.85rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-/* மொபைல் திரைகளுக்கான மாற்றம் */
-@media (max-width: 600px) {
-    .current-weather { flex-direction: column; text-align: center; }
-    #main-temp { margin-top: 10px; font-size: 3.5rem; }
-    .hour-block { min-width: 85px; padding: 10px; }
-                                    }
-
+/* மொபைல் போன்களில் லேஅவுட் சீராக இருக்க */
+@media (max-width: 850px) {
+    .weather-container { flex-direction: column; gap: 10px; text-align: center; }
+    .weather-msg { max-width: 100%; }
+    }
 
   </style>
 </head>
