@@ -3,147 +3,301 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>பட்டீஸ்வரம் வானிலை & விண்வெளித் தகவல்கள்</title>
+    <title>பட்டீஸ்வரம் வானிலை & வானியல் - முழு விவரங்கள்</title>
     <style>
-        :root { --bg: #050a18; --accent: #ffd700; --card: rgba(255,255,255,0.08); }
-        body { background: var(--bg); color: #fff; font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 20px; }
-        .container { max-width: 1100px; margin: 0 auto; }
-        
-        h1 { text-align: center; color: var(--accent); margin-bottom: 5px; }
-        .loc { text-align: center; opacity: 0.7; margin-bottom: 30px; }
+        :root {
+            --bg: #050a18;
+            --accent: #ffd700;
+            --card: rgba(255, 255, 255, 0.08);
+            --text: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at top right, #1e293b, #050a18);
+            color: var(--text);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border: 1px solid var(--accent);
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 { margin: 0; color: var(--accent); font-size: 2.2rem; }
+        .sub-header { opacity: 0.7; font-size: 1.1rem; }
 
         /* Weather Section */
-        .section-title { border-bottom: 2px solid var(--accent); padding-bottom: 5px; margin: 40px 0 20px; font-size: 1.4rem; }
-        .forecast-row { display: flex; overflow-x: auto; gap: 12px; padding: 15px 0; scrollbar-width: none; }
-        .hour-box { min-width: 90px; background: var(--card); padding: 15px; border-radius: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
-        .hour-box b { color: var(--accent); display: block; margin-bottom: 5px; }
+        .section-title {
+            border-left: 5px solid var(--accent);
+            padding-left: 15px;
+            margin: 40px 0 20px;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-        /* Astro Cards */
-        .astro-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
-        .astro-card { background: linear-gradient(145deg, #0f172a, #1e293b); border-radius: 20px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; }
-        .moon-art { font-size: 4.5rem; margin: 15px 0; text-shadow: 0 0 15px rgba(255,255,255,0.3); }
-        .data-point { margin: 10px 0; font-size: 1.05rem; }
-        .data-point span { color: var(--accent); font-weight: bold; }
+        .forecast-row {
+            display: flex;
+            overflow-x: auto;
+            gap: 15px;
+            padding: 20px 5px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent) transparent;
+        }
 
-        .compass { width: 100px; height: 100px; border: 2px dashed var(--accent); border-radius: 50%; margin: 20px auto; position: relative; display: flex; align-items: center; justify-content: center; font-weight: bold; }
-        .direction-dot { position: absolute; width: 12px; height: 12px; background: red; border-radius: 50%; box-shadow: 0 0 10px red; }
+        .forecast-row::-webkit-scrollbar { height: 6px; }
+        .forecast-row::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
 
-        .back-btn { display: inline-block; margin-bottom: 20px; color: var(--accent); text-decoration: none; font-weight: bold; }
+        .hour-box {
+            min-width: 100px;
+            background: var(--card);
+            padding: 20px 10px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
+        }
+
+        .hour-box:hover { transform: translateY(-5px); background: rgba(255,255,255,0.15); }
+        .hour-box b { color: var(--accent); display: block; margin-bottom: 8px; font-size: 1.1rem; }
+        .hour-box .temp { font-size: 1.3rem; font-weight: bold; }
+        .hour-box .rain { font-size: 0.8rem; color: #81d4fa; display: block; margin-top: 5px; }
+
+        /* Astro Section - Large Cards */
+        .astro-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .astro-card {
+            background: linear-gradient(145deg, #0f172a, #1e293b);
+            border-radius: 30px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .moon-visual {
+            font-size: 8rem;
+            margin: 20px 0;
+            filter: drop-shadow(0 0 30px rgba(255,255,255,0.3));
+            animation: moonGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes moonGlow {
+            from { filter: drop-shadow(0 0 20px rgba(255,255,255,0.2)); }
+            to { filter: drop-shadow(0 0 50px rgba(255,255,255,0.5)); }
+        }
+
+        .sky-map {
+            width: 250px;
+            height: 250px;
+            border: 4px double var(--accent);
+            border-radius: 50%;
+            margin: 30px auto;
+            position: relative;
+            background: radial-gradient(circle at center, #1e293b 0%, #050a18 100%);
+        }
+
+        .map-label { position: absolute; font-size: 0.8rem; color: var(--accent); font-weight: bold; }
+        .n { top: 5px; left: 50%; transform: translateX(-50%); }
+        .s { bottom: 5px; left: 50%; transform: translateX(-50%); }
+        .e { right: 8px; top: 50%; transform: translateY(-50%); }
+        .w { left: 8px; top: 50%; transform: translateY(-50%); }
+
+        .star-pointer {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: radial-gradient(circle, #fff 10%, var(--accent) 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 25px var(--accent);
+            z-index: 5;
+        }
+
+        .astro-detail { font-size: 1.25rem; line-height: 1.8; margin-top: 15px; }
+        .astro-detail span { color: var(--accent); font-weight: bold; }
+
+        @media (max-width: 600px) {
+            .astro-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 1.8rem; }
+            .moon-visual { font-size: 6rem; }
+            .sky-map { width: 200px; height: 200px; }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <a href="index.html" class="back-btn">← முகப்புப் பக்கத்திற்கு</a>
-    <h1>பட்டீஸ்வரம் வானிலை & விண்வெளி</h1>
-    <p class="loc">தஞ்சாவூர் மாவட்டம் | 10.92° N, 79.35° E</p>
+    <a href="index.html" class="back-link">← மெயின் பக்கம் செல்ல</a>
+    
+    <header>
+        <h1>பட்டீஸ்வரம் வானிலை & வானியல்</h1>
+        <p class="sub-header">தஞ்சாவூர் மாவட்டம் | 10.92° N, 79.35° E</p>
+    </header>
 
-    <div id="weather-forecasts"></div>
+    <div id="weather-list">
+        <p style="text-align: center;">வானிலை தகவல்கள் பதிவேற்றப்படுகின்றன...</p>
+    </div>
 
-    <div class="section-title">வானியல் தகவல்கள் (Astronomy)</div>
+    <div class="section-title">இன்றைய இரவு வானம்</div>
     <div class="astro-grid">
+        
         <div class="astro-card">
-            <h3>சந்திரனின் நிலை</h3>
-            <div id="moon-icon" class="moon-art">🌑</div>
-            <div class="data-point">நிலை: <span id="moon-phase-name">...</span></div>
-            <div class="data-point">திதி/நாள்: <span id="moon-day">...</span>-ம் நாள்</div>
-            <p style="font-size: 0.9rem; opacity: 0.8;">(அமாவாசை/பவுர்ணமியிலிருந்து கணக்கிடப்படுகிறது)</p>
+            <h2 style="margin:0; color: var(--accent);">சந்திரனின் நிலை</h2>
+            <div id="moon-icon" class="moon-visual">🌑</div>
+            <div class="astro-detail">
+                நிலை: <span id="m-name">...</span><br>
+                வகை: <span id="m-type">...</span><br>
+                நாள்: <span id="m-day">...</span>-ம் நாள்
+            </div>
+            <p style="opacity: 0.6; font-size: 0.9rem; margin-top: 15px;">(அமாவாசை/பவுர்ணமியிலிருந்து கணக்கிடப்படுகிறது)</p>
         </div>
 
         <div class="astro-card">
-            <h3>விண்மீன் மண்டலம்</h3>
-            <div class="compass">
-                <div id="target-dir" class="direction-dot"></div>
-                <span id="dir-text">N</span>
+            <h2 style="margin:0; color: var(--accent);">விண்மீன் மண்டலம்</h2>
+            <div class="sky-map">
+                <div class="map-label n">N (வடக்கு)</div>
+                <div class="map-label s">S (தெற்கு)</div>
+                <div class="map-label e">E</div>
+                <div class="map-label w">W</div>
+                <div id="star-location" class="star-pointer"></div>
             </div>
-            <div class="data-point">பெயர்: <span id="const-name">...</span></div>
-            <div class="data-point">காணப்படும் திசை: <span id="const-direction">...</span></div>
-            <div class="data-point">சிறந்த நேரம்: இரவு <span id="const-time">...</span> மணி</div>
-            <p id="const-desc" style="font-size: 0.85rem; opacity: 0.8; margin-top: 10px;"></p>
+            <div class="astro-detail">
+                மண்டலம்: <span id="c-name">...</span><br>
+                திசை: <span id="c-dir">...</span><br>
+                நேரம்: இரவு <span id="c-time">...</span> மணி
+            </div>
+            <p id="c-desc" style="opacity: 0.8; font-size: 0.95rem; margin-top: 10px; max-width: 300px;"></p>
         </div>
+
     </div>
 </div>
 
 <script>
-    // 1. Weather Forecast (3 Days)
-    async function getWeatherData() {
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=10.92&longitude=79.35&hourly=temperature_2m,precipitation_probability&timezone=auto&forecast_days=3`;
+    const LAT = 10.92;
+    const LON = 79.35;
+
+    async function loadAllData() {
+        await getFullWeather();
+        calculateMoonDetails();
+        setConstellation();
+    }
+
+    // 1. Weather Forecast 3 Days
+    async function getFullWeather() {
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&hourly=temperature_2m,precipitation_probability&timezone=auto&forecast_days=3`;
+        
         try {
             const res = await fetch(url);
             const data = await res.json();
-            const forecastDiv = document.getElementById('weather-forecasts');
-            
-            for(let d=0; d<3; d++) {
-                const dateObj = new Date();
-                dateObj.setDate(dateObj.getDate() + d);
-                const dayTitle = dateObj.toLocaleDateString('ta-IN', { weekday: 'long', day: 'numeric', month: 'long' });
+            const listDiv = document.getElementById('weather-list');
+            listDiv.innerHTML = '';
+
+            for (let d = 0; d < 3; d++) {
+                const date = new Date();
+                date.setDate(date.getDate() + d);
+                const title = date.toLocaleDateString('ta-IN', { weekday: 'long', day: 'numeric', month: 'long' });
+
+                let html = `<div class="section-title">${title}</div><div class="forecast-row">`;
                 
-                let html = `<div class="section-title">${dayTitle}</div><div class="forecast-row">`;
-                for(let h=0; h<24; h+=2) { // 2 மணிநேரத்திற்கு ஒருமுறை (இடம் கருதி)
+                for (let h = 0; h < 24; h += 2) { // Every 2 hours
                     const idx = (d * 24) + h;
-                    const time = h % 12 || 12;
-                    const ampm = h >= 12 ? 'PM' : 'AM';
+                    const temp = Math.round(data.hourly.temperature_2m[idx]);
+                    const rain = data.hourly.precipitation_probability[idx];
+                    const hourText = (h % 12 || 12) + (h >= 12 ? " PM" : " AM");
+
                     html += `
                         <div class="hour-box">
-                            <b>${time} ${ampm}</b>
-                            ${Math.round(data.hourly.temperature_2m[idx])}°C<br>
-                            <small>💧 ${data.hourly.precipitation_probability[idx]}%</small>
+                            <b>${hourText}</b>
+                            <span class="temp">${temp}°C</span>
+                            <span class="rain">💧 ${rain}%</span>
                         </div>`;
                 }
                 html += `</div>`;
-                forecastDiv.innerHTML += html;
+                listDiv.innerHTML += html;
             }
-        } catch(e) { console.error(e); }
+        } catch (e) {
+            document.getElementById('weather-list').innerHTML = "வானிலை தகவலைப் பெற முடியவில்லை.";
+        }
     }
 
-    // 2. Moon Phase & Age Calculation
-    function calculateMoon() {
-        const date = new Date();
-        const lp = 2551442.8; // Lunar cycle in seconds
+    // 2. Moon Phase Logic
+    function calculateMoonDetails() {
+        const lp = 2551442.8; 
+        const now = new Date();
         const newMoonRef = new Date(1970, 0, 7, 20, 35, 0);
-        const phaseSeconds = ((date.getTime() - newMoonRef.getTime()) / 1000) % lp;
-        const moonAgeDays = Math.floor(phaseSeconds / (24 * 3600)); // எத்தனையாவது நாள்
-        
-        let phaseName = "";
-        let icon = "";
-        
-        if (moonAgeDays === 0) { phaseName = "அமாவாசை"; icon = "🌑"; }
-        else if (moonAgeDays < 7) { phaseName = "வளர்பிறை (Crescent)"; icon = "🌒"; }
-        else if (moonAgeDays < 14) { phaseName = "வளர்பிறை (Gibbous)"; icon = "🌔"; }
-        else if (moonAgeDays === 14) { phaseName = "பவுர்ணமி"; icon = "🌕"; }
-        else if (moonAgeDays < 22) { phaseName = "தேய்பிறை (Gibbous)"; icon = "🌖"; }
-        else { phaseName = "தேய்பிறை (Crescent)"; icon = "🌘"; }
+        const phaseSecs = ((now.getTime() - newMoonRef.getTime()) / 1000) % lp;
+        const moonAge = Math.floor(phaseSecs / (24 * 3600));
 
-        document.getElementById('moon-phase-name').innerText = phaseName;
-        document.getElementById('moon-day').innerText = moonAgeDays;
+        let icon, name, type;
+
+        if (moonAge === 0) { icon="🌑"; name="அமாவாசை"; type="புதிய சுழற்சி"; }
+        else if (moonAge < 7) { icon="🌒"; name="வளர்பிறை"; type="இளம் பிறை (Crescent)"; }
+        else if (moonAge < 14) { icon="🌔"; name="வளர்பிறை"; type="நெருங்கும் பவுர்ணமி (Gibbous)"; }
+        else if (moonAge === 14) { icon="🌕"; name="பவுர்ணமி"; type="முழு நிலவு"; }
+        else if (moonAge < 22) { icon="🌖"; name="தேய்பிறை"; type="குறையும் நிலவு (Gibbous)"; }
+        else { icon="🌘"; name="தேய்பிறை"; type="மறையும் பிறை (Crescent)"; }
+
         document.getElementById('moon-icon').innerText = icon;
+        document.getElementById('m-name').innerText = name;
+        document.getElementById('m-type').innerText = type;
+        document.getElementById('m-day').innerText = moonAge;
     }
 
-    // 3. Constellation Guide
-    function updateSkyMap() {
-        const month = new Date().getMonth(); // 0-11
-        const skyData = [
-            { name: "Orion (வேடன்)", dir: "கிழக்கு - உச்சி", time: "8:00", deg: "top: 10%; left: 50%;", desc: "மூன்று நட்சத்திரங்கள் நேர்க்கோட்டில் அமைந்திருக்கும்." },
-            { name: "Leo (சிம்மம்)", dir: "தென்கிழக்கு", time: "9:30", deg: "bottom: 20%; right: 20%;", desc: "கேள்விக்குறி வடிவில் தலைப்பகுதி அமைந்திருக்கும்." },
-            { name: "Scorpius (விருச்சிகம்)", dir: "தெற்கு", time: "10:00", deg: "bottom: 10%; left: 50%;", desc: "S வடிவில் தேள் கொடுக்கு போல நட்சத்திரங்கள் மின்னும்." },
-            { name: "Cygnus (அன்னம்)", dir: "வடக்கு", time: "9:00", deg: "top: 10%; left: 50%;", desc: "சிலுவை வடிவில் வானில் தெரியும் விண்மீன் கூட்டம்." }
+    // 3. Seasonal Constellations
+    function setConstellation() {
+        const month = new Date().getMonth();
+        const skyMapData = [
+            { n: "Orion (வேடன்)", d: "கிழக்கு உச்சி", t: "8:00", p: "top: 25%; right: 25%;", s: "வேடன் மண்டலத்தின் மூன்று பிரகாசமான நட்சத்திரங்கள் இன்று வானின் கிழக்கு பகுதியில் தெளிவாகத் தெரியும்." },
+            { n: "Leo (சிம்மம்)", d: "தென்கிழக்கு", t: "9:30", p: "bottom: 30%; right: 20%;", s: "கம்பீரமான சிம்ம மண்டலத்தை இன்று இரவு தென்கிழக்கு திசையில் காணலாம்." },
+            { n: "Scorpius (விருச்சிகம்)", d: "தெற்கு", t: "10:00", p: "bottom: 15%; left: 48%;", s: "தேள் வடிவில் அமைந்திருக்கும் இந்த நட்சத்திரக் கூட்டம் இன்று தெற்கு வானில் பிரகாசிக்கும்." },
+            { n: "Cygnus (அன்னம்)", d: "வடக்கு", t: "9:00", p: "top: 20%; left: 50%;", s: "சிலுவை வடிவில் காணப்படும் அன்ன மண்டலம் இன்று வடதிசை வானில் அழகாகத் தெரியும்." }
         ];
 
-        const current = skyData[Math.floor(month / 3)];
-        document.getElementById('const-name').innerText = current.name;
-        document.getElementById('const-direction').innerText = current.dir;
-        document.getElementById('const-time').innerText = current.time;
-        document.getElementById('const-desc').innerText = current.desc;
-        
-        // திசைகாட்டி புள்ளி மாற்றம்
-        const dot = document.getElementById('target-dir');
-        dot.style.cssText = `position: absolute; width: 12px; height: 12px; background: #ffeb3b; border-radius: 50%; box-shadow: 0 0 10px #ffeb3b; ${current.deg}`;
+        const current = skyMapData[Math.floor(month / 3)];
+        document.getElementById('c-name').innerText = current.n;
+        document.getElementById('c-dir').innerText = current.d;
+        document.getElementById('c-time').innerText = current.t;
+        document.getElementById('c-desc').innerText = current.s;
+        document.getElementById('star-location').style.cssText = current.p;
     }
 
-    getWeatherData();
-    calculateMoon();
-    updateSkyMap();
+    loadAllData();
 </script>
 
 </body>
-</html>
+                         </html>
