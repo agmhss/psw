@@ -226,44 +226,56 @@
             line-height: 1.2;
         }
     }
-
-    #weather-card {
-    background: linear-gradient(135deg, #1e3c72, #2a5298); /* அடர் நீல நிறம் - பள்ளிக்கு பொருத்தமானது */
+#weather-card {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
     color: white;
-    border-radius: 12px;
+    border-radius: 15px;
     padding: 20px;
-    max-width: 400px;
-    font-family: 'Arial', sans-serif;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    max-width: 500px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     margin: 20px auto;
 }
 
-.weather-header { text-align: center; border-bottom: 1px solid rgba(255,255,255,0.2); }
-#current-temp { font-size: 3rem; font-weight: bold; margin: 5px 0; }
+.weather-header { text-align: center; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.2); }
+#current-temp { font-size: 2.8rem; font-weight: bold; margin: 5px 0; }
 
-.forecast-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-top: 15px;
+/* கிடைமட்டமாக நகர்த்தும் வசதி (Horizontal Scroll) */
+.forecast-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    padding: 15px 5px;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: rgba(255,255,255,0.5) transparent;
 }
+
+/* Chrome, Safari மற்றும் Edge-க்கான ஸ்க்ரோல்பார் ஸ்டைல் */
+.forecast-scroll::-webkit-scrollbar { height: 6px; }
+.forecast-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 10px; }
 
 .hour-item {
+    min-width: 75px;
     background: rgba(255, 255, 255, 0.15);
-    padding: 8px;
-    border-radius: 6px;
+    padding: 12px 8px;
+    border-radius: 10px;
     text-align: center;
-    font-size: 0.85rem;
+    flex-shrink: 0; /* அளவு குறையாமல் இருக்க */
 }
 
+.hour-item strong { display: block; font-size: 0.9rem; margin-bottom: 5px; color: #ffeb3b; }
+.hour-item small { font-size: 0.8rem; opacity: 0.9; }
+
 .weather-footer {
-    margin-top: 15px;
-    background: rgba(255,255,255,0.1);
-    padding: 10px;
-    border-radius: 6px;
+    margin-top: 10px;
+    background: rgba(0,0,0,0.15);
+    padding: 12px;
+    border-radius: 8px;
     text-align: center;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    line-height: 1.4;
     }
+
   </style>
 </head>
 
@@ -325,15 +337,18 @@
 
   <div id="weather-card">
     <div class="weather-header">
-        <h3>பட்டீஸ்வரம் வானிலை (அடுத்த 6 மணிநேரம்)</h3>
+        <h3>பட்டீஸ்வரம் வானிலை (அடுத்த 10 மணிநேரம்)</h3>
         <div id="current-temp">--°C</div>
     </div>
-    <div id="hourly-forecast" class="forecast-grid">
+    
+    <div id="hourly-forecast" class="forecast-scroll">
         </div>
+    
     <div class="weather-footer">
         <p id="weather-advice">தகவல்கள் சேகரிக்கப்படுகின்றன...</p>
     </div>
-  </div>
+</div>
+  
 
   <div class="news-ticker border-y-2 border-red-600 relative z-40">
     <div class="news-content">
@@ -1075,8 +1090,7 @@
         output.value = result;
     }
 
-    async function updateSchoolWeather() {
-    // பட்டீஸ்வரம் லேட்டிடியூட்/லாங்கிடியூட்
+    async function updateDetailedWeather() {
     const lat = 10.92;
     const lon = 79.35;
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,precipitation_probability&current_weather=true&timezone=auto`;
@@ -1091,43 +1105,45 @@
         const forecastContainer = document.getElementById('hourly-forecast');
         forecastContainer.innerHTML = '';
 
-        let rainAlert = false;
+        let rainChanceHours = [];
         const now = new Date().getHours();
 
-        // அடுத்த 6 மணிநேரம்
-        for (let i = 1; i <= 6; i++) {
+        // அடுத்த 10 மணிநேரம் (i=1 முதல் i=10 வரை)
+        for (let i = 1; i <= 10; i++) {
             const temp = data.hourly.temperature_2m[now + i];
             const rain = data.hourly.precipitation_probability[now + i];
             const timeRaw = (now + i) % 24;
             const ampm = timeRaw >= 12 ? 'PM' : 'AM';
             const hr = (timeRaw % 12 || 12) + ampm;
 
-            if (rain > 30) rainAlert = true;
+            // மழை வாய்ப்பு 30% மேல் இருந்தால் அந்த நேரத்தை குறித்துக் கொள்ளும்
+            if (rain > 30) rainChanceHours.push(hr);
 
             forecastContainer.innerHTML += `
                 <div class="hour-item">
                     <strong>${hr}</strong>
-                    ${Math.round(temp)}°C<br>
-                    <small>💧${rain}%</small>
+                    <span style="font-size:1.1rem; font-weight:bold;">${Math.round(temp)}°C</span><br>
+                    <small>💧 ${rain}%</small>
                 </div>`;
         }
 
         const advice = document.getElementById('weather-advice');
-        if (rainAlert) {
-            advice.innerHTML = "⚠️ <b>மழை வரலாம்:</b> மாணவர்கள் குடை கொண்டு வர அறிவுறுத்தப்படுகிறார்கள்.";
-            advice.style.color = "#ffeb3b";
+        if (rainChanceHours.length > 0) {
+            // முதல் மழை வரும் நேரத்தை மட்டும் காட்ட அல்லது எச்சரிக்கை தர
+            advice.innerHTML = `⚠️ <b>மழை எச்சரிக்கை:</b> இன்று ${rainChanceHours[0]} வாக்கில் மழை பெய்ய வாய்ப்புள்ளது. குடை அவசியம்!`;
+            advice.style.color = "#fff176";
         } else {
-            advice.innerHTML = "✅ <b>சீரான வானிலை:</b> குடை தேவையில்லை.";
+            advice.innerHTML = "✅ <b>வானிலை சீராக உள்ளது:</b> அடுத்த 10 மணிநேரத்திற்கு மழை வாய்ப்பு குறைவு. குடை தேவையில்லை.";
+            advice.style.color = "#ffffff";
         }
 
     } catch (e) {
-        document.getElementById('weather-advice').innerText = "வானிலை தகவலைப் புதுப்பிப்பதில் சிக்கல்.";
+        document.getElementById('weather-advice').innerText = "வானிலை தகவலைப் பெறுவதில் சிக்கல். இணையத்தை சரிபார்க்கவும்.";
     }
 }
 
-// பக்கத்தைத் திறந்ததும் ரன் செய்ய
-updateSchoolWeather();
-    
+// ரன் செய்தல்
+updateDetailedWeather();
   </script>
 </body>
 </html>
