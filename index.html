@@ -226,6 +226,44 @@
             line-height: 1.2;
         }
     }
+
+    #weather-card {
+    background: linear-gradient(135deg, #1e3c72, #2a5298); /* அடர் நீல நிறம் - பள்ளிக்கு பொருத்தமானது */
+    color: white;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 400px;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    margin: 20px auto;
+}
+
+.weather-header { text-align: center; border-bottom: 1px solid rgba(255,255,255,0.2); }
+#current-temp { font-size: 3rem; font-weight: bold; margin: 5px 0; }
+
+.forecast-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.hour-item {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 8px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 0.85rem;
+}
+
+.weather-footer {
+    margin-top: 15px;
+    background: rgba(255,255,255,0.1);
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 0.9rem;
+    }
   </style>
 </head>
 
@@ -284,6 +322,18 @@
   </div>
 
 </div>
+
+  <div id="weather-card">
+    <div class="weather-header">
+        <h3>பட்டீஸ்வரம் வானிலை (அடுத்த 6 மணிநேரம்)</h3>
+        <div id="current-temp">--°C</div>
+    </div>
+    <div id="hourly-forecast" class="forecast-grid">
+        </div>
+    <div class="weather-footer">
+        <p id="weather-advice">தகவல்கள் சேகரிக்கப்படுகின்றன...</p>
+    </div>
+  </div>
 
   <div class="news-ticker border-y-2 border-red-600 relative z-40">
     <div class="news-content">
@@ -1024,6 +1074,60 @@
         }
         output.value = result;
     }
+
+    async function updateSchoolWeather() {
+    // பட்டீஸ்வரம் லேட்டிடியூட்/லாங்கிடியூட்
+    const lat = 10.92;
+    const lon = 79.35;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,precipitation_probability&current_weather=true&timezone=auto`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        // தற்போதைய வெப்பநிலை
+        document.getElementById('current-temp').innerText = Math.round(data.current_weather.temperature) + "°C";
+
+        const forecastContainer = document.getElementById('hourly-forecast');
+        forecastContainer.innerHTML = '';
+
+        let rainAlert = false;
+        const now = new Date().getHours();
+
+        // அடுத்த 6 மணிநேரம்
+        for (let i = 1; i <= 6; i++) {
+            const temp = data.hourly.temperature_2m[now + i];
+            const rain = data.hourly.precipitation_probability[now + i];
+            const timeRaw = (now + i) % 24;
+            const ampm = timeRaw >= 12 ? 'PM' : 'AM';
+            const hr = (timeRaw % 12 || 12) + ampm;
+
+            if (rain > 30) rainAlert = true;
+
+            forecastContainer.innerHTML += `
+                <div class="hour-item">
+                    <strong>${hr}</strong>
+                    ${Math.round(temp)}°C<br>
+                    <small>💧${rain}%</small>
+                </div>`;
+        }
+
+        const advice = document.getElementById('weather-advice');
+        if (rainAlert) {
+            advice.innerHTML = "⚠️ <b>மழை வரலாம்:</b> மாணவர்கள் குடை கொண்டு வர அறிவுறுத்தப்படுகிறார்கள்.";
+            advice.style.color = "#ffeb3b";
+        } else {
+            advice.innerHTML = "✅ <b>சீரான வானிலை:</b> குடை தேவையில்லை.";
+        }
+
+    } catch (e) {
+        document.getElementById('weather-advice').innerText = "வானிலை தகவலைப் புதுப்பிப்பதில் சிக்கல்.";
+    }
+}
+
+// பக்கத்தைத் திறந்ததும் ரன் செய்ய
+updateSchoolWeather();
+    
   </script>
 </body>
 </html>
