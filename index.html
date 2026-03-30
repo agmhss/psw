@@ -227,86 +227,32 @@
         }
     }
 
-
-/* உயரத்தைக் குறைத்த முழு அகல கன்டெய்னர் - Fixed Scroll */
-#weather-full-width {
-    width: 100%;
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
-    color: white;
-    padding: 8px 0;
-    font-family: 'Segoe UI', Roboto, sans-serif;
-    margin: 5px 0;
-    overflow: hidden; /* வெளியே வராமல் தடுக்க */
-}
-
-.weather-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 10px;
+.simple-weather-link {
     display: flex;
     align-items: center;
-    gap: 15px;
+    padding: 10px 15px;
+    background-color: #f8f9fa; /* லேசான சாம்பல் நிறப் பின்னணி */
+    border-radius: 5px;
+    border-left: 4px solid #1e3c72; /* இடது பக்கம் ஒரு சிறிய கோடு */
+    margin: 10px 0;
 }
 
-.current-weather {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0; /* இது சுருங்காது */
+.weather-icon {
+    font-size: 1.2rem;
+    margin-right: 10px;
 }
 
-.location-info h3 { margin: 0; font-size: 1rem; color: #ffeb3b; white-space: nowrap; }
-#main-temp { font-size: 1.8rem; font-weight: bold; }
-
-/* ஸ்க்ரோல் பகுதி - முக்கிய மாற்றம் இங்கே */
-.forecast-wrapper {
-    flex-grow: 1;
-    overflow-x: auto; /* ஸ்க்ரோல் வேலை செய்ய */
-    display: flex;
-    -webkit-overflow-scrolling: touch; /* மொபைலில் ஸ்மூத் ஸ்க்ரோல் */
+.weather-text-link {
+    color: #1e3c72;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: color 0.3s ease;
 }
 
-.forecast-scroll {
-    display: flex;
-    gap: 8px;
-    padding: 5px 0;
-    /* ஸ்க்ரோல் பார் தெரியாமல் இருக்க (விருப்பமென்றால் மாற்றலாம்) */
-    scrollbar-width: none; 
-}
-
-.forecast-scroll::-webkit-scrollbar { display: none; }
-
-.hour-block {
-    min-width: 65px; /* கச்சிதமான அகலம் */
-    background: rgba(255, 255, 255, 0.1);
-    padding: 6px;
-    border-radius: 6px;
-    text-align: center;
-    flex-shrink: 0; /* கட்டங்கள் நசுங்காமல் இருக்க இது அவசியம் */
-}
-
-.hour-block strong { display: block; font-size: 0.75rem; color: #fff; }
-.hour-block .temp-val { font-size: 0.95rem; font-weight: bold; display: block; }
-.hour-block .rain-val { font-size: 0.7rem; color: #81d4fa; display: block; }
-
-/* மெசேஜ் பகுதி */
-.weather-msg {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(0,0,0,0.2);
-    padding: 5px 12px;
-    border-radius: 15px;
-    flex-shrink: 0;
-}
-
-#weather-icon { font-size: 1rem; }
-#weather-advice-text { margin: 0; font-size: 0.8rem; white-space: nowrap; }
-
-/* சிறிய மொபைல் திரைகளுக்கான அட்ஜஸ்ட்மென்ட் */
-@media (max-width: 600px) {
-    .location-info p { display: none; } /* இடம் கருதி சிறிய வாசகத்தை நீக்கலாம் */
-    .weather-msg { display: none; } /* மொபைலில் இடம் இல்லை என்றால் மெசேஜை மறைக்கலாம் அல்லது கீழே தள்ளலாம் */
+.weather-text-link:hover {
+    color: #007bff;
+    text-decoration: underline;
     }
 
   </style>
@@ -365,29 +311,7 @@
           <input type="text" id="classOutput" readonly placeholder="---"
                    style="width: 100%; padding: 12px; border: 1px solid #4caf50; border-radius: 4px; background: rgba(76, 175, 80, 0.2); color: #8bc34a; font-weight: bold; text-align: center; outline: none;">
   </div>
-    <div id="weather-full-width">
-    <div class="weather-container">
-        <div class="current-weather">
-            <div class="location-info">
-                <h3>பட்டீஸ்வரம் வானிலை நிலவரம்</h3>
-                <p>அடுத்த 10 மணிநேர முன்னறிவிப்பு</p>
-            </div>
-            <div id="main-temp">--°C</div>
-        </div>
-        
-        <div class="forecast-wrapper">
-            <div id="hourly-forecast-list" class="forecast-scroll">
-                </div>
-        </div>
-
-        <div class="weather-msg">
-            <span id="weather-icon">☁️</span>
-            <p id="weather-advice-text">தகவல்கள் சேகரிக்கப்படுகின்றன...</p>
-        </div>
-    </div>
-    </div>
-
-
+    
 
   <div class="news-ticker border-y-2 border-red-600 relative z-40">
     <div class="news-content">
@@ -411,7 +335,11 @@
         <h2 class="text-4xl md:text-6xl font-black mt-(-20) drop-shadow-lg">தமிழ்க்கூடல்</h2>
         <p class="text-lg md:text-2xl max-w-2xl mt-10 font-light">தமிழின் பழம்பெருமை பேச அல்ல... அடுத்த ஆயிரம் ஆண்டுகளை ஆளப்போகும் தமிழை படைக்கவே இக்கூடல்!.</p>
       </div>
-    </div>
+
+      <div class="simple-weather-link">
+    <span class="weather-icon">⛅</span>
+    <a href="weather.html" class="weather-text-link">பட்டீஸ்வரம் வானிலை & விண்வெளித் தகவல்கள்</a>
+      </div>
 
     <div class="slide h-full">
       <img src="https://lh3.googleusercontent.com/u/0/d/1aTNAdNvAV5V33wV9Q6umNFl00GajOMT6" alt="" class="w-full h-full object-cover opacity-80" />
@@ -1129,61 +1057,6 @@
         output.value = result;
     }
 
-
-    async function fetchFullWidthWeather() {
-    const lat = 10.92;
-    const lon = 79.35;
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,precipitation_probability,weathercode&current_weather=true&timezone=auto`;
-
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-
-        // தற்போதைய டெம்ப்ரேச்சர்
-        document.getElementById('main-temp').innerText = Math.round(data.current_weather.temperature) + "°C";
-
-        const forecastList = document.getElementById('hourly-forecast-list');
-        forecastList.innerHTML = '';
-
-        let rainComing = false;
-        const now = new Date().getHours();
-
-        for (let i = 1; i <= 10; i++) {
-            const temp = data.hourly.temperature_2m[now + i];
-            const rain = data.hourly.precipitation_probability[now + i];
-            const timeRaw = (now + i) % 24;
-            const ampm = timeRaw >= 12 ? 'PM' : 'AM';
-            const hr = (timeRaw % 12 || 12) + ampm;
-
-            if (rain > 30) rainComing = true;
-
-            forecastList.innerHTML += `
-                <div class="hour-block">
-                    <strong>${hr}</strong>
-                    <span class="temp-val">${Math.round(temp)}°C</span>
-                    <span class="rain-val">💧 ${rain}%</span>
-                </div>`;
-        }
-
-        const adviceText = document.getElementById('weather-advice-text');
-        const icon = document.getElementById('weather-icon');
-
-        if (rainComing) {
-            adviceText.innerHTML = "மாணவர்கள் குடை கொண்டு வருவது நல்லது. மழை பெய்ய வாய்ப்புள்ளது.";
-            icon.innerText = "☔";
-            adviceText.style.color = "#fff176";
-        } else {
-            adviceText.innerHTML = "வானிலை தெளிவாக உள்ளது. குடை தேவைப்படாது.";
-            icon.innerText = "☀️";
-            adviceText.style.color = "#ffffff";
-        }
-
-    } catch (error) {
-        document.getElementById('weather-advice-text').innerText = "தகவலைப் பெறுவதில் சிக்கல் ஏற்பட்டுள்ளது.";
-    }
-}
-
-fetchFullWidthWeather();
 
     
   </script>
