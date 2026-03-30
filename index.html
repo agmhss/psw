@@ -227,88 +227,87 @@
         }
     }
 
-
-
-/* உயரத்தைக் குறைத்த முழு அகல கன்டெய்னர் */
+/* உயரத்தைக் குறைத்த முழு அகல கன்டெய்னர் - Fixed Scroll */
 #weather-full-width {
     width: 100%;
     background: linear-gradient(135deg, #1e3c72, #2a5298);
     color: white;
-    padding: 10px 0; /* பாதியாகக் குறைக்கப்பட்ட பேடிங் */
+    padding: 8px 0;
     font-family: 'Segoe UI', Roboto, sans-serif;
-    margin: 10px 0;
+    margin: 5px 0;
+    overflow: hidden; /* வெளியே வராமல் தடுக்க */
 }
 
 .weather-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 15px;
+    padding: 0 10px;
     display: flex;
-    align-items: center; /* அனைத்தும் ஒரே நேர்க்கோட்டில் வர */
-    justify-content: space-between;
-    gap: 20px;
+    align-items: center;
+    gap: 15px;
 }
 
 .current-weather {
     display: flex;
     align-items: center;
-    gap: 15px;
-    flex-shrink: 0;
+    gap: 10px;
+    flex-shrink: 0; /* இது சுருங்காது */
 }
 
-.location-info h3 { margin: 0; font-size: 1.1rem; color: #ffeb3b; }
-.location-info p { margin: 0; font-size: 0.8rem; opacity: 0.8; }
+.location-info h3 { margin: 0; font-size: 1rem; color: #ffeb3b; white-space: nowrap; }
+#main-temp { font-size: 1.8rem; font-weight: bold; }
 
-#main-temp { font-size: 2.2rem; font-weight: bold; } /* அளவு குறைக்கப்பட்டுள்ளது */
-
-/* மணிநேரப் பட்டியல் */
+/* ஸ்க்ரோல் பகுதி - முக்கிய மாற்றம் இங்கே */
 .forecast-wrapper {
     flex-grow: 1;
-    overflow: hidden;
+    overflow-x: auto; /* ஸ்க்ரோல் வேலை செய்ய */
+    display: flex;
+    -webkit-overflow-scrolling: touch; /* மொபைலில் ஸ்மூத் ஸ்க்ரோல் */
 }
 
 .forecast-scroll {
     display: flex;
-    overflow-x: auto;
-    gap: 10px;
+    gap: 8px;
     padding: 5px 0;
-    scrollbar-width: none;
+    /* ஸ்க்ரோல் பார் தெரியாமல் இருக்க (விருப்பமென்றால் மாற்றலாம்) */
+    scrollbar-width: none; 
 }
 
 .forecast-scroll::-webkit-scrollbar { display: none; }
 
 .hour-block {
-    min-width: 70px; /* அகலம் குறைப்பு */
+    min-width: 65px; /* கச்சிதமான அகலம் */
     background: rgba(255, 255, 255, 0.1);
-    padding: 8px 5px;
-    border-radius: 8px;
+    padding: 6px;
+    border-radius: 6px;
     text-align: center;
+    flex-shrink: 0; /* கட்டங்கள் நசுங்காமல் இருக்க இது அவசியம் */
 }
 
-.hour-block strong { display: block; font-size: 0.8rem; margin-bottom: 2px; }
-.hour-block .temp-val { font-size: 1rem; font-weight: bold; }
-.hour-block .rain-val { font-size: 0.7rem; color: #81d4fa; }
+.hour-block strong { display: block; font-size: 0.75rem; color: #fff; }
+.hour-block .temp-val { font-size: 0.95rem; font-weight: bold; display: block; }
+.hour-block .rain-val { font-size: 0.7rem; color: #81d4fa; display: block; }
 
-/* எச்சரிக்கை செய்தி - சிறியதாக */
+/* மெசேஜ் பகுதி */
 .weather-msg {
     display: flex;
     align-items: center;
     gap: 8px;
     background: rgba(0,0,0,0.2);
-    padding: 8px 15px;
-    border-radius: 20px;
+    padding: 5px 12px;
+    border-radius: 15px;
     flex-shrink: 0;
-    max-width: 250px;
 }
 
-#weather-icon { font-size: 1.1rem; }
-#weather-advice-text { margin: 0; font-size: 0.85rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#weather-icon { font-size: 1rem; }
+#weather-advice-text { margin: 0; font-size: 0.8rem; white-space: nowrap; }
 
-/* மொபைல் போன்களில் லேஅவுட் சீராக இருக்க */
-@media (max-width: 850px) {
-    .weather-container { flex-direction: column; gap: 10px; text-align: center; }
-    .weather-msg { max-width: 100%; }
+/* சிறிய மொபைல் திரைகளுக்கான அட்ஜஸ்ட்மென்ட் */
+@media (max-width: 600px) {
+    .location-info p { display: none; } /* இடம் கருதி சிறிய வாசகத்தை நீக்கலாம் */
+    .weather-msg { display: none; } /* மொபைலில் இடம் இல்லை என்றால் மெசேஜை மறைக்கலாம் அல்லது கீழே தள்ளலாம் */
     }
+
 
   </style>
 </head>
