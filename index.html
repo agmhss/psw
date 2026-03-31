@@ -23,622 +23,374 @@
     * { box-sizing: border-box; }
 
     body {
-        font-family: 'Hind Madurai', 'Lexend', sans-serif;
-        scroll-behavior: smooth;
-        margin: 0;
-        overflow-x: hidden;
+      font-family: 'Hind Madurai', 'Lexend', sans-serif;
+      scroll-behavior: smooth;
+      margin: 0;
+      overflow-x: hidden;
     }
 
+    /* Slider Animations */
     .slide { display: none; animation: fade 1.5s ease-in-out; }
     .active-slide { display: block; }
     @keyframes fade { from { opacity: 0.4; } to { opacity: 1; } }
 
+    /* News Ticker */
     .news-ticker {
-        background: #1e3a8a;
-        color: white;
-        overflow: hidden;
-        white-space: nowrap;
-        padding: 12px 0;
-        position: relative;
+      background: #1e3a8a;
+      color: white;
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 12px 0;
+      position: relative;
     }
     .news-content {
-        display: inline-block;
-        padding-left: 100%;
-        animation: ticker 60s linear infinite;
-        font-weight: bold;
-        font-size: 14px;
+      display: inline-block;
+      padding-left: 100%;
+      animation: ticker 60s linear infinite;
+      font-weight: bold;
+      font-size: 14px;
     }
     @keyframes ticker {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-200%); }
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-200%); }
     }
 
+    /* Scrolling Belt */
     .scrolling-belt {
-        width: 100%;
-        height: 180px;
-        background-image: url("https://lh3.googleusercontent.com/u/0/d/18LE1SmBnxom8krQCNyD-co_CU_R01Jlr");
-        background-repeat: repeat-x;
-        background-size: contain;
-        background-position: center bottom;
-        animation: march-forward 40s linear infinite;
+      width: 100%;
+      height: 180px;
+      background-image: url("https://lh3.googleusercontent.com/u/0/d/18LE1SmBnxom8krQCNyD-co_CU_R01Jlr");
+      background-repeat: repeat-x;
+      background-size: contain;
+      background-position: center bottom;
+      animation: march-forward 40s linear infinite;
     }
-
-    @media (min-width: 768px) {
-        .scrolling-belt { height: 250px; }
-    }
-
+    @media (min-width: 768px) { .scrolling-belt { height: 250px; } }
     .evolution-stage { margin: 0; padding: 0; line-height: 0; overflow: hidden; }
-
     @keyframes march-forward {
-        from { background-position: 0 0; }
-        to { background-position: 1486px 0; }
+      from { background-position: 0 0; }
+      to { background-position: 1486px 0; }
     }
 
-    .social-footer-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 15px;
-        padding: 15px 0;
+    /* Nilgiri tahr scene — Zig-Zag Motion */
+    #tahrScene {
+      position: fixed; top: 0; right: 0; bottom: 0;
+      width: min(160px, 35vw); 
+      height: 100vh; max-height: 100dvh;
+      pointer-events: none; z-index: 9998; overflow: hidden;
+    }
+    .tahr {
+      position: absolute; width: 44px; height: auto;
+      filter: drop-shadow(0 2px 2px rgba(0,0,0,.35));
+      will-change: transform, opacity;
+    }
+    .tahr svg, .tahr img { display: block; width: 100%; height: auto; }
+
+    @keyframes continuousHopAndClimb {
+      0% { transform: translateY(100px) translateX(0) scaleX(1); opacity: 0; }
+      5% { opacity: 1; }
+      12% { transform: translateY(-80px) translateX(-20px) scaleX(-1); } 
+      18% { transform: translateY(-70px) translateX(-25px) scaleX(-1) scaleY(1.05); } 
+      25% { transform: translateY(-160px) translateX(10px) scaleX(1) scaleY(1); }
+      32% { transform: translateY(-150px) translateX(5px) scaleX(1) scaleY(1.05); }
+      40% { transform: translateY(-240px) translateX(-20px) scaleX(-1) scaleY(1); }
+      47% { transform: translateY(-230px) translateX(-25px) scaleX(-1) scaleY(1.05); }
+      55% { transform: translateY(-320px) translateX(10px) scaleX(1) scaleY(1); }
+      62% { transform: translateY(-310px) translateX(5px) scaleX(1) scaleY(1.05); }
+      70% { transform: translateY(-400px) translateX(-20px) scaleX(-1) scaleY(1); }
+      77% { transform: translateY(-390px) translateX(-25px) scaleX(-1) scaleY(1.05); }
+      85% { opacity: 1; }
+      100% { transform: translateY(-120vh) translateX(0) scaleX(1); opacity: 0; }
+    }
+    .tahr.a { right: 30px; bottom: 0%; animation: continuousHopAndClimb 16s ease-in-out infinite; }
+    .tahr.b { right: 50px; bottom: 0%; width: 38px; animation: continuousHopAndClimb 18s ease-in-out infinite; animation-delay: 4s; }
+    .tahr.c { right: 40px; bottom: 0%; width: 34px; animation: continuousHopAndClimb 20s ease-in-out infinite; animation-delay: 8s; }
+    
+    @media (max-width: 480px) {
+      #tahrScene { width: min(110px, 35vw); }
+      .tahr { width: 34px; }
+      .tahr.b { width: 30px; }
+      .tahr.c { width: 26px; }
     }
 
-       .social-icon:hover {
-        background-color: #ffffff;
-        color: #1a237e;
-        transform: translateY(-5px);
-    }
-
-    .grid {
-        display: grid;
-        width: 100%;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 20px;
-        padding: 15px;
-        box-sizing: border-box;
-    }
-
-    @media (max-width: 768px) {
-        .mobile-stack {
-            grid-template-columns: 1fr !important;
-            padding: 10px;
-        }
-    }
-
-/* Nilgiri tahr scene — Zig-Zag Motion */
-
-#tahrScene {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  /* இடது-வலது நகர வசதியாக அகலத்தை சற்று அதிகரித்துள்ளேன் */
-  width: min(160px, 35vw); 
-  height: 100vh;
-  max-height: 100dvh;
-  pointer-events: none;
-  z-index: 9998;
-  overflow: hidden;
-}
-
-.tahr {
-  position: absolute;
-  width: 44px;
-  height: auto;
-  filter: drop-shadow(0 2px 2px rgba(0,0,0,.35));
-  will-change: transform, opacity;
-}
-
-.tahr svg,
-.tahr img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-/* அனிமேஷன்: மெதுவாக தாவுதல் மற்றும் திசை மாறுதல் */
-@keyframes continuousHopAndClimb {
-  0% { transform: translateY(100px) translateX(0) scaleX(1); opacity: 0; }
-  5% { opacity: 1; }
-
-  /* --- HOP 1: இடது பக்கம் (Turn Left) --- */
-  12% { transform: translateY(-80px) translateX(-20px) scaleX(-1); } 
-  18% { transform: translateY(-70px) translateX(-25px) scaleX(-1) scaleY(1.05); } 
-
-  /* --- HOP 2: வலது பக்கம் (Turn Right) --- */
-  25% { transform: translateY(-160px) translateX(10px) scaleX(1) scaleY(1); }
-  32% { transform: translateY(-150px) translateX(5px) scaleX(1) scaleY(1.05); }
-
-  /* --- HOP 3: இடது பக்கம் (Turn Left) --- */
-  40% { transform: translateY(-240px) translateX(-20px) scaleX(-1) scaleY(1); }
-  47% { transform: translateY(-230px) translateX(-25px) scaleX(-1) scaleY(1.05); }
-
-  /* --- HOP 4: வலது பக்கம் (Turn Right) --- */
-  55% { transform: translateY(-320px) translateX(10px) scaleX(1) scaleY(1); }
-  62% { transform: translateY(-310px) translateX(5px) scaleX(1) scaleY(1.05); }
-
-  /* --- HOP 5: இடது பக்கம் (Turn Left) --- */
-  70% { transform: translateY(-400px) translateX(-20px) scaleX(-1) scaleY(1); }
-  77% { transform: translateY(-390px) translateX(-25px) scaleX(-1) scaleY(1.05); }
-
-  /* --- HOP 1: இடது பக்கம் (Turn Left) --- */
-  12% { transform: translateY(-80px) translateX(-20px) scaleX(-1); } 
-  18% { transform: translateY(-70px) translateX(-25px) scaleX(-1) scaleY(1.05); } 
-
-  /* --- HOP 2: வலது பக்கம் (Turn Right) --- */
-  25% { transform: translateY(-160px) translateX(10px) scaleX(1) scaleY(1); }
-  32% { transform: translateY(-150px) translateX(5px) scaleX(1) scaleY(1.05); }
-
-  /* --- HOP 3: இடது பக்கம் (Turn Left) --- */
-  40% { transform: translateY(-240px) translateX(-20px) scaleX(-1) scaleY(1); }
-  47% { transform: translateY(-230px) translateX(-25px) scaleX(-1) scaleY(1.05); }
-
-  /* --- HOP 4: வலது பக்கம் (Turn Right) --- */
-  55% { transform: translateY(-320px) translateX(10px) scaleX(1) scaleY(1); }
-  62% { transform: translateY(-310px) translateX(5px) scaleX(1) scaleY(1.05); }
-
-  /* --- HOP 5: இடது பக்கம் (Turn Left) --- */
-  70% { transform: translateY(-400px) translateX(-20px) scaleX(-1) scaleY(1); }
-  77% { transform: translateY(-390px) translateX(-25px) scaleX(-1) scaleY(1.05); }
-
-
-  /* --- திரையைத் தாண்டி மேலே செல்லுதல் --- */
-  85% { opacity: 1; }
-  100% { transform: translateY(-120vh) translateX(0) scaleX(1); opacity: 0; }
-}
-
-/* வேகம் மெதுவாக இருக்க 15s - 20s வரை மாற்றியுள்ளேன் */
-.tahr.a {
-  right: 30px; 
-  bottom: 0%;  
-  animation: continuousHopAndClimb 16s ease-in-out infinite; 
-}
-
-.tahr.b {
-  right: 50px; 
-  bottom: 0%; 
-  width: 38px;
-  animation: continuousHopAndClimb 18s ease-in-out infinite;
-  animation-delay: 4s; 
-}
-
-.tahr.c {
-  right: 40px; 
-  bottom: 0%; 
-  width: 34px;
-  animation: continuousHopAndClimb 20s ease-in-out infinite;
-  animation-delay: 8s; 
-}
-
-/* Mobile View */
-@media (max-width: 480px) {
-  #tahrScene { width: min(110px, 35vw); }
-  .tahr { width: 34px; }
-  .tahr.b { width: 30px; }
-  .tahr.c { width: 26px; }
-}
-
-
-
-
+    /* Butterfly */
     #butterfly {
-        position: fixed;
-        left: 50%;
-        top: 50%;
-        width: 60px;
-        height: 35px;
-        transform: translate(-50%, -50%);
-        pointer-events: none;
-        z-index: 9999;
-        will-change: transform;
+      position: fixed; left: 50%; top: 50%; width: 60px; height: 35px;
+      transform: translate(-50%, -50%); pointer-events: none; z-index: 9999; will-change: transform;
     }
-
-    @media (min-width: 768px) {
-        #butterfly { width: 100px; height: 55px; }
-    }
-
+    @media (min-width: 768px) { #butterfly { width: 100px; height: 55px; } }
     #butterfly svg { width: 100%; height: 100%; display: block; }
-
-    @media (max-width: 600px) {
-        .header-title, h2, h1 {
-            font-size: 18px !important;
-            word-wrap: break-word;
-            text-align: center;
-            padding: 0 5px;
-            line-height: 1.2;
-        }
-    }
-
-.simple-weather-link {
-    display: flex;
-    align-items: center;
-    padding: 10px 15px;
-    background-color: #f8f9fa; /* லேசான சாம்பல் நிறப் பின்னணி */
-    border-radius: 5px;
-    border-left: 4px solid #1e3c72; /* இடது பக்கம் ஒரு சிறிய கோடு */
-    margin: 10px 0;
-}
-
-.weather-icon {
-    font-size: 1.2rem;
-    margin-right: 10px;
-}
-
-.weather-text-link {
-    color: #1e3c72;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1rem;
-    transition: color 0.3s ease;
-}
-
-.weather-text-link:hover {
-    color: #007bff;
-    text-decoration: underline;
-    }
-
   </style>
 </head>
 
 <body class="bg-slate-50 text-slate-900">
+  
   <header class="bg-white shadow-lg sticky top-0 z-50">
-    <div class="w-full max-w-[1400px] mx-auto px-2 md:px-6 py-3 md:h-24 flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-4">
-      <div class="flex items-center gap-2 min-w-0">
+    <div class="w-full max-w-[1400px] mx-auto px-4 md:px-6 py-3 flex flex-col md:flex-row md:items-center justify-between gap-3">
+      <div class="flex items-center gap-3 min-w-0">
         <div class="hidden sm:flex w-12 h-12 bg-blue-900 rounded-full items-center justify-center text-white shrink-0 shadow-inner">
           <span class="material-symbols-outlined text-3xl">school</span>
         </div>
         <div class="truncate">
-          <h1 class="text-blue-900 font-bold text-base md:text-xl lg:text-3xl leading-tight">
-            அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி
-          </h1>
-          <p class="text-red-600 text-[10px] md:text-xl font-bold tracking-widest uppercase">
-            பட்டீஸ்வரம், தஞ்சாவூர் மாவட்டம்
-          </p>
+          <h1 class="text-blue-900 font-bold text-lg md:text-xl lg:text-3xl leading-tight">அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி</h1>
+          <p class="text-red-600 text-[11px] md:text-sm font-bold tracking-widest uppercase mt-1">பட்டீஸ்வரம், தஞ்சாவூர் மாவட்டம்</p>
         </div>
       </div>
-
-      <div class="flex items-center justify-start md:justify-end gap-2 pt-1 md:pt-0">
-        <button type="button" onclick="alert('சேர்க்கை படிவம் தயார் நிலையில் உள்ளது; அலுவலகத்தில் கேட்டு பெறவும்.!')"
-          class="bg-red-600 text-white px-3 py-2 md:px-5 md:py-2 rounded-full font-bold text-xs md:text-sm hover:bg-blue-900 transition shadow-md whitespace-nowrap">
+      <div class="flex items-center justify-start md:justify-end gap-3 pt-1 md:pt-0">
+        <button type="button" onclick="alert('சேர்க்கை படிவம் தயார் நிலையில் உள்ளது; அலுவலகத்தில் கேட்டு பெறவும்.!')" class="bg-red-600 text-white px-4 py-2 rounded-full font-bold text-xs md:text-sm hover:bg-blue-900 transition shadow-md whitespace-nowrap">
           சேர்க்கை 2026
         </button>
-        <button type="button" onclick="window.location.reload()"
-          class="flex items-center justify-center bg-blue-100 text-blue-900 p-1.5 rounded-full hover:bg-blue-200 transition shadow-sm"
-          title="முகப்பிற்குத் திரும்புக">
-          <span class="material-symbols-outlined text-2xl md:text-3xl">refresh</span>
+        <button type="button" onclick="window.location.reload()" class="flex items-center justify-center bg-blue-100 text-blue-900 p-2 rounded-full hover:bg-blue-200 transition shadow-sm" title="முகப்பிற்குத் திரும்புக">
+          <span class="material-symbols-outlined text-xl md:text-2xl">refresh</span>
         </button>
       </div>
     </div>
   </header>
 
-  <div style="font-family: 'Segoe UI', Arial, sans-serif; color: white; padding: 15px; border: 1px dashed rgba(255,255,255,0.3); border-radius: 8px; max-width: 600px; margin: 12px auto;">
-      <div style="display:flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; justify-content: center;">
-      <p class="text-blue-600 text-[12px] md:text-xl font-bold tracking-widest uppercase">
-            பிறந்த தேதியை உள்ளிடுக.
-      </p>
+  <section class="max-w-3xl mx-auto px-4 py-4">
+    <div class="bg-slate-800 p-5 rounded-xl border border-dashed border-slate-500 shadow-md flex flex-col gap-4 text-white">
+      <p class="text-blue-400 text-sm md:text-base font-bold tracking-widest uppercase text-center">பிறந்த தேதியை உள்ளிடுக</p>
+      
+      <div class="flex flex-col md:flex-row items-center gap-3">
+        <div class="w-full md:w-1/3">
+          <label class="block text-xs text-slate-300 mb-1">பிறந்த தேதி:</label>
+          <input type="text" id="dobInput" placeholder="DD/MM/YYYY" maxlength="10" class="w-full p-2 border border-green-500 rounded bg-green-900/30 text-green-400 font-bold text-center outline-none focus:ring-2 focus:ring-green-400">
+        </div>
+        <div class="w-full md:w-1/3 mt-4 md:mt-5">
+          <button type="button" onclick="calculateClass()" class="w-full bg-red-600 text-white border-none py-2.5 rounded font-bold cursor-pointer hover:bg-red-700 transition">
+            சேர்க்கும் வகுப்பை காண்பி
+          </button>
+        </div>
+        <div class="w-full md:w-1/3">
+          <label class="block text-xs text-slate-300 mb-1">வகுப்பு:</label>
+          <input type="text" id="classOutput" readonly placeholder="---" class="w-full p-2 border border-green-500 rounded bg-green-900/30 text-green-400 font-bold text-center outline-none">
+        </div>
+      </div>
     </div>
 
-        <div style="flex: 1; min-width: 140px;">
-            <label style="display: block; font-size: 12px; margin-bottom: 4px; opacity: 0.9;">பிறந்த தேதி:</label>
-            <input type="text" id="dobInput" placeholder="DD/MM/YYYY" maxlength="10"
-                   style="width: 100%; padding: 8px; border: 1px solid #4caf50; border-radius: 4px; background: rgba(76, 175, 80, 0.2); color: #8bc34a; font-weight: bold; text-align: center; outline: none;">
-        </div>
-        <div>
-              <button type="button" onclick="calculateClass()" style="width: 100%; margin: 10px 0; background-color: #e32b2b; color: white; border: none; padding: 10px; border-radius: 4px; font-weight: bold; cursor: pointer;">
-    சேர்க்கும் வகுப்பை காண்பி
-            </button>
+    <a href="weather.html" class="flex items-center gap-3 p-3 mt-4 bg-slate-100 rounded-lg border-l-4 border-blue-900 hover:bg-blue-50 transition group">
+      <span class="text-2xl">⛅</span>
+      <span class="text-blue-900 font-semibold group-hover:text-blue-700 group-hover:underline">பட்டீஸ்வரம் வானிலை & விண்வெளித் தகவல்கள்</span>
+    </a>
+  </section>
 
-        </div>
-        <div style="flex: 1; min-width: 140px;">
-          <input type="text" id="classOutput" readonly placeholder="---"
-                   style="width: 100%; padding: 12px; border: 1px solid #4caf50; border-radius: 4px; background: rgba(76, 175, 80, 0.2); color: #8bc34a; font-weight: bold; text-align: center; outline: none;">
-  </div>
-    <div class="simple-weather-link">
-    <span class="weather-icon">⛅</span>
-    <a href="weather.html" class="weather-text-link">பட்டீஸ்வரம் வானிலை & விண்வெளித் தகவல்கள்</a>
-    </div>
-
-  <div class="news-ticker border-y-2 border-red-600 relative z-40">
+  <div class="news-ticker border-y-2 border-red-600 relative z-40 shadow-sm">
     <div class="news-content">
-      🔥 முக்கிய அறிவிப்பு:       🔥எல்.கே.ஜி முதல் 9-ஆம் வகுப்பு வரை 2026-27 கல்வி ஆண்டிற்கான புதிய சேர்க்கை நடைபெறுகிறது.
-           🔥 கோடை விடுமுறை முடிந்து பள்ளி மீண்டும் 04/06/2026 அன்று திறக்கப்படும்.       🔥 &nbsp ஆண்டு இறுதித் தேர்வுகள்,  &nbsp வகுப்பு 1 முதல் 5 வரை உள்ள மாணவர்களுக்கு ஏப்ரல் 6-ல் துவங்கி 16-உடன் முடிவடைகிறது.  &nbsp வகுப்பு 6 முதல் 9 வரை உள்ள மாணவர்களுக்கு ஏப்ரல் 1-ல் துவங்கி 16-உடன் முடிவடைகிறது. &nbsp      🔥  🏆 8A வகுப்பு மாணவர் S.குருமூர்த்தி NMMS தேர்வில் வெற்றி!| 🏆 | &nbsp  📝      🔥  எல்.கே.ஜி முதல் 9-ஆம் வகுப்பு வரை 2026-27 கல்வி ஆண்டிற்கான புதிய சேர்க்கை நடைபெறுகிறது.
+      🔥 முக்கிய அறிவிப்பு: &nbsp;&nbsp;&nbsp;&nbsp;🔥 எல்.கே.ஜி முதல் 9-ஆம் வகுப்பு வரை 2026-27 கல்வி ஆண்டிற்கான புதிய சேர்க்கை நடைபெறுகிறது. &nbsp;&nbsp;&nbsp;&nbsp;🔥 கோடை விடுமுறை முடிந்து பள்ளி மீண்டும் 04/06/2026 அன்று திறக்கப்படும். &nbsp;&nbsp;&nbsp;&nbsp;🔥 ஆண்டு இறுதித் தேர்வுகள் வகுப்பு 1 முதல் 5 வரை உள்ள மாணவர்களுக்கு ஏப்ரல் 6-ல் துவங்கி 16-உடன் முடிவடைகிறது. வகுப்பு 6 முதல் 9 வரை உள்ள மாணவர்களுக்கு ஏப்ரல் 1-ல் துவங்கி 16-உடன் முடிவடைகிறது. &nbsp;&nbsp;&nbsp;&nbsp;🔥 🏆 8A வகுப்பு மாணவர் S.குருமூர்த்தி NMMS தேர்வில் வெற்றி! 🏆 &nbsp;&nbsp;&nbsp;&nbsp;📝
     </div>
   </div>
 
-  <section id="home" class="relative h-[450px] md:h-[600px] overflow-hidden bg-slate-900">
-    <div class="slide active-slide h-full">
-      <img src="https://lh3.googleusercontent.com/u/0/d/1y0y5IxTVwSWHWEGDT7UVLO8OSn7sxa5P" alt="" class="w-full h-full object-cover opacity-80" />
+  <section id="home" class="relative h-[400px] md:h-[600px] overflow-hidden bg-slate-900">
+    <div class="slide active-slide h-full relative">
+      <img src="https://lh3.googleusercontent.com/u/0/d/1y0y5IxTVwSWHWEGDT7UVLO8OSn7sxa5P" alt="" class="w-full h-full object-cover opacity-60" />
       <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
-        <h2 class="text-4xl md:text-6xl font-black mb-24 drop-shadow-lg">அறிவே ஆற்றல்!</h2>
+        <h2 class="text-4xl md:text-6xl font-black mb-6 drop-shadow-lg">அறிவே ஆற்றல்!</h2>
         <p class="text-lg md:text-2xl max-w-2xl font-light">சிறந்த உட்கட்டமைப்பு மற்றும் நவீன கல்வி வசதிகளுடன் உங்கள் பிள்ளைகளின் எதிர்காலம் இங்கே தொடங்குகிறது.</p>
       </div>
     </div>
-
-    <div class="slide h-full">
-      <img src="https://lh3.googleusercontent.com/u/0/d/1-6uKqVksjyZDy6MYOF33b1_sBfIEPTwv" alt="" class="w-full h-full object-cover opacity-80" />
+    <div class="slide h-full relative">
+      <img src="https://lh3.googleusercontent.com/u/0/d/1-6uKqVksjyZDy6MYOF33b1_sBfIEPTwv" alt="" class="w-full h-full object-cover opacity-60" />
       <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
-        <h2 class="text-4xl md:text-6xl font-black mt-(-20) drop-shadow-lg">தமிழ்க்கூடல்</h2>
-        <p class="text-lg md:text-2xl max-w-2xl mt-10 font-light">தமிழின் பழம்பெருமை பேச அல்ல... அடுத்த ஆயிரம் ஆண்டுகளை ஆளப்போகும் தமிழை படைக்கவே இக்கூடல்!.</p>
+        <h2 class="text-4xl md:text-6xl font-black drop-shadow-lg">தமிழ்க்கூடல்</h2>
+        <p class="text-lg md:text-2xl max-w-2xl mt-6 font-light">தமிழின் பழம்பெருமை பேச அல்ல... அடுத்த ஆயிரம் ஆண்டுகளை ஆளப்போகும் தமிழை படைக்கவே இக்கூடல்!</p>
       </div>
-
-      <div class="simple-weather-link">
-    <span class="weather-icon">⛅</span>
-    <a href="weather.html" class="weather-text-link">பட்டீஸ்வரம் வானிலை & விண்வெளித் தகவல்கள்</a>
-      </div>
-
-    <div class="slide h-full">
-      <img src="https://lh3.googleusercontent.com/u/0/d/1aTNAdNvAV5V33wV9Q6umNFl00GajOMT6" alt="" class="w-full h-full object-cover opacity-80" />
+    </div>
+    <div class="slide h-full relative">
+      <img src="https://lh3.googleusercontent.com/u/0/d/1aTNAdNvAV5V33wV9Q6umNFl00GajOMT6" alt="" class="w-full h-full object-cover opacity-60" />
       <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
-        <h2 class="text-4xl md:text-6xl font-black mt-(-20) drop-shadow-lg">டிஜிட்டல் கற்றல்</h2>
-        <p class="text-lg md:text-2xl max-w-2xl mt-10 font-light">ஸ்மார்ட் வகுப்பறைகள் மற்றும் ஹை-டெக் லேப் மூலம் உலகத்தர கல்வி.</p>
+        <h2 class="text-4xl md:text-6xl font-black drop-shadow-lg">டிஜிட்டல் கற்றல்</h2>
+        <p class="text-lg md:text-2xl max-w-2xl mt-6 font-light">ஸ்மார்ட் வகுப்பறைகள் மற்றும் ஹை-டெக் லேப் மூலம் உலகத்தர கல்வி.</p>
+      </div>
+    </div>
+    <div class="slide h-full relative">
+      <img src="https://lh3.googleusercontent.com/u/0/d/1M6JrSr2rwtybQFiC_P-m5AZnurPaFj9-" alt="" class="w-full h-full object-cover opacity-60" />
+      <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
+        <h2 class="text-4xl md:text-6xl font-black drop-shadow-lg">நவீன நூலகம்</h2>
+        <p class="text-lg md:text-2xl max-w-2xl mt-6 font-light">ஆயிரக்கணக்கான புத்தகங்களுடன் மாணவர்களின் அறிவுத் தேடலுக்கு சிறந்த நூலகம்.</p>
+      </div>
+    </div>
+    <div class="slide h-full relative">
+      <img src="https://lh3.googleusercontent.com/u/0/d/1n9NwHlxi1u5CNUZTbQ1VRbSapcp_XIhM" alt="" class="w-full h-full object-cover opacity-60" />
+      <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
+        <h2 class="text-4xl md:text-6xl font-black drop-shadow-lg">English Literary Club</h2>
+        <p class="text-lg md:text-2xl max-w-2xl mt-6 font-light">Dive into Debates, Poem Recitation, Oratory and boost your confidence.</p>
+      </div>
+    </div>
+    <div class="slide h-full relative">
+      <img src="https://lh3.googleusercontent.com/u/0/d/1RfKI5Nk6fgXqVYNaQY-HRasdrTlLVh3d" alt="" class="w-full h-full object-cover opacity-60" />
+      <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
+        <h2 class="text-4xl md:text-6xl font-black drop-shadow-lg text-center">தேசிய மாணவர் படை</h2>
+        <p class="text-lg md:text-2xl max-w-2xl mt-6 font-light">59th Troop 8TN Battallion NCC. சாதாரண மாணவனைச் சரித்திர நாயகனாக மாற்றும் பயிற்சி!</p>
+      </div>
+    </div>
+    <div class="slide h-full relative">
+      <img src="https://lh3.googleusercontent.com/u/0/d/1NzHHMSJNrihszF7jwXLgjY2vX2PhFj0x" alt="" class="w-full h-full object-cover opacity-60" />
+      <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
+        <h2 class="text-4xl md:text-6xl font-black drop-shadow-lg">ஜூனியர் ரெட் கிராஸ்</h2>
+        <p class="text-lg md:text-2xl max-w-2xl mt-6 font-light">சாதி, மதம், எல்லைகள் கடந்து மனிதநேயத்தின் முகவரி ஜூனியர் ரெட் கிராஸ்!</p>
+      </div>
+    </div>
+    <div class="slide h-full relative">
+      <img src="https://lh3.googleusercontent.com/u/0/d/1j1-jIWSUg5NreGmOZJoXLmJ8rM8A2Yjq" alt="" class="w-full h-full object-cover opacity-60" />
+      <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
+        <h2 class="text-3xl md:text-5xl font-black drop-shadow-lg">நல்லாசிரியர் திரு E. சிவசங்கர்</h2>
+        <p class="text-base md:text-xl max-w-2xl mt-6 font-light">அர்ப்பணிப்பு உணர்வுடன் கல்விச் சேவையாற்றும் எமது பள்ளியின் தலைமை பண்பு மிக்க ES சாருக்கு நல்லாசிரியர் விருது வழங்கப்பட்டது.</p>
       </div>
     </div>
 
-    <div class="slide h-full">
-      <img src="https://lh3.googleusercontent.com/u/0/d/1M6JrSr2rwtybQFiC_P-m5AZnurPaFj9-" alt="" class="w-full h-full object-cover opacity-80" />
-      <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
-        <h2 class="text-4xl md:text-6xl font-black mt-(-20) drop-shadow-lg">நவீன நூலகம்</h2>
-        <p class="text-lg md:text-2xl max-w-2xl mt-10 font-light">ஆயிரக்கணக்கான புத்தகங்களுடன் மாணவர்களின் அறிவுத் தேடலுக்கு சிறந்த நூலகம்.</p>
-      </div>
-    </div>
-
-    <div class="slide h-full">
-      <img src="https://lh3.googleusercontent.com/u/0/d/1n9NwHlxi1u5CNUZTbQ1VRbSapcp_XIhM" alt="" class="w-full h-full object-cover opacity-80" />
-      <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
-        <h2 class="text-4xl md:text-6xl font-black mb-4 drop-shadow-lg">English Literary Club</h2>
-        <p class="text-lg md:text-2xl max-w-2xl mt-10 font-light">Dive into Debates, Poem Recitation, Oratory and boost your confidence</p>
-      </div>
-    </div>
-
-    <div class="slide h-full">
-      <img src="https://lh3.googleusercontent.com/u/0/d/1RfKI5Nk6fgXqVYNaQY-HRasdrTlLVh3d" alt="" class="w-full h-full object-cover opacity-80" />
-      <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
-        <h2 class="text-4xl md:text-6xl font-black mt-(-24) drop-shadow-lg">தேசிய மாணவர் படை</h2>
-        <p class="text-lg md:text-2xl max-w-2xl mt-10 font-light">59th Troop 8TN Battallion NCC. சாதாரண மாணவனைச் சரித்திர நாயகனாக மாற்றும் பயிற்சி!</p>
-      </div>
-    </div>
-
-    <div class="slide h-full">
-      <img src="https://lh3.googleusercontent.com/u/0/d/1NzHHMSJNrihszF7jwXLgjY2vX2PhFj0x" alt="" class="w-full h-full object-cover opacity-80" />
-      <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
-        <h2 class="text-4xl md:text-6xl font-black mt-(-20) drop-shadow-lg">ஜூனியர் ரெட் கிராஸ்</h2>
-        <p class="text-lg md:text-2xl max-w-2xl mt-10 font-light">சாதி, மதம், எல்லைகள் கடந்து மனிதநேயத்தின் முகவரி ஜூனியர் ரெட் கிராஸ்!.</p>
-      </div>
-    </div>
-
-    <div class="slide h-full">
-      <img src="https://lh3.googleusercontent.com/u/0/d/1j1-jIWSUg5NreGmOZJoXLmJ8rM8A2Yjq" alt="" class="w-full h-full object-cover opacity-80" />
-      <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
-        <h2 class="text-4xl md:text-6xl font-black mt-(-20) drop-shadow-lg">நல்லாசிரியர் திரு E. சிவசங்கர்</h2>
-        <p class="text-lg md:text-2xl max-w-2xl mt-10 font-light">
-      அர்ப்பணிப்பு உணர்வுடன் கல்விச் சேவையாற்றும் எமது பள்ளியின் தலைமை பண்பு மிக்க ES சாருக்கு நல்லாசிரியர் விருது  வழங்கப்பட்டது...</p>
-      </div>
-    </div>
-
-    <button type="button" onclick="changeSlide(-1)" class="absolute left-5 top-1/2 -translate-y-1/2 text-white text-4xl z-20">❮</button>
-    <button type="button" onclick="changeSlide(1)" class="absolute right-5 top-1/2 -translate-y-1/2 text-white text-4xl z-20">❯</button>
+    <button type="button" onclick="changeSlide(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 text-white bg-black/30 hover:bg-black/60 p-3 rounded-full text-2xl z-20 transition">❮</button>
+    <button type="button" onclick="changeSlide(1)" class="absolute right-4 top-1/2 -translate-y-1/2 text-white bg-black/30 hover:bg-black/60 p-3 rounded-full text-2xl z-20 transition">❯</button>
   </section>
 
-  <section class="py-12 bg-slate-50">
+  <section class="py-16 bg-slate-50">
     <div class="max-w-[1400px] mx-auto px-6">
-      <h2 class="text-2xl font-black text-blue-900 mb-8 flex items-center gap-3">
-        <span class="material-symbols-outlined text-2xl">grid_view</span>
-        பள்ளி செயலிகள்
+      <h2 class="text-2xl md:text-3xl font-black text-blue-900 mb-8 flex items-center justify-center md:justify-start gap-3 uppercase">
+        <span class="material-symbols-outlined text-3xl">grid_view</span> பள்ளி செயலிகள்
       </h2>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="bg-white p-6 rounded-xl shadow-sm border-t-8 border-orange-500 hover:shadow-xl transition-all group h-full flex flex-col">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white p-6 rounded-xl shadow-sm border-t-8 border-orange-500 hover:shadow-xl transition-all group flex flex-col">
           <div class="w-14 h-14 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition">
             <span class="material-symbols-outlined text-2xl">translate</span>
           </div>
           <h3 class="text-xl font-bold text-slate-800 mb-2">மொழிகள் மையம்</h3>
-          <p class="text-slate-600 text-sm mb-6">தமிழ், ஆங்கிலப் பயிற்சிகள் மற்றும் AI கதை நூலகம்.</p>
-          <a href="https://agmhss.github.io/psw/language.html"
-            class="mt-auto inline-flex items-center justify-center w-full py-3 bg-orange-500 text-white rounded-xl font-bold hover:bg-orange-600 transition">
-            தொடங்கு ➔
-          </a>
+          <p class="text-slate-600 text-sm mb-6 flex-grow">தமிழ், ஆங்கிலப் பயிற்சிகள் மற்றும் AI கதை நூலகம்.</p>
+          <a href="https://agmhss.github.io/psw/language.html" class="inline-flex items-center justify-center w-full py-3 bg-orange-500 text-white rounded-lg font-bold hover:bg-orange-600 transition">தொடங்கு ➔</a>
         </div>
-
-        <div class="bg-white p-6 rounded-2xl shadow-sm border-t-8 border-blue-600 hover:shadow-xl transition-all group h-full flex flex-col">
+        <div class="bg-white p-6 rounded-xl shadow-sm border-t-8 border-blue-600 hover:shadow-xl transition-all group flex flex-col">
           <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition">
             <span class="material-symbols-outlined text-3xl">calculate</span>
           </div>
           <h3 class="text-xl font-bold text-slate-800 mb-2">கணித மையம்</h3>
-          <p class="text-slate-600 text-sm mb-6">ஸ்பின்னர்ஸ் விளையாட்டு, வாய்ப்பாடு மற்றும் கணிதப் புதிர்கள்.</p>
-          <a href="https://agmhss.github.io/psw/maths.html"
-            class="mt-auto inline-flex items-center justify-center w-full py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition">
-            தொடங்கு ➔
-          </a>
+          <p class="text-slate-600 text-sm mb-6 flex-grow">ஸ்பின்னர்ஸ் விளையாட்டு, வாய்ப்பாடு மற்றும் கணிதப் புதிர்கள்.</p>
+          <a href="https://agmhss.github.io/psw/maths.html" class="inline-flex items-center justify-center w-full py-3 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition">தொடங்கு ➔</a>
         </div>
-
-        <div class="bg-white p-6 rounded-2xl shadow-sm border-t-8 border-green-600 hover:shadow-xl transition-all group h-full flex flex-col">
+        <div class="bg-white p-6 rounded-xl shadow-sm border-t-8 border-green-600 hover:shadow-xl transition-all group flex flex-col">
           <div class="w-14 h-14 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition">
             <span class="material-symbols-outlined text-3xl">biotech</span>
           </div>
           <h3 class="text-xl font-bold text-slate-800 mb-2">அறிவியல் & சமூக அறிவியல் மையம்</h3>
-          <p class="text-slate-600 text-sm mb-6">மெய்நிகர் ஆய்வகம் மற்றும் வரைபடப் பயிற்சிகள்.</p>
-          <a href="https://agmhss.github.io/psw/science.html"
-            class="mt-auto inline-flex items-center justify-center w-full py-3 bg-green-600 text-white rounded-xl font-bold hover:bg-green-700 transition">
-            தொடங்கு ➔
-          </a>
+          <p class="text-slate-600 text-sm mb-6 flex-grow">மெய்நிகர் ஆய்வகம் மற்றும் வரைபடப் பயிற்சிகள்.</p>
+          <a href="https://agmhss.github.io/psw/science.html" class="inline-flex items-center justify-center w-full py-3 bg-green-600 text-white rounded-lg font-bold hover:bg-green-700 transition">தொடங்கு ➔</a>
         </div>
-
-        <div class="bg-white p-6 rounded-2xl shadow-sm border-t-8 border-amber-600 hover:shadow-xl transition-all group h-full flex flex-col">
-        <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition">
-          <span class="material-symbols-outlined text-3xl">engineering</span>
+        <div class="bg-white p-6 rounded-xl shadow-sm border-t-8 border-amber-600 hover:shadow-xl transition-all group flex flex-col">
+          <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition">
+            <span class="material-symbols-outlined text-3xl">engineering</span>
+          </div>
+          <h3 class="text-xl font-bold text-slate-800 mb-2">ஆசிரியர் மையம்</h3>
+          <p class="text-slate-600 text-sm mb-6 flex-grow">பாடத்திட்டம், கடிதம் மற்றும் சான்றிதழ் உருவாக்கும் கருவிகள்.</p>
+          <a href="https://agmhss.github.io/psw/teachers.html" class="inline-flex items-center justify-center w-full py-3 bg-amber-600 text-white rounded-lg font-bold hover:bg-amber-700 transition">தொடங்கு ➔</a>
         </div>
-        <h3 class="text-xl font-bold text-slate-800 mb-2">ஆசிரியர் மையம்</h3>
-        <p class="text-slate-600 text-sm mb-6">பாடத்திட்டம், கடிதம் மற்றும் சான்றிதழ் உருவாக்கும் கருவிகள்.</p>
-        <a href="https://agmhss.github.io/psw/teachers.html"
-          class="mt-auto inline-flex items-center justify-center w-full py-3 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition">
-          தொடங்கு ➔
-        </a>
       </div>
     </div>
-    </div>
   </section>
 
-  <section>
-    <div class="evolution-stage">
-      <div class="scrolling-belt"></div>
-    </div>
+  <section class="evolution-stage">
+    <div class="scrolling-belt"></div>
   </section>
-  </div>
+
   <section id="achievers" class="py-20 px-6 max-w-7xl mx-auto">
     <div class="text-center mb-12">
-      <h2 class="text-2xl font-black text-blue-900 uppercase">எங்கள் சாதனைகள்</h2>
-      <div class="w-20 h-1 bg-red-600 mx-auto mt-2"></div>
+      <h2 class="text-3xl font-black text-blue-900 uppercase">எங்கள் சாதனைகள்</h2>
+      <div class="w-20 h-1 bg-red-600 mx-auto mt-3"></div>
     </div>
-
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-      <div class="bg-white p-4 rounded-xl shadow text-center border-b-4 border-amber-500">
+      <div class="bg-white p-6 rounded-xl shadow border-b-4 border-amber-500 text-center hover:-translate-y-1 transition duration-300">
         <img src="https://placehold.co/150x150/fde047/000000?text=2024-25" alt="" class="rounded-full mx-auto mb-4 border-4 border-yellow-100" />
-        <h3 class="font-bold">செல்வி. R.ராகவி</h3>
-        <p class="text-sm text-gray-500">12-ஆம் வகுப்பு (549/600)</p>
+        <h3 class="font-bold text-lg text-slate-800">செல்வி. R.ராகவி</h3>
+        <p class="text-sm text-gray-500 font-semibold mt-1">12-ஆம் வகுப்பு (549/600)</p>
       </div>
-      <div class="bg-white p-4 rounded-xl shadow text-center border-b-4 border-blue-500">
+      <div class="bg-white p-6 rounded-xl shadow border-b-4 border-blue-500 text-center hover:-translate-y-1 transition duration-300">
         <img src="https://placehold.co/150x150/fde047/000000?text=2024-25" alt="" class="rounded-full mx-auto mb-4 border-4 border-yellow-100" />
-        <h3 class="font-bold">செல்வன் V.தருண்</h3>
-        <p class="text-sm text-gray-500">10-ஆம் வகுப்பு (464/500)</p>
+        <h3 class="font-bold text-lg text-slate-800">செல்வன் V.தருண்</h3>
+        <p class="text-sm text-gray-500 font-semibold mt-1">10-ஆம் வகுப்பு (464/500)</p>
       </div>
-      <div class="bg-white p-4 rounded-xl shadow text-center border-b-4 border-green-500">
+      <div class="bg-white p-6 rounded-xl shadow border-b-4 border-green-500 text-center hover:-translate-y-1 transition duration-300">
         <img src="https://placehold.co/150x150/60a5fa/000000?text=2025-26" alt="" class="rounded-full mx-auto mb-4 border-4 border-blue-100" />
-        <h3 class="font-bold">செல்வன் S.குருமூர்த்தி </h3>
-        <p class="text-sm text-gray-500">NMMS Scholarship</p>
+        <h3 class="font-bold text-lg text-slate-800">செல்வன் S.குருமூர்த்தி</h3>
+        <p class="text-sm text-gray-500 font-semibold mt-1">NMMS Scholarship</p>
       </div>
-      <div class="bg-white p-4 rounded-xl shadow text-center border-b-4 border-red-500">
+      <div class="bg-white p-6 rounded-xl shadow border-b-4 border-red-500 text-center hover:-translate-y-1 transition duration-300">
         <img src="https://placehold.co/150x150/4ade80/000000?text=2025" alt="" class="rounded-full mx-auto mb-4 border-4 border-green-100" />
-        <h3 class="font-bold">திரு. E. சிவசங்கர்</h3>
-        <p class="text-sm text-gray-500">மாநில நல்லாசிரியர் விருது</p>
+        <h3 class="font-bold text-lg text-slate-800">திரு. E. சிவசங்கர்</h3>
+        <p class="text-sm text-gray-500 font-semibold mt-1">மாநில நல்லாசிரியர் விருது</p>
       </div>
     </div>
   </section>
 
-  <section style="padding: 60px 20px; text-align: center; background: #f4f7f9;">
-    <div class="alumni-card-container"
-         style="max-width: 800px; margin: 0 auto; background: white;
-                border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-                padding: 40px; border: 1px solid #eee; overflow: hidden;
-                position: relative;">
-        
-        <div style="position: relative; z-index: 1;">
-            <h2 class="text-3xl md:text-4xl font-black text-blue-900 uppercase"
-                style="margin-bottom: 20px; color: #002366; line-height: 1.3;">
-                முன்னாள் மாணவர்கள் புகழ் மண்டபம்
-            </h2>
-            <p style="color: #666; font-size: 1.1rem; max-width: 600px; margin: 0 auto 35px; line-height: 1.6;">
-                பல்வேறு துறைகளில் சாதனை படைத்து வரும் எமது பள்ளியின் முன்னாள் மாணவர்களின் பங்களிப்புகளைக் கொண்டாடுவோம்.
-            </p>
-            <a href="alumni.html"
-               class="btn-hall-of-fame"
-               style="display: inline-block; padding: 18px 50px;
-                      background: #002366; color: white; text-decoration: none;
-                      border-radius: 50px; font-weight: bold; font-size: 1.1rem;
-                      box-shadow: 0 5px 15px rgba(0, 35, 102, 0.3);
-                      transition: all 0.3s ease; text-transform: uppercase;
-                      letter-spacing: 1px;">
-                சாதனையாளர்களைக் காண்க →
-            </a>
-        </div>
+  <section class="py-16 px-4 bg-slate-100 text-center">
+    <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg p-8 md:p-12 border border-slate-200">
+      <h2 class="text-3xl md:text-4xl font-black text-blue-900 uppercase mb-4 leading-tight">முன்னாள் மாணவர்கள் புகழ் மண்டபம்</h2>
+      <p class="text-slate-600 text-lg md:text-xl mb-8 leading-relaxed">பல்வேறு துறைகளில் சாதனை படைத்து வரும் எமது பள்ளியின் முன்னாள் மாணவர்களின் பங்களிப்புகளைக் கொண்டாடுவோம்.</p>
+      <a href="alumni.html" class="inline-block px-8 py-4 bg-blue-900 text-white rounded-full font-bold text-lg shadow hover:bg-yellow-500 hover:text-blue-900 hover:shadow-xl hover:-translate-y-1 transition-all uppercase tracking-wide">
+        சாதனையாளர்களைக் காண்க &rarr;
+      </a>
     </div>
-</section>
-    </div>
-</section>
-
-<style>
-    .btn-hall-of-fame:hover {
-        background: #D4AF37 !important;
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4) !important;
-    }
-    @media (max-width: 768px) {
-        .alumni-card-container {
-            padding: 30px 20px !important;
-            border-radius: 15px !important;
-        }
-        .btn-hall-of-fame {
-            width: 100%;
-            padding: 15px 30px !important;
-            font-size: 1rem !important;
-        }
-    }
-</style>
+  </section>
 
   <section id="clubs" class="py-20 px-6 max-w-7xl mx-auto">
     <div class="text-center mb-12">
       <h2 class="text-3xl font-black text-blue-900 uppercase">பள்ளி மன்றங்கள்</h2>
-      <div class="w-20 h-1 bg-red-600 mx-auto mt-2"></div>
+      <div class="w-20 h-1 bg-red-600 mx-auto mt-3"></div>
     </div>
-      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
-      <div class="bg-white p-4 rounded-xl shadow-sm border border-blue-100 text-center hover:bg-blue-900 hover:text-white transition group">
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+      <a href="https://drive.google.com/drive/folders/13var1zIuBd4yohv02A_3RjJWSPTlPm6g" class="bg-white p-4 rounded-xl shadow-sm border border-blue-100 text-center hover:bg-blue-900 hover:text-white transition group flex flex-col items-center justify-center">
         <span class="material-symbols-outlined text-3xl mb-2 text-blue-900 group-hover:text-white">movie</span>
-        <a href="https://drive.google.com/drive/folders/13var1zIuBd4yohv02A_3RjJWSPTlPm6g">
-        <p class="text-[10px] md:text-xs font-bold leading-tight">சிறார் திரைப்பட மன்றம் (காண்க)</p>
-        </a>
-      </div>
-      <div class="bg-white p-4 rounded-xl shadow-sm border border-blue-100 text-center hover:bg-blue-900 hover:text-white transition group">
+        <p class="text-xs font-bold leading-tight">சிறார் திரைப்பட மன்றம் (காண்க)</p>
+      </a>
+      <div class="bg-white p-4 rounded-xl shadow-sm border border-blue-100 text-center hover:bg-blue-900 hover:text-white transition group flex flex-col items-center justify-center">
         <span class="material-symbols-outlined text-3xl mb-2 text-blue-900 group-hover:text-white">quiz</span>
-        <p class="text-[10px] md:text-xs font-bold leading-tight">வினாடி வினா மன்றம்</p>
+        <p class="text-xs font-bold leading-tight">வினாடி வினா மன்றம்</p>
       </div>
-      <div class="bg-white p-4 rounded-xl shadow-sm border border-blue-100 text-center hover:bg-blue-900 hover:text-white transition group">
+      <a href="https://drive.google.com/drive/folders/1ZF0nAAmU6sdHpRAmCkZRhJ1zzWoLJZDr" class="bg-white p-4 rounded-xl shadow-sm border border-blue-100 text-center hover:bg-blue-900 hover:text-white transition group flex flex-col items-center justify-center">
         <span class="material-symbols-outlined text-3xl mb-2 text-blue-900 group-hover:text-white">auto_awesome</span>
-        <a href="https://drive.google.com/drive/folders/1ZF0nAAmU6sdHpRAmCkZRhJ1zzWoLJZDr">
-        <p class="text-[10px] md:text-xs font-bold leading-tight">வானவில் மன்றம்</p>
-        </a>
-      </div>
-      <div class="bg-white p-4 rounded-xl shadow-sm border border-blue-100 text-center hover:bg-blue-900 hover:text-white transition group">
+        <p class="text-xs font-bold leading-tight">வானவில் மன்றம்</p>
+      </a>
+      <a href="https://drive.google.com/drive/folders/1cvaWedvLjLCi8oJA346LoxfmTnDKUikE" class="bg-white p-4 rounded-xl shadow-sm border border-blue-100 text-center hover:bg-blue-900 hover:text-white transition group flex flex-col items-center justify-center">
         <span class="material-symbols-outlined text-3xl mb-2 text-blue-900 group-hover:text-white">eco</span>
-        <a href="https://drive.google.com/drive/folders/1cvaWedvLjLCi8oJA346LoxfmTnDKUikE">
-        <p class="text-[10px] md:text-xs font-bold leading-tight">சுற்றுச்சூழல் மன்றம் (காண்க)</p>
-        </a>
-      </div>
-      <div class="bg-white p-4 rounded-xl shadow-sm border border-blue-100 text-center hover:bg-blue-900 hover:text-white transition group">
+        <p class="text-xs font-bold leading-tight">சுற்றுச்சூழல் மன்றம் (காண்க)</p>
+      </a>
+      <div class="bg-white p-4 rounded-xl shadow-sm border border-blue-100 text-center hover:bg-blue-900 hover:text-white transition group flex flex-col items-center justify-center">
         <span class="material-symbols-outlined text-3xl mb-2 text-blue-900 group-hover:text-white">public</span>
-        <p class="text-[10px] md:text-xs font-bold leading-tight">சமூக அறிவியல் மன்றம்</p>
+        <p class="text-xs font-bold leading-tight">சமூக அறிவியல் மன்றம்</p>
       </div>
-      <div class="bg-white p-4 rounded-xl shadow-sm border border-blue-100 text-center hover:bg-blue-900 hover:text-white transition group">
+      <a href="https://drive.google.com/drive/folders/1cr12zc2jNrI22bfWiRytaocFUT0ZAjfe" class="bg-white p-4 rounded-xl shadow-sm border border-blue-100 text-center hover:bg-blue-900 hover:text-white transition group flex flex-col items-center justify-center">
         <span class="material-symbols-outlined text-3xl mb-2 text-blue-900 group-hover:text-white">menu_book</span>
-            <a href="https://drive.google.com/drive/folders/1cr12zc2jNrI22bfWiRytaocFUT0ZAjfe">
-        <p class="text-[10px] md:text-xs font-bold leading-tight">இலக்கிய மன்றம்</p>
-            </a>
-      </div>
-      <div class="bg-white p-4 rounded-xl shadow-sm border border-blue-100 text-center hover:bg-blue-900 hover:text-white transition group">
-        <span class="material-symbols-outlined text-xl mb-2 text-blue-900 group-hover:text-white">CG 9&10</span>
-        <a href="https://drive.google.com/drive/folders/1hLF7fqQoc6doAEo9hiG9ZqK21RP4Tucv">
-        <p class="text-[10px] md:text-xs font-bold leading-tight">உயர்கல்வி வழிகாட்டி மன்றம் வகுப்பு 9 & 10 (காண்க)</p>
-        </a>
-      </div>
-      <div class="bg-white p-4 rounded-xl shadow-sm border border-blue-100 text-center hover:bg-blue-900 hover:text-white transition group">
+        <p class="text-xs font-bold leading-tight">இலக்கிய மன்றம்</p>
+      </a>
+      <a href="https://drive.google.com/drive/folders/1hLF7fqQoc6doAEo9hiG9ZqK21RP4Tucv" class="bg-white p-4 rounded-xl shadow-sm border border-blue-100 text-center hover:bg-blue-900 hover:text-white transition group flex flex-col items-center justify-center">
+        <span class="font-bold text-xl mb-2 text-blue-900 group-hover:text-white">CG</span>
+        <p class="text-xs font-bold leading-tight">உயர்கல்வி வழிகாட்டி (காண்க)</p>
+      </a>
+      <div class="bg-white p-4 rounded-xl shadow-sm border border-blue-100 text-center hover:bg-blue-900 hover:text-white transition group flex flex-col items-center justify-center">
         <span class="material-symbols-outlined text-3xl mb-2 text-blue-900 group-hover:text-white">shopping_cart</span>
-        <p class="text-[10px] md:text-xs font-bold leading-tight">நுகர்வோர் மன்றம்</p>
+        <p class="text-xs font-bold leading-tight">நுகர்வோர் மன்றம்</p>
       </div>
     </div>
   </section>
 
-  <section id="movements" class="bg-slate-100 py-20 px-6">
+  <section id="movements" class="bg-slate-200 py-20 px-6">
     <div class="max-w-7xl mx-auto">
       <h2 class="text-3xl font-black text-center mb-12 uppercase text-blue-900">மாணவர் இயக்கங்கள்</h2>
       <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
-        <div class="bg-white p-6 rounded-2xl shadow-md border-t-4 border-blue-800 text-center">
-          <h3 class="font-bold text-xl mb-1 text-blue-900">NCC</h3>
-          <p class="text-gray-600 text-[10px] md:text-xs font-bold uppercase italic">தேசிய மாணவர் படை</p>
+        <div class="bg-white p-6 rounded-2xl shadow border-t-4 border-blue-800 text-center">
+          <h3 class="font-bold text-2xl mb-1 text-blue-900">NCC</h3>
+          <p class="text-gray-600 text-xs font-bold uppercase">தேசிய மாணவர் படை</p>
         </div>
-        <div class="bg-white p-6 rounded-2xl shadow-md border-t-4 border-red-600 text-center">
-          <h3 class="font-bold text-xl mb-1 text-red-600">JRC</h3>
-          <p class="text-gray-600 text-[10px] md:text-xs font-bold uppercase italic">ஜூனியர் ரெட் கிராஸ்</p>
+        <div class="bg-white p-6 rounded-2xl shadow border-t-4 border-red-600 text-center">
+          <h3 class="font-bold text-2xl mb-1 text-red-600">JRC</h3>
+          <p class="text-gray-600 text-xs font-bold uppercase">ஜூனியர் ரெட் கிராஸ்</p>
         </div>
-        <div class="bg-white p-6 rounded-2xl shadow-md border-t-4 border-orange-500 text-center">
-          <h3 class="font-bold text-xl mb-1 text-orange-500">NSS</h3>
-          <p class="text-gray-600 text-[10px] md:text-xs font-bold uppercase italic">நாட்டு நலப்பணித் திட்டம்</p>
+        <div class="bg-white p-6 rounded-2xl shadow border-t-4 border-orange-500 text-center">
+          <h3 class="font-bold text-2xl mb-1 text-orange-500">NSS</h3>
+          <p class="text-gray-600 text-xs font-bold uppercase">நாட்டு நலப்பணித் திட்டம்</p>
         </div>
-        <div class="bg-white p-6 rounded-2xl shadow-md border-t-4 border-yellow-600 text-center">
-          <span class="font-bold text-lg md:text-xl mb-1 text-yellow-600">தமிழ்க்கூடல்</span>
-          <a href="https://drive.google.com/drive/folders/1u3y9-GNN-uCiE0dma6jcq41F7CoFi9Hd">
-          <p class="text-gray-600 text-[10px] md:text-xs font-bold uppercase italic">தமிழ் பண்பாட்டு அமைப்பு (காண்க)</p>
-          </a>
-        </div>
-        <div class="bg-white p-6 rounded-2xl shadow-md border-t-4 border-green-600 text-center col-span-2 md:col-span-1">
-          <h3 class="font-bold text-xl mb-1 text-green-600">NGC</h3>
-          <p class="text-gray-600 text-[10px] md:text-xs font-bold uppercase italic">தேசிய பசுமை படை</p>
+        <a href="https://drive.google.com/drive/folders/1u3y9-GNN-uCiE0dma6jcq41F7CoFi9Hd" class="bg-white p-6 rounded-2xl shadow border-t-4 border-yellow-600 text-center block hover:bg-yellow-50 transition">
+          <h3 class="font-bold text-xl mb-1 text-yellow-600">தமிழ்க்கூடல்</h3>
+          <p class="text-gray-600 text-xs font-bold uppercase">தமிழ் பண்பாட்டு அமைப்பு (காண்க)</p>
+        </a>
+        <div class="bg-white p-6 rounded-2xl shadow border-t-4 border-green-600 text-center col-span-2 md:col-span-1">
+          <h3 class="font-bold text-2xl mb-1 text-green-600">NGC</h3>
+          <p class="text-gray-600 text-xs font-bold uppercase">தேசிய பசுமை படை</p>
         </div>
       </div>
     </div>
@@ -647,85 +399,71 @@
   <section id="houses" class="py-20 px-6 max-w-7xl mx-auto">
     <div class="text-center mb-12">
       <h2 class="text-3xl font-black text-blue-900 uppercase">ஐவகை நில இல்லங்கள்</h2>
-      <div class="w-20 h-1 bg-red-600 mx-auto mt-2"></div>
+      <div class="w-20 h-1 bg-red-600 mx-auto mt-3"></div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
-      <div class="bg-red-600 text-white p-8 rounded-3xl text-center shadow-xl transform hover:scale-105 transition">
-        <span class="material-symbols-outlined text-5xl mb-4">filter_hdr</span>
-        <h3 class="text-xl font-black text-left w-full break-words">குறிஞ்சி (328)</h3>
-        <p class="mt-2 font-bold opacity-80 uppercase text-xs">Red House</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6">
+      <div class="bg-red-600 text-white p-6 rounded-3xl text-center shadow-lg transform hover:scale-105 transition">
+        <span class="material-symbols-outlined text-5xl mb-3">filter_hdr</span>
+        <h3 class="text-xl font-black">குறிஞ்சி (328)</h3>
+        <p class="mt-1 font-bold opacity-80 uppercase text-xs">Red House</p>
       </div>
-      <div class="bg-yellow-500 text-white p-8 rounded-3xl text-center shadow-xl transform hover:scale-105 transition">
-        <span class="material-symbols-outlined text-5xl mb-4">forest</span>
-        <h3 class="text-xl font-black text-left w-full break-words">முல்லை (130)</h3>
-        <p class="mt-2 font-bold opacity-80 uppercase text-xs">Yellow House</p>
+      <div class="bg-yellow-500 text-white p-6 rounded-3xl text-center shadow-lg transform hover:scale-105 transition">
+        <span class="material-symbols-outlined text-5xl mb-3">forest</span>
+        <h3 class="text-xl font-black">முல்லை (130)</h3>
+        <p class="mt-1 font-bold opacity-80 uppercase text-xs">Yellow House</p>
       </div>
-      <div class="bg-green-600 text-white p-8 rounded-3xl text-center shadow-xl transform hover:scale-105 transition">
-        <span class="material-symbols-outlined text-5xl mb-4">agriculture</span>
-        <h3 class="text-xl font-black text-left w-full break-words">மருதம் (222)</h3>
-        <p class="mt-2 font-bold opacity-80 uppercase text-xs">Green House</p>
+      <div class="bg-green-600 text-white p-6 rounded-3xl text-center shadow-lg transform hover:scale-105 transition">
+        <span class="material-symbols-outlined text-5xl mb-3">agriculture</span>
+        <h3 class="text-xl font-black">மருதம் (222)</h3>
+        <p class="mt-1 font-bold opacity-80 uppercase text-xs">Green House</p>
       </div>
-      <div class="bg-blue-600 text-white p-8 rounded-3xl text-center shadow-xl transform hover:scale-105 transition">
-        <span class="material-symbols-outlined text-5xl mb-4">waves</span>
-        <h3 class="text-xl font-black text-left w-full break-words">நெய்தல் (300)</h3>
-        <p class="mt-2 font-bold opacity-80 uppercase text-xs">Blue House</p>
+      <div class="bg-blue-600 text-white p-6 rounded-3xl text-center shadow-lg transform hover:scale-105 transition">
+        <span class="material-symbols-outlined text-5xl mb-3">waves</span>
+        <h3 class="text-xl font-black">நெய்தல் (300)</h3>
+        <p class="mt-1 font-bold opacity-80 uppercase text-xs">Blue House</p>
       </div>
-      <div class="bg-white text-gray-800 p-8 rounded-3xl text-center shadow-xl border border-gray-200 transform hover:scale-105 transition">
-        <span class="material-symbols-outlined text-5xl mb-4 text-gray-400">wb_sunny</span>
-        <h3 class="text-xl font-black text-left w-full break-words">பாலை (428)</h3>
-        <p class="mt-2 font-bold opacity-60 uppercase text-xs">White House</p>
+      <div class="bg-white text-gray-800 p-6 rounded-3xl text-center shadow-lg border border-gray-200 transform hover:scale-105 transition">
+        <span class="material-symbols-outlined text-5xl mb-3 text-amber-400">wb_sunny</span>
+        <h3 class="text-xl font-black">பாலை (428)</h3>
+        <p class="mt-1 font-bold text-gray-400 uppercase text-xs">White House</p>
       </div>
-    </div>
-  </section>
-
-  <section id="staff" class="py-20 px-6 max-w-7xl mx-auto">
-    <h2 class="text-4xl font-black text-blue-900 text-center mb-12 uppercase">தலைமை ஆசிரியர்: திரு. சீ.ரமேஷ்</h2>
-    <div class="bg-white rounded-2xl p-8 shadow-lg border border-blue-100 text-center">
-      <p class="text-xl italic text-gray-700">"ஒழுக்கமே உயர்வு தரும் - அண்ணா அரசு மாதிரி பள்ளி உங்களை வரவேற்கிறது."</p>
     </div>
   </section>
 
-  <section id="downloads" class="py-20 bg-slate-200 px-6">
+  <section id="staff" class="py-12 px-6 max-w-4xl mx-auto text-center">
+    <h2 class="text-3xl md:text-4xl font-black text-blue-900 mb-6 uppercase">தலைமை ஆசிரியர்: திரு. சீ.ரமேஷ்</h2>
+    <div class="bg-blue-50 rounded-2xl p-8 shadow-inner border border-blue-200">
+      <p class="text-xl italic text-slate-700 font-semibold">"ஒழுக்கமே உயர்வு தரும் - அண்ணா அரசு மாதிரி பள்ளி உங்களை வரவேற்கிறது."</p>
+    </div>
+  </section>
+
+  <section id="downloads" class="py-20 bg-slate-100 px-6">
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
       <div>
-        <h3 class="text-2xl font-bold mb-6 text-blue-900">பார்க்க</h3>
+        <h3 class="text-2xl font-black mb-6 text-blue-900 uppercase">பயனுள்ள இணைப்புகள்</h3>
         <div class="space-y-4">
-          <div class="bg-white p-4 rounded-lg flex justify-between items-center shadow-sm">
-            <span>புதியசேர்க்கைக்கு ஆவணங்கள்</span>
-            <a href="https://drive.google.com/file/d/1Qb3COu46qS90jHPp_kWjifDOFgnkPPdw/view?usp=drivesdk" target="_blank" rel="noopener">
-              <button type="button" onclick="alert('Viewing...')" class="text-red-600 font-bold">பார்க்க</button>
-            </a>
+          <div class="bg-white p-4 rounded-lg flex justify-between items-center shadow border border-slate-200">
+            <span class="font-bold text-slate-700">புதிய சேர்க்கைக்கு ஆவணங்கள்</span>
+            <a href="https://drive.google.com/file/d/1Qb3COu46qS90jHPp_kWjifDOFgnkPPdw/view?usp=drivesdk" target="_blank" rel="noopener" class="text-red-600 font-bold hover:underline">பார்க்க</a>
           </div>
-
-          <div class="bg-white p-4 rounded-lg flex justify-between items-center shadow-sm">
-            <span>பள்ளி ஆண்டு காலண்டர்</span>
-            <a href="https://drive.google.com/file/d/1ajof9ewkI6Ia2QQerEtrywjsQCaiNH5R/view?usp=drivesdk" target="_blank" rel="noopener">
-              <button type="button" onclick="alert('Vieing...')" class="text-red-600 font-bold">பார்க்க</button>
-            </a>
+          <div class="bg-white p-4 rounded-lg flex justify-between items-center shadow border border-slate-200">
+            <span class="font-bold text-slate-700">பள்ளி ஆண்டு காலண்டர்</span>
+            <a href="https://drive.google.com/file/d/1ajof9ewkI6Ia2QQerEtrywjsQCaiNH5R/view?usp=drivesdk" target="_blank" rel="noopener" class="text-red-600 font-bold hover:underline">பார்க்க</a>
           </div>
-
-          <div class="bg-white p-4 rounded-lg flex justify-between items-center shadow-sm">
-            <span>தேர்வு கால அட்டவணைகள்</span>
-            <a href="https://drive.google.com/drive/folders/1RUnlWBeN5lUIW8wyDHx7Ax0nPspXS3Cn" target="_blank" rel="noopener">
-              <button type="button" onclick="alert('Viewing...')" class="text-red-600 font-bold">பார்க்க</button>
-            </a>
+          <div class="bg-white p-4 rounded-lg flex justify-between items-center shadow border border-slate-200">
+            <span class="font-bold text-slate-700">தேர்வு கால அட்டவணைகள்</span>
+            <a href="https://drive.google.com/drive/folders/1RUnlWBeN5lUIW8wyDHx7Ax0nPspXS3Cn" target="_blank" rel="noopener" class="text-red-600 font-bold hover:underline">பார்க்க</a>
           </div>
-
-          <div class="bg-white p-4 rounded-lg flex justify-between items-center shadow-sm">
-            <span>புகைப்படங்கள் தொகுப்பு</span>
-            <a href="https://photos.app.goo.gl/5tVv2tjukXrAZm727" target="_blank" rel="noopener">
-              <button type="button" onclick="alert('viewing...')" class="text-red-600 font-bold">பார்க்க</button>
-            </a>
-          </div>
+          <div class="bg-white p-4 rounded-lg flex justify-between items-center shadow border border-slate-200">
+            <span class="font-bold text-slate-700">புகைப்படங்கள் தொகுப்பு</span>
+            <a href="https://photos.app.goo.gl/5tVv2tjukXrAZm727" target="_blank" rel="noopener" class="text-red-600 font-bold hover:underline">பார்க்க</a>
           </div>
         </div>
-
-          <div>
-        <h3 class="text-2xl font-bold mb-6 text-blue-900">அமைவிடம் (Location)</h3>
-        <div class="w-full h-80 bg-gray-200 rounded-2xl overflow-hidden shadow-md border border-gray-300">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.411641019159!2d79.35100067408882!3d10.932405657715694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a55cc03759d9d39%3A0xbc0167316cd90bac!2sAnna%20Government%20Higher%20Secondary%20School%20(Model)!5e0!3m2!1sen!2sin!4v1709785000000!5m2!1sen!2sin"
-            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" title="School map"></iframe>
+      </div>
+      <div>
+        <h3 class="text-2xl font-black mb-6 text-blue-900 uppercase">அமைவிடம்</h3>
+        <div class="w-full h-80 bg-gray-200 rounded-2xl overflow-hidden shadow border border-gray-300">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.411641019159!2d79.35100067408882!3d10.932405657715694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a55cc03759d9d39%3A0xbc0167316cd90bac!2sAnna%20Government%20Higher%20Secondary%20School%20(Model)!5e0!3m2!1sen!2sin!4v1709785000000!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" title="School map"></iframe>
         </div>
       </div>
     </div>
@@ -735,56 +473,53 @@
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
       <div>
         <h4 class="text-xl font-bold mb-6 border-l-4 border-red-600 pl-4 uppercase">தொடர்புக்கு</h4>
-        <p class="text-gray-400 leading-relaxed italic">அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி,<br />பட்டீஸ்வரம், கும்பகோணம் - 612703.</p>
-        <div style="display: flex; align-items: center; gap: 10px;">
-    <p style="margin: 0; color: white;">பள்ளி வேலை நேரத்தில் அழைக்க:</p>
-          <a href="tel:+919791413879" style="display: flex;">
-        <img src="https://cdn-icons-png.flaticon.com/512/724/724664.png"
-             alt="Call"
-             style="width: 30px; height: 30px; vertical-align: middle;">
-           </a>
-           </div>
+        <p class="text-slate-300 leading-relaxed mb-4">அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி,<br />பட்டீஸ்வரம், கும்பகோணம் - 612703.</p>
+        <div class="flex items-center gap-3 bg-blue-900/50 p-3 rounded-lg w-fit">
+          <p class="m-0 text-sm text-slate-200">பள்ளி வேலை நேரத்தில் அழைக்க:</p>
+          <a href="tel:+919791413879" class="hover:scale-110 transition">
+            <img src="https://cdn-icons-png.flaticon.com/512/724/724664.png" alt="Call" class="w-8 h-8">
+          </a>
+        </div>
       </div>
       <div>
         <h4 class="text-xl font-bold mb-6 border-l-4 border-red-600 pl-4 uppercase">நேரம்</h4>
-        <p class="text-gray-400">காலை 9:20 முதல் மாலை 4:20 வரை</p>
-        <p class="text-gray-400">திங்கட்கிழமை முதல் வெள்ளிக்கிழமை வரை</p>
+        <p class="text-slate-300 mb-2 font-semibold">காலை 9:20 முதல் மாலை 4:20 வரை</p>
+        <p class="text-slate-400 text-sm">திங்கட்கிழமை முதல் வெள்ளிக்கிழமை வரை</p>
       </div>
       <div>
         <h4 class="text-xl font-bold mb-6 border-l-4 border-red-600 pl-4 uppercase">முக்கியமானவை</h4>
-        <ul class="text-gray-400 space-y-2">
-          <li><a href="https://agmhss.github.io/Thiran/" class="hover:text-white">6-9 திறன் தேர்வு முடிவுகள்</a></li>
-          <li><a href="https://agmhss.github.io/8A-Marks/" class="hover:text-white">6-9 வகுப்பு நிலை தேர்வு முடிவுகள்</a></li>
-          <li><a href="https://form.svhrt.com/67f07dfad2a51524b65463a7" class="hover:text-white">புகார் பெட்டி</a></li>
+        <ul class="space-y-3">
+          <li><a href="https://agmhss.github.io/Thiran/" class="text-slate-300 hover:text-white hover:underline transition">6-9 திறன் தேர்வு முடிவுகள்</a></li>
+          <li><a href="https://agmhss.github.io/8A-Marks/" class="text-slate-300 hover:text-white hover:underline transition">6-9 வகுப்பு நிலை தேர்வு முடிவுகள்</a></li>
+          <li><a href="https://form.svhrt.com/67f07dfad2a51524b65463a7" class="text-slate-300 hover:text-white hover:underline transition">புகார் பெட்டி</a></li>
         </ul>
       </div>
     </div>
-    <p class="text-center mt-12 text-white-600 text-xs italic">
+
+    <div class="flex justify-center items-center gap-6 mt-12 mb-8">
+      <a href="https://www.facebook.com/profile.php?id=61580781826318" target="_blank" rel="noopener" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-blue-900 transition-all text-xl" aria-label="Facebook">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://youtube.com/@agmhsspatteeswaram?si=20ppRkDP2giAeL7Y" target="_blank" rel="noopener" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-red-600 transition-all text-xl" aria-label="YouTube">
+        <i class="fab fa-youtube"></i>
+      </a>
+      <a href="https://x.com/@Agmhsspsw" target="_blank" rel="noopener" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-all text-xl" aria-label="X (Twitter)">
+        <i class="fa-brands fa-x-twitter"></i>
+      </a>
+      <a href="https://t.me/englishelearners" target="_blank" rel="noopener" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-blue-500 transition-all text-xl" aria-label="Telegram">
+        <i class="fa-brands fa-telegram"></i>
+      </a>
+    </div>
+
+    <p class="text-center text-slate-400 text-xs italic">
       © 2026 அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.
     </p>
-
-    <div class="social-footer-container center">
-    <a href="https://www.facebook.com/profile.php?id=61580781826318" target="_blank" rel="noopener" class="social-icon" aria-label="Facebook">
-        <i class="fab fa-facebook-f"></i>
-    </a>
-    <a href="https://youtube.com/@agmhsspatteeswaram?si=20ppRkDP2giAeL7Y" target="_blank" rel="noopener" class="social-icon" aria-label="YouTube">
-        <i class="fab fa-youtube"></i>
-    </a>
-    <a href="https://x.com/@Agmhsspsw" target="_blank" rel="noopener" class="social-icon" aria-label="X (Twitter)">
-        <i class="fa-brands fa-x-twitter"></i>
-    </a>
-    <a href="https://t.me/englishelearners" target="_blank" rel="noopener" class="social-icon" aria-label="Telegram">
-        <i class="fa-brands fa-telegram"></i>
-    </a>
-    </div>
   </footer>
 
-  <!-- Nilgiri tahr scene: MUST live in HTML, not inside <script> -->
   <div id="tahrScene" aria-hidden="true">
     <div class="tahr a" title="">
-     <svg viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg">
-  <image href="https://lh3.googleusercontent.com/u/0/d/10mfjiOiSU7hxXv4LZ7ls75fZlp-tkoCT" height="100%" width="100%" >
-</svg>
+      <svg viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg">
+        <image href="https://lh3.googleusercontent.com/u/0/d/10mfjiOiSU7hxXv4LZ7ls75fZlp-tkoCT" height="100%" width="100%"></image>
         <ellipse cx="38" cy="28" rx="18" ry="11" fill="#3d3428"/>
         <ellipse cx="22" cy="30" rx="10" ry="8" fill="#3d3428"/>
         <path d="M12 38 L10 46 M20 38 L18 46 M44 36 L42 46 M52 34 L50 46" stroke="#3d3428" stroke-width="3" stroke-linecap="round"/>
@@ -794,8 +529,7 @@
     </div>
     <div class="tahr b" title="">
       <svg viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg">
-  <image href="https://lh3.googleusercontent.com/u/0/d/10mfjiOiSU7hxXv4LZ7ls75fZlp-tkoCT" height="100%" width="100%">
-</svg>
+        <image href="https://lh3.googleusercontent.com/u/0/d/10mfjiOiSU7hxXv4LZ7ls75fZlp-tkoCT" height="100%" width="100%"></image>
         <ellipse cx="38" cy="28" rx="16" ry="10" fill="#4a4036"/>
         <ellipse cx="22" cy="30" rx="9" ry="7" fill="#4a4036"/>
         <path d="M12 38 L10 46 M20 38 L18 46 M44 36 L42 46 M50 34 L48 46" stroke="#4a4036" stroke-width="2.5" stroke-linecap="round"/>
@@ -805,8 +539,7 @@
     </div>
     <div class="tahr c" title="">
       <svg viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg">
-  <image href="https://lh3.googleusercontent.com/u/0/d/10mfjiOiSU7hxXv4LZ7ls75fZlp-tkoCT" height="100%" width="100%">
-</svg>
+        <image href="https://lh3.googleusercontent.com/u/0/d/10mfjiOiSU7hxXv4LZ7ls75fZlp-tkoCT" height="100%" width="100%"></image>
         <ellipse cx="38" cy="28" rx="15" ry="9" fill="#5c5248"/>
         <ellipse cx="22" cy="30" rx="8" ry="6" fill="#5c5248"/>
         <path d="M12 38 L10 46 M20 38 L18 46 M44 36 L42 46 M50 34 L48 46" stroke="#5c5248" stroke-width="2.2" stroke-linecap="round"/>
@@ -820,16 +553,12 @@
     <svg viewBox="0 0 260 180" role="img">
       <defs>
         <radialGradient id="wingLGrad" cx="35%" cy="35%" r="75%">
-          <stop offset="0" stop-color="#ffd1ea"/>
-          <stop offset="0.45" stop-color="#ff5aa5"/>
-          <stop offset="0.75" stop-color="#7b5cff"/>
-          <stop offset="1" stop-color="#1fd6ff"/>
+          <stop offset="0" stop-color="#ffd1ea"/><stop offset="0.45" stop-color="#ff5aa5"/>
+          <stop offset="0.75" stop-color="#7b5cff"/><stop offset="1" stop-color="#1fd6ff"/>
         </radialGradient>
         <radialGradient id="wingRGrad" cx="65%" cy="35%" r="75%">
-          <stop offset="0" stop-color="#ffd1ea"/>
-          <stop offset="0.45" stop-color="#ff5aa5"/>
-          <stop offset="0.75" stop-color="#7b5cff"/>
-          <stop offset="1" stop-color="#1fd6ff"/>
+          <stop offset="0" stop-color="#ffd1ea"/><stop offset="0.45" stop-color="#ff5aa5"/>
+          <stop offset="0.75" stop-color="#7b5cff"/><stop offset="1" stop-color="#1fd6ff"/>
         </radialGradient>
         <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
           <feDropShadow dx="0" dy="7" stdDeviation="7" flood-color="#000" flood-opacity="0.22"/>
@@ -840,29 +569,26 @@
         <path d="M130 98 C 112 120, 86 142, 54 138 C 22 134, 18 106, 36 92 C 52 80, 78 84, 96 92 C 114 99, 124 101, 130 98 Z" fill="url(#wingLGrad)" opacity="0.96"/>
         <path d="M124 92 C 90 70, 58 72, 46 88" fill="none" stroke="#fff" stroke-opacity="0.45" stroke-width="3"/>
         <path d="M122 100 C 92 108, 64 116, 48 116" fill="none" stroke="#fff" stroke-opacity="0.35" stroke-width="3"/>
-        <circle cx="64" cy="96" r="5" fill="#fff" opacity="0.35"/>
-        <circle cx="78" cy="118" r="4" fill="#fff" opacity="0.28"/>
+        <circle cx="64" cy="96" r="5" fill="#fff" opacity="0.35"/><circle cx="78" cy="118" r="4" fill="#fff" opacity="0.28"/>
       </g>
       <g id="wingR" filter="url(#softShadow)">
         <path d="M130 92 C 162 42, 216 42, 228 78 C 240 114, 208 132, 174 122 C 152 115, 138 105, 130 92 Z" fill="url(#wingRGrad)"/>
         <path d="M130 98 C 148 120, 174 142, 206 138 C 238 134, 242 106, 224 92 C 208 80, 182 84, 164 92 C 146 99, 136 101, 130 98 Z" fill="url(#wingRGrad)" opacity="0.96"/>
         <path d="M136 92 C 170 70, 202 72, 214 88" fill="none" stroke="#fff" stroke-opacity="0.45" stroke-width="3"/>
         <path d="M138 100 C 168 108, 196 116, 212 116" fill="none" stroke="#fff" stroke-opacity="0.35" stroke-width="3"/>
-        <circle cx="196" cy="96" r="5" fill="#fff" opacity="0.35"/>
-        <circle cx="182" cy="118" r="4" fill="#fff" opacity="0.28"/>
+        <circle cx="196" cy="96" r="5" fill="#fff" opacity="0.35"/><circle cx="182" cy="118" r="4" fill="#fff" opacity="0.28"/>
       </g>
       <g id="body">
         <ellipse cx="130" cy="104" rx="6.5" ry="36" fill="#2a2a2a"/>
         <ellipse cx="130" cy="82" rx="5.2" ry="14" fill="#1f1f1f"/>
         <path d="M126 68 C 112 50, 102 44, 90 42" stroke="#1f1f1f" stroke-width="3" fill="none" stroke-linecap="round"/>
         <path d="M134 68 C 148 50, 158 44, 170 42" stroke="#1f1f1f" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <circle cx="90" cy="42" r="3" fill="#1f1f1f"/>
-        <circle cx="170" cy="42" r="3" fill="#1f1f1f"/>
+        <circle cx="90" cy="42" r="3" fill="#1f1f1f"/><circle cx="170" cy="42" r="3" fill="#1f1f1f"/>
       </g>
     </svg>
   </div>
-
-  <script>
+      <script>
+    /* Image Slider Logic */
     let slideIndex = 0;
     const slides = document.getElementsByClassName("slide");
     let slideTimer;
@@ -889,9 +615,9 @@
       clearTimeout(slideTimer);
       slideTimer = setTimeout(showSlides, 9000);
     }
-
     showSlides();
 
+    /* Butterfly Animation Logic */
     (function () {
       const butterfly = document.getElementById("butterfly");
       if (!butterfly) return;
@@ -901,46 +627,31 @@
       const svg = butterfly.querySelector("svg");
       if (!wingL || !wingR || !svg) return;
 
-      const minFlyDuration = 1500;
-      const maxFlyDuration = 3200;
-      const minRestDuration = 700;
-      const maxRestDuration = 2400;
-      const margin = 60;
+      const minFlyDuration = 1500, maxFlyDuration = 3200;
+      const minRestDuration = 700, maxRestDuration = 2400;
+      const margin = 60, flyFlapMs = 120, restFlapMs = 260;
 
-      const flyFlapMs = 120;
-      const restFlapMs = 260;
-
-      function randomBetween(min, max) {
-        return Math.random() * (max - min) + min;
-      }
-      function clamp(v, min, max) {
-        return Math.max(min, Math.min(max, v));
-      }
+      function randomBetween(min, max) { return Math.random() * (max - min) + min; }
+      function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
       function getRandomPosition() {
-        const w = window.innerWidth;
-        const h = window.innerHeight;
         return {
-          x: randomBetween(margin, w - margin),
-          y: randomBetween(margin, h - margin),
+          x: randomBetween(margin, window.innerWidth - margin),
+          y: randomBetween(margin, window.innerHeight - margin),
         };
       }
 
-      wingL.style.transformBox = "fill-box";
-      wingL.style.transformOrigin = "100% 55%";
-      wingR.style.transformBox = "fill-box";
-      wingR.style.transformOrigin = "0% 55%";
+      wingL.style.transformBox = "fill-box"; wingL.style.transformOrigin = "100% 55%";
+      wingR.style.transformBox = "fill-box"; wingR.style.transformOrigin = "0% 55%";
 
       let bodyAnim = null;
       function setBodyMotion(mode) {
         if (bodyAnim) bodyAnim.cancel();
         const isFly = mode === "fly";
-        bodyAnim = svg.animate(
-          [
+        bodyAnim = svg.animate([
             { transform: "translateY(0px) scale(1)" },
             { transform: `translateY(${isFly ? -1.5 : -1}px) scale(${isFly ? 1.01 : 1.005})` },
             { transform: "translateY(0px) scale(1)" },
-          ],
-          { duration: isFly ? 420 : 700, iterations: Infinity, easing: "ease-in-out" }
+          ], { duration: isFly ? 420 : 700, iterations: Infinity, easing: "ease-in-out" }
         );
       }
 
@@ -948,40 +659,28 @@
       function startFlap(mode) {
         const isFly = mode === "fly";
         const dur = isFly ? flyFlapMs : restFlapMs;
-
-        if (flapL) flapL.cancel();
-        if (flapR) flapR.cancel();
-
-        flapL = wingL.animate(
-          [
+        if (flapL) flapL.cancel(); if (flapR) flapR.cancel();
+        
+        flapL = wingL.animate([
             { transform: "rotate(22deg) scaleX(1) skewY(0deg)" },
             { transform: "rotate(-38deg) scaleX(0.92) skewY(-2deg)" },
-          ],
-          { duration: dur, iterations: Infinity, direction: "alternate", easing: "ease-in-out" }
-        );
-        flapR = wingR.animate(
-          [
+          ], { duration: dur, iterations: Infinity, direction: "alternate", easing: "ease-in-out" });
+        flapR = wingR.animate([
             { transform: "rotate(-22deg) scaleX(1) skewY(0deg)" },
             { transform: "rotate(38deg) scaleX(0.92) skewY(2deg)" },
-          ],
-          { duration: dur, iterations: Infinity, direction: "alternate", easing: "ease-in-out" }
-        );
-
+          ], { duration: dur, iterations: Infinity, direction: "alternate", easing: "ease-in-out" });
         setBodyMotion(mode);
       }
 
       let prev = null;
-
       function flyToRandomSpot() {
         const next = getRandomPosition();
         const duration = randomBetween(minFlyDuration, maxFlyDuration);
-
         startFlap("fly");
 
         let tilt = randomBetween(-15, 15);
         if (prev) {
-          const dx = next.x - prev.x;
-          const dy = next.y - prev.y;
+          const dx = next.x - prev.x, dy = next.y - prev.y;
           const angle = (Math.atan2(dy, dx) * 180) / Math.PI;
           tilt = clamp(angle + randomBetween(-10, 10), -55, 55);
         }
@@ -992,8 +691,7 @@
         butterfly.style.transitionDuration = `${duration}ms, ${duration}ms, ${duration}ms`;
         butterfly.style.left = next.x + "px";
         butterfly.style.top = next.y + "px";
-        butterfly.style.transform =
-          `translate(-50%, -50%) rotate(${tilt}deg) scale(${scale})`;
+        butterfly.style.transform = `translate(-50%, -50%) rotate(${tilt}deg) scale(${scale})`;
 
         prev = next;
         setTimeout(restAtCurrentSpot, duration);
@@ -1001,13 +699,10 @@
 
       function restAtCurrentSpot() {
         startFlap("rest");
-
         const restDuration = randomBetween(minRestDuration, maxRestDuration);
         const calmTilt = randomBetween(-8, 8);
         butterfly.style.transitionDuration = `600ms, 600ms, 600ms`;
-        butterfly.style.transform =
-          `translate(-50%, -50%) rotate(${calmTilt}deg) scale(1)`;
-
+        butterfly.style.transform = `translate(-50%, -50%) rotate(${calmTilt}deg) scale(1)`;
         setTimeout(flyToRandomSpot, restDuration);
       }
 
@@ -1018,71 +713,68 @@
 
       window.addEventListener("resize", () => {
         const { x, y } = getRandomPosition();
-        butterfly.style.left = x + "px";
-        butterfly.style.top = y + "px";
+        butterfly.style.left = x + "px"; butterfly.style.top = y + "px";
         prev = { x, y };
       });
     })();
 
+    /* Age Calculator Logic */
     document.getElementById('dobInput').addEventListener('input', function () {
-        let v = this.value.replace(/\D/g, '');
-        if (v.length > 8) v = v.slice(0, 8);
-        let finalVal = v.length > 4 ? v.slice(0, 2) + '/' + v.slice(2, 4) + '/' + v.slice(4) :
-                       v.length > 2 ? v.slice(0, 2) + '/' + v.slice(2) : v;
-        this.value = finalVal;
+      let v = this.value.replace(/\D/g, '');
+      if (v.length > 8) v = v.slice(0, 8);
+      let finalVal = v.length > 4 ? v.slice(0, 2) + '/' + v.slice(2, 4) + '/' + v.slice(4) :
+                     v.length > 2 ? v.slice(0, 2) + '/' + v.slice(2) : v;
+      this.value = finalVal;
     });
 
     function calculateClass() {
-        const input = document.getElementById('dobInput').value;
-        const output = document.getElementById('classOutput');
-        const parts = input.split('/');
+      const input = document.getElementById('dobInput').value;
+      const output = document.getElementById('classOutput');
+      const parts = input.split('/');
 
-        if (parts.length !== 3 || input.length < 10) {
-            alert("தேதியை DD/MM/YYYY வடிவில் உள்ளிடவும்!");
-            return;
+      if (parts.length !== 3 || input.length < 10) {
+        alert("தேதியை DD/MM/YYYY வடிவில் உள்ளிடவும்!");
+        return;
+      }
+
+      const day = parseInt(parts[0], 10);
+      const month = parseInt(parts[1], 10) - 1;
+      const year = parseInt(parts[2], 10);
+      const dob = new Date(year, month, day);
+
+      if (isNaN(dob.getTime()) || dob.getMonth() !== month) {
+        output.value = "தவறான தேதி";
+        output.classList.replace("text-green-400", "text-red-400");
+        return;
+      }
+
+      const schoolTerms = [
+        { name: "LKG", start: new Date(2022, 7, 1), end: new Date(2023, 6, 31) },
+        { name: "UKG", start: new Date(2021, 7, 1), end: new Date(2022, 6, 31) },
+        { name: "Class 1", start: new Date(2020, 7, 1), end: new Date(2021, 6, 31) },
+        { name: "Class 2", start: new Date(2019, 7, 1), end: new Date(2020, 6, 31) },
+        { name: "Class 3", start: new Date(2018, 7, 1), end: new Date(2019, 6, 31) },
+        { name: "Class 4", start: new Date(2017, 7, 1), end: new Date(2018, 6, 31) },
+        { name: "Class 5", start: new Date(2016, 7, 1), end: new Date(2017, 6, 31) },
+        { name: "Class 6", start: new Date(2015, 7, 1), end: new Date(2016, 6, 31) },
+        { name: "Class 7", start: new Date(2014, 7, 1), end: new Date(2015, 6, 31) },
+        { name: "Class 8", start: new Date(2013, 7, 1), end: new Date(2014, 6, 31) },
+        { name: "Class 9", start: new Date(2012, 7, 1), end: new Date(2013, 6, 31) },
+        { name: "Class 10", start: new Date(2011, 7, 1), end: new Date(2012, 6, 31) },
+        { name: "Class 11", start: new Date(2010, 7, 1), end: new Date(2011, 6, 31) },
+        { name: "Class 12", start: new Date(2009, 7, 1), end: new Date(2010, 6, 31) }
+      ];
+
+      let result = "விவரம் இல்லை";
+      output.classList.replace("text-red-400", "text-green-400");
+      for (let term of schoolTerms) {
+        if (dob >= term.start && dob <= term.end) {
+          result = term.name;
+          break;
         }
-
-        const day = parseInt(parts[0], 10);
-        const month = parseInt(parts[1], 10) - 1;
-        const year = parseInt(parts[2], 10);
-        const dob = new Date(year, month, day);
-
-        if (isNaN(dob.getTime()) || dob.getMonth() !== month) {
-            output.value = "தவறான தேதி";
-            output.style.color = "#ff5252";
-            return;
-        }
-
-        const schoolTerms = [
-            { name: "LKG", start: new Date(2022, 7, 1), end: new Date(2023, 6, 31) },
-            { name: "UKG", start: new Date(2021, 7, 1), end: new Date(2022, 6, 31) },
-            { name: "Class 1", start: new Date(2020, 7, 1), end: new Date(2021, 6, 31) },
-            { name: "Class 2", start: new Date(2019, 7, 1), end: new Date(2020, 6, 31) },
-            { name: "Class 3", start: new Date(2018, 7, 1), end: new Date(2019, 6, 31) },
-            { name: "Class 4", start: new Date(2017, 7, 1), end: new Date(2018, 6, 31) },
-            { name: "Class 5", start: new Date(2016, 7, 1), end: new Date(2017, 6, 31) },
-            { name: "Class 6", start: new Date(2015, 7, 1), end: new Date(2016, 6, 31) },
-            { name: "Class 7", start: new Date(2014, 7, 1), end: new Date(2015, 6, 31) },
-            { name: "Class 8", start: new Date(2013, 7, 1), end: new Date(2014, 6, 31) },
-            { name: "Class 9", start: new Date(2012, 7, 1), end: new Date(2013, 6, 31) },
-            { name: "Class 10", start: new Date(2011, 7, 1), end: new Date(2012, 6, 31) },
-            { name: "Class 11", start: new Date(2010, 7, 1), end: new Date(2011, 6, 31) },
-            { name: "Class 12", start: new Date(2009, 7, 1), end: new Date(2010, 6, 31) }
-        ];
-
-        let result = "விவரம் இல்லை";
-        output.style.color = "#8bc34a";
-        for (let term of schoolTerms) {
-            if (dob >= term.start && dob <= term.end) {
-                result = term.name;
-                break;
-            }
-        }
-        output.value = result;
+      }
+      output.value = result;
     }
-
-
-    
   </script>
 </body>
-</html>
+    </html>
