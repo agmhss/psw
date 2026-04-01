@@ -20,8 +20,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
-
-    
+/* This new wrapper forces the box to the center of the page */
+  .visitor-center-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 20px 0; /* Adds a nice breathing room above and below */
+  }
 
   .school-visitor-box {
     display: inline-flex;
@@ -33,19 +38,8 @@
     padding: 12px 20px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    margin: 15px 0;
   }
 
-  .school-visitor-box span {
-    font-size: 14px;
-    font-weight: 600;
-    color: #333333;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    }
-    
-    * { box-sizing: border-box; }
 
     body {
       font-family: 'Hind Madurai', 'Lexend', sans-serif;
@@ -540,11 +534,13 @@
       </a>
     </div>
 
-    <div class="school-visitor-box">
-  <span>Page Visitors</span>
-  <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fagmhss.github.io%2Fpsw&count_bg=%230056b3&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Total+Hits&edge_flat=false" alt="School Webpage Visitor Counter" />
+    <div class="visitor-center-wrapper">
+  <div class="school-visitor-box">
+    <span>Page Visitors</span>
+    <img src="https://komarev.com/ghpvc/?username=agmhss-psw-site&label=Visits&color=1a2b4c&style=flat" alt="School Webpage Visitor Counter" />
+  </div>
     </div>
-
+    
     <p class="text-center text-slate-400 text-xs italic">
       © 2026 அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.
     </p>
