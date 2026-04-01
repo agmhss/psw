@@ -20,25 +20,28 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
-/* This new wrapper forces the box to the center of the page */
-  .visitor-center-wrapper {
+
+  /* Keeps everything perfectly centered on one line */
+  .visitor-oneliner {
     display: flex;
     justify-content: center;
-    width: 100%;
-    margin: 20px 0; /* Adds a nice breathing room above and below */
+    align-items: center;
+    margin: 15px 0; 
   }
 
-  .school-visitor-box {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #ffffff;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 12px 20px;
+  /* Styles the text to match the footer */
+  .visitor-text {
+    color: #ffffff; 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-right: 12px; /* Adds a nice gap between the text and the badge */
   }
+
+
+
 
 
     body {
@@ -534,12 +537,10 @@
       </a>
     </div>
 
-    <div class="visitor-center-wrapper">
-  <div class="school-visitor-box">
-    <span>Page Visitors</span>
-    <img src="https://komarev.com/ghpvc/?username=agmhss-psw-site&label=Visits&color=1a2b4c&style=flat" alt="School Webpage Visitor Counter" />
-  </div>
-    </div>
+    <div class="visitor-oneliner">
+  <span class="visitor-text">Page Visitors:</span>
+  <img src="https://komarev.com/ghpvc/?username=agmhss-psw-site&label=Visits&color=0056b3&style=flat" alt="Visitor Counter" />
+</div>
     
     <p class="text-center text-slate-400 text-xs italic">
       © 2026 அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.
