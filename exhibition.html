@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGMHSS Art Exhibition</title>
+    <style>
+        /* --- THE CSS --- */
+        body {
+            background-color: #f4f4f0; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        /* Masonry Layout */
+        .art-gallery {
+            column-count: 3; 
+            column-gap: 30px; 
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 900px) { .art-gallery { column-count: 2; } }
+        @media (max-width: 600px) { .art-gallery { column-count: 1; } }
+
+        /* The Frame */
+        .art-frame {
+            break-inside: avoid; 
+            margin-bottom: 30px;
+            background: #fff;
+            padding: 15px; 
+            border-radius: 4px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .art-frame:hover {
+            transform: translateY(-5px) scale(1.02); 
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+
+        .art-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid #eee; 
+            background-color: #eaeaea; /* Placeholder color while loading */
+        }
+
+        .art-caption {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 1em;
+            color: #444;
+        }
+
+        /* Lightbox Styles */
+        .lightbox {
+            display: none; 
+            position: fixed;
+            z-index: 999;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(20, 20, 20, 0.95); 
+        }
+
+        .lightbox-content {
+            margin: auto;
+            display: block;
+            max-height: 80vh;
+            max-width: 90vw;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            border: 10px solid #fff; 
+        }
+
+        #lightbox-caption {
+            text-align: center;
+            color: #fff;
+            padding: 15px;
+            font-size: 1.2em;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        /* --- Submission Button Styles --- */
+        .submit-container {
+            text-align: center;
+            /* 50px space above, 60px space below, perfectly centered horizontally */
+            margin: 50px auto 60px auto; 
+            width: 100%;
+        }
+
+        .submit-btn {
+            display: inline-block;
+            background-color: #0056b3; 
+            color: #ffffff;
+            /* Creates a neat, well-proportioned rectangular box */
+            padding: 16px 36px; 
+            font-size: 1.15em;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 6px; /* Clean, slightly softened corners */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #004494; 
+            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+            transform: translateY(-2px); /* Gentle lift effect when touched/hovered */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery-header">
+        <h1>AGMHSS Student Art Exhibition</h1>
+        <p>A showcase of creativity, submitted directly by our students.</p>
+    </div>
+
+   <div class="submit-container">
+        <a href="https://forms.gle/q7n7uoEhZPGvBpp46" class="submit-btn" target="_blank">
+            உங்களது ஓவியங்களை இங்கே இணைக்க பட்டனை கிளிக் செய்யவும்
+        </a>
+    </div> 
+
+    <div class="art-gallery" id="gallery-container">
+        <p id="loading-msg" style="text-align:center; grid-column: 1 / -1;">
+            Loading exhibition data...
+        </p>
+    </div>
+
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="close-btn">&times;</span>
+        <img class="lightbox-content" id="expanded-img">
+        <div id="lightbox-caption"></div>
+    </div>
+
+    <script>
+        /* --- THE JAVASCRIPT --- */
+        
+        // 1. PASTE YOUR GOOGLE SHEET CSV LINK HERE
+        const sheetCSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSF-t_qOpLyPvyY5di3RSFPGFuUFzwBsnJIQRrWiMT12Fbq0Nu_rK_FuLSHXfVIEkN0goka6HExVAi8/pub?output=csv';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch(sheetCSV_URL)
+                .then(response => response.text())
+                .then(csvText => processData(csvText))
+                .catch(error => {
+                    document.getElementById('loading-msg').innerText = "Error loading data. Make sure the sheet is published.";
+                    console.error(error);
+                });
+        });
+
+        function processData(csvText) {
+            const gallery = document.getElementById('gallery-container');
+            gallery.innerHTML = ''; // Clear loading message
+
+            // Basic CSV parser (splits by new line, then by comma)
+            const rows = csvText.split('\n');
+            
+            // Loop through rows (start at index 1 to skip the header row)
+            for (let i = 1; i < rows.length; i++) {
+                // If row is empty, skip it
+                if (!rows[i].trim()) continue;
+
+                // Split the row by commas to get the columns
+                // Expected columns: Timestamp [0], Name [1], Class [2], Painting [3]
+                const columns = rows[i].split(',');
+                
+                const studentName = columns[1] ? columns[1].trim() : 'Unknown Artist';
+                const studentClass = columns[2] ? columns[2].trim() : '';
+                const paintingLink = columns[3] ? columns[3].trim() : '';
+
+                if (paintingLink) {
+                    // Google Forms puts a full Google Drive link in the sheet. 
+                    // We need to extract the exact file ID to display it as an image.
+                    const fileId = extractDriveId(paintingLink);
+                    
+                    if (fileId) {
+                        const imgUrlSmall = `https://drive.google.com/thumbnail?id=${fileId}&sz=w800`;
+                        const imgUrlLarge = `https://drive.google.com/thumbnail?id=${fileId}&sz=w2000`;
+
+                        createGalleryFrame(studentName, studentClass, imgUrlSmall, imgUrlLarge, gallery);
+                    }
+                }
+            }
+        }
+
+        function extractDriveId(url) {
+            // Extracts the ID from typical Google Drive links
+            let match = url.match(/[?&]id=([^&]+)/);
+            if (match) return match[1];
+            
+            match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+            if (match) return match[1];
+            
+            return null;
+        }
+
+        function createGalleryFrame(name, studentClass, smallImg, largeImg, container) {
+            const frame = document.createElement('div');
+            frame.className = 'art-frame';
+            
+            // Pass the large image and caption to the lightbox via onclick
+            const captionText = `<strong>${name}</strong><br>Class: ${studentClass}`;
+            frame.onclick = () => openLightbox(largeImg, captionText);
+
+            frame.innerHTML = `
+                <img src="${smallImg}" alt="Artwork by ${name}" class="art-image" loading="lazy">
+                <div class="art-caption">
+                    ${captionText}
+                </div>
+            `;
+            container.appendChild(frame);
+        }
+
+        function openLightbox(imgSrc, captionHtml) {
+            document.getElementById("lightbox").style.display = "block";
+            document.getElementById("expanded-img").src = imgSrc;
+            document.getElementById("lightbox-caption").innerHTML = captionHtml;
+        }
+
+        function closeLightbox() {
+            document.getElementById("lightbox").style.display = "none";
+        }
+    </script>
+</body>
+</html>
