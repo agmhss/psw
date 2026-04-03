@@ -155,9 +155,7 @@
     </div>
 
     <script>
-        /* --- THE JAVASCRIPT --- */
-        
-        // 1. PASTE YOUR GOOGLE SHEET CSV LINK HERE
+       // 1. PASTE YOUR GOOGLE SHEET CSV LINK HERE
         const sheetCSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSF-t_qOpLyPvyY5di3RSFPGFuUFzwBsnJIQRrWiMT12Fbq0Nu_rK_FuLSHXfVIEkN0goka6HExVAi8/pub?output=csv';
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -170,49 +168,69 @@
                 });
         });
 
+        // --- NEW: Advanced CSV Reader ---
+        // This stops commas inside the image links from breaking the layout
+        function parseCSVRow(row) {
+            const result = [];
+            let cell = '';
+            let inQuotes = false;
+            for (let i = 0; i < row.length; i++) {
+                const char = row[i];
+                if (char === '"' && row[i+1] === '"') {
+                    cell += '"'; i++; // Handle escaped quotes
+                } else if (char === '"') {
+                    inQuotes = !inQuotes; // Toggle quote state
+                } else if (char === ',' && !inQuotes) {
+                    result.push(cell.trim()); // End of cell
+                    cell = '';
+                } else {
+                    cell += char;
+                }
+            }
+            result.push(cell.trim());
+            return result;
+        }
+
         function processData(csvText) {
             const gallery = document.getElementById('gallery-container');
-            gallery.innerHTML = ''; // Clear loading message
+            gallery.innerHTML = ''; 
 
-            // Basic CSV parser (splits by new line, then by comma)
             const rows = csvText.split('\n');
             
-            // Loop through rows (start at index 1 to skip the header row)
             for (let i = 1; i < rows.length; i++) {
-                // If row is empty, skip it
                 if (!rows[i].trim()) continue;
 
-                // Split the row by commas to get the columns
-                // Expected columns: Timestamp [0], Name [1], Class [2], Painting [3]
-                const columns = rows[i].split(',');
+                // Use the new reader so it doesn't get confused by multiple links
+                const columns = parseCSVRow(rows[i]);
                 
-                const studentName = columns[1] ? columns[1].trim() : 'Unknown Artist';
-                const studentClass = columns[2] ? columns[2].trim() : '';
-                const paintingLink = columns[3] ? columns[3].trim() : '';
+                const studentName = columns[1] ? columns[1] : 'Unknown Artist';
+                const studentClass = columns[2] ? columns[2] : '';
+                
+                // Get the cell holding the paintings (which might be one link, or multiple)
+                const paintingData = columns[3] ? columns[3] : '';
 
-                if (paintingLink) {
-                    // Google Forms puts a full Google Drive link in the sheet. 
-                    // We need to extract the exact file ID to display it as an image.
-                    const fileId = extractDriveId(paintingLink);
+                if (paintingData) {
+                    // Split the single cell into multiple links
+                    const paintingLinks = paintingData.split(',');
                     
-                    if (fileId) {
-                        const imgUrlSmall = `https://drive.google.com/thumbnail?id=${fileId}&sz=w800`;
-                        const imgUrlLarge = `https://drive.google.com/thumbnail?id=${fileId}&sz=w2000`;
-
-                        createGalleryFrame(studentName, studentClass, imgUrlSmall, imgUrlLarge, gallery);
-                    }
+                    // Loop through EVERY picture the student uploaded and make a frame for it
+                    paintingLinks.forEach(link => {
+                        const fileId = extractDriveId(link.trim());
+                        if (fileId) {
+                            const imgUrlSmall = `https://drive.google.com/thumbnail?id=${fileId}&sz=w800`;
+                            const imgUrlLarge = `https://drive.google.com/thumbnail?id=${fileId}&sz=w2000`;
+                            createGalleryFrame(studentName, studentClass, imgUrlSmall, imgUrlLarge, gallery);
+                        }
+                    });
                 }
             }
         }
 
         function extractDriveId(url) {
-            // Extracts the ID from typical Google Drive links
             let match = url.match(/[?&]id=([^&]+)/);
             if (match) return match[1];
-            
             match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
             if (match) return match[1];
-            
             return null;
         }
 
@@ -220,7 +238,6 @@
             const frame = document.createElement('div');
             frame.className = 'art-frame';
             
-            // Pass the large image and caption to the lightbox via onclick
             const captionText = `<strong>${name}</strong><br>Class: ${studentClass}`;
             frame.onclick = () => openLightbox(largeImg, captionText);
 
