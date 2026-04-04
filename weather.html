@@ -213,18 +213,7 @@
   }
 
 
-<div class="panel">
-  <h2 style="text-align:center; color:var(--accent); margin-bottom:15px;">வானியல் கல்வி இணையதளங்கள்</h2>
-  <p style="font-size: 0.9rem; color: var(--text-muted); text-align:center; margin-bottom: 20px;">
-     சில பயனுள்ள விண்வெளி கல்வி மற்றும் செய்தித் தளங்கள்
-  </p>
-  <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
-    <a href="https://www.nasa.gov/" target="_blank" class="edu-btn">NASA (நாசா)</a>
-    <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank" class="edu-btn">APOD (இன்றைய படம்)</a>
-    <a href="https://www.esa.int/" target="_blank" class="edu-btn">ESA (ஐரோப்பிய விண்வெளி)</a>
-    <a href="https://stellarium-web.org/" target="_blank" class="edu-btn">Stellarium (விண்மீன் வரைபடம்)</a>
-  </div>
-</div>
+
     </style>
 </head>
 <body>
@@ -281,17 +270,27 @@
             பட்டீஸ்வரத்திற்கு மேல் தற்போது தெரியும் வானம்
         </p>
          <div class="skymap-container">
-      <iframe class="skymap" src="..."> </iframe>
+            <iframe class="skymap" 
+                    src="https://virtualsky.lco.global/embed/index.html?longitude=79.3372&latitude=10.9324&projection=polar&showstarlabels=true&showplanets=true&constellations=true&constellationlabels=true&live=true&az=0&showdate=true&showground=true">
+            </iframe>
+        </div>
     </div>
-  </div>
-
-  </div>
-<script> 
-const LAT = 10.92;
-// ...
-
+    
+<div class="panel">
+    
 </div>
-
+  <h2 style="text-align:center; color:var(--accent); margin-bottom:15px;">வானியல் கல்வி இணையதளங்கள்</h2>
+  <p style="font-size: 0.9rem; color: var(--text-muted); text-align:center; margin-bottom: 20px;">
+     சில பயனுள்ள விண்வெளி கல்வி மற்றும் செய்தித் தளங்கள்
+  </p>
+  <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
+    <a href="https://www.nasa.gov/" target="_blank" class="edu-btn">NASA (நாசா)</a>
+    <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank" class="edu-btn">APOD (இன்றைய படம்)</a>
+    <a href="https://www.esa.int/" target="_blank" class="edu-btn">ESA (ஐரோப்பிய விண்வெளி)</a>
+    <a href="https://stellarium-web.org/" target="_blank" class="edu-btn">Stellarium (விண்மீன் வரைபடம்)</a>
+  </div>
+</div>
+    
 <script>
     const LAT = 10.92;
     const LON = 79.35;
