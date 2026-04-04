@@ -97,7 +97,16 @@
             gap: 30px;
             margin-bottom: 50px;
         }
+a {
+  color: #ffffff; /* Makes the link text white */
+  text-decoration: none; /* Removes the default underline */
+  transition: 0.3s;
+}
 
+a:hover {
+  color: var(--accent); /* Turns the text gold when hovered */
+  text-decoration: underline; /* Adds underline on hover for clarity */
+}
         .astro-card {
             background: linear-gradient(145deg, #0f172a, #1e293b);
             border-radius: 30px;
