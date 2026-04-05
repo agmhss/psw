@@ -38,24 +38,26 @@
             color: #bdc3c7;
         }
 
-        /* Container for the Google Form */
-        .form-container {
+        /* Container styling for both sections */
+        .card-container {
             width: 100%;
-            max-width: 800px;
-            margin: 40px auto;
+            max-width: 900px;
+            margin: 20px auto;
             background: white;
             border-radius: 12px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.05);
-            overflow: hidden; /* Keeps the iframe corners rounded */
-            padding: 20px;
+            padding: 30px;
             box-sizing: border-box;
+            text-align: center;
         }
 
-        /* Responsive iframe styling */
-        iframe {
+        /* Drive viewer specific styling */
+        .drive-viewer {
             width: 100%;
-            height: 900px; /* Adjust this based on your form's length */
-            border: none;
+            height: 600px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-top: 20px;
         }
 
         footer {
@@ -64,16 +66,19 @@
             text-align: center;
             font-size: 14px;
             color: #7f8c8d;
+            width: 100%;
         }
 
-        /* Mobile adjustments */
         @media (max-width: 600px) {
-            .form-container {
-                margin: 20px 10px;
-                padding: 10px;
+            .card-container {
+                margin: 15px 10px;
+                padding: 15px;
             }
             header h1 {
                 font-size: 22px;
+            }
+            .drive-viewer {
+                height: 400px; /* Smaller height for mobile screens */
             }
         }
     </style>
@@ -85,13 +90,19 @@
         <p>Smart School Initiative | Digital Question Paper Vault</p>
     </header>
 
-    
-    <div class="form-container" style="text-align: center; padding: 50px 20px;">
-    <h2 style="color: #2c3e50;">Submit Question Papers</h2>
-    <p style="color: #7f8c8d; margin-bottom: 30px;">Click the button below to securely upload your PDF to the Vault.</p>
-    <a href="https://forms.gle/tVQesRTGYjgDdxX4A" target="_blank" style="background-color: #27ae60; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-size: 18px; font-weight: bold; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-        Open Upload Form
-    </a>
+    <div class="card-container">
+        <h2 style="color: #2c3e50; margin-top: 0;">Submit Question Papers</h2>
+        <p style="color: #7f8c8d; margin-bottom: 25px;">Click the button below to securely upload a PDF to the system. It will be auto-sorted into the correct folder.</p>
+        <a href="https://forms.gle/tVQesRTGYjgDdxX4A" target="_blank" style="background-color: #27ae60; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-size: 18px; font-weight: bold; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            Open Upload Form
+        </a>
+    </div>
+
+    <div class="card-container">
+        <h2 style="color: #2c3e50; margin-top: 0;">Browse Question Bank</h2>
+        <p style="color: #7f8c8d; margin-bottom: 15px;">Navigate the folders below to find and download question papers.</p>
+        
+        <iframe class="drive-viewer" src="https://drive.google.com/embeddedfolderview?id=https://drive.google.com/drive/folders/12tCCP_YHHtcwkKseo5qxIoNpN2Euuw3o?usp=sharing#grid"></iframe>
     </div>
 
     <footer>
