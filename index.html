@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html class="light" lang="ta">
 <head>
+
+  <link rel="stylesheet" href="style.css?v=1.1">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="google-site-verification" content="3b0aa2548a05f7cd" />
@@ -20,6 +22,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
+    
     /* Hide scrollbar for horizontal nav */
     .hide-scrollbar::-webkit-scrollbar {
       display: none;
@@ -102,6 +105,22 @@
       transform: translateY(-2px);
       box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     }
+
+    .achievement-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Aligns items to the left */
+  margin-bottom: 20px;
+  width: 100%;
+  box-sizing: border-box; /* Prevents padding from breaking width */
+}
+
+.year-badge {
+  padding: 15px 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  /* Remove any fixed heights, let padding dictate the size */
+}
 
     /* Nilgiri tahr scene — Zig-Zag Motion */
     #tahrScene {
