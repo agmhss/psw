@@ -4,9 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="google-site-verification" content="3b0aa2548a05f7cd" />
+  
   <title>Anna Government Model Hr Sec School, Patteeswaram | Official</title>
   <meta name="description" content="Official portal for AGMHSS Patteeswaram. Access student's performance and smart school tools." />
   <meta name="keywords" content="AGMHSS Patteeswaram, agmhss psw, Anna Government Model Hr.Sec.School, Best Schools, Best Schools in Tamil Nadu, Best Schools in Thanjavur, Best Schools in Kumbakonam" />
+  
   <meta property="og:title" content="AGMHSS Patteeswaram" />
   <meta property="og:description" content="Official Student and Teacher Portal." />
   <meta property="og:type" content="website" />
@@ -18,11 +20,19 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
+    /* Hide scrollbar for horizontal nav */
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
     body {
       font-family: 'Hind Madurai', 'Lexend', sans-serif;
       scroll-behavior: smooth;
       margin: 0;
-      overflow-x: hidden;
+      overflow-x: clip; /* Changed to clip to fix sticky header on mobile */
     }
 
     .visitor-oneliner {
@@ -41,55 +51,6 @@
       margin-right: 12px;
     }
 
-    /* Slider */
-    .slide { display: none; animation: fade 1.5s ease-in-out; }
-    .active-slide { display: block; }
-    @keyframes fade { from { opacity: 0.4; } to { opacity: 1; } }
-
-    /* News Ticker */
-    .news-ticker {
-      background: #1e3a8a;
-      color: white;
-      overflow: hidden;
-      white-space: nowrap;
-      padding: 12px 0;
-    }
-    .news-content {
-      display: inline-block;
-      padding-left: 100%;
-      animation: ticker 60s linear infinite;
-      font-weight: bold;
-      font-size: 14px;
-    }
-    @keyframes ticker {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-200%); }
-    }
-
-    /* Scrolling Belt */
-    .scrolling-belt {
-      width: 100%;
-      height: 180px;
-      background-image: url("https://lh3.googleusercontent.com/u/0/d/18LE1SmBnxom8krQCNyD-co_CU_R01Jlr");
-      background-repeat: repeat-x;
-      background-size: contain;
-      background-position: center bottom;
-      animation: march-forward 40s linear infinite;
-    }
-    @media (min-width: 768px) { .scrolling-belt { height: 250px; } }
-    @keyframes march-forward {
-      from { background-position: 0 0; }
-      to { background-position: 1486px 0; }
-    }
-
-    /* Navigation Buttons */
-    .nav-buttons a {
-      transition: all 0.3s ease;
-    }
-    .nav-buttons a:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    }
     /* Slider Animations */
     .slide { display: none; animation: fade 1.5s ease-in-out; }
     .active-slide { display: block; }
@@ -131,6 +92,15 @@
     @keyframes march-forward {
       from { background-position: 0 0; }
       to { background-position: 1486px 0; }
+    }
+
+    /* Navigation Buttons */
+    .nav-buttons a {
+      transition: all 0.3s ease;
+    }
+    .nav-buttons a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     }
 
     /* Nilgiri tahr scene — Zig-Zag Motion */
@@ -185,52 +155,61 @@
 </head>
 <body class="bg-slate-50 text-slate-900">
 
-  <!-- Header -->
-  <header class="bg-white shadow-lg sticky top-0 z-50">
-    <div class="w-full max-w-[1400px] mx-auto px-4 md:px-6 py-3 flex flex-col md:flex-row md:items-center justify-between gap-3">
-      <div class="flex items-center gap-3 min-w-0">
+  <header class="bg-white shadow-lg sticky top-0 z-50 w-full">
+    <div class="w-full max-w-[1400px] mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-2 sm:gap-3 min-w-0">
         <div class="hidden sm:flex w-12 h-12 bg-blue-900 rounded-full items-center justify-center text-white shrink-0 shadow-inner">
           <span class="material-symbols-outlined text-3xl">school</span>
         </div>
-        <div class="truncate">
-          <h1 class="text-blue-900 font-bold text-lg md:text-xl lg:text-3xl leading-tight">அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி</h1>
-          <p class="text-red-600 text-[11px] md:text-sm font-bold tracking-widest uppercase mt-1">பட்டீஸ்வரம், தஞ்சாவூர் மாவட்டம்</p>
+        <div>
+          <h1 class="text-blue-900 font-bold text-base sm:text-lg md:text-xl lg:text-2xl leading-tight">அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி</h1>
+          <p class="text-red-600 text-[10px] sm:text-[11px] md:text-sm font-bold tracking-widest uppercase mt-1">பட்டீஸ்வரம், தஞ்சாவூர் மாவட்டம்</p>
         </div>
       </div>
-      <div class="flex items-center justify-start md:justify-end gap-3 pt-1 md:pt-0">
-        <button onclick="alert('சேர்க்கை படிவம் தயார் நிலையில் உள்ளது; அலுவலகத்தில் கேட்டு பெறவும்.!')" 
-                class="bg-red-600 text-white px-4 py-2 rounded-full font-bold text-xs md:text-sm hover:bg-blue-900 transition shadow-md whitespace-nowrap">
-          சேர்க்கை 2026
-        </button>
-        <button onclick="window.location.reload()" 
-                class="flex items-center justify-center bg-blue-100 text-blue-900 p-2 rounded-full hover:bg-blue-200 transition shadow-sm" 
-                title="முகப்பிற்குத் திரும்புக">
-          <span class="material-symbols-outlined text-xl md:text-2xl">refresh</span>
+
+      <div class="hidden lg:flex items-center gap-3">
+        <button type="button" onclick="window.location.reload()" class="flex items-center justify-center bg-blue-100 text-blue-900 p-2 rounded-full hover:bg-blue-200 transition shadow-sm" title="முகப்பிற்குத் திரும்புக">
+          <span class="material-symbols-outlined text-xl">refresh</span>
         </button>
       </div>
     </div>
-  </header>
 
-  <!-- Site Navigation Buttons -->
-  <nav class="bg-blue-900 text-white py-4 border-b-4 border-red-600 shadow-md sticky top-[73px] z-40">
-    <div class="max-w-[1400px] mx-auto px-4 md:px-6">
-      <div class="nav-buttons flex flex-wrap items-center justify-center gap-3 text-sm font-bold tracking-wide">
-        <a href="index.html" class="flex items-center gap-2 bg-white/10 hover:bg-white hover:text-blue-900 px-6 py-3 rounded-3xl transition-all">🏠 முகப்பு</a>
-        <a href="weather.html" class="flex items-center gap-2 bg-white/10 hover:bg-white hover:text-blue-900 px-6 py-3 rounded-3xl transition-all">⛅ வானிலை</a>
-        <a href="exhibition.html" class="flex items-center gap-2 bg-white/10 hover:bg-white hover:text-blue-900 px-6 py-3 rounded-3xl transition-all">🖼️ ஓவிய கண்காட்சி</a>
-        <a href="#home" class="flex items-center gap-2 bg-white/10 hover:bg-white hover:text-blue-900 px-6 py-3 rounded-3xl transition-all">📚 பள்ளி செயலிகள்</a>
-        <a href="#achievers" class="flex items-center gap-2 bg-white/10 hover:bg-white hover:text-blue-900 px-6 py-3 rounded-3xl transition-all">🏆 சாதனைகள்</a>
-        <a href="#clubs" class="flex items-center gap-2 bg-white/10 hover:bg-white hover:text-blue-900 px-6 py-3 rounded-3xl transition-all">🛡️ மன்றங்கள்</a>
-        <a href="#movements" class="flex items-center gap-2 bg-white/10 hover:bg-white hover:text-blue-900 px-6 py-3 rounded-3xl transition-all">🚀 இயக்கங்கள்</a>
-        <a href="#houses" class="flex items-center gap-2 bg-white/10 hover:bg-white hover:text-blue-900 px-6 py-3 rounded-3xl transition-all">🏡 இல்லங்கள்</a>
-        <a href="alumni.html" class="flex items-center gap-2 bg-white/10 hover:bg-white hover:text-blue-900 px-6 py-3 rounded-3xl transition-all">🎓 முன்னாள் மாணவர்கள்</a>
-        <a href="#downloads" class="flex items-center gap-2 bg-white/10 hover:bg-white hover:text-blue-900 px-6 py-3 rounded-3xl transition-all">📥 பதிவிறக்கங்கள்</a>
-        <a href="#contact" class="flex items-center gap-2 bg-red-600 hover:bg-red-700 px-6 py-3 rounded-3xl transition-all font-bold">📞 தொடர்பு</a>
+    <div class="border-t border-slate-200 bg-slate-50 w-full hidden md:block">
+      <nav class="max-w-[1400px] mx-auto px-4 flex items-center gap-6 overflow-x-auto whitespace-nowrap hide-scrollbar py-3">
+        <a href="#home" class="text-blue-900 font-bold text-sm hover:text-red-600 transition shrink-0">முகப்பு</a>
+        <a href="#achievers" class="text-blue-900 font-bold text-sm hover:text-red-600 transition shrink-0">சாதனைகள்</a>
+        <a href="#clubs" class="text-blue-900 font-bold text-sm hover:text-red-600 transition shrink-0">மன்றங்கள்</a>
+        <a href="#movements" class="text-blue-900 font-bold text-sm hover:text-red-600 transition shrink-0">இயக்கங்கள்</a>
+        <a href="#houses" class="text-blue-900 font-bold text-sm hover:text-red-600 transition shrink-0">இல்லங்கள்</a>
+        <a href="#downloads" class="text-blue-900 font-bold text-sm hover:text-red-600 transition shrink-0">பதிவிறக்கங்கள்</a>
+        <a href="#contact" class="text-blue-900 font-bold text-sm hover:text-red-600 transition shrink-0 pr-4">தொடர்புக்கு</a>
+        
+        <button type="button" onclick="alert('சேர்க்கை படிவம் தயார் நிலையில் உள்ளது; அலுவலகத்தில் கேட்டு பெறவும்.!')" class="bg-red-600 text-white px-4 py-1.5 rounded-full font-bold text-xs hover:bg-blue-900 transition shadow-sm shrink-0">
+          சேர்க்கை 2026
+        </button>
+      </nav>
+    </div>
+  </header>
+  
+  <nav class="bg-blue-900 text-white py-4 border-b-4 border-red-600 shadow-md sticky top-[66px] sm:top-[73px] z-40 md:hidden">
+    <div class="w-full px-4">
+      <div class="nav-buttons flex items-center gap-3 overflow-x-auto whitespace-nowrap hide-scrollbar text-sm font-bold tracking-wide pb-1">
+        <a href="index.html" class="flex items-center gap-2 bg-white/10 hover:bg-white hover:text-blue-900 px-5 py-2.5 rounded-full transition-all shrink-0">🏠 முகப்பு</a>
+        <a href="weather.html" class="flex items-center gap-2 bg-white/10 hover:bg-white hover:text-blue-900 px-5 py-2.5 rounded-full transition-all shrink-0">⛅ வானிலை</a>
+        <a href="exhibition.html" class="flex items-center gap-2 bg-white/10 hover:bg-white hover:text-blue-900 px-5 py-2.5 rounded-full transition-all shrink-0">🖼️ ஓவிய கண்காட்சி</a>
+        <a href="#home" class="flex items-center gap-2 bg-white/10 hover:bg-white hover:text-blue-900 px-5 py-2.5 rounded-full transition-all shrink-0">📚 செயலிகள்</a>
+        <a href="#achievers" class="flex items-center gap-2 bg-white/10 hover:bg-white hover:text-blue-900 px-5 py-2.5 rounded-full transition-all shrink-0">🏆 சாதனைகள்</a>
+        <a href="#clubs" class="flex items-center gap-2 bg-white/10 hover:bg-white hover:text-blue-900 px-5 py-2.5 rounded-full transition-all shrink-0">🛡️ மன்றங்கள்</a>
+        <a href="#movements" class="flex items-center gap-2 bg-white/10 hover:bg-white hover:text-blue-900 px-5 py-2.5 rounded-full transition-all shrink-0">🚀 இயக்கங்கள்</a>
+        <a href="#houses" class="flex items-center gap-2 bg-white/10 hover:bg-white hover:text-blue-900 px-5 py-2.5 rounded-full transition-all shrink-0">🏡 இல்லங்கள்</a>
+        <a href="alumni.html" class="flex items-center gap-2 bg-white/10 hover:bg-white hover:text-blue-900 px-5 py-2.5 rounded-full transition-all shrink-0">🎓 முன்னாள் மாணவர்கள்</a>
+        <a href="#downloads" class="flex items-center gap-2 bg-white/10 hover:bg-white hover:text-blue-900 px-5 py-2.5 rounded-full transition-all shrink-0">📥 பதிவிறக்கங்கள்</a>
+        <a href="#contact" class="flex items-center gap-2 bg-red-600 hover:bg-red-700 px-5 py-2.5 rounded-full transition-all font-bold shrink-0">📞 தொடர்பு</a>
       </div>
     </div>
   </nav>
 
-  <section class="max-w-3xl mx-auto px-4 py-4">
+  <section class="max-w-3xl mx-auto px-4 py-4 mt-2">
     <div class="bg-slate-800 p-5 rounded-xl border border-dashed border-slate-500 shadow-md flex flex-col gap-4 text-white">
       <p class="text-blue-400 text-sm md:text-base font-bold tracking-widest uppercase text-center">பிறந்த தேதியை உள்ளிடுக</p>
       
@@ -256,51 +235,44 @@
       <span class="text-blue-900 font-bold group-hover:text-blue-700 group-hover:underline">பட்டீஸ்வரம் வானிலை & விண்வெளித் தகவல்கள்</span>
     </a>
 
-     <a href="exhibition.html" 
-   class="group flex items-center gap-4 p-5 mt-6 bg-white rounded-2xl border border-slate-200 hover:border-amber-300 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+     <a href="exhibition.html" class="group flex items-center gap-4 p-5 mt-6 bg-white rounded-2xl border border-slate-200 hover:border-amber-300 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+      <div class="w-14 h-14 flex items-center justify-center bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl text-4xl shadow-inner group-hover:scale-110 transition-transform">
+        🖼️
+      </div>
 
-  <!-- Icon Container -->
-  <div class="w-14 h-14 flex items-center justify-center bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl text-4xl shadow-inner group-hover:scale-110 transition-transform">
-    🖼️
-  </div>
+      <div class="flex-1">
+        <span class="block text-lg font-bold text-slate-800 group-hover:text-amber-700 transition-colors">
+          ஓவிய கண்காட்சி காண்க
+        </span>
+        <span class="text-sm text-slate-500 group-hover:text-slate-600">
+          Painting Exhibition
+        </span>
+      </div>
 
+      <span class="text-2xl text-slate-300 group-hover:text-amber-500 transition-colors">
+        →
+      </span>
+    </a>
 
-  <!-- Text Content -->
-  <div class="flex-1">
-    <span class="block text-lg font-bold text-slate-800 group-hover:text-amber-700 transition-colors">
-      ஓவிய கண்காட்சி காண்க
-    </span>
-    <span class="text-sm text-slate-500 group-hover:text-slate-600">
-      Painting Exhibition
-    </span>
-  </div>
-
-  <!-- Arrow -->
-  <span class="text-2xl text-slate-300 group-hover:text-amber-500 transition-colors">
-    →
-  </span>
-</a>
     <a href="https://www.tnsports.org.in/webapp/cms_home.aspx" class="flex items-center gap-3 p-3 mt-4 bg-slate-100 rounded-lg border-l-4 border-green-900 hover:bg-blue-50 transition group">
       <span class="text-2xl">Sports & Games</span>
       <span class="text-orange-900 font-semibold group-hover:text-orange-700 group-hover:underline">தமிழ்நாடு விளையாட்டு துறை (ஆடுகளம்)</span>
     </a>
 
-        <a href="https://naanmudhalvan.tnschools.gov.in/" class="flex items-center gap-3 p-3 mt-4 bg-slate-100 rounded-lg border-l-4 border-green-900 hover:bg-blue-50 transition group">
+    <a href="https://naanmudhalvan.tnschools.gov.in/" class="flex items-center gap-3 p-3 mt-4 bg-slate-100 rounded-lg border-l-4 border-green-900 hover:bg-blue-50 transition group">
       <span class="text-2xl">நான் முதல்வன் திட்டம்</span>
       <span class="text-orange-900 font-semibold group-hover:text-orange-700 group-hover:underline">தமிழ்நாடு அரசு கல்வித்துறை (நான் முதல்வன்)</span>
-        </a>
+    </a>
 
     <a href="https://www.tntextbooks.net/?m=1" class="flex items-center gap-3 p-3 mt-4 bg-slate-100 rounded-lg border-l-4 border-green-900 hover:bg-blue-50 transition group">
       <span class="text-2xl">பாடநூல்கள் பதிவிறக்கம் செய்ய</span>
       <span class="text-blue-900 font-semibold group-hover:text-orange-700 group-hover:underline">வகுப்பு 1 முதல் 12 வரை பாடநூல்களை பதிவிறக்கம் செய்யலாம்</span>
     </a>
-
-    
   </section>
 
-  <div class="news-ticker border-y-2 border-red-600 relative z-40 shadow-sm">
+  <div class="news-ticker border-y-2 border-red-600 relative z-30 shadow-sm">
     <div class="news-content">
-      🔥 முக்கிய அறிவிப்பு: &nbsp;&nbsp;&nbsp;&nbsp;🔥 எல்.கே.ஜி முதல் 9-ஆம் வகுப்பு வரை 2026-27 கல்வி ஆண்டிற்கான புதிய சேர்க்கை நடைபெறுகிறது. &nbsp;&nbsp;&nbsp;&nbsp;🔥 கோடை விடுமுறை முடிந்து பள்ளி மீண்டும் 04/06/2026 அன்று திறக்கப்படும். &nbsp;&nbsp;&nbsp;&nbsp;🔥 ஆண்டு இறுதித் தேர்வுகள் வகுப்பு 1 முதல் 5 வரை உள்ள மாணவர்களுக்கு ஏப்ரல் 6-ல் துவங்கி 16-உடன் முடிவடைகிறது. வகுப்பு 6 முதல் 9 வரை உள்ள மாணவர்களுக்கு ஏப்ரல் 1-ல் துவங்கி 16-உடன் முடிவடைகிறது. &nbsp;&nbsp;&nbsp;&nbsp;🔥 🏆 8A வகுப்பு மாணவர் S.குருமூர்த்தி NMMS தேர்வில் வெற்றி! 🏆 &nbsp;&nbsp;&nbsp;&nbsp;📝
+      🔥 முக்கிய அறிவிப்பு:     🔥 எல்.கே.ஜி முதல் 9-ஆம் வகுப்பு வரை 2026-27 கல்வி ஆண்டிற்கான புதிய சேர்க்கை நடைபெறுகிறது.     🔥 கோடை விடுமுறை முடிந்து பள்ளி மீண்டும் 04/06/2026 அன்று திறக்கப்படும்.     🔥 ஆண்டு இறுதித் தேர்வுகள் வகுப்பு 1 முதல் 5 வரை உள்ள மாணவர்களுக்கு ஏப்ரல் 6-ல் துவங்கி 16-உடன் முடிவடைகிறது. வகுப்பு 6 முதல் 9 வரை உள்ள மாணவர்களுக்கு ஏப்ரல் 1-ல் துவங்கி 16-உடன் முடிவடைகிறது.     🔥 🏆 8A வகுப்பு மாணவர் S.குருமூர்த்தி NMMS தேர்வில் வெற்றி! 🏆     📝
     </div>
   </div>
 
@@ -406,7 +378,6 @@
         </div>
       </div>
     </div>
-  
   </section>
 
   <section class="evolution-stage">
@@ -447,7 +418,7 @@
       <h2 class="text-3xl md:text-4xl font-black text-blue-900 uppercase mb-4 leading-tight">முன்னாள் மாணவர்கள் புகழ் மண்டபம்</h2>
       <p class="text-slate-600 text-lg md:text-xl mb-8 leading-relaxed">பல்வேறு துறைகளில் சாதனை படைத்து வரும் எமது பள்ளியின் முன்னாள் மாணவர்களின் பங்களிப்புகளைக் கொண்டாடுவோம்.</p>
       <a href="alumni.html" class="inline-block px-8 py-4 bg-blue-900 text-white rounded-full font-bold text-lg shadow hover:bg-yellow-500 hover:text-blue-900 hover:shadow-xl hover:-translate-y-1 transition-all uppercase tracking-wide">
-        சாதனையாளர்களைக் காண்க &rarr;
+        சாதனையாளர்களைக் காண்க →
       </a>
     </div>
   </section>
@@ -523,8 +494,8 @@
         </div>
       </div>
     </div>
-    
   </section>
+
   <section id="houses" class="py-20 px-6 max-w-7xl mx-auto">
     <div class="text-center mb-12">
       <h2 class="text-3xl font-black text-blue-900 uppercase">ஐவகை நில இல்லங்கள்</h2>
@@ -646,8 +617,8 @@
     </div>
 
     <div class="visitor-oneliner">
-  <span class="visitor-text">Page Visitors:</span>
-  <img src="https://hitscounter.dev/api/hit?url=agmhss.github.io%2Fpsw&label=&icon=bicycle&color=%23fd7e14&message=&style=plastic&tz=UTC">
+      <span class="visitor-text">Page Visitors:</span>
+      <img src="https://hitscounter.dev/api/hit?url=agmhss.github.io%2Fpsw&label=&icon=bicycle&color=%23fd7e14&message=&style=plastic&tz=UTC" alt="Visitor counter">
     </div>
     
     <p class="text-center text-slate-400 text-xs italic">
@@ -726,7 +697,8 @@
       </g>
     </svg>
   </div>
-      <script>
+
+  <script>
     /* Image Slider Logic */
     let slideIndex = 0;
     const slides = document.getElementsByClassName("slide");
@@ -916,4 +888,4 @@
     }
   </script>
 </body>
-    </html>
+</html>
