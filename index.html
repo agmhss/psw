@@ -23,6 +23,15 @@
 
   <style>
     
+    *, *::before, *::after {
+  box-sizing: border-box;
+}
+    img {
+  max-width: 100%;
+  height: auto;
+  display: block; /* Prevents weird inline spacing issues */
+}
+    
     /* Hide scrollbar for horizontal nav */
     .hide-scrollbar::-webkit-scrollbar {
       display: none;
