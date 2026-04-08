@@ -169,38 +169,45 @@
 
             // தரவுகளை பிரித்தல்
             rows.slice(1).forEach(cols => {
-                if (cols.length < 2) return;
-                
-                const category = cols[0].trim();
-                const content = cols[1].trim();
-                const subtext = cols[2] ? cols[2].trim() : '';
+    if (cols.length < 2) return;
+    
+    const category = cols[0].trim();
+    const content = cols[1].trim();
+    const subtext = cols[2] ? cols[2].trim() : '';
 
-                if (category === "Vision" || category === "Mission" || category === "Announcement") {
-                    const title = category === "Vision" ? "நோக்கம்" : (category === "Mission" ? "செயல்பாடுகள்" : "அறிவிப்பு");
-                    board.innerHTML += `
-                        <div class="paper-note">
-                            <h3>${title}</h3>
-                            <p>${content}</p>
-                        </div>`;
-                } 
-                else if (category === "Staff") {
-                    // ஸ்டாப் டேபிளை உருவாக்க (முதன்முறை மட்டும்)
-                    let table = document.getElementById('staff-table');
-                    if (!table) {
-                        board.innerHTML += `
-                            <div class="paper-note">
-                                <h3>பொறுப்பு ஆசிரியர்</h3>
-                                <table id="staff-table"><tr><th>பெயர்</th><th>பதவி</th></tr></table>
-                            </div>`;
-                        table = document.getElementById('staff-table');
-                    }
-                    table.innerHTML += `<tr><td>${content}</td><td>${subtext}</td></tr>`;
-                }
-                else if (category === "Link") {
-                    linksArea.innerHTML += `<a href="${subtext}" target="_blank">🔗 ${content}</a>`;
-                }
-            });
-
+    if (category === "Vision" || category === "Mission" || category === "Announcement") {
+        const title = category === "Vision" ? "நோக்கம்" : (category === "Mission" ? "செயல்பாடுகள்" : "அறிவிப்பு");
+        board.innerHTML += `
+            <div class="paper-note">
+                <h3>${title}</h3>
+                <p>${content}</p>
+            </div>`;
+    } 
+    // --- NEW POSTER LOGIC START ---
+    else if (category === "Poster") {
+        board.innerHTML += `
+            <div class="paper-note" style="text-align:center;">
+                <h3>${content}</h3>
+                <img src="${subtext}" alt="Poster" style="width:100%; border-radius:5px; margin-top:10px;">
+            </div>`;
+    }
+    // --- NEW POSTER LOGIC END ---
+    else if (category === "Staff") {
+        let table = document.getElementById('staff-table');
+        if (!table) {
+            board.innerHTML += `
+                <div class="paper-note">
+                    <h3>பொறுப்பு ஆசிரியர்கள்</h3>
+                    <table id="staff-table"><tr><th>பெயர்</th><th>பதவி</th></tr></table>
+                </div>`;
+            table = document.getElementById('staff-table');
+        }
+        table.innerHTML += `<tr><td>${content}</td><td>${subtext}</td></tr>`;
+    }
+    else if (category === "Link") {
+        linksArea.innerHTML += `<a href="${subtext}" target="_blank">🔗 ${content}</a>`;
+    }
+});
         } catch (error) {
             console.error("Error:", error);
             document.getElementById('main-board').innerHTML = "<p style='color:red;'>தகவல்களைப் பெறுவதில் சிக்கல். லிங்க் சரியாக உள்ளதா எனப் பார்க்கவும்.</p>";
