@@ -7,8 +7,6 @@
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.3/qrcode.min.js" integrity="sha512-zi6s5+52X21ZgKmmzWeZ84fJtS1ZtZ98E5mN2bZ8M2eqXkS1K1lK1rJzGkZzRz3dBM0z0wO2Z1Fw9e3y2v3Ubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  
   <script src="/_sdk/element_sdk.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <style>
@@ -31,8 +29,9 @@
     </div>
     <div id="qr-output" class="hidden">
      <div class="rounded-2xl p-8 flex flex-col items-center" style="background: #141a14; border: 1px solid #1f2e1f;">
-      <div id="qr-canvas-wrap" class="rounded-xl p-4 mb-4" style="background: #ffffff;">
-       <canvas id="qr-canvas"></canvas>
+      <div id="qr-canvas-wrap" class="rounded-xl p-4 mb-4 flex items-center justify-center" style="background: #ffffff; width: 232px; height: 232px;">
+       <img id="qr-image" alt="Generated QR Code" style="display: none;" width="200" height="200" />
+       <p id="qr-loading" class="text-xs font-semibold" style="color: #0a0a0a; display: none;">Loading...</p>
       </div>
       <p id="qr-text-preview" class="text-xs text-center truncate max-w-full mt-2 mb-4" style="color: #4a6a4a;"></p>
       <button onclick="downloadQR()" class="flex items-center gap-2 py-2 px-5 rounded-lg text-sm font-medium transition-all hover:scale-[1.02]" style="background: #1f2e1f; color: #8aff8a;"> 
@@ -43,54 +42,66 @@
    </main>
   </div>
   <script>
-    // App state
     let currentText = '';
 
     function generateQR() {
-      // 1. Check if the library loaded correctly
-      if (typeof QRCode === 'undefined') {
-        alert("Error: The QR Code library failed to load. Please check your internet connection or disable your ad-blocker for this page.");
-        return;
-      }
-
       const input = document.getElementById('qr-input').value.trim();
       
-      // 2. Alert the user if the input is empty instead of silently failing
       if (!input) {
         alert("Please enter a URL or some text first!");
         return;
       }
 
       currentText = input;
-      const canvas = document.getElementById('qr-canvas');
+      const qrImage = document.getElementById('qr-image');
+      const loadingText = document.getElementById('qr-loading');
       
-      // Generate the QR code
-      QRCode.toCanvas(canvas, input, {
-        width: 200,
-        margin: 1,
-        color: {
-          dark: '#0a0a0a',
-          light: '#ffffff'
-        }
-      }, function (error) {
-        if (error) {
-            console.error(error);
-            alert("An error occurred while generating the QR code: " + error.message);
-            return;
-        }
-        
-        document.getElementById('qr-text-preview').textContent = input.length > 50 ? input.slice(0, 50) + '…' : input;
-        document.getElementById('qr-output').classList.remove('hidden');
-        lucide.createIcons();
-      });
+      // Show output container and loading state
+      document.getElementById('qr-output').classList.remove('hidden');
+      qrImage.style.display = 'none';
+      loadingText.style.display = 'block';
+      lucide.createIcons();
+      
+      // Request generation via API
+      const apiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(input)}&color=0a0a0a&bgcolor=ffffff&margin=0`;
+      
+      qrImage.onload = () => {
+          loadingText.style.display = 'none';
+          qrImage.style.display = 'block';
+          document.getElementById('qr-text-preview').textContent = input.length > 50 ? input.slice(0, 50) + '…' : input;
+      };
+      
+      qrImage.onerror = () => {
+          loadingText.style.display = 'none';
+          alert("Failed to fetch the image. Please check your internet connection.");
+      };
+
+      // Setting the source triggers the download/onload event
+      qrImage.src = apiUrl;
     }
 
-    function downloadQR() {
-      const canvas = document.getElementById('qr-canvas');
-      const a = document.createElement('a');
-      a.download = 'qrcode.png';
-      a.href = canvas.toDataURL('image/png');
-      a.click();
+    async function downloadQR() {
+      const input = document.getElementById('qr-input').value.trim();
+      if (!input) return;
+      
+      // Fetch a higher resolution version for downloading
+      const url = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(input)}&color=0a0a0a&bgcolor=ffffff&margin=0`;
+      
+      try {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        const blobUrl = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        a.download = 'qrcode.png';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(blobUrl);
+      } catch (e) {
+        alert("Download blocked by browser. You can long-press the QR code image above and select 'Save Image' instead.");
+      }
     }
 
     document.getElementById('qr-input').addEventListener('keydown', (e) => {
