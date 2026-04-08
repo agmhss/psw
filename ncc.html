@@ -1,1 +1,219 @@
 
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>மன்றம் - அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pavanam&display=swap');
+
+        :root {
+            --primary-maroon: #8d1b3d;
+            --wood-frame: #4e342e;
+            --paper-bg: #ffffff;
+            --board-bg: #f5f5f5;
+        }
+
+        body {
+            background: #dcdcdc;
+            font-family: 'Pavanam', sans-serif;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* ஒயிட்போர்டு கட்டமைப்பு */
+        .whiteboard {
+            background-color: var(--board-bg);
+            width: 100%;
+            max-width: 1100px;
+            min-height: 95vh;
+            border: 12px solid var(--wood-frame);
+            border-radius: 8px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            padding: 40px;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        /* முகப்பு பொத்தான் (Home Button) */
+        .home-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--primary-maroon);
+            color: white;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            transition: 0.3s;
+            z-index: 10;
+        }
+
+        .home-btn:hover { background: #6b142e; }
+
+        /* தலைப்பு */
+        header {
+            text-align: center;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+        }
+
+        header h1 { color: var(--primary-maroon); margin: 0; font-size: 1.8rem; }
+        header h2 { color: #555; margin: 5px 0; font-size: 1.2rem; }
+
+        /* கிரிட் அமைப்பு */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        /* பேப்பர் நோட் ஸ்டைல் */
+        .paper-note {
+            background: var(--paper-bg);
+            padding: 20px;
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
+            border-top: 5px solid var(--primary-maroon);
+            position: relative;
+            min-height: 150px;
+        }
+
+        /* டேப் எஃபெக்ட் */
+        .paper-note::after {
+            content: "";
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 25px;
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        h3 { color: var(--primary-maroon); border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 0; }
+        
+        .loading { text-align: center; font-style: italic; color: #888; grid-column: 1/-1; }
+
+        /* அட்டவணை */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { text-align: left; padding: 8px; border-bottom: 1px solid #eee; font-size: 0.95rem; }
+
+        /* கீழ் பகுதி (Links) */
+        .footer-links {
+            margin-top: 40px;
+            padding: 20px;
+            background: #eee;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .footer-links a {
+            display: inline-block;
+            margin: 5px 15px;
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .whiteboard { padding: 15px; border-width: 8px; }
+            header h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="whiteboard">
+    <a href="index.html" class="home-btn">🏠 முகப்பு</a>
+
+    <header>
+        <h1>அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்</h1>
+        <h2>இயக்கங்கள்-தேசிய மாணவர் படை</h2>
+    </header>
+
+    <div class="content-grid" id="main-board">
+        <p class="loading">தகவல்கள் சேகரிக்கப்படுகின்றன... (Loading Board Content)</p>
+    </div>
+
+    <div class="footer-links">
+        <h3>முக்கிய இணைப்புகள் & கோப்புகள்</h3>
+        <a href="https://drive.google.com/drive/folders/14k0dXbgOLR0lYHjwmo0V8PLlPq8Pu37u" </a>
+        <div id="links-area">இணைப்புகள் எதுவும் இல்லை.</div>
+    </div>
+</div>
+
+<script>
+    // உங்கள் கூகுள் ஷீட் CSV லிங்கை இங்கே இடவும்
+    const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRHg5f_0mw89wVEefGyHDwk7Gu5TRcDIKuTvu8owjwQODVGO1Xpaxy2hWlAHJDQrxG8LWmLHM79ud3b/pub?output=csv"; 
+
+    async function loadBoardData() {
+        try {
+            const response = await fetch(sheetURL);
+            const data = await response.text();
+            const rows = data.split('\n').map(row => row.split(','));
+            
+            const board = document.getElementById('main-board');
+            const linksArea = document.getElementById('links-area');
+            
+            // கிளீனிங்
+            board.innerHTML = '';
+            linksArea.innerHTML = '';
+
+            // தரவுகளை பிரித்தல்
+            rows.slice(1).forEach(cols => {
+                if (cols.length < 2) return;
+                
+                const category = cols[0].trim();
+                const content = cols[1].trim();
+                const subtext = cols[2] ? cols[2].trim() : '';
+
+                if (category === "Vision" || category === "Mission" || category === "Announcement") {
+                    const title = category === "Vision" ? "நோக்கம்" : (category === "Mission" ? "செயல்பாடுகள்" : "அறிவிப்பு");
+                    board.innerHTML += `
+                        <div class="paper-note">
+                            <h3>${title}</h3>
+                            <p>${content}</p>
+                        </div>`;
+                } 
+                else if (category === "Staff") {
+                    // ஸ்டாப் டேபிளை உருவாக்க (முதன்முறை மட்டும்)
+                    let table = document.getElementById('staff-table');
+                    if (!table) {
+                        board.innerHTML += `
+                            <div class="paper-note">
+                                <h3>பொறுப்பு ஆசிரியர்</h3>
+                                <table id="staff-table"><tr><th>பெயர்</th><th>பதவி</th></tr></table>
+                            </div>`;
+                        table = document.getElementById('staff-table');
+                    }
+                    table.innerHTML += `<tr><td>${content}</td><td>${subtext}</td></tr>`;
+                }
+                else if (category === "Link") {
+                    linksArea.innerHTML += `<a href="${subtext}" target="_blank">🔗 ${content}</a>`;
+                }
+            });
+
+        } catch (error) {
+            console.error("Error:", error);
+            document.getElementById('main-board').innerHTML = "<p style='color:red;'>தகவல்களைப் பெறுவதில் சிக்கல். லிங்க் சரியாக உள்ளதா எனப் பார்க்கவும்.</p>";
+        }
+    }
+
+    // பக்கம் திறந்தவுடன் டேட்டாவை லோட் செய்ய
+    if(sheetURL !== "YOUR_CSV_URL_HERE") {
+        loadBoardData();
+    } else {
+        document.getElementById('main-board').innerHTML = "<p class='loading'>தயவுசெய்து Google Sheet லிங்கை குறியீட்டில் இணைக்கவும்.</p>";
+    }
+</script>
+
+</body>
+</html>
