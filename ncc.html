@@ -150,16 +150,19 @@
 
     // கூகுள் டிரைவ் லிங்கை சரிசெய்யும் சிறப்பு ஃபங்ஷன்
     function getRobustImageUrl(url) {
-        if (!url) return "";
-        if (url.includes("drive.google.com")) {
-            // Regex மூலம் 25+ எழுத்துகள் கொண்ட File ID-ஐ மட்டும் சரியாக எடுக்கும்
-            const idMatch = url.match(/[-\w]{25,}/);
-            if (idMatch) {
-                return `https://drive.google.com/uc?export=view&id=${idMatch[0]}`;
-            }
+    if (!url) return "";
+
+    // Google Drive link-ஐ சரிசெய்
+    if (url.includes("drive.google.com")) {
+        const idMatch = url.match(/[-\w]{25,}/);  // File ID எடுக்கும்
+        if (idMatch) {
+            const fileId = idMatch[0];
+            // புதிய recommended method
+            return `https://drive.google.com/thumbnail?id=${fileId}&sz=w2000`;
         }
-        return url; // டிரைவ் லிங்க் இல்லை என்றால் உள்ளதை உள்ளபடி அனுப்பும்
     }
+    return url; // வேறு link என்றால் அப்படியே
+}
 
     async function loadBoardData() {
         try {
