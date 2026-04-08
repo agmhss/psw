@@ -157,51 +157,63 @@
             linksArea.innerHTML = '';
 
             rows.slice(1).forEach(cols => {
-                if (cols.length < 2) return;
-                
-                const category = cols[0].replace(/"/g, "").trim();
-                const content = cols[1].replace(/"/g, "").trim();
-                const subtext = cols[2] ? cols[2].replace(/"/g, "").trim() : '';
+    if (cols.length < 2) return;
+    
+    const category = cols[0].replace(/"/g, "").trim();
+    const content = cols[1].replace(/"/g, "").trim();
+    const subtext = cols[2] ? cols[2].replace(/"/g, "").trim() : '';
 
-                if (category === "Vision" || category === "Mission" || category === "Announcement") {
-                    const title = category === "Vision" ? "நோக்கம்" : (category === "Mission" ? "செயல்பாடுகள்" : "அறிவிப்பு");
-                    board.innerHTML += `
-                        <div class="paper-note">
-                            <h3>${title}</h3>
-                            <p>${content}</p>
-                        </div>`;
-                } 
-                else if (category === "Poster") {
-                    // கூகுள் டிரைவ் லிங்காக இருந்தால் அதை படமாக மாற்றும் சிறு திருத்தம்
-                    let finalSrc = subtext;
-                    if (subtext.includes("drive.google.com")) {
-                        const fileId = subtext.split('/d/')[1]?.split('/')[0] || subtext.split('id=')[1];
-                        finalSrc = `https://drive.google.com/uc?export=view&id=${fileId}`;
-                    }
+    if (category === "Vision" || category === "Mission" || category === "Announcement") {
+        const title = category === "Vision" ? "நோக்கம்" : (category === "Mission" ? "செயல்பாடுகள்" : "அறிவிப்பு");
+        board.innerHTML += `
+            <div class="paper-note">
+                <h3>${title}</h3>
+                <p>${content}</p>
+            </div>`;
+    } 
+    else if (category === "Poster") {
+        let finalSrc = subtext;
+        
+        // கூகுள் டிரைவ் லிங்கை நேரடி பட லிங்காக மாற்றும் பகுதி
+        if (subtext.includes("drive.google.com")) {
+            // டிரைவ் லிங்கில் இருந்து File ID-ஐ மட்டும் எடுக்கிறது
+            const parts = subtext.split('/');
+            let fileId = "";
+            
+            if (subtext.includes("/d/")) {
+                fileId = subtext.split('/d/')[1].split('/')[0];
+            } else if (subtext.includes("id=")) {
+                fileId = subtext.split('id=')[1].split('&')[0];
+            }
+            
+            if (fileId) {
+                finalSrc = `https://drive.google.com/uc?export=view&id=${fileId}`;
+            }
+        }
 
-                    board.innerHTML += `
-                        <div class="paper-note" style="text-align:center;">
-                            <h3>${content}</h3>
-                            <img src="${finalSrc}" class="poster-img" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">
-                        </div>`;
-                }
-                else if (category === "Staff") {
-                    let table = document.getElementById('staff-table');
-                    if (!table) {
-                        board.innerHTML += `
-                            <div class="paper-note">
-                                <h3>பொறுப்பு ஆசிரியர்கள்</h3>
-                                <table id="staff-table"><tr><th>பெயர்</th><th>பதவி</th></tr></table>
-                            </div>`;
-                        table = document.getElementById('staff-table');
-                    }
-                    table.innerHTML += `<tr><td>${content}</td><td>${subtext}</td></tr>`;
-                }
-                else if (category === "Link") {
-                    linksArea.innerHTML += `<a href="${subtext}" target="_blank">🔗 ${content}</a>`;
-                }
-            });
-
+        board.innerHTML += `
+            <div class="paper-note" style="text-align:center;">
+                <h3>${content}</h3>
+                <img src="${finalSrc}" class="poster-img" alt="Poster" 
+                     onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=Check+Drive+Permissions';">
+            </div>`;
+    }
+    else if (category === "Staff") {
+        let table = document.getElementById('staff-table');
+        if (!table) {
+            board.innerHTML += `
+                <div class="paper-note">
+                    <h3>பொறுப்பு ஆசிரியர்கள்</h3>
+                    <table id="staff-table"><thead><tr><th>பெயர்</th><th>பதவி</th></tr></thead><tbody></tbody></table>
+                </div>`;
+            table = document.querySelector('#staff-table tbody');
+        }
+        table.innerHTML += `<tr><td>${content}</td><td>${subtext}</td></tr>`;
+    }
+    else if (category === "Link") {
+        linksArea.innerHTML += `<a href="${subtext}" target="_blank">🔗 ${content}</a>`;
+    }
+});
         } catch (error) {
             console.error("Error:", error);
             document.getElementById('main-board').innerHTML = "<p style='color:red; text-align:center; grid-column:1/-1;'>தகவல்களைப் பெறுவதில் சிக்கல் ஏற்பட்டுள்ளது.</p>";
