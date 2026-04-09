@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>மன்றங்கள் - அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pavanam&display=swap');
+
+        :root {
+            --primary-maroon: #8d1b3d;
+            --wood-frame: #4e342e;
+            --paper-bg: #ffffff;
+            --board-bg: #f5f5f5;
+        }
+
+        body {
+            background: #dcdcdc;
+            font-family: 'Pavanam', sans-serif;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .whiteboard {
+            background-color: var(--board-bg);
+            width: 100%;
+            max-width: 1100px;
+            min-height: 95vh;
+            border: 12px solid var(--wood-frame);
+            border-radius: 8px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            padding: 40px;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .home-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--primary-maroon);
+            color: white;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            z-index: 10;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+        }
+
+        header h1 { color: var(--primary-maroon); margin: 0; font-size: 1.8rem; }
+        header h2 { color: #555; margin: 5px 0; font-size: 1.2rem; }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .paper-note {
+            background: var(--paper-bg);
+            padding: 20px;
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
+            border-top: 5px solid var(--primary-maroon);
+            position: relative;
+            min-height: 100px;
+        }
+
+        .paper-note::after {
+            content: "";
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 25px;
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        h3 { color: var(--primary-maroon); border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 0; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { text-align: left; padding: 8px; border-bottom: 1px solid #eee; }
+
+        .footer-links {
+            margin-top: 40px;
+            padding: 20px;
+            background: #eee;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .footer-links a {
+            display: inline-block;
+            margin: 5px 15px;
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .poster-img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: 4px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .error-msg {
+            color: red;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="whiteboard">
+    <a href="index.html" class="home-btn">🏠 முகப்பு</a>
+
+    <header>
+        <h1>அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்</h1>
+        <h2>சுற்றுச்சூழல் மன்றம்</h2>
+    </header>
+
+    <div class="content-grid" id="main-board">
+        <p style="text-align:center; grid-column: 1/-1;">தகவல்கள் சேகரிக்கப்படுகின்றன...</p>
+    </div>
+
+    <div class="footer-links">
+        <h3>முக்கிய இணைப்புகள் & கோப்புகள்</h3>
+        <div id="links-area">இணைப்புகள் எதுவும் இல்லை.</div>
+    </div>
+</div>
+
+<script>
+    const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQkIZGIwl_G-qNWdqsJveGCT4iO-bVI5AnXkJ4paFmh8967rCYtV5J1W4PwEIoHtrO3nYXWBbachaiJ/pub?output=csv"; 
+
+    // கூகுள் டிரைவ் லிங்கை சரிசெய்யும் சிறப்பு ஃபங்ஷன்
+    function getRobustImageUrl(url) {
+    if (!url) return "";
+
+    // Google Drive link-ஐ சரிசெய்
+    if (url.includes("drive.google.com")) {
+        const idMatch = url.match(/[-\w]{25,}/);  // File ID எடுக்கும்
+        if (idMatch) {
+            const fileId = idMatch[0];
+            // புதிய recommended method
+            return `https://drive.google.com/thumbnail?id=${fileId}&sz=w2000`;
+        }
+    }
+    return url; // வேறு link என்றால் அப்படியே
+}
+
+    async function loadBoardData() {
+        try {
+            const response = await fetch(sheetURL);
+            const data = await response.text();
+            
+            const rows = data.split(/\r?\n/).map(row => {
+                return row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+            });
+            
+            const board = document.getElementById('main-board');
+            const linksArea = document.getElementById('links-area');
+            
+            board.innerHTML = '';
+            linksArea.innerHTML = '';
+
+            rows.slice(1).forEach(cols => {
+                if (cols.length < 2) return;
+                
+                const category = cols[0].replace(/"/g, "").trim();
+                const content = cols[1].replace(/"/g, "").trim();
+                const subtext = cols[2] ? cols[2].replace(/"/g, "").trim() : '';
+
+                if (category === "Vision" || category === "Mission" || category === "Announcement") {
+                    const title = category === "Vision" ? "நோக்கம்" : (category === "Mission" ? "செயல்பாடுகள்" : "அறிவிப்பு");
+                    board.innerHTML += `
+                        <div class="paper-note">
+                            <h3>${title}</h3>
+                            <p>${content}</p>
+                        </div>`;
+                } 
+                else if (category === "Poster") {
+                    const finalSrc = getRobustImageUrl(subtext);
+
+                    // படம் லோட் ஆகவில்லை என்றால் சிவப்பு நிறத்தில் பிழைச் செய்தி காட்டும்
+                    board.innerHTML += `
+                        <div class="paper-note" style="text-align:center;">
+                            <h3>${content}</h3>
+                            <img src="${finalSrc}" class="poster-img" alt="Poster" 
+                                 onerror="this.onerror=null; this.src='https://via.placeholder.com/400x200?text=Image+Blocked'; this.nextElementSibling.style.display='block';">
+                            <span class="error-msg" style="display:none;">
+                                ⚠️ இந்தப் படத்தைப் பார்க்க அனுமதி இல்லை. கூகுள் டிரைவில் <b>"Anyone with the link"</b> என்பதை உறுதி செய்யவும்.
+                            </span>
+                        </div>`;
+                }
+                else if (category === "Staff") {
+                    let table = document.getElementById('staff-table');
+                    if (!table) {
+                        board.innerHTML += `
+                            <div class="paper-note">
+                                <h3>பொறுப்பு ஆசிரியர்கள்</h3>
+                                <table id="staff-table"><tr><th>பெயர்</th><th>பதவி</th></tr></table>
+                            </div>`;
+                        table = document.getElementById('staff-table');
+                    }
+                    table.innerHTML += `<tr><td>${content}</td><td>${subtext}</td></tr>`;
+                }
+                else if (category === "Link") {
+                    linksArea.innerHTML += `<a href="${subtext}" target="_blank">🔗 ${content}</a>`;
+                }
+            });
+
+        } catch (error) {
+            console.error("Error:", error);
+            document.getElementById('main-board').innerHTML = "<p style='color:red; text-align:center; grid-column:1/-1;'>தகவல்களைப் பெறுவதில் சிக்கல் ஏற்பட்டுள்ளது.</p>";
+        }
+    }
+
+    loadBoardData();
+</script>
+
+</body>
+</html>
