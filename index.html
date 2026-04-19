@@ -1035,6 +1035,98 @@
       }
       output.value = result;
     }
+    
+  // 1. CONFIGURATION
+  const MASTER_SHEET_ID = '1LnCBeyd4DswXVlRossI5ZAZCkvqGa4bZDT72_VBaXTA'; 
+  const tabNames = ['Sheet1', 'Sheet2', 'Sheet3', 'Sheet4'];
+  const cardColors = [
+    { border: 'border-amber-400', text: 'text-amber-600', btn: 'bg-amber-500' },
+    { border: 'border-blue-400', text: 'text-blue-600', btn: 'bg-blue-500' },
+    { border: 'border-green-500', text: 'text-green-600', btn: 'bg-green-600' },
+    { border: 'border-red-500', text: 'text-red-600', btn: 'bg-red-600' }
+  ];
+
+  // 2. ROBUST GOOGLE DRIVE LINK TRANSFORMER
+  function getDirectLink(url) {
+    if (!url || url.trim() === "") return 'https://placehold.co/150x150/e2e8f0/cccccc?text=No+Photo';
+    
+    if (url.includes('drive.google.com')) {
+      let fileId = '';
+      if (url.includes('/d/')) {
+        fileId = url.split('/d/')[1].split('/')[0];
+      } else if (url.includes('id=')) {
+        fileId = url.split('id=')[1].split('&')[0];
+      }
+      // Use the thumbnail link which is very reliable for public drive files
+      return fileId ? `https://lh3.googleusercontent.com/u/0/d/${fileId}` : url;
+    }
+    return url;
+  }
+
+  // 3. MAIN INITIALIZATION FUNCTION
+  async function initDynamicAchievers() {
+    const grid = document.getElementById('dynamic-achievers-grid');
+    if (!grid) return; // Safety check
+
+    const promises = tabNames.map(async (tab, index) => {
+      try {
+        const url = `https://docs.google.com/spreadsheets/d/${MASTER_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${tab}`;
+        const response = await fetch(url);
+        const csv = await response.text();
+        
+        // Split CSV into rows and handle quotes
+        const rows = csv.split('\n').map(r => r.split(',').map(c => c.replace(/"/g, '').trim()));
+        
+        // Get the very last row
+        const last = rows[rows.length - 1];
+
+        if (last && last.length >= 4) {
+          // Pass the photo (last[1]) through the transformer
+          const transformedPhoto = getDirectLink(last[1]);
+          return generateCardMarkup(index, last[0], transformedPhoto, last[2], last[3]);
+        }
+      } catch (e) {
+        console.error("Error fetching " + tab, e);
+        return ''; 
+      }
+    });
+
+    const results = await Promise.all(promises);
+    grid.innerHTML = results.join('');
+  }
+
+  // 4. HTML MARKUP GENERATOR
+  function generateCardMarkup(index, name, photo, year, score) {
+    const c = cardColors[index];
+    const tab = tabNames[index];
+
+    return `
+      <div class="group bg-white rounded-2xl shadow-md border border-slate-100 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
+        <div class="p-8 text-center flex-grow">
+          <div class="relative w-32 h-32 mx-auto mb-6">
+            <img src="${photo}" 
+                 alt="${name}" 
+                 class="rounded-full w-full h-full object-cover border-4 ${c.border} shadow-inner group-hover:scale-105 transition-transform duration-300" 
+                 onerror="this.src='https://placehold.co/150x150/e2e8f0/cccccc?text=Error'">
+          </div>
+          <h3 class="font-bold text-xl text-slate-800 tracking-tight mb-1">${name}</h3>
+          <p class="font-black text-xs uppercase tracking-widest text-slate-400">${year}</p>
+          <div class="mt-4">
+            <span class="px-4 py-1.5 rounded-full bg-slate-50 text-sm font-bold ${c.text} inline-block border border-slate-100">
+              ${score}
+            </span>
+          </div>
+        </div>
+        <a href="merit-board.html?type=${tab}" class="${c.btn} hover:opacity-90 text-white text-center py-4 font-bold text-xs uppercase tracking-widest transition-all">
+          முழு தகவல் பலகை <i class="bi bi-box-arrow-up-right ms-2"></i>
+        </a>
+      </div>
+    `;
+  }
+
+  // Execute on load
+  document.addEventListener('DOMContentLoaded', initDynamicAchievers);
+
   </script>
 </body>
 </html>
