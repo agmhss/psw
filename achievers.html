@@ -3,95 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Achievers Board</title>
+    <title>தகவல் பலகை | Merit Board</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
-<body class="bg-slate-50">
+<body class="bg-slate-50 text-slate-800">
 
-<section id="achievers" class="py-20 px-6 max-w-7xl mx-auto">
-  <div class="text-center mb-12">
-    <h2 class="text-3xl font-black text-blue-900 uppercase tracking-wide">எங்கள் சாதனைகள்</h2>
-    <div class="w-20 h-1 bg-red-600 mx-auto mt-3 mb-4"></div>
-    <p class="text-slate-600 font-medium italic">
-        "அந்தந்த பட்டனை கிளிக் செய்து முழு தகவல் பலகையை காண்க"
-    </p>
-  </div>
-
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-    
-    <script>
-      const colors = [
-        { border: 'border-amber-400', text: 'text-amber-600', btn: 'bg-amber-500' },
-        { border: 'border-blue-400', text: 'text-blue-600', btn: 'bg-blue-500' },
-        { border: 'border-green-500', text: 'text-green-600', btn: 'bg-green-600' },
-        { border: 'border-red-500', text: 'text-red-600', btn: 'bg-red-600' }
-      ];
-
-      for (let i = 0; i < 4; i++) {
-        document.write(`
-          <div class="group bg-white rounded-2xl shadow-md border border-slate-100 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
-            <div class="p-8 text-center flex-grow">
-              <div class="relative w-36 h-36 mx-auto mb-6">
-                <img id="img-${i}" src="https://placehold.co/150x150/e2e8f0/cccccc?text=Photo" 
-                     class="rounded-full w-full h-full object-cover border-4 ${colors[i].border} shadow-inner group-hover:scale-105 transition-transform duration-300" />
-              </div>
-              
-              <h3 id="name-${i}" class="font-bold text-xl text-slate-800 tracking-tight mb-1">நிச்சயிக்கப்படுகிறது...</h3>
-              
-              <p id="year-${i}" class="font-black text-sm uppercase tracking-widest text-slate-400">BATCH</p>
-              
-              <div class="mt-4">
-                <span id="score-${i}" class="px-4 py-1.5 rounded-full bg-slate-100 text-sm font-bold ${colors[i].text} inline-block">
-                  தகவல் சேகரிக்கப்படுகிறது...
-                </span>
-              </div>
+    <header class="bg-[#0b6623] text-white py-8 px-6 sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <h1 id="boardTitle" class="text-2xl font-black uppercase tracking-wider">தகவல் பலகை</h1>
+                <p class="text-green-100 text-sm">அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்</p>
             </div>
-            
-            <a href="#" id="link-${i}" target="_blank" class="${colors[i].btn} hover:opacity-90 text-white text-center py-4 font-bold text-xs uppercase tracking-widest transition-all">
-              முழு தகவல் பலகை <i class="bi bi-box-arrow-up-right ms-2"></i>
+            <a href="index.html" class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg text-sm font-bold transition">
+                <i class="bi bi-arrow-left me-2"></i> முகப்பு பக்கம்
             </a>
-          </div>
-        `);
-      }
-    </script>
-  </div>
-</section>
+        </div>
+    </header>
 
-<script>
-  const SHEET_ID = 'YOUR_MASTER_SHEET_ID_HERE';
-  const tabs = ['Sheet1', 'Sheet2', 'Sheet3', 'Sheet4'];
+    <main class="max-w-7xl mx-auto py-12 px-6">
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-100">
+                            <th class="p-5 text-sm font-bold text-slate-500 uppercase">சாதனையாளர்</th>
+                            <th class="p-5 text-sm font-bold text-slate-500 uppercase">கல்வியாண்டு</th>
+                            <th class="p-5 text-sm font-bold text-slate-500 uppercase">சாதனை விவரம்</th>
+                        </tr>
+                    </thead>
+                    <tbody id="boardContent">
+                        <tr><td colspan="3" class="p-10 text-center text-slate-400">தகவல்கள் ஏற்றப்படுகின்றன...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
 
-  async function updateAchievers() {
-    tabs.forEach(async (tabName, index) => {
-      try {
-        const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${tabName}`;
-        const response = await fetch(url);
-        const csvData = await response.text();
+    <script>
+        const SHEET_ID = '1LnCBeyd4DswXVlRossI5ZAZCkvqGa4bZDT72_VBaXTA';
+ // Robust function to fix Google Drive links
+    function getDirectLink(url) {
+        if (!url) return 'https://placehold.co/100x100?text=User';
         
-        const rows = csvData.split('\n').map(row => 
-          row.split(',').map(cell => cell.replace(/"/g, '').trim())
-        );
-
-        const lastRow = rows[rows.length - 1];
-
-        if (lastRow && lastRow.length >= 4) {
-          document.getElementById(`name-${index}`).innerText = lastRow[0];  
-          document.getElementById(`img-${index}`).src = lastRow[1];         
-          document.getElementById(`year-${index}`).innerText = lastRow[2];  
-          document.getElementById(`score-${index}`).innerText = lastRow[3]; 
-          
-          // Updated the button text link to be sheet specific if needed
-          document.getElementById(`link-${index}`).href = `https://docs.google.com/spreadsheets/d/${SHEET_ID}`;
+        // Check if it's a Google Drive link
+        if (url.includes('drive.google.com')) {
+            let fileId = '';
+            
+            // Extract ID from different Drive URL formats
+            if (url.includes('/d/')) {
+                fileId = url.split('/d/')[1].split('/')[0];
+            } else if (url.includes('id=')) {
+                fileId = url.split('id=')[1].split('&')[0];
+            }
+            
+            return fileId ? `https://lh3.googleusercontent.com/u/0/d/${fileId}` : url;
         }
-      } catch (err) {
-        console.error("Error fetching " + tabName, err);
-      }
-    });
-  }
+        
+        return url; // Return as is if it's already a direct link or not Drive
+    }
 
-  window.onload = updateAchievers;
+    async function fetchSpecificData() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const sheetName = urlParams.get('type') || 'Sheet1'; 
+        
+        const titles = {
+            'Sheet1': '12-ஆம் வகுப்பு சாதனையாளர்கள்',
+            'Sheet2': '10-ஆம் வகுப்பு சாதனையாளர்கள்',
+            'Sheet3': 'கல்வி உதவித்தொகை பெற்றோர்',
+            'Sheet4': 'ஆசிரியர் சாதனைகள்'
+        };
+        document.getElementById('boardTitle').innerText = titles[sheetName] || 'தகவல் பலகை';
+
+        const container = document.getElementById('boardContent');
+        
+        try {
+            const response = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${sheetName}`);
+            const csv = await response.text();
+            
+            const rows = csv.split('\n').map(row => 
+                row.split(',').map(cell => cell.replace(/"/g, '').trim())
+            );
+
+            const dataRows = rows.slice(1);
+
+            if (dataRows.length === 0) {
+                container.innerHTML = `<tr><td colspan="3" class="p-10 text-center italic">தகவல்கள் ஏதும் இல்லை.</td></tr>`;
+                return;
+            }
+
+            container.innerHTML = dataRows.map(row => {
+                const photoUrl = getDirectLink(row[1]); // Fixes the link here
+                
+                return `
+                    <tr class="border-b border-slate-50 hover:bg-slate-50 transition">
+                        <td class="p-5">
+                            <div class="flex items-center gap-4">
+                                <img src="${photoUrl}" 
+                                     onerror="this.src='https://placehold.co/100x100?text=Error'"
+                                     class="w-12 h-12 rounded-full object-cover border-2 border-slate-100 shadow-sm">
+                                <span class="font-bold text-slate-800">${row[0]}</span>
+                            </div>
+                        </td>
+                        <td class="p-5 font-medium text-slate-600">${row[2]}</td>
+                        <td class="p-5">
+                            <span class="px-3 py-1 bg-green-50 text-green-700 rounded-lg text-sm font-bold border border-green-100">
+                                ${row[3]}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+        } catch (error) {
+            container.innerHTML = `<tr><td colspan="3" class="p-10 text-center text-red-500">தகவல்களைப் பெறுவதில் சிக்கல்.</td></tr>`;
+        }
+    }
+
+    window.onload = fetchSpecificData;
 </script>
-
 </body>
 </html>
