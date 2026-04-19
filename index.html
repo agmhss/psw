@@ -449,7 +449,7 @@
 
   <section id="achievers" class="py-20 px-6 max-w-7xl mx-auto">
   <div class="text-center mb-12">
-    <h2 class="text-3xl font-black text-blue-900 uppercase tracking-wide">எங்கள் சாதனைகள்</h2>
+    <h2 class="text-3xl font-black text-blue-900 uppercase tracking-wide">நமது சாதனைகள்</h2>
     <div class="w-20 h-1 bg-red-600 mx-auto mt-3 mb-4"></div>
     <p class="text-slate-600 font-medium italic">
         "அந்தந்த பட்டனை கிளிக் செய்து முழு தகவல் பலகையை காண்க"
@@ -1036,17 +1036,28 @@
       output.value = result;
     }
     
-  // 1. CONFIGURATION
-  const MASTER_SHEET_ID = '1LnCBeyd4DswXVlRossI5ZAZCkvqGa4bZDT72_VBaXTA'; 
-  const tabNames = ['Sheet1', 'Sheet2', 'Sheet3', 'Sheet4'];
-  const cardColors = [
-    { border: 'border-amber-400', text: 'text-amber-600', btn: 'bg-amber-500' },
-    { border: 'border-blue-400', text: 'text-blue-600', btn: 'bg-blue-500' },
-    { border: 'border-green-500', text: 'text-green-600', btn: 'bg-green-600' },
-    { border: 'border-red-500', text: 'text-red-600', btn: 'bg-red-600' }
-  ];
+  
+    // 1. CONFIGURATION பகுதியில் தலைப்புகளைச் சேர்க்கவும்
+const MASTER_SHEET_ID = '1LnCBeyd4DswXVlRossI5ZAZCkvqGa4bZDT72_VBaXTA'; 
+const tabNames = ['Sheet1', 'Sheet2', 'Sheet3', 'Sheet4'];
 
-  // 2. ROBUST GOOGLE DRIVE LINK TRANSFORMER
+// இந்தத் தலைப்புகள் உங்கள் கார்டுகளில் வரிசையாகத் தோன்றும்
+const cardTitles = [
+  "10-ம் வகுப்பு பொதுத்தேர்வு",
+  "12-ம் வகுப்பு பொதுத்தேர்வு",
+  "மாணவர்களின் பிற சாதனைகள்",
+  "ஆசிரியர்களின் சாதனைகள்"
+];
+
+const cardColors = [
+  { border: 'border-amber-400', text: 'text-amber-600', btn: 'bg-amber-500' },
+  { border: 'border-blue-400', text: 'text-blue-600', btn: 'bg-blue-500' },
+  { border: 'border-green-500', text: 'text-green-600', btn: 'bg-green-600' },
+  { border: 'border-red-500', text: 'text-red-600', btn: 'bg-red-600' }
+];
+
+// ... (fetch logic remains the same) ...
+      // 2. ROBUST GOOGLE DRIVE LINK TRANSFORMER
   function getDirectLink(url) {
     if (!url || url.trim() === "") return 'https://placehold.co/150x150/e2e8f0/cccccc?text=No+Photo';
     
@@ -1095,36 +1106,38 @@
     grid.innerHTML = results.join('');
   }
 
-  // 4. HTML MARKUP GENERATOR
-  function generateCardMarkup(index, name, photo, year, score) {
-    const c = cardColors[index];
-    const tab = tabNames[index];
+// 4. HTML MARKUP GENERATOR பகுதியில் இந்த மாற்றத்தைச் செய்யவும்
+function generateCardMarkup(index, name, photo, year, score) {
+  const c = cardColors[index];
+  const tab = tabNames[index];
+  const displayTitle = cardTitles[index]; // இங்கே தலைப்பு மாற்றப்படுகிறது
 
-    return `
-      <div class="group bg-white rounded-2xl shadow-md border border-slate-100 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
-        <div class="p-8 text-center flex-grow">
-          <div class="relative w-32 h-32 mx-auto mb-6">
-            <img src="${photo}" 
-                 alt="${name}" 
-                 class="rounded-full w-full h-full object-cover border-4 ${c.border} shadow-inner group-hover:scale-105 transition-transform duration-300" 
-                 onerror="this.src='https://placehold.co/150x150/e2e8f0/cccccc?text=Error'">
-          </div>
-          <h3 class="font-bold text-xl text-slate-800 tracking-tight mb-1">${name}</h3>
-          <p class="font-black text-xs uppercase tracking-widest text-slate-400">${year}</p>
-          <div class="mt-4">
-            <span class="px-4 py-1.5 rounded-full bg-slate-50 text-sm font-bold ${c.text} inline-block border border-slate-100">
-              ${score}
-            </span>
-          </div>
+  return `
+    <div class="group bg-white rounded-2xl shadow-md border border-slate-100 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
+      <div class="p-8 text-center flex-grow">
+        <p class="text-[10px] font-bold uppercase tracking-[2px] mb-4 opacity-60 text-slate-500">${displayTitle}</p>
+        
+        <div class="relative w-32 h-32 mx-auto mb-6">
+          <img src="${photo}" 
+               alt="${name}" 
+               class="rounded-full w-full h-full object-cover border-4 ${c.border} shadow-inner group-hover:scale-105 transition-transform duration-300" 
+               onerror="this.src='https://placehold.co/150x150/e2e8f0/cccccc?text=Error'">
         </div>
-        <a href="achievers.html?type=${tab}" class="${c.btn} hover:opacity-90 text-white text-center py-4 font-bold text-xs uppercase tracking-widest transition-all">
-          முழு தகவல் பலகை <i class="bi bi-box-arrow-up-right ms-2"></i>
-        </a>
+        <h3 class="font-bold text-xl text-slate-800 tracking-tight mb-1">${name}</h3>
+        <p class="font-black text-xs uppercase tracking-widest text-slate-400">${year}</p>
+        <div class="mt-4">
+          <span class="px-4 py-1.5 rounded-full bg-slate-50 text-sm font-bold ${c.text} inline-block border border-slate-100">
+            ${score}
+          </span>
+        </div>
       </div>
-    `;
-  }
-
-  // Execute on load
+      <a href="merit-board.html?type=${tab}" class="${c.btn} hover:opacity-90 text-white text-center py-4 font-bold text-xs uppercase tracking-widest transition-all">
+        முழு தகவல் பலகை <i class="bi bi-box-arrow-up-right ms-2"></i>
+      </a>
+    </div>
+  `;
+    }
+   // Execute on load
   document.addEventListener('DOMContentLoaded', initDynamicAchievers);
 </script>
 </body>
