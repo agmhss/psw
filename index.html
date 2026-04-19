@@ -1107,36 +1107,45 @@ const cardColors = [
   }
 
 // 4. HTML MARKUP GENERATOR பகுதியில் இந்த மாற்றத்தைச் செய்யவும்
-function generateCardMarkup(index, name, photo, year, score) {
+    function generateCardMarkup(index, name, photo, year, score) {
   const c = cardColors[index];
   const tab = tabNames[index];
-  const displayTitle = cardTitles[index]; // இங்கே தலைப்பு மாற்றப்படுகிறது
+  const displayTitle = cardTitles[index];
 
   return `
     <div class="group bg-white rounded-2xl shadow-md border border-slate-100 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
+      <div class="${c.btn} py-3 px-4 text-center">
+        <h4 class="text-white font-black text-sm uppercase tracking-wider">
+          ${displayTitle}
+        </h4>
+      </div>
+
       <div class="p-8 text-center flex-grow">
-        <p class="text-[10px] font-bold uppercase tracking-[2px] mb-4 opacity-60 text-slate-500">${displayTitle}</p>
-        
         <div class="relative w-32 h-32 mx-auto mb-6">
           <img src="${photo}" 
                alt="${name}" 
-               class="rounded-full w-full h-full object-cover border-4 ${c.border} shadow-inner group-hover:scale-105 transition-transform duration-300" 
+               class="rounded-full w-full h-full object-cover border-4 ${c.border} shadow-md group-hover:scale-105 transition-transform duration-300" 
                onerror="this.src='https://placehold.co/150x150/e2e8f0/cccccc?text=Error'">
         </div>
+
         <h3 class="font-bold text-xl text-slate-800 tracking-tight mb-1">${name}</h3>
         <p class="font-black text-xs uppercase tracking-widest text-slate-400">${year}</p>
+        
         <div class="mt-4">
-          <span class="px-4 py-1.5 rounded-full bg-slate-50 text-sm font-bold ${c.text} inline-block border border-slate-100">
+          <span class="px-5 py-2 rounded-full bg-slate-50 text-sm font-bold ${c.text} inline-block border border-slate-200 shadow-sm">
             ${score}
           </span>
         </div>
       </div>
-      <a href="merit-board.html?type=${tab}" class="${c.btn} hover:opacity-90 text-white text-center py-4 font-bold text-xs uppercase tracking-widest transition-all">
+
+      <a href="achievers.html?type=${tab}" class="${c.btn} hover:opacity-90 text-white text-center py-4 font-bold text-xs uppercase tracking-widest transition-all border-t border-white/10">
         முழு தகவல் பலகை <i class="bi bi-box-arrow-up-right ms-2"></i>
       </a>
     </div>
   `;
-    }
+                                }
+    
+
    // Execute on load
   document.addEventListener('DOMContentLoaded', initDynamicAchievers);
 </script>
