@@ -97,22 +97,18 @@
         <h1>Anna Government Model Hr Sec School, Patteeswaram</h1>
         <p>Smart School Initiative | Digital Question Paper Vault</p>
     </header>
-
-    <!-- Upload Section -->
-    <div class="card-container">
-        <h2 style="color: #2c3e50; margin-top: 0;">Submit Question Papers</h2>
-        <p style="color: #7f8c8d; margin-bottom: 25px;">
-            Click the button below to securely upload a PDF (or multiple files). 
-            It will be automatically sorted into the correct folder by the system.
-        </p>
-        <a href="https://forms.gle/tVQesRTGYjgDdxX4A" 
-           target="_blank" 
-           style="background-color: #27ae60; color: white; padding: 15px 32px; text-decoration: none; border-radius: 8px; font-size: 18px; font-weight: bold; display: inline-block; box-shadow: 0 4px 8px rgba(0,0,0,0.12); transition: all 0.3s;">
-            Open Upload Form
-        </a>
+    <div class="card" style="margin-top: 20px; padding: 20px; text-align: center;">
+  <h3>Quick Paper Search</h3>
+  <p>Search by subject or class to open the PDF directly.</p>
+  
+  <input type="text" id="searchInput" onkeyup="searchPapers()" 
+         placeholder="e.g. 10th Maths English Medium..." 
+         style="width: 80%; padding: 12px; border-radius: 8px; border: 1px solid #ccc;">
+  
+  <div id="resultsList" style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px; align-items: center;">
     </div>
-
-    <!-- Browse Section -->
+    </div>
+<!-- Browse Section -->
     <div class="card-container">
         <h2 style="color: #2c3e50; margin-top: 0;">Browse Question Bank</h2>
         <p style="color: #7f8c8d; margin-bottom: 15px;">
@@ -136,19 +132,19 @@
             </a>
         </div>
     </div>
-    <div class="card" style="margin-top: 20px; padding: 20px; text-align: center;">
-  <h3>Quick Paper Search</h3>
-  <p>Search by subject or class to open the PDF directly.</p>
-  
-  <input type="text" id="searchInput" onkeyup="searchPapers()" 
-         placeholder="e.g. 10th Maths English Medium..." 
-         style="width: 80%; padding: 12px; border-radius: 8px; border: 1px solid #ccc;">
-  
-  <div id="resultsList" style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+    <!-- Upload Section -->
+    <div class="card-container">
+        <h2 style="color: #2c3e50; margin-top: 0;">Submit Question Papers</h2>
+        <p style="color: #7f8c8d; margin-bottom: 25px;">
+            Click the button below to securely upload a PDF (or multiple files). 
+            It will be automatically sorted into the correct folder by the system.
+        </p>
+        <a href="https://forms.gle/tVQesRTGYjgDdxX4A" 
+           target="_blank" 
+           style="background-color: #27ae60; color: white; padding: 15px 32px; text-decoration: none; border-radius: 8px; font-size: 18px; font-weight: bold; display: inline-block; box-shadow: 0 4px 8px rgba(0,0,0,0.12); transition: all 0.3s;">
+            Open Upload Form
+        </a>
     </div>
-</div>
-    
-
     <footer>
         &copy; 2026 AGMHSS Patteeswaram. Automated IT Infrastructure.
     </footer>
