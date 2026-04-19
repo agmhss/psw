@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Achievers Board</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body class="bg-slate-50">
+
+<section id="achievers" class="py-20 px-6 max-w-7xl mx-auto">
+  <div class="text-center mb-12">
+    <h2 class="text-3xl font-black text-blue-900 uppercase tracking-wide">எங்கள் சாதனைகள்</h2>
+    <div class="w-20 h-1 bg-red-600 mx-auto mt-3 mb-4"></div>
+    <p class="text-slate-600 font-medium italic">
+        "அந்தந்த பட்டனை கிளிக் செய்து முழு தகவல் பலகையை காண்க"
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+    
+    <script>
+      const colors = [
+        { border: 'border-amber-400', text: 'text-amber-600', btn: 'bg-amber-500' },
+        { border: 'border-blue-400', text: 'text-blue-600', btn: 'bg-blue-500' },
+        { border: 'border-green-500', text: 'text-green-600', btn: 'bg-green-600' },
+        { border: 'border-red-500', text: 'text-red-600', btn: 'bg-red-600' }
+      ];
+
+      for (let i = 0; i < 4; i++) {
+        document.write(`
+          <div class="group bg-white rounded-2xl shadow-md border border-slate-100 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
+            <div class="p-8 text-center flex-grow">
+              <div class="relative w-36 h-36 mx-auto mb-6">
+                <img id="img-${i}" src="https://placehold.co/150x150/e2e8f0/cccccc?text=Photo" 
+                     class="rounded-full w-full h-full object-cover border-4 ${colors[i].border} shadow-inner group-hover:scale-105 transition-transform duration-300" />
+              </div>
+              
+              <h3 id="name-${i}" class="font-bold text-xl text-slate-800 tracking-tight mb-1">நிச்சயிக்கப்படுகிறது...</h3>
+              
+              <p id="year-${i}" class="font-black text-sm uppercase tracking-widest text-slate-400">BATCH</p>
+              
+              <div class="mt-4">
+                <span id="score-${i}" class="px-4 py-1.5 rounded-full bg-slate-100 text-sm font-bold ${colors[i].text} inline-block">
+                  தகவல் சேகரிக்கப்படுகிறது...
+                </span>
+              </div>
+            </div>
+            
+            <a href="#" id="link-${i}" target="_blank" class="${colors[i].btn} hover:opacity-90 text-white text-center py-4 font-bold text-xs uppercase tracking-widest transition-all">
+              முழு தகவல் பலகை <i class="bi bi-box-arrow-up-right ms-2"></i>
+            </a>
+          </div>
+        `);
+      }
+    </script>
+  </div>
+</section>
+
+<script>
+  const SHEET_ID = 'YOUR_MASTER_SHEET_ID_HERE';
+  const tabs = ['Sheet1', 'Sheet2', 'Sheet3', 'Sheet4'];
+
+  async function updateAchievers() {
+    tabs.forEach(async (tabName, index) => {
+      try {
+        const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${tabName}`;
+        const response = await fetch(url);
+        const csvData = await response.text();
+        
+        const rows = csvData.split('\n').map(row => 
+          row.split(',').map(cell => cell.replace(/"/g, '').trim())
+        );
+
+        const lastRow = rows[rows.length - 1];
+
+        if (lastRow && lastRow.length >= 4) {
+          document.getElementById(`name-${index}`).innerText = lastRow[0];  
+          document.getElementById(`img-${index}`).src = lastRow[1];         
+          document.getElementById(`year-${index}`).innerText = lastRow[2];  
+          document.getElementById(`score-${index}`).innerText = lastRow[3]; 
+          
+          // Updated the button text link to be sheet specific if needed
+          document.getElementById(`link-${index}`).href = `https://docs.google.com/spreadsheets/d/${SHEET_ID}`;
+        }
+      } catch (err) {
+        console.error("Error fetching " + tabName, err);
+      }
+    });
+  }
+
+  window.onload = updateAchievers;
+</script>
+
+</body>
+</html>
