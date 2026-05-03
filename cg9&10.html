@@ -124,39 +124,45 @@
             display: block;
         }
 
-        .empower-btn {
+       /* Optimized for White Text and High Contrast */
+.empower-btn {
     display: inline-block;
     padding: 12px 24px;
-    background-color: #0056b3; 
-    color: #ffffff;
+    background-color: #0056b3; /* A clean, trusted professional blue */
     text-decoration: none;
     font-size: 18px;
     font-weight: bold;
-    font-family: 'Mukta Malar', 'Latha', Arial, sans-serif; /* Added Tamil font support */
+    font-family: 'Mukta Malar', 'Latha', Arial, sans-serif; /* Tamil font support */
     text-align: center;
     border-radius: 8px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     line-height: 1.4;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none; /* In case there's a default border from somewhere else */
+
+    /* The critical colors for readability: */
+    color: #ffffff !important; /* Forces the main text to be pure white */
 }
 
+/* Hover and Active states for a professional feel */
+.empower-btn:hover {
+    background-color: #004494; /* Slightly darker on hover */
+    color: #ffffff !important;
+    text-decoration: none;
+    transform: translateY(-2px); /* Slight lift */
+}
+
+.empower-btn:active {
+    transform: translateY(0); /* Pushes down when clicked */
+}
+
+/* Styling for the subtitle */
 .empower-btn .btn-subtext {
     display: block;
     font-size: 13px;
     font-weight: normal;
     margin-top: 4px;
-    color: #e0e0e0; /* Slightly lighter text for the subtitle */
-}
-
-.empower-btn:hover {
-    background-color: #003d82; 
-    color: #ffffff;
-    text-decoration: none;
-    transform: translateY(-2px); 
-}
-
-.empower-btn:active {
-    transform: translateY(0); 
+    color: #f1f1f1 !important; /* Slightly distinct, but still high-contrast light grey/white */
 }
     </style>
 </head>
