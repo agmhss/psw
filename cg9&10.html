@@ -123,18 +123,47 @@
             margin-top: 5px;
             display: block;
         }
+
+        .empower-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #0056b3; 
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Mukta Malar', 'Latha', Arial, sans-serif; /* Added Tamil font support */
+    text-align: center;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    line-height: 1.4;
+}
+
+.empower-btn .btn-subtext {
+    display: block;
+    font-size: 13px;
+    font-weight: normal;
+    margin-top: 4px;
+    color: #e0e0e0; /* Slightly lighter text for the subtitle */
+}
+
+.empower-btn:hover {
+    background-color: #003d82; 
+    color: #ffffff;
+    text-decoration: none;
+    transform: translateY(-2px); 
+}
+
+.empower-btn:active {
+    transform: translateY(0); 
+}
     </style>
 </head>
 <body>
 
 <div class="whiteboard">
     <a href="index.html" class="home-btn">🏠 முகப்பு</a>
-
-     <a href="https://tnvelaivaaippu.gov.in/Empower/" target="_blank" rel="noopener noreferrer" style="display: inline-block; padding: 12px 24px; background-color: #0056b3; color: white; text-decoration: none; font-size: 18px; font-weight: bold; font-family: 'Latha', Arial, sans-serif; text-align: center; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); line-height: 1.4;">
-    தமிழ்நாடு வேலைவாய்ப்பு பதிவு <br>
-    <span style="font-size: 13px; font-weight: normal; color: #e0e0e0; display: block; margin-top: 4px;">(10 மற்றும் 12-ஆம் வகுப்பு தேர்ச்சி பெற்றவர்களுக்கு)</span>
-</a>
-
 
     <header>
         <h1>அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்</h1>
@@ -147,6 +176,11 @@
 
     <div class="footer-links">
         <h3>முக்கிய இணைப்புகள் & கோப்புகள்</h3>
+        
+        <a href="https://tnvelaivaaippu.gov.in/Empower/" target="_blank" rel="noopener noreferrer" class="empower-btn">
+    தமிழ்நாடு வேலைவாய்ப்பு பதிவு
+    <span class="btn-subtext">(10 மற்றும் 12-ஆம் வகுப்பு தேர்ச்சி பெற்றவர்களுக்கு)</span>
+</a>
         <div id="links-area">இணைப்புகள் எதுவும் இல்லை.</div>
     </div>
 </div>
