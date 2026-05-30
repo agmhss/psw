@@ -363,7 +363,10 @@ ${finalContext}
 
         function downloadAsFile() {
             const text = document.getElementById('outputArea').innerText;
-            const blob = new Blob([text], { type: 'text/plain' });
+            
+            // தமிழில் சரியாகப் படிக்க \ufeff (UTF-8 BOM) சேர்க்கப்பட்டுள்ளது
+            const blob = new Blob(["\ufeff" + text], { type: 'text/plain;charset=utf-8' });
+            
             const link = document.createElement('a');
             link.download = `GTK_Generated_Questions_Class${document.getElementById('grade').value}_${document.getElementById('subject').value}.txt`;
             link.href = window.URL.createObjectURL(blob);
