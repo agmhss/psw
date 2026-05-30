@@ -43,6 +43,10 @@
         .form-row { display: flex; align-items: center; margin-bottom: 15px; justify-content: space-between; }
         .form-row label { font-weight: 600; font-size: 15px; flex: 1; }
         .form-row select { flex: 1.5; padding: 10px 15px; border: 1px solid var(--border-color); border-radius: 8px; background-color: white; font-size: 15px; outline: none; }
+        
+        /* Ensure Optgroups in dropdown look distinct */
+        optgroup { font-weight: bold; color: var(--primary-color); font-style: normal; }
+        optgroup option { color: var(--text-main); font-weight: normal; }
 
         /* Buttons & Actions */
         .generate-btn { width: 100%; background-color: var(--primary-color); color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 20px; }
@@ -103,7 +107,45 @@
             <select id="language"><option value="English" selected>English</option><option value="Tamil">Tamil (தமிழ்)</option></select>
         </div>
         <div class="form-row"><label>Grade:</label><select id="grade"><option value="1">Class 1</option><option value="2">Class 2</option><option value="3">Class 3</option><option value="4">Class 4</option><option value="5">Class 5</option><option value="6">Class 6</option><option value="7">Class 7</option><option value="8">Class 8</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option></select></div>
-        <div class="form-row"><label>Subject:</label><select id="subject"><option value="Computer Science">Computer Science</option><option value="English">English</option><option value="Physics">Physics</option><option value="Math">Math</option></select></div>
+        
+        <div class="form-row">
+            <label>Subject:</label>
+            <select id="subject">
+                <optgroup label="Languages">
+                    <option value="Tamil">Tamil</option>
+                    <option value="English">English</option>
+                </optgroup>
+                <optgroup label="Core (Classes 1-10)">
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Science">Science</option>
+                    <option value="Social Science">Social Science</option>
+                    <option value="Environmental Science (EVS)">Environmental Science (EVS)</option>
+                </optgroup>
+                <optgroup label="Higher Secondary - Science">
+                    <option value="Physics">Physics</option>
+                    <option value="Chemistry">Chemistry</option>
+                    <option value="Biology">Biology</option>
+                    <option value="Botany">Botany</option>
+                    <option value="Zoology">Zoology</option>
+                    <option value="Computer Science">Computer Science</option>
+                </optgroup>
+                <optgroup label="Higher Secondary - Commerce & Arts">
+                    <option value="Commerce">Commerce</option>
+                    <option value="Accountancy">Accountancy</option>
+                    <option value="Economics">Economics</option>
+                    <option value="Business Mathematics">Business Mathematics</option>
+                    <option value="Computer Applications">Computer Applications</option>
+                    <option value="History">History</option>
+                    <option value="Geography">Geography</option>
+                    <option value="Political Science">Political Science</option>
+                </optgroup>
+                <optgroup label="Vocational & Skills">
+                    <option value="Employability Skills">Employability Skills</option>
+                    <option value="General Knowledge">General Knowledge</option>
+                </optgroup>
+            </select>
+        </div>
+
         <div class="form-row"><label>Questions:</label><select id="questionCount"><option value="5">5</option><option value="10">10</option><option value="15">15</option><option value="20">20</option></select></div>
         <div class="form-row"><label>Difficulty:</label><select id="difficulty"><option value="Easy">Easy</option><option value="Medium" selected>Medium</option><option value="Hard">Hard</option></select></div>
         <div class="form-row"><label>Category:</label><select id="category"><option value="Multiple Choice">Multiple Choice</option><option value="Short Answer">Short Answer</option><option value="True/False">True / False</option><option value="Essay">Essay</option></select></div>
@@ -262,7 +304,6 @@ ${finalContext}
             alert("Questions copied to clipboard!");
         }
 
-        // Updated TXT download (with Tamil UTF-8 support)
         function downloadAsFile() {
             const text = document.getElementById('outputArea').innerText;
             const blob = new Blob(["\ufeff" + text], { type: 'text/plain;charset=utf-8' });
@@ -272,22 +313,19 @@ ${finalContext}
             link.click();
         }
 
-        // NEW: PDF Download Function using html2pdf
         function downloadAsPDF() {
             const element = document.getElementById('outputArea');
             const grade = document.getElementById('grade').value;
             const subject = document.getElementById('subject').value;
             
-            // Options for the PDF generation
             const opt = {
-                margin:       [0.5, 0.5, 0.5, 0.5], // Top, Left, Bottom, Right margins in inches
-                filename:     `GTK_Questions_Class${grade}_${subject}.pdf`,
+                margin:       [0.5, 0.5, 0.5, 0.5],
+                filename:     `GTK_Questions_Class${grade}_${subject.replace(/[^a-z0-9]/gi, '_')}.pdf`,
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true }, // scale: 2 increases quality/sharpness
+                html2canvas:  { scale: 2, useCORS: true },
                 jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
             };
 
-            // Temporarily adjust styling for the PDF so there's no scrollbar or borders
             const originalMaxHeight = element.style.maxHeight;
             const originalOverflow = element.style.overflowY;
             const originalBorder = element.style.border;
@@ -296,9 +334,7 @@ ${finalContext}
             element.style.overflowY = 'visible';
             element.style.border = 'none';
 
-            // Generate PDF
             html2pdf().set(opt).from(element).save().then(() => {
-                // Restore styling after download
                 element.style.maxHeight = originalMaxHeight;
                 element.style.overflowY = originalOverflow;
                 element.style.border = originalBorder;
