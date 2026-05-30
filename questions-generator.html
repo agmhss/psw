@@ -20,6 +20,18 @@
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f5f7; display: flex; justify-content: center; padding: 40px 20px; margin: 0; color: var(--text-main); }
         .container { background-color: #ffffff; width: 100%; max-width: 550px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.05); padding: 30px; }
         .header-title { text-align: center; margin-top: 0; margin-bottom: 20px; font-size: 24px; color: var(--primary-color); }
+        .whiteboard {
+            background-color: var(--board-bg);
+            width: 100%;
+            max-width: 1100px;
+            min-height: 95vh;
+            border: 12px solid var(--wood-frame);
+            border-radius: 8px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            padding: 40px;
+            position: relative;
+            box-sizing: border-box;
+        }
 
         /* API Key Section */
         .api-section { background-color: #f0f4fe; border: 1px solid #d2ddfc; padding: 15px; border-radius: 8px; margin-bottom: 25px; }
@@ -72,6 +84,10 @@
 
     <div class="container">
         <h2 class="header-title">GTK Question Generator</h2>
+
+        <div class="whiteboard">
+    <a href="index.html" class="home-btn">🏠 முகப்பு</a>
+            
         
         <div class="api-section">
             <label for="apiKey">Groq API Key</label>
