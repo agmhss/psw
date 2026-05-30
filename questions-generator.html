@@ -131,7 +131,6 @@
             <textarea id="topicInput" rows="6" placeholder="Type or paste context material here..."></textarea>
         </div>
 
-        <!-- Language Selector -->
         <div class="form-row">
             <label>Output Language:</label>
             <select id="language">
@@ -140,7 +139,6 @@
             </select>
         </div>
 
-        <!-- Expanded Grade Selector (1 to 12) -->
         <div class="form-row">
             <label>Grade:</label>
             <select id="grade">
@@ -159,7 +157,39 @@
             </select>
         </div>
 
-        <div class="form-row"><label>Subject:</label><select id="subject"><option value="Computer Science">Computer Science</option><option value="English">English</option><option value="Physics">Physics</option><option value="Math">Math</option></select></div>
+        <div class="form-row">
+            <label>Subject:</label>
+            <select id="subject">
+                <optgroup label="Languages">
+                    <option value="Tamil">Tamil</option>
+                    <option value="English">English</option>
+                </optgroup>
+                <optgroup label="Core Subjects (Up to Class 10)">
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Science">Science</option>
+                    <option value="Social Science">Social Science</option>
+                </optgroup>
+                <optgroup label="Higher Secondary - Science">
+                    <option value="Physics">Physics</option>
+                    <option value="Chemistry">Chemistry</option>
+                    <option value="Biology">Biology</option>
+                    <option value="Botany">Botany</option>
+                    <option value="Zoology">Zoology</option>
+                    <option value="Computer Science" selected>Computer Science</option>
+                </optgroup>
+                <optgroup label="Higher Secondary - Commerce & Arts">
+                    <option value="Accountancy">Accountancy</option>
+                    <option value="Commerce">Commerce</option>
+                    <option value="Economics">Economics</option>
+                    <option value="History">History</option>
+                    <option value="Geography">Geography</option>
+                    <option value="Political Science">Political Science</option>
+                    <option value="Computer Applications">Computer Applications</option>
+                    <option value="Business Mathematics">Business Mathematics</option>
+                </optgroup>
+            </select>
+        </div>
+
         <div class="form-row"><label>Questions:</label><select id="questionCount"><option value="5">5</option><option value="10">10</option><option value="15">15</option><option value="20">20</option></select></div>
         <div class="form-row"><label>Difficulty:</label><select id="difficulty"><option value="Easy">Easy</option><option value="Medium" selected>Medium</option><option value="Hard">Hard</option></select></div>
         <div class="form-row"><label>Category:</label><select id="category"><option value="Multiple Choice">Multiple Choice</option><option value="Short Answer">Short Answer</option><option value="True/False">True / False</option><option value="Essay">Essay</option></select></div>
@@ -263,7 +293,6 @@
             const diff = document.getElementById('difficulty').value;
             const cat = document.getElementById('category').value;
 
-            // Updated Prompt to include all new rules exactly as requested
             const prompt = `You are the GTK Question Generator, a specialized AI assistant designed for teachers. Your sole purpose is to help educators generate high-quality, relevant test and examination questions.
 
 TASK: Generate exactly ${qCount} questions.
@@ -342,4 +371,4 @@ ${finalContext}
         }
     </script>
 </body>
-</html>
+    </html>
