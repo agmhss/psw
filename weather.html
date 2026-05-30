@@ -344,40 +344,50 @@ a:hover {
         }
     }
 
-    function calculateMoonDetails() {
-    const lp = 2551442.8; 
+    function calculateTamilTithi() {
     const now = new Date();
-    const newMoonRef = new Date(1970, 0, 7, 20, 35, 0);
     
-    const phaseSecs = ((now.getTime() - newMoonRef.getTime()) / 1000) % lp;
-    const moonAge = Math.floor(phaseSecs / (24 * 3600));
+    // 1. Calculate Julian Centuries since the J2000.0 epoch
+    const jd = (now.getTime() / 86400000) + 2440587.5;
+    const t = (jd - 2451545.0) / 36525; 
 
-    let icon, name, type;
+    // 2. Calculate Mean Ecliptic Longitudes of Sun and Moon (in degrees)
+    const sunLongitude = (280.46646 + 36000.76983 * t) % 360;
+    const moonLongitude = (218.3165 + 481267.8813 * t) % 360;
+    
+    // 3. Find the Phase Angle (Angular separation)
+    let phaseAngle = (moonLongitude - sunLongitude) % 360;
+    if (phaseAngle < 0) phaseAngle += 360; // Ensure positive angle
 
-    // Expanded conditions to catch edge-case days accurately
-    if (moonAge === 0 || moonAge >= 29) { 
-        icon = "🌑"; name = "அமாவாசை"; type = "புதிய சுழற்சி"; 
-    }
-    else if (moonAge > 0 && moonAge < 7) { 
-        icon = "🌒"; name = "வளர்பிறை"; type = "இளம் பிறை (Crescent)"; 
-    }
-    else if (moonAge >= 7 && moonAge < 14) { 
-        icon = "🌔"; name = "வளர்பிறை"; type = "நெருங்கும் பவுர்ணமி (Gibbous)"; 
-    }
-    else if (moonAge === 14 || moonAge === 15) { 
-        icon = "🌕"; name = "பவுர்ணமி"; type = "முழு நிலவு"; 
-    }
-    else if (moonAge > 15 && moonAge < 22) { 
-        icon = "🌖"; name = "தேய்பிறை"; type = "குறையும் நிலவு (Gibbous)"; 
-    }
-    else { 
-        icon = "🌘"; name = "தேய்பிறை"; type = "மறையும் பிறை (Crescent)"; 
+    // 4. Calculate exact Tithi (Each Tithi is a 12-degree slice)
+    const tithiIndex = Math.floor(phaseAngle / 12);
+    
+    // 5. Map to Tamil Calendar Data
+    const tithiNames = [
+        "பிரதமை", "துவிதியை", "திருதியை", "சதுர்த்தி", "பஞ்சமி", 
+        "சஷ்டி", "சப்தமி", "அஷ்டமி", "நவமி", "தசமி", 
+        "ஏகாதசி", "துவாதசி", "திரயோதசி", "சதுர்த்தசி"
+    ];
+
+    let icon, type, name;
+
+    // Index 14 is 168° to 180° (Pournami)
+    // Index 29 is 348° to 360° (Amavasai)
+    if (tithiIndex === 14) {
+        icon = "🌕"; type = "முழு நிலவு"; name = "பவுர்ணமி";
+    } else if (tithiIndex === 29) {
+        icon = "🌑"; type = "புதிய சுழற்சி"; name = "அமாவாசை";
+    } else if (tithiIndex < 14) {
+        icon = "🌒"; type = "வளர்பிறை (Shukla Paksha)"; name = tithiNames[tithiIndex];
+    } else {
+        icon = "🌘"; type = "தேய்பிறை (Krishna Paksha)"; name = tithiNames[tithiIndex - 15];
     }
 
+    // Output to your existing DOM elements
     document.getElementById('moon-icon').innerText = icon;
     document.getElementById('m-name').innerText = name;
     document.getElementById('m-type').innerText = type;
-    document.getElementById('m-day').innerText = moonAge;
+    document.getElementById('m-day').innerText = `${(phaseAngle).toFixed(1)}° (திதி: ${tithiIndex + 1})`;
     }
 
     function setConstellation() {
