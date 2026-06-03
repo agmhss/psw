@@ -349,35 +349,26 @@ a:hover {
 
     // 2. Calculate Mean Ecliptic Longitudes of Sun and Moon (in degrees)
     const sunLongitude = (280.46646 + 36000.76983 * t) % 360;
-    let moonLongitude = (218.3165 + 481267.8813 * t) % 360; // Renamed to apply correction below
+    let moonLongitude = (218.3165 + 481267.8813 * t) % 360; 
 
     // ------------------------------------------------------------------
-    // திருத்தம் (ADDED FIX): பஞ்சாங்கத்துடன் இணையாக சரி செய்ய
-    // சந்திரனின் நீள்வட்டப்பாதை வேக மாறுபாட்டை (Equation of Center)
-    // ஒரு எளிய திரிகோணமிதி திருத்தத்துடன் (Epicycle simulation) சேர்க்கப்பட்டுள்ளது.
-    // இது ஜூன் 3 அன்று ஏற்பட்ட வேறுபாட்டை தானாகவே கழிக்கும்.
+    // திருத்தம்: பஞ்சாங்கத்துடன் இணையாக சரி செய்ய
     // ------------------------------------------------------------------
-    // சந்திரனின் சராசரி மைய முரண்பாட்டைக் (Mean Anomaly) கணக்கிட
-    let perigeeL = (83.353246 + 4069.013711 * t) % 360; // எளிய பெருக்கல் மூலம் Perigee
+    let perigeeL = (83.353246 + 4069.013711 * t) % 360; 
     if (perigeeL < 0) perigeeL += 360;
     let meanAnomaly = moonLongitude - perigeeL;
     if (meanAnomaly < 0) meanAnomaly += 360;
-    let meanAnomalyRad = meanAnomaly * (Math.PI / 180); // ரேடியன்களாக மாற்ற
+    let meanAnomalyRad = meanAnomaly * (Math.PI / 180); 
 
-    // எளிய திருத்த மதிப்பை (Correction) கணக்கிட. அதிகபட்ச திருத்தம் ~6.3 பாகைகள்.
     const correction = 6.3 * Math.sin(meanAnomalyRad);
 
-    // சந்திரனின் கோண நிலையில் திருத்தத்தைப் பயன்படுத்தவும் (மந்த பலம்)
-    moonLongitude += correction; // திருத்தத்தைக் கூட்டவும்
-    moonLongitude = moonLongitude % 360; // 360-க்குள் சரிசெய்ய
+    moonLongitude += correction; 
+    moonLongitude = moonLongitude % 360; 
     if (moonLongitude < 0) moonLongitude += 360;
-    // ------------------------------------------------------------------
-    // திருத்தம் முடிவு (END FIX)
-    // ------------------------------------------------------------------
 
     // 3. Find the Phase Angle (Angular separation) using corrected Moon
     let phaseAngle = (moonLongitude - sunLongitude) % 360;
-    if (phaseAngle < 0) phaseAngle += 360; // Ensure positive angle
+    if (phaseAngle < 0) phaseAngle += 360;
 
     // 4. Calculate exact Tithi (Each Tithi is a 12-degree slice)
     const tithiIndex = Math.floor(phaseAngle / 12);
@@ -391,16 +382,25 @@ a:hover {
 
     let icon, type, name;
 
-    // Index 14 is 168° to 180° (Pournami)
-    // Index 29 is 348° to 360° (Amavasai)
+    // நிலவின் பட லாஜிக் திருத்தம் (8-Phase Moon Mapping)
     if (tithiIndex === 14) {
         icon = "🌕"; type = "முழு நிலவு"; name = "பவுர்ணமி";
     } else if (tithiIndex === 29) {
         icon = "🌑"; type = "புதிய சுழற்சி"; name = "அமாவாசை";
     } else if (tithiIndex < 14) {
-        icon = "🌒"; type = "வளர்பிறை (Shukla Paksha)"; name = tithiNames[tithiIndex];
+        type = "வளர்பிறை (Shukla Paksha)"; 
+        name = tithiNames[tithiIndex];
+        // வளர்பிறை படங்கள்
+        if (tithiIndex < 7) icon = "🌒"; // இளம் பிறை
+        else if (tithiIndex === 7) icon = "🌓"; // அரை நிலவு
+        else icon = "🌔"; // நெருங்கும் பவுர்ணமி (Gibbous)
     } else {
-        icon = "🌘"; type = "தேய்பிறை (Krishna Paksha)"; name = tithiNames[tithiIndex - 15];
+        type = "தேய்பிறை (Krishna Paksha)"; 
+        name = tithiNames[tithiIndex - 15];
+        // தேய்பிறை படங்கள்
+        if (tithiIndex < 22) icon = "🌖"; // குறையும் நிலவு (Gibbous) - இது 18-ம் நாளுக்கான சரியான படம்
+        else if (tithiIndex === 22) icon = "🌗"; // அரை நிலவு
+        else icon = "🌘"; // மறையும் பிறை
     }
 
     // Output to your existing DOM elements
@@ -408,8 +408,7 @@ a:hover {
     document.getElementById('m-name').innerText = name;
     document.getElementById('m-type').innerText = type;
     document.getElementById('m-day').innerText = `${(phaseAngle).toFixed(1)}° (திதி: ${tithiIndex + 1})`;
-    }
-
+}
     function setConstellation() {
         const month = new Date().getMonth();
         const skyMapData = [
