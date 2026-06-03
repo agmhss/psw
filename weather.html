@@ -349,9 +349,33 @@ a:hover {
 
     // 2. Calculate Mean Ecliptic Longitudes of Sun and Moon (in degrees)
     const sunLongitude = (280.46646 + 36000.76983 * t) % 360;
-    const moonLongitude = (218.3165 + 481267.8813 * t) % 360;
-    
-    // 3. Find the Phase Angle (Angular separation)
+    let moonLongitude = (218.3165 + 481267.8813 * t) % 360; // Renamed to apply correction below
+
+    // ------------------------------------------------------------------
+    // திருத்தம் (ADDED FIX): பஞ்சாங்கத்துடன் இணையாக சரி செய்ய
+    // சந்திரனின் நீள்வட்டப்பாதை வேக மாறுபாட்டை (Equation of Center)
+    // ஒரு எளிய திரிகோணமிதி திருத்தத்துடன் (Epicycle simulation) சேர்க்கப்பட்டுள்ளது.
+    // இது ஜூன் 3 அன்று ஏற்பட்ட வேறுபாட்டை தானாகவே கழிக்கும்.
+    // ------------------------------------------------------------------
+    // சந்திரனின் சராசரி மைய முரண்பாட்டைக் (Mean Anomaly) கணக்கிட
+    let perigeeL = (83.353246 + 4069.013711 * t) % 360; // எளிய பெருக்கல் மூலம் Perigee
+    if (perigeeL < 0) perigeeL += 360;
+    let meanAnomaly = moonLongitude - perigeeL;
+    if (meanAnomaly < 0) meanAnomaly += 360;
+    let meanAnomalyRad = meanAnomaly * (Math.PI / 180); // ரேடியன்களாக மாற்ற
+
+    // எளிய திருத்த மதிப்பை (Correction) கணக்கிட. அதிகபட்ச திருத்தம் ~6.3 பாகைகள்.
+    const correction = 6.3 * Math.sin(meanAnomalyRad);
+
+    // சந்திரனின் கோண நிலையில் திருத்தத்தைப் பயன்படுத்தவும் (மந்த பலம்)
+    moonLongitude += correction; // திருத்தத்தைக் கூட்டவும்
+    moonLongitude = moonLongitude % 360; // 360-க்குள் சரிசெய்ய
+    if (moonLongitude < 0) moonLongitude += 360;
+    // ------------------------------------------------------------------
+    // திருத்தம் முடிவு (END FIX)
+    // ------------------------------------------------------------------
+
+    // 3. Find the Phase Angle (Angular separation) using corrected Moon
     let phaseAngle = (moonLongitude - sunLongitude) % 360;
     if (phaseAngle < 0) phaseAngle += 360; // Ensure positive angle
 
