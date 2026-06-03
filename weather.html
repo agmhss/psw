@@ -241,10 +241,12 @@ a:hover {
             <h2 style="margin:0; color: var(--accent);">சந்திரனின் நிலை</h2>
             <div id="moon-icon" class="moon-visual">🌑</div>
             <div class="astro-detail">
-                நிலை: <span id="m-name">...</span><br>
-                வகை: <span id="m-type">...</span><br>
-                நாள்: <span id="m-day">...</span>-ம் நாள்
-            </div>
+    நிலை: <span id="m-name">...</span><br>
+    வகை: <span id="m-type">...</span><br>
+    நாள்: <span id="m-day">...</span>-ம் நாள்<br>
+    நட்சத்திரம்: <span id="m-star" style="color: var(--accent);">...</span><br>
+    ராசி: <span id="m-rasi" style="color: var(--accent);">...</span>
+</div>
             <p style="opacity: 0.6; font-size: 0.9rem; margin-top: 15px;">(அமாவாசை/பவுர்ணமியிலிருந்து கணக்கிடப்படுகிறது)</p>
         </div>
 
@@ -352,7 +354,7 @@ a:hover {
     let moonLongitude = (218.3165 + 481267.8813 * t) % 360; 
 
     // ------------------------------------------------------------------
-    // திருத்தம்: பஞ்சாங்கத்துடன் இணையாக சரி செய்ய
+    // சந்திரனின் நீள்வட்டப்பாதை திருத்தம்
     // ------------------------------------------------------------------
     let perigeeL = (83.353246 + 4069.013711 * t) % 360; 
     if (perigeeL < 0) perigeeL += 360;
@@ -370,9 +372,34 @@ a:hover {
     let phaseAngle = (moonLongitude - sunLongitude) % 360;
     if (phaseAngle < 0) phaseAngle += 360;
 
-    // 4. Calculate exact Tithi (Each Tithi is a 12-degree slice)
+    // 4. Calculate exact Tithi
     const tithiIndex = Math.floor(phaseAngle / 12);
     
+    // ------------------------------------------------------------------
+    // NEW: அயனாம்சம், ராசி மற்றும் நட்சத்திரம் கணக்கீடு (Nirayana)
+    // ------------------------------------------------------------------
+    // Lahiri Ayanamsa approximation
+    const ayanamsa = 23.85 + (t * 1.396);
+    let nirayanaMoon = (moonLongitude - ayanamsa) % 360;
+    if (nirayanaMoon < 0) nirayanaMoon += 360;
+
+    // 27 Nakshatras (Each is exactly 13.333 degrees)
+    const nakshatraIndex = Math.floor(nirayanaMoon / (360 / 27));
+    const nakshatras = [
+        "அஸ்வினி", "பரணி", "கிருத்திகை", "ரோகிணி", "மிருகசீரிஷம்", "திருவாதிரை",
+        "புனர்பூசம்", "பூசம்", "ஆயில்யம்", "மகம்", "பூரம்", "உத்திரம்",
+        "அஸ்தம்", "சித்திரை", "சுவாதி", "விசாகம்", "அனுஷம்", "கேட்டை",
+        "மூலம்", "பூராடம்", "உத்திராடம்", "திருவோணம்", "அவிட்டம்", "சதயம்",
+        "பூரட்டாதி", "உத்திரட்டாதி", "ரேவதி"
+    ];
+    
+    // 12 Rasis (Each is exactly 30 degrees)
+    const rasiIndex = Math.floor(nirayanaMoon / 30);
+    const rasis = [
+        "மேஷம்", "ரிஷபம்", "மிதுனம்", "கடகம்", "சிம்மம்", "கன்னி",
+        "துலாம்", "விருச்சிகம்", "தனுசு", "மகரம்", "கும்பம்", "மீனம்"
+    ];
+
     // 5. Map to Tamil Calendar Data
     const tithiNames = [
         "பிரதமை", "துவிதியை", "திருதியை", "சதுர்த்தி", "பஞ்சமி", 
@@ -382,25 +409,23 @@ a:hover {
 
     let icon, type, name;
 
-    // நிலவின் பட லாஜிக் திருத்தம் (8-Phase Moon Mapping)
+    // 8-Phase Moon Mapping
     if (tithiIndex === 14) {
         icon = "🌕"; type = "முழு நிலவு"; name = "பவுர்ணமி";
     } else if (tithiIndex === 29) {
         icon = "🌑"; type = "புதிய சுழற்சி"; name = "அமாவாசை";
     } else if (tithiIndex < 14) {
-        type = "வளர்பிறை (Shukla Paksha)"; 
+        type = "வளர்பிறை (சுக்ல பட்சம்)"; 
         name = tithiNames[tithiIndex];
-        // வளர்பிறை படங்கள்
-        if (tithiIndex < 7) icon = "🌒"; // இளம் பிறை
-        else if (tithiIndex === 7) icon = "🌓"; // அரை நிலவு
-        else icon = "🌔"; // நெருங்கும் பவுர்ணமி (Gibbous)
+        if (tithiIndex < 7) icon = "🌒"; 
+        else if (tithiIndex === 7) icon = "🌓"; 
+        else icon = "🌔"; 
     } else {
-        type = "தேய்பிறை (Krishna Paksha)"; 
+        type = "தேய்பிறை (கிருஷ்ண பட்சம்)"; 
         name = tithiNames[tithiIndex - 15];
-        // தேய்பிறை படங்கள்
-        if (tithiIndex < 22) icon = "🌖"; // குறையும் நிலவு (Gibbous) - இது 18-ம் நாளுக்கான சரியான படம்
-        else if (tithiIndex === 22) icon = "🌗"; // அரை நிலவு
-        else icon = "🌘"; // மறையும் பிறை
+        if (tithiIndex < 22) icon = "🌖"; 
+        else if (tithiIndex === 22) icon = "🌗"; 
+        else icon = "🌘"; 
     }
 
     // Output to your existing DOM elements
@@ -408,6 +433,10 @@ a:hover {
     document.getElementById('m-name').innerText = name;
     document.getElementById('m-type').innerText = type;
     document.getElementById('m-day').innerText = `${(phaseAngle).toFixed(1)}° (திதி: ${tithiIndex + 1})`;
+    
+    // Output Rasi and Nakshatra
+    document.getElementById('m-rasi').innerText = rasis[rasiIndex];
+    document.getElementById('m-star').innerText = nakshatras[nakshatraIndex];
 }
     function setConstellation() {
         const month = new Date().getMonth();
