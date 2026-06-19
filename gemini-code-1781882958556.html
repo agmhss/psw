@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGMHSS - ஓய்வுபெற்ற ஆசிரியர்கள் வழிகாட்டி</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .hidden-view { display: none !important; }
+        .hide-scroll-bar { -ms-overflow-style: none; scrollbar-width: none; }
+        .hide-scroll-bar::-webkit-scrollbar { display: none; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #1e3a8a; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans relative min-h-screen pb-10">
+
+    <header class="bg-blue-800 text-white shadow-md sticky top-0 z-40">
+        <div class="container mx-auto px-4 py-4 flex flex-wrap justify-between items-center gap-3">
+            <h1 class="text-xl md:text-2xl font-bold flex items-center gap-2">
+                <svg class="w-6 h-6 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"></path></svg>
+                AGMHSS வழிகாட்டிகள்
+            </h1>
+            <nav class="flex gap-2 text-sm md:text-base flex-wrap">
+                <button onclick="switchView('gallery-view')" class="px-3 py-2 bg-blue-700 hover:bg-blue-600 rounded transition font-semibold shadow-sm">முகப்பு</button>
+                <button onclick="switchView('form-view')" class="px-3 py-2 bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-bold rounded transition shadow-sm">சுயவிவரப் பதிவு</button>
+                <button onclick="switchView('teacher-portal-view')" class="px-3 py-2 bg-green-600 hover:bg-green-500 text-white font-bold rounded transition shadow-sm">ஆசிரியர் நுழைவு</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-0 md:px-4 py-6">
+        
+        <section id="gallery-view" class="view-section">
+            <div class="text-center mb-6 px-4">
+                <h2 class="text-3xl font-bold text-blue-900">நமது பள்ளியின் தூண்கள்</h2>
+                <p class="mt-2 text-gray-600">புகைப்படத்தை க்ளிக் செய்து விரிவான விவரங்களைப் பார்க்கவும்</p>
+            </div>
+            <div id="profiles-scroll" class="flex overflow-x-auto space-x-6 pb-8 pt-4 px-4 md:px-8 hide-scroll-bar snap-x snap-mandatory">
+                </div>
+        </section>
+
+        <section id="detail-view" class="view-section hidden-view max-w-5xl mx-auto bg-white rounded-xl shadow-xl overflow-hidden m-4 border border-gray-200">
+            <div class="bg-gray-100 p-3 px-5 border-b border-gray-200 flex items-center justify-between">
+                <button onclick="switchView('gallery-view')" class="flex items-center gap-2 text-blue-800 font-bold hover:text-blue-600 transition bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    முகப்புக்குத் திரும்பு
+                </button>
+            </div>
+
+            <div class="flex flex-col md:flex-row">
+                <div class="w-full md:w-1/2 bg-gray-50 border-b md:border-b-0 md:border-r border-gray-200">
+                    <div class="relative h-72 md:h-80 bg-gray-200">
+                        <img id="detail-main-photo" src="" class="w-full h-full object-cover object-top">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/80 to-transparent p-6">
+                            <h3 class="text-3xl font-bold text-white mb-1" id="detail-teacher-name">பெயர்</h3>
+                            <p class="text-yellow-400 text-base font-medium" id="detail-short-info">பிரிவு | காலம்</p>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 md:p-8">
+                        <h4 class="font-bold text-gray-800 text-lg mb-3 border-b-2 border-blue-100 pb-2">சாதனைகள் & ஆலோசனைகள்:</h4>
+                        <p class="text-base text-gray-700 whitespace-pre-wrap leading-relaxed mb-8 bg-white p-4 rounded-lg border border-gray-100 shadow-sm" id="detail-achievements"></p>
+                        
+                        <div id="memory-container" class="hidden">
+                            <h4 class="font-bold text-gray-800 text-lg mb-3 border-b-2 border-blue-100 pb-2">பள்ளிப் பருவ நினைவுகள்:</h4>
+                            <div id="memory-gallery" class="grid grid-cols-2 gap-3 mb-4">
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2 p-6 md:p-8 bg-white flex flex-col">
+                    <h4 class="font-bold text-green-700 text-xl flex items-center gap-2 mb-6 pb-3 border-b border-gray-100">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"></path></svg>
+                        வினா-விடை தொகுப்பு
+                    </h4>
+                    
+                    <div id="public-qa-list" class="space-y-4 text-sm flex-grow mb-8 overflow-y-auto pr-2 max-h-96">
+                        </div>
+
+                    <div class="bg-blue-50 p-5 rounded-xl border border-blue-200 mt-auto shadow-inner">
+                        <h4 class="font-bold text-blue-900 mb-3 text-lg">ஆசிரியரிடம் வினா எழுப்ப:</h4>
+                        <form id="question-form" class="space-y-4">
+                            <input type="hidden" id="q-teacher-name">
+                            <input type="text" id="q-asker-name" placeholder="உங்கள் பெயர் (மாணவர்/ஆசிரியர்)" required class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                            <textarea id="q-text" rows="2" placeholder="உங்கள் வினாவை இங்கே தட்டச்சு செய்யவும்..." required class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+                            <button type="submit" class="w-full bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-bold py-3 px-4 rounded-lg shadow transition transform hover:-translate-y-0.5 text-lg">வினாவை அனுப்பு</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="form-view" class="view-section hidden-view max-w-3xl mx-auto bg-white p-6 md:p-8 rounded-lg shadow-xl border-t-4 border-yellow-500 m-4">
+            <h2 class="text-2xl font-bold text-blue-900 mb-6 border-b pb-2">உங்கள் சுயவிவரத்தை பதிவு செய்க</h2>
+            <form id="teacher-form" class="space-y-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div><label class="block text-gray-700 font-bold mb-2">பெயர்</label><input type="text" id="p-name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 outline-none transition"></div>
+                    <div><label class="block text-gray-700 font-bold mb-2">பிரதான புகைப்படம்</label><input type="file" id="photo-upload" accept="image/png, image/jpeg" required class="w-full px-4 py-1.5 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-2 focus:ring-blue-500 outline-none transition"></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div><label class="block text-gray-700 font-bold mb-2">பணிபுரிந்த காலம் (உ-ம்: 1995-2022)</label><input type="text" id="p-tenure" required class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 outline-none transition"></div>
+                    <div><label class="block text-gray-700 font-bold mb-2">பாடப்பிரிவு</label><input type="text" id="p-dept" required class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 outline-none transition"></div>
+                </div>
+                <div><label class="block text-gray-700 font-bold mb-2">சாதனைகள் & பங்களிப்புகள்</label><textarea id="p-achievements" rows="3" required class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 outline-none transition"></textarea></div>
+                <div><label class="block text-gray-700 font-bold mb-2">பள்ளிக்கான ஆலோசனைகள்</label><textarea id="p-suggestions" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 outline-none transition"></textarea></div>
+                <div class="border-t border-gray-200 pt-4 mt-2">
+                    <label class="block text-gray-700 font-bold mb-2">பள்ளிப் பருவ நினைவுப் புகைப்படங்கள் (Optional)</label>
+                    <input type="file" id="memory-photos-upload" accept="image/png, image/jpeg" multiple class="w-full px-4 py-1.5 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-2 focus:ring-blue-500 outline-none transition">
+                </div>
+                <button type="submit" class="w-full bg-blue-800 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg shadow-md transition transform hover:-translate-y-0.5 mt-4">சுயவிவரத்தைச் சமர்ப்பி</button>
+            </form>
+        </section>
+
+        <section id="teacher-portal-view" class="view-section hidden-view max-w-3xl mx-auto m-4">
+            <div id="login-section" class="bg-white p-6 md:p-8 rounded-lg shadow-xl border-t-4 border-green-600">
+                <h2 class="text-2xl font-bold text-green-700 mb-6 border-b pb-2 flex items-center gap-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    ஆசிரியர் வினா-விடை தளம்
+                </h2>
+                <form id="teacher-login-form" class="space-y-5">
+                    <div><label class="block text-gray-700 font-bold mb-2">உங்கள் பெயர் (சுயவிவரத்தில் உள்ளவாறு)</label><input type="text" id="l-name" required class="w-full px-4 py-2 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500 outline-none"></div>
+                    <div><label class="block text-gray-700 font-bold mb-2">பணி ஓய்வு பெற்ற ஆண்டு (கடவுச்சொல்)</label><input type="text" id="l-year" placeholder="உ-ம்: 2022" required class="w-full px-4 py-2 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500 outline-none"></div>
+                    <button type="submit" class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-3 rounded-lg shadow-md transition">உள்நுழை / வினாக்களைப் பெறு</button>
+                </form>
+            </div>
+
+            <div id="pending-questions-section" class="hidden-view mt-8">
+                <h3 class="text-2xl font-bold text-blue-900 mb-4 bg-white p-4 rounded shadow-sm border-l-4 border-blue-500" id="welcome-teacher-msg"></h3>
+                <div id="pending-q-list" class="space-y-4"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // =========================================================
+        // IMPORTANT: PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
+        // =========================================================
+        const API_URL = "YOUR_WEB_APP_URL_HERE"; 
+        
+        let globalQuestionsData = []; 
+
+        // --- Core View Controller ---
+        function switchView(targetViewId) {
+            document.querySelectorAll('.view-section').forEach(view => view.classList.add('hidden-view'));
+            document.getElementById(targetViewId).classList.remove('hidden-view');
+            window.scrollTo(0, 0); // Always scroll to top when changing views
+            
+            if(targetViewId === 'gallery-view') loadProfiles();
+            if(targetViewId === 'teacher-portal-view') {
+                document.getElementById('login-section').classList.remove('hidden-view');
+                document.getElementById('pending-questions-section').classList.add('hidden-view');
+                document.getElementById('teacher-login-form').reset();
+            }
+        }
+
+        // --- Fetch & Render Profiles ---
+        async function loadProfiles() {
+            const scrollContainer = document.getElementById('profiles-scroll');
+            scrollContainer.innerHTML = '<div class="w-full flex justify-center py-20"><div class="loader"></div></div>';
+
+            try {
+                const response = await fetch(API_URL);
+                const result = await response.json();
+
+                if (result.status === "success" && result.profiles && result.profiles.length > 0) {
+                    globalQuestionsData = result.questions || []; 
+                    scrollContainer.innerHTML = ''; 
+                    const reversedData = result.profiles.reverse();
+
+                    reversedData.forEach(profile => {
+                        const safeName = profile.name ? profile.name.replace(/'/g, "\\'") : '';
+                        const safeInfo = `${profile.department} | ${profile.tenure}`.replace(/'/g, "\\'");
+                        const safeAchievements = ((profile.achievements || '') + "\\n\\nஆலோசனைகள்:\\n" + (profile.suggestions || '')).replace(/'/g, "\\'").replace(/"/g, "&quot;").replace(/\n/g, "\\n");
+                        const photoUrl = profile.photo || 'https://via.placeholder.com/300x400.png?text=No+Photo';
+                        
+                        let memoryArrayStr = "[]";
+                        try { if(profile.memoryPhotos) memoryArrayStr = JSON.stringify(profile.memoryPhotos).replace(/'/g, "\\'"); } catch(e){}
+
+                        // Updated onclick to open the new Detail View instead of a modal
+                        const card = `
+                            <div onclick="showProfileDetail('${safeName}', '${photoUrl}', '${safeInfo}', '${safeAchievements}', '${memoryArrayStr}')" 
+                                 class="inline-block w-64 md:w-72 flex-shrink-0 snap-center cursor-pointer group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-white bg-white">
+                                <div class="h-80 md:h-96 w-full bg-gray-200">
+                                    <img src="${photoUrl}" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/300x400.png?text=Image+Error'">
+                                </div>
+                                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-blue-900 via-blue-900/90 to-transparent p-5 pt-16">
+                                    <h3 class="text-xl font-bold text-white mb-1 truncate drop-shadow-md">${profile.name}</h3>
+                                    <p class="text-blue-200 text-sm font-medium mb-3 truncate">${profile.department}</p>
+                                    <div class="flex items-center text-yellow-400 text-xs font-bold uppercase tracking-wider bg-blue-900/60 inline-block px-3 py-1.5 rounded-lg border border-blue-700">
+                                        <span class="flex items-center">விவரங்கள் பார்க்க <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        scrollContainer.innerHTML += card;
+                    });
+                } else {
+                    scrollContainer.innerHTML = '<div class="w-full text-center bg-white p-8 rounded-lg shadow-sm border"><p class="text-gray-500 text-lg">பதிவுகள் ஏதுமில்லை.</p></div>';
+                }
+            } catch (error) {
+                scrollContainer.innerHTML = '<div class="w-full text-center bg-red-50 p-8 rounded-lg border border-red-200"><p class="text-red-500">தரவுகளை ஏற்றுவதில் பிழை. இணைய இணைப்பைச் சரிபார்க்கவும்.</p></div>';
+            }
+        }
+
+        // --- NEW: Display Profile in Detail View ---
+        function showProfileDetail(name, photo, info, achievements, memoryPhotosStr) {
+            // Populate the new view
+            document.getElementById('detail-teacher-name').innerText = name;
+            document.getElementById('detail-short-info').innerText = info;
+            document.getElementById('detail-main-photo').src = photo;
+            document.getElementById('q-teacher-name').value = name;
+            document.getElementById('detail-achievements').innerText = achievements;
+            
+            // Handle Memory Photos
+            const memContainer = document.getElementById('memory-container');
+            const memGallery = document.getElementById('memory-gallery');
+            memGallery.innerHTML = '';
+            try {
+                let memories = JSON.parse(memoryPhotosStr);
+                if(memories && memories.length > 0) {
+                    memContainer.classList.remove('hidden');
+                    memories.forEach(url => {
+                        memGallery.innerHTML += `<div class="h-32 bg-gray-200 rounded-lg overflow-hidden shadow-sm border border-gray-200"><img src="${url}" class="w-full h-full object-cover"></div>`;
+                    });
+                } else { memContainer.classList.add('hidden'); }
+            } catch(e) { memContainer.classList.add('hidden'); }
+            
+            // Populate Public Q&A
+            const qaList = document.getElementById('public-qa-list');
+            const teacherQs = globalQuestionsData.filter(q => q.teacherName === name);
+            if(teacherQs.length > 0) {
+                qaList.innerHTML = teacherQs.map(q => `
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <p class="font-bold text-gray-800 text-sm mb-2 pb-2 border-b border-gray-200">
+                            <span class="text-blue-600">கேள்வி:</span> <span class="font-normal text-gray-700 text-base">${q.question}</span> 
+                            <span class="text-xs text-gray-500 block mt-1">- ${q.askerName}</span>
+                        </p>
+                        <div class="flex gap-2 mt-2 bg-white p-3 rounded border border-green-100">
+                            <svg class="w-6 h-6 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                            <p class="text-green-800 text-base font-medium leading-relaxed">${q.answer}</p>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                qaList.innerHTML = '<div class="flex flex-col items-center justify-center h-40 text-gray-400 bg-gray-50 rounded-lg border border-dashed border-gray-300"><svg class="w-12 h-12 mb-2 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg><p>இன்னும் வினா-விடைகள் பதிவாகவில்லை.</p></div>';
+            }
+
+            // Switch to the Detail View
+            switchView('detail-view');
+        }
+
+        // --- Utils: File to Base64 ---
+        function getBase64(file) { 
+            return new Promise((resolve, reject) => { 
+                const reader = new FileReader(); 
+                reader.readAsDataURL(file); 
+                reader.onload = () => resolve({ data: reader.result.split(',')[1], mimeType: file.type, name: file.name }); 
+                reader.onerror = error => reject(error); 
+            }); 
+        }
+
+        // --- Network Function ---
+        async function sendData(payload, successMsg, callback) {
+            try {
+                const response = await fetch(API_URL, { method: 'POST', headers: {'Content-Type': 'text/plain;charset=utf-8'}, body: JSON.stringify(payload) });
+                const result = await response.json();
+                if (result.status === "success") { alert(successMsg); if(callback) callback(); } 
+                else { alert("சர்வர் பிழை: " + result.message); }
+            } catch (error) { alert("இணைய இணைப்பு பிழை!"); }
+        }
+
+        // --- Form Event Listeners (Profile, Q&A, Login, Answer) ---
+        // Profile Submission
+        document.getElementById('teacher-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.innerText = "பதிவேற்றப்படுகிறது... காத்திருக்கவும்..."; btn.disabled = true;
+
+            const mainFile = document.getElementById('photo-upload').files[0];
+            let mainImg = "", mainMime = "", mainName = "";
+            if (mainFile) {
+                if (mainFile.size > 2*1024*1024) { alert("படம் 2MB-க்குள் இருக்க வேண்டும்."); btn.innerText = "சுயவிவரத்தைச் சமர்ப்பி"; btn.disabled = false; return; }
+                const imgData = await getBase64(mainFile);
+                mainImg = imgData.data; mainMime = imgData.mimeType; mainName = imgData.name;
+            }
+
+            const memFiles = document.getElementById('memory-photos-upload').files;
+            let memArray = [];
+            for(let i=0; i<memFiles.length && i<3; i++) {
+                if(memFiles[i].size > 1*1024*1024) continue;
+                memArray.push(await getBase64(memFiles[i]));
+            }
+
+            const payload = {
+                action: "submit_profile", name: document.getElementById('p-name').value, tenure: document.getElementById('p-tenure').value, department: document.getElementById('p-dept').value, achievements: document.getElementById('p-achievements').value, suggestions: document.getElementById('p-suggestions').value, imageFile: mainImg, mimeType: mainMime, fileName: mainName, memoryFiles: memArray 
+            };
+
+            await sendData(payload, "சுயவிவரம் வெற்றிகரமாக பதிவு செய்யப்பட்டது!", () => { e.target.reset(); switchView('gallery-view'); });
+            btn.innerText = "சுயவிவரத்தைச் சமர்ப்பி"; btn.disabled = false;
+        });
+
+        // Ask Question
+        document.getElementById('question-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const orig = btn.innerText; btn.innerText = "அனுப்பப்படுகிறது..."; btn.disabled = true;
+            
+            const payload = { action: "ask_question", teacherName: document.getElementById('q-teacher-name').value, askerName: document.getElementById('q-asker-name').value, questionText: document.getElementById('q-text').value };
+            await sendData(payload, "வினா வெற்றிகரமாக அனுப்பப்பட்டது!", () => { e.target.reset(); switchView('gallery-view'); });
+            btn.innerText = orig; btn.disabled = false;
+        });
+
+        // Teacher Login
+        let currentTeacher = "";
+        document.getElementById('teacher-login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.innerText = "சரிபார்க்கப்படுகிறது..."; btn.disabled = true;
+
+            currentTeacher = document.getElementById('l-name').value;
+            const payload = { action: "teacher_login", teacherName: currentTeacher, retirementYear: document.getElementById('l-year').value };
+            
+            try {
+                const response = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
+                const result = await response.json();
+                if(result.status === "success") {
+                    document.getElementById('login-section').classList.add('hidden-view');
+                    document.getElementById('pending-questions-section').classList.remove('hidden-view');
+                    document.getElementById('welcome-teacher-msg').innerText = `வணக்கம் ${currentTeacher} ஐயா/அம்மா,`;
+                    renderPendingQs(result.pending);
+                } else { alert(result.message); }
+            } catch(e) { alert("சர்வர் பிழை!"); }
+            btn.innerText = "உள்நுழை / வினாக்களைப் பெறு"; btn.disabled = false;
+        });
+
+        function renderPendingQs(qs) {
+            const list = document.getElementById('pending-q-list');
+            if(!qs || qs.length === 0) { list.innerHTML = '<p class="text-green-700 bg-green-50 p-6 rounded-lg text-center font-bold">புதிய வினாக்கள் ஏதுமில்லை.</p>'; return; }
+            list.innerHTML = qs.map(q => `
+                <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-yellow-500 mb-4" id="q-row-${q.rowId}">
+                    <p class="font-bold text-gray-800 mb-2 border-b pb-2">கேட்பவர்: ${q.asker}</p>
+                    <p class="text-gray-800 mb-4 bg-gray-50 p-3 rounded font-medium">${q.question}</p>
+                    <textarea id="ans-text-${q.rowId}" rows="3" placeholder="உங்கள் பதிலை உள்ளிடுக..." class="w-full px-4 py-2 border rounded-lg mb-3"></textarea>
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="submitAns(${q.rowId})" class="bg-green-600 text-white px-5 py-2 rounded-lg font-bold">பதிலளி</button>
+                        <button onclick="hideQ(${q.rowId})" class="bg-red-500 text-white px-5 py-2 rounded-lg font-bold">மறை (Hide)</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function submitAns(rowId) {
+            const ans = document.getElementById(`ans-text-${rowId}`).value;
+            if(!ans.trim()) return alert("பதிலை உள்ளிடவும்!");
+            document.getElementById(`q-row-${rowId}`).style.opacity = '0.5';
+            await sendData({ action: "answer_question", rowId: rowId, answerText: ans }, "பதில் பகிரப்பட்டது!", () => document.getElementById(`q-row-${rowId}`).remove());
+        }
+
+        async function hideQ(rowId) {
+            if(!confirm("வினாவை மறைக்க விரும்புகிறீர்களா?")) return;
+            document.getElementById(`q-row-${rowId}`).style.opacity = '0.5';
+            await sendData({ action: "hide_question", rowId: rowId }, "வினா மறைக்கப்பட்டது.", () => document.getElementById(`q-row-${rowId}`).remove());
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => switchView('gallery-view'));
+    </script>
+</body>
+</html>
