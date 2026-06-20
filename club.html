@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>பள்ளி மன்றங்கள் - அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pavanam&display=swap');
+
+        :root {
+            --primary-color: #2E7D32; /* Club Green */
+            --wood-frame: #4e342e;
+            --paper-bg: #ffffff;
+            --board-bg: #f5f5f5;
+        }
+
+        body {
+            background: #dcdcdc;
+            font-family: 'Pavanam', sans-serif;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .whiteboard {
+            background-color: var(--board-bg);
+            width: 100%;
+            max-width: 1100px;
+            min-height: 90vh;
+            border: 12px solid var(--wood-frame);
+            border-radius: 8px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            padding: 40px;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .home-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* PDF Download Button */
+        .pdf-btn-container {
+            text-align: right; 
+            margin-bottom: 20px;
+        }
+        
+        .pdf-btn {
+            background-color: #d32f2f; 
+            color: white; 
+            padding: 10px 18px; 
+            text-decoration: none; 
+            border-radius: 5px; 
+            font-weight: bold; 
+            font-size: 0.95rem; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2); 
+            display: inline-block;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+        }
+
+        header h1 { color: var(--primary-color); margin: 0; font-size: 1.8rem; }
+        header h2 { color: #555; margin: 5px 0; font-size: 1.2rem; }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .paper-note {
+            background: var(--paper-bg);
+            padding: 20px;
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
+            border-top: 5px solid var(--primary-color);
+            position: relative;
+        }
+
+        .paper-note::after {
+            content: "";
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 25px;
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .full-width-note { grid-column: 1 / -1; }
+
+        h3 { color: var(--primary-color); border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 0; }
+        
+        /* Scoreboard Styles */
+        .scoreboard-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .house-card {
+            text-align: center; padding: 15px; border-radius: 8px; width: 120px; margin: 10px;
+            background: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border: 2px dashed #ccc;
+        }
+        
+        .house-kurinji { border-color: #4CAF50; } .house-kurinji h4 { color: #4CAF50; }
+        .house-mullai { border-color: #2196F3; } .house-mullai h4 { color: #2196F3; }
+        .house-marutham { border-color: #795548; } .house-marutham h4 { color: #795548; }
+        .house-neithal { border-color: #009688; } .house-neithal h4 { color: #009688; }
+        .house-palai { border-color: #FF9800; } .house-palai h4 { color: #FF9800; }
+
+        .house-points { font-size: 2.5rem; font-weight: bold; color: #333; }
+        
+        .poster-img { width: 100%; max-height: 400px; object-fit: contain; border-radius: 4px; margin-top: 10px; border: 1px solid #ddd; }
+        
+        .dynamic-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.95rem; }
+        .dynamic-table th { background-color: #e9ecef; font-weight: bold; padding: 10px; text-align: left; border: 1px solid #ccc; }
+        .dynamic-table td { padding: 10px; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+
+<div class="whiteboard">
+    <a href="index.html" class="home-btn">🏠 முகப்பு</a>
+
+    <header>
+        <h1>அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்</h1>
+        <h2>பள்ளி மன்றங்கள் மற்றும் இயக்கங்கள் (Clubs & Movements)</h2>
+    </header>
+
+    <div class="pdf-btn-container">
+        <a href="YOUR_CLUB_SHEET_LINK/pub?output=pdf&portrait=false&size=A4&fitw=true&gridlines=true" 
+           target="_blank" download="Club_Entries.pdf" class="pdf-btn">
+           📄 View Club Entries (PDF)
+        </a>
+    </div>
+
+    <div class="content-grid" id="scoreboard-board">
+        <div class="paper-note full-width-note" style="background-color: #f4fff4; border-top-color: #2E7D32;">
+            <h3 style="color: #1b5e20; text-align: center;">🏆 ஒருங்கிணைந்த இல்லங்களின் புள்ளிப்பட்டியல் (Live Scoreboard) 🏆</h3>
+            <p style="text-align: center; color: #666; font-size: 0.85rem; margin-top: -5px;">(விளையாட்டு மற்றும் மன்றப் போட்டிகள் இணைந்தது)</p>
+            <div class="scoreboard-container" id="scoreboard-container">
+                <p style="color:#888;">புள்ளிகள் சரிபார்க்கப்படுகின்றன...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-grid" id="main-board"></div>
+
+</div>
+
+<script>
+    // ⚠️ 1. மன்றங்களுக்கான அறிவிப்புகளைக் காட்டும் புதிய CSV லிங்க்
+    const clubWebContentURL = "YOUR_CLUB_WEBCONTENT_CSV_LINK"; 
+    
+    // ⚠️ 2. விளையாட்டுத் துறைக்குப் பயன்படுத்திய அதே மாஸ்டர் Scoreboard CSV லிங்க்!
+    const scoreboardURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTvUa-lafFet8lATvvxw5UIJwI0uQ4B_s2YCd9FyAycBRGjgx_iIDmcDSPx76Vbe-SQH0gvNhOFJcrO/pub?gid=217250781&single=true&output=csv"; 
+
+    // CSV Parser & Image Helper
+    function parseCSV(data) {
+        return data.split(/\r?\n/).map(row => row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(col => col.replace(/"/g, "").trim()));
+    }
+    
+    function getRobustImageUrl(url) {
+        if (!url) return "";
+        if (url.includes("drive.google.com")) {
+            const idMatch = url.match(/[-\w]{25,}/);
+            if (idMatch) return `https://drive.google.com/uc?export=view&id=${idMatch[0]}`;
+        }
+        return url;
+    }
+
+    // 1. Load Club Web Content
+    async function loadWebContent() {
+        if(!clubWebContentURL.includes("docs.google.com")) return;
+        try {
+            const res = await fetch(clubWebContentURL);
+            const rows = parseCSV(await res.text());
+            const board = document.getElementById('main-board');
+            board.innerHTML = '';
+
+            rows.slice(1).forEach(cols => {
+                if (cols.length < 2 || !cols[0]) return;
+                const cat = cols[0], content = cols[1], subtext = cols[2] ? cols[2] : '';
+
+                if (["Vision", "Mission", "Announcement", "Achievement"].includes(cat)) {
+                    let title = cat === "Achievement" ? "சாதனைகள் 🏆" : (cat === "Vision" ? "நோக்கம்" : cat);
+                    board.innerHTML += `<div class="paper-note"><h3>${title}</h3><p>${content}</p></div>`;
+                } 
+                else if (cat === "Poster") {
+                    board.innerHTML += `<div class="paper-note" style="text-align:center;"><h3>${content}</h3>
+                        <img src="${getRobustImageUrl(subtext)}" class="poster-img" onerror="this.style.display='none'"></div>`;
+                }
+                else if (cat === "Staff") {
+                    let table = document.getElementById('staff-table');
+                    if (!table) {
+                        board.innerHTML += `<div class="paper-note"><h3>மன்றப் பொறுப்பாசிரியர்கள் (Club In-charges)</h3>
+                            <table class="dynamic-table" id="staff-table"><tr><th>பெயர்</th><th>பதவி/மன்றம்</th></tr></table></div>`;
+                        table = document.getElementById('staff-table');
+                    }
+                    table.innerHTML += `<tr><td>${content}</td><td>${subtext}</td></tr>`;
+                }
+            });
+        } catch (e) { console.error(e); }
+    }
+
+    // 2. Load Combined Live Scoreboard
+    async function loadScoreboard() {
+        if(!scoreboardURL.includes("docs.google.com")) return;
+        try {
+            const res = await fetch(scoreboardURL);
+            const rows = parseCSV(await res.text());
+            const container = document.getElementById('scoreboard-container');
+            container.innerHTML = '';
+
+            const houseClasses = {
+                "குறிஞ்சி": "house-kurinji", "kurinji": "house-kurinji",
+                "முல்லை": "house-mullai", "mullai": "house-mullai",
+                "மருதம்": "house-marutham", "marutham": "house-marutham",
+                "நெய்தல்": "house-neithal", "neithal": "house-neithal",
+                "பாலை": "house-palai", "palai": "house-palai"
+            };
+
+            rows.slice(1).forEach(cols => {
+                if (cols.length < 2 || !cols[0]) return;
+                const houseName = cols[0];
+                const points = cols[1] || "0";
+                
+                let cssClass = houseClasses[houseName.trim()] || "house-kurinji"; 
+
+                container.innerHTML += `
+                    <div class="house-card ${cssClass}">
+                        <h4 style="margin: 0 0 10px 0;">${houseName}</h4>
+                        <span class="house-points">${points}</span><br><small>புள்ளிகள்</small>
+                    </div>`;
+            });
+        } catch (e) { console.error(e); }
+    }
+
+    // Execute functions
+    loadWebContent();
+    loadScoreboard();
+</script>
+
+</body>
+</html>
