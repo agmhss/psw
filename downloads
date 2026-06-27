@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>தரவிறக்கங்கள் - அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pavanam&display=swap');
+
+        :root {
+            --primary-color: #0047AB; /* Sports Blue */
+            --secondary-color: #2E7D32; /* Club Green */
+            --tertiary-color: #d32f2f; /* Red for Judges/Master */
+            --wood-frame: #4e342e;
+            --paper-bg: #ffffff;
+            --board-bg: #f5f5f5;
+        }
+
+        body { 
+            background: #dcdcdc; 
+            font-family: 'Pavanam', sans-serif; 
+            margin: 0; 
+            padding: 15px; 
+            display: flex; 
+            justify-content: center; 
+        }
+
+        .whiteboard {
+            background-color: var(--board-bg);
+            width: 100%; max-width: 900px; min-height: 85vh;
+            border: 12px solid var(--wood-frame); border-radius: 8px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3); padding: 40px;
+            position: relative; box-sizing: border-box;
+        }
+
+        .home-btn {
+            position: absolute; top: 15px; left: 15px; background: #333;
+            color: white; text-decoration: none; padding: 8px 18px; border-radius: 4px;
+            font-weight: bold; font-size: 0.9rem; z-index: 10; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+        .home-btn:hover { background: #555; }
+
+        header { text-align: center; border-bottom: 2px solid #ddd; margin-bottom: 30px; padding-bottom: 10px; }
+        header h1 { color: #333; margin: 0; font-size: 1.8rem; }
+        header h2 { color: #555; margin: 5px 0; font-size: 1.2rem; }
+
+        .downloads-container {
+            display: flex; flex-direction: column; gap: 25px; align-items: center; margin-top: 30px;
+        }
+
+        .download-card {
+            background: var(--paper-bg); width: 100%; max-width: 600px; padding: 25px;
+            border-radius: 8px; box-shadow: 3px 3px 15px rgba(0,0,0,0.1);
+            text-align: center; border-left: 8px solid; position: relative;
+        }
+
+        .card-sports { border-color: var(--primary-color); }
+        .card-clubs { border-color: var(--secondary-color); }
+        .card-judges { border-color: var(--tertiary-color); }
+
+        .download-card h3 { margin-top: 0; margin-bottom: 10px; font-size: 1.4rem; color: #333; }
+        .download-card p { color: #666; margin-bottom: 20px; font-size: 0.95rem; }
+        
+        .pdf-btn {
+            color: white; padding: 12px 25px; text-decoration: none; 
+            border-radius: 30px; font-weight: bold; font-size: 1rem; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2); display: inline-block; transition: 0.3s;
+        }
+        .pdf-btn:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.2); }
+        
+        .btn-sports { background-color: var(--primary-color); }
+        .btn-clubs { background-color: var(--secondary-color); }
+        .btn-judges { background-color: var(--tertiary-color); }
+
+    </style>
+</head>
+<body>
+
+<div class="whiteboard">
+    <a href="index.html" class="home-btn">🏠 முகப்பு</a>
+
+    <header>
+        <h1>அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்</h1>
+        <h2>பள்ளி தரவிறக்கப் பகுதி (Downloads Center)</h2>
+    </header>
+
+    <div class="downloads-container">
+        
+        <!-- Sports Entries -->
+        <div class="download-card card-sports">
+            <h3>விளையாட்டுத் துறைப் பதிவுகள்</h3>
+            <p>விளையாட்டுப் போட்டிகளுக்கான முழுமையான மாணவர் பட்டியல் மற்றும் விவரங்கள்</p>
+            <a href="https://docs.google.com/spreadsheets/d/1HmL-nF7N0z6Nl4XjQ6pPQBZljo9hZmKniptfLVWnZWI/export?format=pdf&gid=1766705573&portrait=false&size=A4&fitw=true&gridlines=true" 
+               target="_blank" download="Sports_Entries.pdf" class="pdf-btn btn-sports">
+               📄 Sports Entries (PDF)
+            </a>
+        </div>
+
+        <!-- Club Entries -->
+        <div class="download-card card-clubs">
+            <h3>பள்ளி மன்றங்களின் பதிவுகள்</h3>
+            <p>பல்வேறு மன்றப் போட்டிகளுக்கான முழுமையான மாணவர் பட்டியல் மற்றும் விவரங்கள்</p>
+            <a href="https://docs.google.com/spreadsheets/d/1HmL-nF7N0z6Nl4XjQ6pPQBZljo9hZmKniptfLVWnZWI/export?format=pdf&gid=1142420007&portrait=false&size=A4&fitw=true&gridlines=true" 
+               target="_blank" download="Club_Entries.pdf" class="pdf-btn btn-clubs">
+               📄 Club Entries (PDF)
+            </a>
+        </div>
+
+        <!-- Judges Consolidated Score -->
+        <div class="download-card card-judges">
+            <h3>நடுவர்கள் ஒருங்கிணைந்த மதிப்பெண்கள்</h3>
+            <p>3 நடுவர்களின் மதிப்பீடுகள் (90 மதிப்பெண்கள்) அடங்கிய இறுதி அறிக்கை</p>
+            <!-- ⚠️ முக்கியம்: கீழே உள்ள URL-ல் 'YOUR_JUDGES_CONSOLIDATED_GID' என்பதை மாற்றுங்கள் -->
+            <a href="https://docs.google.com/spreadsheets/d/1HmL-nF7N0z6Nl4XjQ6pPQBZljo9hZmKniptfLVWnZWI/export?format=pdf&gid=1170495749&portrait=false&size=A4&fitw=true&gridlines=true" 
+               target="_blank" download="Judges_Consolidated.pdf" class="pdf-btn btn-judges">
+               🏆 Judges Score Sheet (PDF)
+            </a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
