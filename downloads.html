@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>தரவிறக்கங்கள் - அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி</title>
     <style>
-        @import url('[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Pavanam&display=swap)');
+        @import url('https://fonts.googleapis.com/css2?family=Pavanam&display=swap');
 
         :root {
             --primary-color: #0047AB;
@@ -142,15 +142,12 @@
 </div>
 
 <script>
-// Replace with your actual Google Sheet ID
 const SHEET_ID = "1HmL-nF7N0z6Nl4XjQ6pPQBZljo9hZmKniptfLVWnZWI";
 
-// Configure your sheet GIDs and page ranges here
 const DOWNLOAD_CONFIG = {
     sports: {
         gid: "1766705573",
         filename: "Sports_Entries.pdf",
-        // Add page numbers if you want only specific pages: [1,2,3]
         pages: null
     },
     clubs: {
@@ -159,7 +156,7 @@ const DOWNLOAD_CONFIG = {
         pages: null
     },
     judges: {
-        gid: "1170495749", // ← update this
+        gid: "1170495749",
         filename: "Judges_Score_Sheet.pdf",
         pages: null
     }
@@ -168,7 +165,7 @@ const DOWNLOAD_CONFIG = {
 async function downloadLandscapePDF(type) {
     const config = DOWNLOAD_CONFIG[type];
     if (!config || !config.gid || config.gid.includes("YOUR_")) {
-        alert("Please update the Judges sheet GID first.");
+        alert("Please update the sheet GID first.");
         return;
     }
 
@@ -176,10 +173,8 @@ async function downloadLandscapePDF(type) {
     btns.forEach(b => b.disabled = true);
 
     try {
-        // Force download by fetching as blob + creating object URL
-        let url = `[docs.google.com](https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=pdf&gid=${config.gid}&size=A4&portrait=false&fitw=true&exportFormat=pdf)`;
+        let url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=pdf&gid=${config.gid}&size=A4&portrait=false&fitw=true`;
 
-        // If specific pages are needed
         if (config.pages && config.pages.length > 0) {
             url += `&pageorder=${config.pages.join(',')}`;
         }
@@ -199,8 +194,7 @@ async function downloadLandscapePDF(type) {
         URL.revokeObjectURL(blobUrl);
 
     } catch (err) {
-        // Fallback: open in new tab
-        const fallbackUrl = `[docs.google.com](https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=pdf&gid=${config.gid}&size=A4&portrait=false)`;
+        const fallbackUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=pdf&gid=${config.gid}&size=A4&portrait=false`;
         window.open(fallbackUrl, "_blank");
     } finally {
         btns.forEach(b => b.disabled = false);
