@@ -26,6 +26,7 @@
             display: flex;
             height: 100vh;
             width: 100vw;
+            cursor: pointer; /* Gives a hand icon on laptops to indicate it's clickable */
         }
 
         /* Automatic Layout */
@@ -110,12 +111,12 @@
             outline: none;
             background-color: #fff;
             color: #333;
+            cursor: pointer;
         }
 
         button {
             background-color: #2196f3;
             color: white;
-            cursor: pointer;
             font-weight: bold;
             margin-top: 15px;
             padding: 16px;
@@ -141,12 +142,12 @@
     <div id="split-container"></div>
 
     <div id="ui-panel">
-        <h2>Settings <br><span style="font-size: 1rem; color: #ccc;">(Double Tap screen to show)</span></h2>
+        <h2>Settings <br><span style="font-size: 1rem; color: #ccc;">(Double Tap / Double Click to show)</span></h2>
 
         <div class="control-group">
             <label for="layout-select">Layout Style:</label>
             <select id="layout-select">
-                <option value="auto">Auto (Depends on Phone Rotation)</option>
+                <option value="auto">Auto (Depends on Screen Ratio)</option>
                 <option value="horizontal">Force Horizontal (Left to Right)</option>
                 <option value="vertical">Force Vertical (Top to Bottom)</option>
             </select>
@@ -169,11 +170,10 @@
     </div>
 
     <script>
-        // --- Audio Setup (Web Audio API for classic coin sound) ---
+        // --- Audio Setup ---
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         
         function playCoinSound() {
-            // Browsers pause audio context until user interacts; resume it if needed
             if (audioCtx.state === 'suspended') {
                 audioCtx.resume();
             }
@@ -184,12 +184,10 @@
             oscillator.connect(gainNode);
             gainNode.connect(audioCtx.destination);
             
-            // Classic coin sound pattern (fast pitch jump)
             oscillator.type = 'sine';
-            oscillator.frequency.setValueAtTime(987.77, audioCtx.currentTime); // Note B5
-            oscillator.frequency.setValueAtTime(1318.51, audioCtx.currentTime + 0.1); // Jump to E6
+            oscillator.frequency.setValueAtTime(987.77, audioCtx.currentTime); 
+            oscillator.frequency.setValueAtTime(1318.51, audioCtx.currentTime + 0.1); 
             
-            // Fade out the sound nicely so it doesn't click
             gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
             gainNode.gain.linearRampToValueAtTime(0.5, audioCtx.currentTime + 0.02);
             gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
@@ -331,59 +329,76 @@
 
         hideUiBtn.addEventListener('click', () => {
             uiPanel.classList.add('hidden');
-            
-            // Attempt to un-suspend audio context on first interaction
             if (audioCtx.state === 'suspended') {
                 audioCtx.resume();
             }
         });
 
-        // --- Swipe & Double Tap Logic ---
-        let touchstartX = 0;
-        let touchstartY = 0;
+        // --- Universal Gesture Logic (Touch + Mouse) ---
+        let startX = 0;
+        let startY = 0;
         let lastTapTime = 0;
 
-        splitContainer.addEventListener('touchstart', (e) => {
-            touchstartX = e.changedTouches[0].screenX;
-            touchstartY = e.changedTouches[0].screenY;
-            
-            // Browsers require a user gesture to allow audio; this ensures it unlocks
+        function handleGestureStart(x, y) {
+            startX = x;
+            startY = y;
             if (audioCtx.state === 'suspended') {
                 audioCtx.resume();
             }
-        }, { passive: false });
+        }
 
-        splitContainer.addEventListener('touchend', (e) => {
-            const touchendX = e.changedTouches[0].screenX;
-            const touchendY = e.changedTouches[0].screenY;
-            
-            const distanceX = Math.abs(touchendX - touchstartX);
-            const distanceY = Math.abs(touchendY - touchstartY);
-            
+        function handleGestureEnd(endX, endY, targetElement, e, isMouse = false) {
+            const distanceX = Math.abs(endX - startX);
+            const distanceY = Math.abs(endY - startY);
             const isSwipe = (distanceX > 30 || distanceY > 30);
             
             if (isSwipe) {
-                const targetPart = e.target.closest('.split-part');
+                // If dragged/swiped far enough, trigger score
+                const targetPart = targetElement.closest('.split-part');
                 if (targetPart && uiPanel.classList.contains('hidden')) {
                     const id = parseInt(targetPart.dataset.id);
                     const partData = partsData.find(p => p.id === id);
                     if (partData) {
                         partData.score += partData.points;
-                        playCoinSound(); // TRIGGER SOUND EFFECT HERE
+                        playCoinSound(); 
                         renderGameView(); 
                     }
                 }
-            } else {
+            } else if (!isMouse) {
+                // Handle mobile double tap (Mouse double click is handled separately via 'dblclick')
                 const currentTime = new Date().getTime();
                 const tapLength = currentTime - lastTapTime;
                 
                 if (tapLength < 300 && tapLength > 0) {
                     uiPanel.classList.remove('hidden');
-                    e.preventDefault();
+                    if (e && e.preventDefault) e.preventDefault();
                 }
                 lastTapTime = currentTime;
             }
+        }
+
+        // 1. Touch Events (Mobile/Tablet)
+        splitContainer.addEventListener('touchstart', (e) => {
+            handleGestureStart(e.changedTouches[0].screenX, e.changedTouches[0].screenY);
         }, { passive: false });
+
+        splitContainer.addEventListener('touchend', (e) => {
+            handleGestureEnd(e.changedTouches[0].screenX, e.changedTouches[0].screenY, e.target, e, false);
+        }, { passive: false });
+
+        // 2. Mouse Events (Laptop/Desktop Trackpads and Mice)
+        splitContainer.addEventListener('mousedown', (e) => {
+            handleGestureStart(e.screenX, e.screenY);
+        });
+
+        splitContainer.addEventListener('mouseup', (e) => {
+            handleGestureEnd(e.screenX, e.screenY, e.target, e, true);
+        });
+
+        // Dedicated double-click event for computer mice
+        splitContainer.addEventListener('dblclick', () => {
+            uiPanel.classList.remove('hidden');
+        });
 
         // --- Boot Sequence ---
         initData();
