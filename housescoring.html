@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team Swipe Scoreboard</title>
     <style>
         * {
@@ -10,45 +10,44 @@
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            user-select: none; /* Prevent text selection while swiping */
-            -webkit-tap-highlight-color: transparent; /* Remove mobile tap highlight */
+            user-select: none; 
+            -webkit-tap-highlight-color: transparent; 
         }
 
         body, html {
             height: 100%;
-            overflow: hidden;
+            overflow: hidden; 
             background-color: #222;
-            touch-action: none; /* Prevents default browser actions like pinch-zoom */
+            touch-action: pan-x pan-y; 
         }
 
-        /* Container: Flexbox handles layout and sorting */
+        /* Container */
         #split-container {
             display: flex;
             height: 100vh;
             width: 100vw;
         }
 
-        /* 
-           Orientation logic: 
-           Portrait = vertical stripes (winners on top)
-           Landscape = horizontal stripes (winners on left)
-        */
-        @media (orientation: portrait) {
-            #split-container { flex-direction: column; }
+        /* Automatic Layout */
+        @media screen and (orientation: portrait) {
+            #split-container:not(.force-row) { flex-direction: column; }
         }
-        @media (orientation: landscape) {
-            #split-container { flex-direction: row; }
+        @media screen and (orientation: landscape) {
+            #split-container:not(.force-col) { flex-direction: row; }
         }
+
+        /* Manual Layout Overrides */
+        #split-container.force-col { flex-direction: column !important; }
+        #split-container.force-row { flex-direction: row !important; }
 
         .split-part {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 5rem;
+            font-size: 6rem; 
             font-weight: bold;
             transition: background-color 0.3s ease;
-            /* Flex order is handled by JS for sorting */
         }
 
         /* Floating UI Panel */
@@ -59,57 +58,58 @@
             transform: translate(-50%, -50%);
             background: rgba(0, 0, 0, 0.95);
             color: white;
-            padding: 20px;
+            padding: 30px 20px;
             border-radius: 12px;
             text-align: center;
             width: 95%;
-            max-width: 400px;
-            max-height: 90vh;
+            max-width: 500px;
+            max-height: 95vh;
             overflow-y: auto;
             box-shadow: 0 8px 32px rgba(0,0,0,0.8);
             z-index: 10;
         }
 
-        /* Completely hides the UI */
         .hidden {
             display: none !important;
         }
 
         h2 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
+            font-size: 1.8rem; 
+            margin-bottom: 20px;
             color: #fff;
         }
 
         .control-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             text-align: left;
             background: rgba(255,255,255,0.1);
-            padding: 10px;
+            padding: 15px;
             border-radius: 8px;
         }
 
         .settings-row {
             display: flex;
-            gap: 10px;
-            margin-top: 5px;
+            gap: 15px;
+            margin-top: 10px;
         }
 
         label {
             display: block;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
+            margin-bottom: 8px;
+            font-size: 1.2rem; 
             font-weight: bold;
-            color: #ccc;
+            color: #eee;
         }
 
         select, button {
             width: 100%;
-            padding: 8px;
-            font-size: 1rem;
-            border-radius: 6px;
+            padding: 14px;
+            font-size: 1.2rem; 
+            border-radius: 8px;
             border: none;
             outline: none;
+            background-color: #fff;
+            color: #333;
         }
 
         button {
@@ -117,8 +117,9 @@
             color: white;
             cursor: pointer;
             font-weight: bold;
-            margin-top: 10px;
-            padding: 12px;
+            margin-top: 15px;
+            padding: 16px;
+            font-size: 1.3rem;
         }
 
         button:active { filter: brightness(0.9); }
@@ -137,20 +138,27 @@
 </head>
 <body>
 
-    <!-- Colored areas -->
     <div id="split-container"></div>
 
-    <!-- UI Panel -->
     <div id="ui-panel">
-        <h2>Settings (Double Tap background to show)</h2>
+        <h2>Settings <br><span style="font-size: 1rem; color: #ccc;">(Double Tap screen to show)</span></h2>
+
+        <div class="control-group">
+            <label for="layout-select">Layout Style:</label>
+            <select id="layout-select">
+                <option value="auto">Auto (Depends on Phone Rotation)</option>
+                <option value="horizontal">Force Horizontal (Left to Right)</option>
+                <option value="vertical">Force Vertical (Top to Bottom)</option>
+            </select>
+        </div>
 
         <div class="control-group">
             <label for="parts-select">Total Teams / Splits:</label>
             <select id="parts-select">
-                <option value="2">2 Parts</option>
-                <option value="3">3 Parts</option>
-                <option value="4">4 Parts</option>
-                <option value="5" selected>5 Parts</option>
+                <option value="2">2 Teams</option>
+                <option value="3">3 Teams</option>
+                <option value="4">4 Teams</option>
+                <option value="5" selected>5 Teams</option>
             </select>
         </div>
 
@@ -161,9 +169,38 @@
     </div>
 
     <script>
+        // --- Audio Setup (Web Audio API for classic coin sound) ---
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function playCoinSound() {
+            // Browsers pause audio context until user interacts; resume it if needed
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            // Classic coin sound pattern (fast pitch jump)
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(987.77, audioCtx.currentTime); // Note B5
+            oscillator.frequency.setValueAtTime(1318.51, audioCtx.currentTime + 0.1); // Jump to E6
+            
+            // Fade out the sound nicely so it doesn't click
+            gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.5, audioCtx.currentTime + 0.02);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+            
+            oscillator.start(audioCtx.currentTime);
+            oscillator.stop(audioCtx.currentTime + 0.5);
+        }
+
         // --- Game State ---
         let numSplits = 5;
-        let partsData = []; // Holds state for each individual house/part
+        let partsData = []; 
 
         const availableColors = [
             { class: 'color-red', label: 'Red', textCol: '#ffffff' },
@@ -178,6 +215,7 @@
         // --- DOM Elements ---
         const splitContainer = document.getElementById('split-container');
         const partsSelect = document.getElementById('parts-select');
+        const layoutSelect = document.getElementById('layout-select');
         const dynamicSettings = document.getElementById('dynamic-settings');
         const resetBtn = document.getElementById('reset-btn');
         const hideUiBtn = document.getElementById('hide-ui-btn');
@@ -185,12 +223,10 @@
 
         // --- Core Functions ---
 
-        // Initialize or update the state array based on selected number of splits
         function initData() {
             const oldData = [...partsData];
             partsData = [];
             for (let i = 0; i < numSplits; i++) {
-                // Preserve score and settings if changing number of parts, otherwise default
                 if (oldData[i]) {
                     partsData.push(oldData[i]);
                 } else {
@@ -198,13 +234,12 @@
                         id: i,
                         score: 0,
                         colorClass: availableColors[i % availableColors.length].class,
-                        points: 5 // Default swipe multiplier
+                        points: 5 
                     });
                 }
             }
         }
 
-        // Build Settings Dropdowns
         function buildSettings() {
             dynamicSettings.innerHTML = ''; 
             
@@ -213,13 +248,12 @@
                 group.classList.add('control-group');
                 
                 const label = document.createElement('label');
-                label.textContent = `House ${index + 1} Settings:`;
+                label.textContent = `Team ${index + 1} Settings:`;
                 group.appendChild(label);
 
                 const row = document.createElement('div');
                 row.classList.add('settings-row');
 
-                // Color Setup
                 const colorSelect = document.createElement('select');
                 availableColors.forEach(color => {
                     const opt = document.createElement('option');
@@ -234,7 +268,6 @@
                     renderGameView();
                 });
 
-                // Points Setup
                 const pointsSelect = document.createElement('select');
                 pointOptions.forEach(pts => {
                     const opt = document.createElement('option');
@@ -255,26 +288,19 @@
             });
         }
 
-        // Create the game display based on current data
         function renderGameView() {
             splitContainer.innerHTML = ''; 
-            
-            // Sort a copy of the data to calculate ranks (highest score first)
             const ranked = [...partsData].sort((a, b) => b.score - a.score);
 
             partsData.forEach(part => {
                 const div = document.createElement('div');
                 div.classList.add('split-part', part.colorClass);
                 div.dataset.id = part.id;
-                
-                // Set the score text
                 div.textContent = part.score;
                 
-                // Determine contrasting text color based on background
                 const colorObj = availableColors.find(c => c.class === part.colorClass);
                 div.style.color = colorObj ? colorObj.textCol : '#000';
                 
-                // Calculate Flexbox Order (Places highest scores at top/left)
                 const rankIndex = ranked.findIndex(r => r.id === part.id);
                 div.style.order = rankIndex;
 
@@ -283,6 +309,14 @@
         }
 
         // --- Event Listeners for UI ---
+        
+        layoutSelect.addEventListener('change', (e) => {
+            const val = e.target.value;
+            splitContainer.classList.remove('force-col', 'force-row');
+            if (val === 'horizontal') splitContainer.classList.add('force-row');
+            if (val === 'vertical') splitContainer.classList.add('force-col');
+        });
+
         partsSelect.addEventListener('change', (e) => {
             numSplits = parseInt(e.target.value);
             initData();
@@ -296,7 +330,12 @@
         });
 
         hideUiBtn.addEventListener('click', () => {
-            uiPanel.classList.add('hidden'); // Completely removes the menu
+            uiPanel.classList.add('hidden');
+            
+            // Attempt to un-suspend audio context on first interaction
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
         });
 
         // --- Swipe & Double Tap Logic ---
@@ -307,6 +346,11 @@
         splitContainer.addEventListener('touchstart', (e) => {
             touchstartX = e.changedTouches[0].screenX;
             touchstartY = e.changedTouches[0].screenY;
+            
+            // Browsers require a user gesture to allow audio; this ensures it unlocks
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
         }, { passive: false });
 
         splitContainer.addEventListener('touchend', (e) => {
@@ -319,22 +363,20 @@
             const isSwipe = (distanceX > 30 || distanceY > 30);
             
             if (isSwipe) {
-                // Handle Swipe: Add points
                 const targetPart = e.target.closest('.split-part');
                 if (targetPart && uiPanel.classList.contains('hidden')) {
                     const id = parseInt(targetPart.dataset.id);
                     const partData = partsData.find(p => p.id === id);
                     if (partData) {
                         partData.score += partData.points;
-                        renderGameView(); // Re-render to update scores and sort order
+                        playCoinSound(); // TRIGGER SOUND EFFECT HERE
+                        renderGameView(); 
                     }
                 }
             } else {
-                // Handle Tap: Check for Double Tap to show menu
                 const currentTime = new Date().getTime();
                 const tapLength = currentTime - lastTapTime;
                 
-                // If tapped twice within 300 milliseconds
                 if (tapLength < 300 && tapLength > 0) {
                     uiPanel.classList.remove('hidden');
                     e.preventDefault();
