@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Swipe Score Splitter</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body, html {
+            height: 100%;
+            overflow: hidden;
+            background-color: #222;
+        }
+
+        /* Container holding the colored splits */
+        #split-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .split-part {
+            flex: 1;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: rgba(0,0,0,0.1); /* Faint indicator text */
+            font-weight: bold;
+        }
+
+        /* Floating UI Panel */
+        #ui-panel {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            width: 95%;
+            max-width: 400px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+            text-align: left;
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .settings-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        select, button {
+            width: 100%;
+            padding: 8px;
+            font-size: 1rem;
+            border-radius: 6px;
+            border: none;
+            outline: none;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        button:active {
+            background-color: #45a049;
+        }
+
+        /* Utility classes for colors */
+        .color-red { background-color: #ff4c4c; }
+        .color-yellow { background-color: #ffd700; }
+        .color-green { background-color: #4caf50; }
+        .color-blue { background-color: #2196f3; }
+        .color-white { background-color: #ffffff; }
+
+        /* Hide the UI panel when playing */
+        .minimized {
+            opacity: 0.1;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="split-container"></div>
+
+    <div id="ui-panel">
+        <div>Total Score</div>
+        <h1 id="score-display">0</h1>
+
+        <div class="control-group">
+            <label for="parts-select">Number of Splits:</label>
+            <select id="parts-select">
+                <option value="2">2 Parts</option>
+                <option value="3">3 Parts</option>
+                <option value="4">4 Parts</option>
+                <option value="5" selected>5 Parts</option>
+            </select>
+        </div>
+
+        <div id="dynamic-settings"></div>
+
+        <button id="reset-btn">Reset Score</button>
+        <button id="toggle-ui-btn" style="background-color: #555;">Hide Menu (Tap center to show)</button>
+    </div>
+
+    <script>
+        // --- State Variables ---
+        let score = 0;
+        let numSplits = 5;
+        
+        // Define our available options
+        const colorOptions = [
+            { label: 'Red', class: 'color-red' },
+            { label: 'Yellow', class: 'color-yellow' },
+            { label: 'Green', class: 'color-green' },
+            { label: 'Blue', class: 'color-blue' },
+            { label: 'White', class: 'color-white' }
+        ];
+        
+        const pointOptions = [1, 2, 5, 10, 20, 50, 100];
+
+        // --- DOM Elements ---
+        const scoreDisplay = document.getElementById('score-display');
+        const splitContainer = document.getElementById('split-container');
+        const partsSelect = document.getElementById('parts-select');
+        const dynamicSettings = document.getElementById('dynamic-settings');
+        const resetBtn = document.getElementById('reset-btn');
+        const toggleUiBtn = document.getElementById('toggle-ui-btn');
+        const uiPanel = document.getElementById('ui-panel');
+
+        // --- Core Functions ---
+
+        // Builds the dropdown menus for colors and points based on how many splits are chosen
+        function buildDynamicSettings() {
+            dynamicSettings.innerHTML = ''; // Clear existing
+            
+            for (let i = 0; i < numSplits; i++) {
+                const group = document.createElement('div');
+                group.classList.add('control-group');
+                
+                const label = document.createElement('label');
+                label.textContent = `Part ${i + 1} Settings:`;
+                group.appendChild(label);
+
+                const row = document.createElement('div');
+                row.classList.add('settings-row');
+
+                // Color Dropdown
+                const colorSelect = document.createElement('select');
+                colorSelect.id = `color-select-${i}`;
+                colorOptions.forEach((color, index) => {
+                    const opt = document.createElement('option');
+                    opt.value = color.class;
+                    opt.textContent = color.label;
+                    // Default to spreading out the colors initially
+                    if (index === (i % colorOptions.length)) opt.selected = true;
+                    colorSelect.appendChild(opt);
+                });
+                
+                // When a color is changed, update the background immediately
+                colorSelect.addEventListener('change', renderSplits);
+
+                // Points Dropdown
+                const pointsSelect = document.createElement('select');
+                pointsSelect.id = `points-select-${i}`;
+                pointOptions.forEach(pts => {
+                    const opt = document.createElement('option');
+                    opt.value = pts;
+                    opt.textContent = `${pts} Points`;
+                    // Default to 5 points
+                    if (pts === 5) opt.selected = true;
+                    pointsSelect.appendChild(opt);
+                });
+
+                row.appendChild(colorSelect);
+                row.appendChild(pointsSelect);
+                group.appendChild(row);
+                dynamicSettings.appendChild(group);
+            }
+        }
+
+        // Render the background colors onto the screen based on dropdown selections
+        function renderSplits() {
+            splitContainer.innerHTML = ''; 
+            
+            for (let i = 0; i < numSplits; i++) {
+                const part = document.createElement('div');
+                part.classList.add('split-part');
+                
+                // Get the color chosen in the dropdown
+                const selectedColorClass = document.getElementById(`color-select-${i}`).value;
+                part.classList.add(selectedColorClass);
+                
+                // Save the index to know which one was swiped later
+                part.dataset.index = i;
+                
+                splitContainer.appendChild(part);
+            }
+        }
+
+        function updateScoreDisplay() {
+            scoreDisplay.textContent = score;
+        }
+
+        // --- Event Listeners for UI ---
+        partsSelect.addEventListener('change', (e) => {
+            numSplits = parseInt(e.target.value);
+            buildDynamicSettings();
+            renderSplits();
+        });
+
+        resetBtn.addEventListener('click', () => {
+            score = 0;
+            updateScoreDisplay();
+        });
+
+        toggleUiBtn.addEventListener('click', () => {
+            uiPanel.classList.add('minimized');
+        });
+
+        // Tap the middle of the screen to bring the menu back
+        document.addEventListener('click', (e) => {
+            if (uiPanel.classList.contains('minimized')) {
+                uiPanel.classList.remove('minimized');
+            }
+        });
+
+        // --- Swipe Detection Logic ---
+        let touchstartX = 0;
+        let touchstartY = 0;
+        let touchendX = 0;
+        let touchendY = 0;
+        let activePartIndex = null;
+
+        function handleSwipe() {
+            const distanceX = Math.abs(touchendX - touchstartX);
+            const distanceY = Math.abs(touchendY - touchstartY);
+            
+            // Check if it's a valid swipe and we know which part was swiped
+            if ((distanceX > 30 || distanceY > 30) && activePartIndex !== null) {
+                // Look up the points configured for this specific part
+                const pointsDropdown = document.getElementById(`points-select-${activePartIndex}`);
+                const pointsToAdd = parseInt(pointsDropdown.value);
+                
+                score += pointsToAdd;
+                updateScoreDisplay();
+            }
+        }
+
+        // Listen for touch on the splits
+        splitContainer.addEventListener('touchstart', (e) => {
+            touchstartX = e.changedTouches[0].screenX;
+            touchstartY = e.changedTouches[0].screenY;
+            
+            // Identify which color part was touched
+            if (e.target.classList.contains('split-part')) {
+                activePartIndex = e.target.dataset.index;
+            } else {
+                activePartIndex = null;
+            }
+        }, false);
+
+        splitContainer.addEventListener('touchend', (e) => {
+            touchendX = e.changedTouches[0].screenX;
+            touchendY = e.changedTouches[0].screenY;
+            handleSwipe();
+        }, false);
+
+        // --- Initialization ---
+        buildDynamicSettings();
+        renderSplits();
+    </script>
+</body>
+</html>
+
