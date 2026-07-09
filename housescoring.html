@@ -21,15 +21,55 @@
             touch-action: pan-x pan-y; 
         }
 
+        /* Top HUD Bar for Round and Timer */
+        #top-hud {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            z-index: 5;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            border: 2px solid #555;
+        }
+
+        #timer-display {
+            font-family: monospace;
+            font-size: 1.4rem;
+            color: #ffd700;
+        }
+
+        #timer-btn {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            width: auto;
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        #timer-btn.running { background-color: #ff9800; }
+
         /* Container */
         #split-container {
             display: flex;
             height: 100vh;
             width: 100vw;
-            cursor: pointer; /* Gives a hand icon on laptops to indicate it's clickable */
+            cursor: pointer; 
         }
 
-        /* Automatic Layout */
         @media screen and (orientation: portrait) {
             #split-container:not(.force-row) { flex-direction: column; }
         }
@@ -37,7 +77,6 @@
             #split-container:not(.force-col) { flex-direction: row; }
         }
 
-        /* Manual Layout Overrides */
         #split-container.force-col { flex-direction: column !important; }
         #split-container.force-row { flex-direction: row !important; }
 
@@ -59,7 +98,7 @@
             transform: translate(-50%, -50%);
             background: rgba(0, 0, 0, 0.95);
             color: white;
-            padding: 30px 20px;
+            padding: 25px 20px;
             border-radius: 12px;
             text-align: center;
             width: 95%;
@@ -70,18 +109,20 @@
             z-index: 10;
         }
 
-        .hidden {
-            display: none !important;
-        }
+        .hidden { display: none !important; }
 
         h2 {
-            font-size: 1.8rem; 
-            margin-bottom: 20px;
+            font-size: 1.6rem; 
+            margin-bottom: 5px;
             color: #fff;
         }
 
+        .subtitle {
+            font-size: 0.9rem; color: #aaa; margin-bottom: 20px; display: block;
+        }
+
         .control-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: left;
             background: rgba(255,255,255,0.1);
             padding: 15px;
@@ -97,15 +138,15 @@
         label {
             display: block;
             margin-bottom: 8px;
-            font-size: 1.2rem; 
+            font-size: 1.1rem; 
             font-weight: bold;
             color: #eee;
         }
 
         select, button {
             width: 100%;
-            padding: 14px;
-            font-size: 1.2rem; 
+            padding: 12px;
+            font-size: 1.1rem; 
             border-radius: 8px;
             border: none;
             outline: none;
@@ -118,15 +159,14 @@
             background-color: #2196f3;
             color: white;
             font-weight: bold;
-            margin-top: 15px;
-            padding: 16px;
-            font-size: 1.3rem;
+            margin-top: 10px;
         }
 
         button:active { filter: brightness(0.9); }
         
-        #hide-ui-btn { background-color: #ff4c4c; }
-        #reset-btn { background-color: #ff9800; }
+        #next-round-btn { background-color: #9c27b0; }
+        #hide-ui-btn { background-color: #ff4c4c; margin-top: 20px;}
+        #reset-btn { background-color: #555; font-size: 0.9rem; padding: 10px;}
 
         /* Color classes */
         .color-red { background-color: #ff4c4c; }
@@ -139,66 +179,118 @@
 </head>
 <body>
 
+    <div id="top-hud">
+        <span id="round-display">Round 1</span>
+        <span>|</span>
+        <span id="timer-display">01:00</span>
+        <button id="timer-btn">Start</button>
+    </div>
+
     <div id="split-container"></div>
 
     <div id="ui-panel">
-        <h2>Settings <br><span style="font-size: 1rem; color: #ccc;">(Double Tap / Double Click to show)</span></h2>
+        <h2>Game Settings</h2>
+        <span class="subtitle">(Double Tap screen to show this menu anytime)</span>
 
-        <div class="control-group">
-            <label for="layout-select">Layout Style:</label>
-            <select id="layout-select">
-                <option value="auto">Auto (Depends on Screen Ratio)</option>
-                <option value="horizontal">Force Horizontal (Left to Right)</option>
-                <option value="vertical">Force Vertical (Top to Bottom)</option>
-            </select>
+        <div class="control-group" style="border: 2px solid #9c27b0;">
+            <label>Current Round Rules:</label>
+            <div class="settings-row">
+                <select id="global-points-select">
+                    <option value="1">1 Point / Swipe</option>
+                    <option value="2">2 Points / Swipe</option>
+                    <option value="5" selected>5 Points / Swipe</option>
+                    <option value="10">10 Points / Swipe</option>
+                    <option value="20">20 Points / Swipe</option>
+                    <option value="50">50 Points / Swipe</option>
+                </select>
+                <select id="timer-duration-select">
+                    <option value="30">30 Sec Timer</option>
+                    <option value="60" selected>1 Min Timer</option>
+                    <option value="120">2 Min Timer</option>
+                    <option value="300">5 Min Timer</option>
+                </select>
+            </div>
+            <button id="next-round-btn">Carry Scores to Next Round</button>
         </div>
 
         <div class="control-group">
-            <label for="parts-select">Total Teams / Splits:</label>
-            <select id="parts-select">
-                <option value="2">2 Teams</option>
-                <option value="3">3 Teams</option>
-                <option value="4">4 Teams</option>
-                <option value="5" selected>5 Teams</option>
-            </select>
+            <div class="settings-row">
+                <div>
+                    <label>Teams</label>
+                    <select id="parts-select">
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5" selected>5</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Layout</label>
+                    <select id="layout-select">
+                        <option value="auto">Auto</option>
+                        <option value="horizontal">Horizontal</option>
+                        <option value="vertical">Vertical</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
         <div id="dynamic-settings"></div>
 
-        <button id="reset-btn">Reset All Scores to Zero</button>
         <button id="hide-ui-btn">Hide Menu & Play</button>
+        <button id="reset-btn">Hard Reset (Score & Rounds to Zero)</button>
     </div>
 
     <script>
-        // --- Audio Setup ---
+        // --- Audio Setup (Coin & Alarm) ---
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         
         function playCoinSound() {
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(987.77, audioCtx.currentTime); 
+            osc.frequency.setValueAtTime(1318.51, audioCtx.currentTime + 0.1); 
+            gain.gain.setValueAtTime(0, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0.5, audioCtx.currentTime + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.5);
+        }
+
+        function playAlarmSound() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            let startTime = audioCtx.currentTime;
+            
+            // Play 4 harsh beeps
+            for(let i=0; i<4; i++) { 
+                let osc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(600, startTime + (i * 0.3));
+                gain.gain.setValueAtTime(0, startTime + (i * 0.3));
+                gain.gain.linearRampToValueAtTime(0.4, startTime + (i * 0.3) + 0.05);
+                gain.gain.exponentialRampToValueAtTime(0.01, startTime + (i * 0.3) + 0.25);
+                osc.start(startTime + (i * 0.3));
+                osc.stop(startTime + (i * 0.3) + 0.25);
             }
-            
-            const oscillator = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-            
-            oscillator.type = 'sine';
-            oscillator.frequency.setValueAtTime(987.77, audioCtx.currentTime); 
-            oscillator.frequency.setValueAtTime(1318.51, audioCtx.currentTime + 0.1); 
-            
-            gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-            gainNode.gain.linearRampToValueAtTime(0.5, audioCtx.currentTime + 0.02);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
-            
-            oscillator.start(audioCtx.currentTime);
-            oscillator.stop(audioCtx.currentTime + 0.5);
         }
 
         // --- Game State ---
         let numSplits = 5;
+        let globalPoints = 5;
+        let currentRound = 1;
         let partsData = []; 
+
+        // Timer State
+        let timerDuration = 60; 
+        let timeRemaining = 60;
+        let timerInterval = null;
 
         const availableColors = [
             { class: 'color-red', label: 'Red', textCol: '#ffffff' },
@@ -207,17 +299,23 @@
             { class: 'color-blue', label: 'Blue', textCol: '#ffffff' },
             { class: 'color-white', label: 'White', textCol: '#000000' }
         ];
-        
-        const pointOptions = [1, 2, 5, 10, 20, 50, 100];
 
         // --- DOM Elements ---
         const splitContainer = document.getElementById('split-container');
         const partsSelect = document.getElementById('parts-select');
         const layoutSelect = document.getElementById('layout-select');
+        const globalPointsSelect = document.getElementById('global-points-select');
+        const timerDurationSelect = document.getElementById('timer-duration-select');
         const dynamicSettings = document.getElementById('dynamic-settings');
         const resetBtn = document.getElementById('reset-btn');
+        const nextRoundBtn = document.getElementById('next-round-btn');
         const hideUiBtn = document.getElementById('hide-ui-btn');
         const uiPanel = document.getElementById('ui-panel');
+        
+        // HUD Elements
+        const roundDisplay = document.getElementById('round-display');
+        const timerDisplay = document.getElementById('timer-display');
+        const timerBtn = document.getElementById('timer-btn');
 
         // --- Core Functions ---
 
@@ -231,26 +329,28 @@
                     partsData.push({
                         id: i,
                         score: 0,
-                        colorClass: availableColors[i % availableColors.length].class,
-                        points: 5 
+                        colorClass: availableColors[i % availableColors.length].class
                     });
                 }
             }
         }
 
-        function buildSettings() {
+        function buildTeamSettings() {
             dynamicSettings.innerHTML = ''; 
-            
             partsData.forEach((part, index) => {
                 const group = document.createElement('div');
                 group.classList.add('control-group');
+                group.style.padding = '10px';
+                group.style.marginBottom = '5px';
                 
-                const label = document.createElement('label');
-                label.textContent = `Team ${index + 1} Settings:`;
-                group.appendChild(label);
-
                 const row = document.createElement('div');
                 row.classList.add('settings-row');
+                row.style.alignItems = 'center';
+
+                const label = document.createElement('label');
+                label.textContent = `Team ${index + 1}:`;
+                label.style.margin = '0';
+                label.style.width = '80px';
 
                 const colorSelect = document.createElement('select');
                 availableColors.forEach(color => {
@@ -266,21 +366,8 @@
                     renderGameView();
                 });
 
-                const pointsSelect = document.createElement('select');
-                pointOptions.forEach(pts => {
-                    const opt = document.createElement('option');
-                    opt.value = pts;
-                    opt.textContent = `${pts} Points`;
-                    if (pts === part.points) opt.selected = true;
-                    pointsSelect.appendChild(opt);
-                });
-
-                pointsSelect.addEventListener('change', (e) => {
-                    part.points = parseInt(e.target.value);
-                });
-
+                row.appendChild(label);
                 row.appendChild(colorSelect);
-                row.appendChild(pointsSelect);
                 group.appendChild(row);
                 dynamicSettings.appendChild(group);
             });
@@ -304,10 +391,70 @@
 
                 splitContainer.appendChild(div);
             });
+            roundDisplay.textContent = `Round ${currentRound}/10`;
         }
 
-        // --- Event Listeners for UI ---
+        // --- Timer Functions ---
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const s = (seconds % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        function updateTimerUI() {
+            timerDisplay.textContent = formatTime(timeRemaining);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timeRemaining = timerDuration;
+            timerBtn.textContent = 'Start';
+            timerBtn.classList.remove('running');
+            updateTimerUI();
+        }
+
+        timerBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevents tapping the button from counting as a swipe
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+
+            if (timerInterval) {
+                // Pause it
+                clearInterval(timerInterval);
+                timerInterval = null;
+                timerBtn.textContent = 'Resume';
+                timerBtn.classList.remove('running');
+            } else {
+                // Start it
+                if (timeRemaining === 0) resetTimer(); // Restart if it was at 0
+                timerBtn.textContent = 'Pause';
+                timerBtn.classList.add('running');
+                
+                timerInterval = setInterval(() => {
+                    if (timeRemaining > 0) {
+                        timeRemaining--;
+                        updateTimerUI();
+                    } else {
+                        // Time's Up!
+                        clearInterval(timerInterval);
+                        timerInterval = null;
+                        timerBtn.textContent = 'Done';
+                        timerBtn.classList.remove('running');
+                        playAlarmSound();
+                    }
+                }, 1000);
+            }
+        });
+
+        // --- Event Listeners for UI Settings ---
         
+        globalPointsSelect.addEventListener('change', (e) => { globalPoints = parseInt(e.target.value); });
+        
+        timerDurationSelect.addEventListener('change', (e) => { 
+            timerDuration = parseInt(e.target.value); 
+            resetTimer();
+        });
+
         layoutSelect.addEventListener('change', (e) => {
             const val = e.target.value;
             splitContainer.classList.remove('force-col', 'force-row');
@@ -318,57 +465,65 @@
         partsSelect.addEventListener('change', (e) => {
             numSplits = parseInt(e.target.value);
             initData();
-            buildSettings();
+            buildTeamSettings();
             renderGameView();
         });
 
+        nextRoundBtn.addEventListener('click', () => {
+            if (currentRound < 10) {
+                currentRound++;
+                resetTimer();
+                renderGameView();
+                alert(`Round ${currentRound} Ready!\nChange the Points or Timer if needed, then click "Hide Menu & Play".`);
+            } else {
+                alert("You have reached the maximum of 10 rounds!");
+            }
+        });
+
         resetBtn.addEventListener('click', () => {
-            partsData.forEach(part => part.score = 0);
-            renderGameView();
+            if(confirm("Are you sure? This will erase all scores and reset back to Round 1.")) {
+                currentRound = 1;
+                partsData.forEach(part => part.score = 0);
+                resetTimer();
+                renderGameView();
+            }
         });
 
         hideUiBtn.addEventListener('click', () => {
             uiPanel.classList.add('hidden');
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
+            if (audioCtx.state === 'suspended') audioCtx.resume();
         });
 
         // --- Universal Gesture Logic (Touch + Mouse) ---
-        let startX = 0;
-        let startY = 0;
-        let lastTapTime = 0;
+        let startX = 0; let startY = 0; let lastTapTime = 0;
 
         function handleGestureStart(x, y) {
-            startX = x;
-            startY = y;
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
+            startX = x; startY = y;
+            if (audioCtx.state === 'suspended') audioCtx.resume();
         }
 
         function handleGestureEnd(endX, endY, targetElement, e, isMouse = false) {
+            // Prevent swipe if user is interacting with the top HUD
+            if (targetElement.closest('#top-hud')) return;
+
             const distanceX = Math.abs(endX - startX);
             const distanceY = Math.abs(endY - startY);
             const isSwipe = (distanceX > 30 || distanceY > 30);
             
             if (isSwipe) {
-                // If dragged/swiped far enough, trigger score
                 const targetPart = targetElement.closest('.split-part');
                 if (targetPart && uiPanel.classList.contains('hidden')) {
                     const id = parseInt(targetPart.dataset.id);
                     const partData = partsData.find(p => p.id === id);
                     if (partData) {
-                        partData.score += partData.points;
+                        partData.score += globalPoints; // Use global points here
                         playCoinSound(); 
                         renderGameView(); 
                     }
                 }
             } else if (!isMouse) {
-                // Handle mobile double tap (Mouse double click is handled separately via 'dblclick')
                 const currentTime = new Date().getTime();
                 const tapLength = currentTime - lastTapTime;
-                
                 if (tapLength < 300 && tapLength > 0) {
                     uiPanel.classList.remove('hidden');
                     if (e && e.preventDefault) e.preventDefault();
@@ -377,7 +532,7 @@
             }
         }
 
-        // 1. Touch Events (Mobile/Tablet)
+        // Mobile Events
         splitContainer.addEventListener('touchstart', (e) => {
             handleGestureStart(e.changedTouches[0].screenX, e.changedTouches[0].screenY);
         }, { passive: false });
@@ -386,7 +541,7 @@
             handleGestureEnd(e.changedTouches[0].screenX, e.changedTouches[0].screenY, e.target, e, false);
         }, { passive: false });
 
-        // 2. Mouse Events (Laptop/Desktop Trackpads and Mice)
+        // Laptop Events
         splitContainer.addEventListener('mousedown', (e) => {
             handleGestureStart(e.screenX, e.screenY);
         });
@@ -395,14 +550,16 @@
             handleGestureEnd(e.screenX, e.screenY, e.target, e, true);
         });
 
-        // Dedicated double-click event for computer mice
         splitContainer.addEventListener('dblclick', () => {
             uiPanel.classList.remove('hidden');
         });
 
         // --- Boot Sequence ---
+        globalPoints = parseInt(globalPointsSelect.value);
+        timerDuration = parseInt(timerDurationSelect.value);
         initData();
-        buildSettings();
+        buildTeamSettings();
+        resetTimer();
         renderGameView();
     </script>
 </body>
