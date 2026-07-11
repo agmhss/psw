@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  .chatbot-section {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+  }
+  .chatbot-header {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+  }
+  .chatbot-header h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  .chatbot-header p {
+    font-size: 16px;
+    color: #666;
+  }
+  .chatbot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .bot-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-top: 5px solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .bot-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  }
+  .bot-card h3 {
+    margin-top: 0;
+    font-size: 20px;
+  }
+  .bot-card p {
+    font-size: 15px;
+    color: #444;
+    line-height: 1.5;
+    margin-bottom: 15px;
+  }
+  .example-box {
+    background: #f1f3f5;
+    border-left: 4px solid #adb5bd;
+    padding: 10px;
+    font-style: italic;
+    font-size: 14px;
+    color: #495057;
+    margin-bottom: 20px;
+    border-radius: 4px;
+  }
+  .bot-btn {
+    display: inline-block;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Subject Specific Colors */
+  .card-tamil { border-color: #ff6b6b; }
+  .card-tamil h3 { color: #ff6b6b; }
+  .btn-tamil { background-color: #ff6b6b; }
+  .btn-tamil:hover { background-color: #fa5252; color: #fff;}
+
+  .card-english { border-color: #339af0; }
+  .card-english h3 { color: #339af0; }
+  .btn-english { background-color: #339af0; }
+  .btn-english:hover { background-color: #228be6; color: #fff;}
+
+  .card-maths { border-color: #fcc419; }
+  .card-maths h3 { color: #e67700; }
+  .btn-maths { background-color: #fcc419; color: #333 !important;}
+  .btn-maths:hover { background-color: #fab005; }
+
+  .card-science { border-color: #51cf66; }
+  .card-science h3 { color: #2b8a3e; }
+  .btn-science { background-color: #51cf66; }
+  .btn-science:hover { background-color: #40c057; color: #fff;}
+
+  .card-social { border-color: #cc5de8; }
+  .card-social h3 { color: #cc5de8; }
+  .btn-social { background-color: #cc5de8; }
+  .btn-social:hover { background-color: #be4bdb; color: #fff;}
+</style>
+</head>
+<body>
+
+<section class="chatbot-section" id="study-bots">
+  <div class="chatbot-header">
+    <h2>AI பாடப்புத்தக உதவியாளர் (Chat Bots)</h2>
+    <p>மாணவர்கள் தங்கள் பாடப்புத்தகங்களில் உள்ள கேள்விகளைக் கேட்டு எளிதாகப் பதில்களைப் பெறலாம்.</p>
+  </div>
+
+  <div class="chatbot-grid">
+    
+    <!-- Tamil Card -->
+    <div class="bot-card card-tamil">
+      <div>
+        <h3>தமிழ் (வகுப்பு 6 - 12)</h3>
+        <p>6 முதல் 12-ஆம் வகுப்பு வரையிலான மாணவர்கள் இப்போது தங்கள் <strong>தமிழ்</strong> பாடப்புத்தகத்திலிருந்து கேள்விகளைக் கேட்டு பதில்களைப் பெறலாம்.</p>
+        <div class="example-box">
+          <strong>உதாரணமாக:</strong> "8-ஆம் வகுப்பு, 1 மற்றும் 2-ஆம் பாடங்களிலிருந்து 10 ஒரு மதிப்பெண் வினா-விடைகளைத் தருக."
+        </div>
+      </div>
+      <a href="https://notebooklm.google.com/notebook/2ee0849d-91e7-4eba-b392-ffc7bd84e066/preview" target="_blank" class="bot-btn btn-tamil">இங்கே முயற்சிக்கவும் (Try)</a>
+    </div>
+
+    <!-- English Card -->
+    <div class="bot-card card-english">
+      <div>
+        <h3>English (வகுப்பு 6 - 12)</h3>
+        <p>6 முதல் 12-ஆம் வகுப்பு வரையிலான மாணவர்கள் இப்போது தங்கள் <strong>ஆங்கில</strong> பாடப்புத்தகத்திலிருந்து கேள்விகளைக் கேட்டு பதில்களைப் பெறலாம்.</p>
+        <div class="example-box">
+          <strong>உதாரணமாக:</strong> "Give me 10 most important synonyms and antonyms from Class 11 Unit 1 and 2."
+        </div>
+      </div>
+      <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/preview" target="_blank" class="bot-btn btn-english">இங்கே முயற்சிக்கவும் (Try)</a>
+    </div>
+
+    <!-- Maths Card -->
+    <div class="bot-card card-maths">
+      <div>
+        <h3>கணிதம் (வகுப்பு 6 - 12)</h3>
+        <p>6 முதல் 12-ஆம் வகுப்பு வரையிலான மாணவர்கள் இப்போது தங்கள் <strong>கணித</strong> பாடப்புத்தகத்திலிருந்து கேள்விகளைக் கேட்டு பதில்களைப் பெறலாம்.</p>
+        <div class="example-box">
+          <strong>உதாரணமாக:</strong> "10-ஆம் வகுப்பு (தமிழ் வழி), 1 மற்றும் 2-ஆம் பாடங்களிலிருந்து 10 முக்கியமான 2 மதிப்பெண் வினா-விடைகளைத் தருக."
+        </div>
+      </div>
+      <a href="https://notebooklm.google.com/notebook/e4124c8b-9d88-4f43-b3d1-e384f54bbe6e/preview" target="_blank" class="bot-btn btn-maths">இங்கே முயற்சிக்கவும் (Try)</a>
+    </div>
+
+    <!-- Science Card -->
+    <div class="bot-card card-science">
+      <div>
+        <h3>அறிவியல் (வகுப்பு 6 - 10)</h3>
+        <p>6 முதல் 10-ஆம் வகுப்பு வரையிலான மாணவர்கள் இப்போது தங்கள் <strong>அறிவியல்</strong> பாடப்புத்தகத்திலிருந்து கேள்விகளைக் கேட்டு பதில்களைப் பெறலாம்.</p>
+        <div class="example-box">
+          <strong>உதாரணமாக:</strong> "10-ஆம் வகுப்பு (தமிழ் வழி), 1 மற்றும் 2-ஆம் பாடங்களிலிருந்து 10 முக்கியமான 1 மதிப்பெண் வினா-விடைகளைத் தருக."
+        </div>
+      </div>
+      <a href="https://notebooklm.google.com/notebook/b9edbf2a-a5ed-403a-980b-fec30ee81e2b" target="_blank" class="bot-btn btn-science">இங்கே முயற்சிக்கவும் (Try)</a>
+    </div>
+
+    <!-- Social Science Card -->
+    <div class="bot-card card-social">
+      <div>
+        <h3>சமூக அறிவியல் (வகுப்பு 6 - 10)</h3>
+        <p>6 முதல் 10-ஆம் வகுப்பு வரையிலான மாணவர்கள் இப்போது தங்கள் <strong>சமூக அறிவியல்</strong> பாடப்புத்தகத்திலிருந்து கேள்விகளைக் கேட்டு பதில்களைப் பெறலாம்.</p>
+        <div class="example-box">
+          <strong>உதாரணமாக:</strong> "10-ஆம் வகுப்பு (தமிழ் வழி), 1 மற்றும் 2-ஆம் பாடங்களிலிருந்து 15 முக்கியமான 2 மதிப்பெண் வினா-விடைகளைத் தருக."
+        </div>
+      </div>
+      <a href="https://notebooklm.google.com/notebook/0a7741c1-d8f7-4238-8303-bc79c61e593b/preview" target="_blank" class="bot-btn btn-social">இங்கே முயற்சிக்கவும் (Try)</a>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>
