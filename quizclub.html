@@ -3,236 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>மன்றங்கள் - அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்ி</title>
+    <title>அறிவியல் திறன் மையம் | AGMHSS Patteeswaram</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Pavanam&display=swap');
-
-        :root {
-            --primary-maroon: #8d1b3d;
-            --wood-frame: #4e342e;
-            --paper-bg: #ffffff;
-            --board-bg: #f5f5f5;
-        }
-
-        body {
-            background: #dcdcdc;
-            font-family: 'Pavanam', sans-serif;
-            margin: 0;
-            padding: 15px;
+        :root { --sci-green: #15803d; --soc-orange: #ea580c; --dark: #0f172a; --light: #f8fafc; }
+        body { font-family: 'Arial', sans-serif; background: var(--light); margin: 0; padding: 0; }
+        .header { background: var(--dark); color: white; padding: 30px; text-align: center; position: relative; }
+        .home-btn { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background: white; color: var(--dark); border: none; padding: 10px; border-radius: 50%; cursor: pointer; text-decoration: none; display: flex; align-items: center; }
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .card { background: white; border-radius: 15px; padding: 25px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.3s; display: flex; flex-direction: column;}
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
+        .sci-card { border-top: 5px solid var(--sci-green); }
+        .soc-card { border-top: 5px solid var(--soc-orange); }
+        .icon { font-size: 48px; margin-bottom: 15px; }
+        .sci-icon { color: var(--sci-green); }
+        .soc-icon { color: var(--soc-orange); }
+        h3 { margin-bottom: 10px; }
+        p { color: #64748b; font-size: 0.9em; margin-bottom: 20px; flex-grow: 1;}
+        .btn { display: inline-block; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; width: 80%; transition: 0.3s; margin: auto auto 0 auto; }
+        .sci-btn { background: var(--sci-green); }
+        .soc-btn { background: var(--soc-orange); }
+        
+        /* Quiz List Specific Styles */
+        .quiz-list {
+            max-height: 160px;
+            overflow-y: auto;
             display: flex;
-            justify-content: center;
-        }
-
-        .whiteboard {
-            background-color: var(--board-bg);
-            width: 100%;
-            max-width: 1100px;
-            min-height: 95vh;
-            border: 12px solid var(--wood-frame);
-            border-radius: 8px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-            padding: 40px;
-            position: relative;
-            box-sizing: border-box;
-        }
-
-        .home-btn {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: var(--primary-maroon);
-            color: white;
-            text-decoration: none;
-            padding: 8px 18px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            z-index: 10;
-        }
-
-        header {
-            text-align: center;
-            border-bottom: 2px solid #ddd;
-            margin-bottom: 30px;
-            padding-bottom: 10px;
-        }
-
-        header h1 { color: var(--primary-maroon); margin: 0; font-size: 1.8rem; }
-        header h2 { color: #555; margin: 5px 0; font-size: 1.2rem; }
-
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        .paper-note {
-            background: var(--paper-bg);
-            padding: 20px;
-            box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
-            border-top: 5px solid var(--primary-maroon);
-            position: relative;
-            min-height: 100px;
-        }
-
-        .paper-note::after {
-            content: "";
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 70px;
-            height: 25px;
-            background: rgba(255, 255, 255, 0.7);
-        }
-
-        h3 { color: var(--primary-maroon); border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 0; }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { text-align: left; padding: 8px; border-bottom: 1px solid #eee; }
-
-        .footer-links {
-            margin-top: 40px;
-            padding: 20px;
-            background: #eee;
-            border-radius: 5px;
-            text-align: center;
-        }
-
-        .footer-links a {
-            display: inline-block;
-            margin: 5px 15px;
-            color: #0066cc;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        
-        .poster-img {
-            width: 100%;
-            height: auto;
-            max-height: 400px;
-            object-fit: contain;
-            border-radius: 4px;
+            flex-direction: column;
+            gap: 10px;
             margin-top: 10px;
-            border: 1px solid #ddd;
+            padding-right: 5px;
+            text-align: left;
         }
-
-        .error-msg {
-            color: red;
-            font-size: 0.85rem;
-            margin-top: 5px;
-            display: block;
+        .quiz-list::-webkit-scrollbar { width: 5px; }
+        .quiz-list::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 5px; }
+        .quiz-list::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 5px; }
+        .quiz-list::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .quiz-item {
+            background: #f8fafc;
+            padding: 10px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 0.85em;
+            font-weight: 600;
+            border-left: 4px solid var(--sci-green);
+            transition: all 0.2s ease;
         }
+        .quiz-item:hover {
+            background: #e2e8f0;
+            transform: translateX(4px);
+        }
+        .quiz-soc { border-left-color: var(--soc-orange); }
     </style>
 </head>
 <body>
 
-<div class="whiteboard">
-    <a href="index.html" class="home-btn">🏠 முகப்பு</a>
+<div class="header">
+    <a href="https://agmhss.github.io/psw/" class="home-btn" title="முகப்பிற்குச் செல்க">
+        <span class="material-symbols-outlined">home</span>
+    </a>
+    <h1>அறிவியல் மற்றும் சமூக அறிவியல் மையம்</h1>
+    <p>ஆராய்வோம்... அறிவோம்... வெல்வோம்!</p>
+</div>
 
-    <header>
-        <h1>அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்</h1>
-        <h2>வினாடி வினா மன்றம்</h2>
-    </header>
+<div class="container">
+    <div class="grid">
+        <!-- Science Cards -->
+        <div class="card sci-card">
+            <span class="material-symbols-outlined icon sci-icon">science</span>
+            <h3>மெய்நிகர் வேதியியல் ஆய்வகம்</h3>
+            <p>சோதனைக் குழாய்கள் இன்றி வேதிவினைகளைச் செய்து பார்க்க உதவும் டிஜிட்டல் ஆய்வகம்.</p>
+            <a href="https://agmhss.github.io/chem-lab/" class="sci-btn btn">ஆய்வகத்திற்குச் செல்</a>
+        </div>
+        
+        <div class="card sci-card">
+            <span class="material-symbols-outlined icon sci-icon">build</span>
+            <h3>மெய்நிகர் இயற்பியல் ஆய்வகம்</h3>
+            <p>ஆய்வக சாதனங்கள் இன்றி இயற்பியல் விதிகளை பரிசோதித்து பார்க்க உதவும் டிஜிட்டல் ஆய்வகம்.</p>
+            <a href="https://agmhss.github.io/physics-lab/" class="sci-btn btn">ஆய்வகத்திற்குச் செல்</a>
+        </div>
 
-    <div class="content-grid" id="main-board">
-        <p style="text-align:center; grid-column: 1/-1;">தகவல்கள் சேகரிக்கப்படுகின்றன...</p>
-    </div>
+        <div class="card sci-card">
+            <span class="material-symbols-outlined icon sci-icon">computer</span>
+            <h3>கணினி அறிவியல் மையம்</h3>
+            <p>11 & 12 கணினி அறிவியல் மற்றும் பயன்பாடு, கல்வி தொலைக்காட்சி, மேலும் பல.</p>
+            <a href="https://tnschoolcsca.wordpress.com/kalvi-tv/" class="sci-btn btn">தொடங்கு</a>
+        </div>
+        
+        <div class="card sci-card">
+            <span class="material-symbols-outlined icon sci-icon">campaign</span>
+            <h3>விக்சித் பாரத் பில்டத்தான்</h3>
+            <p>இதில் கலந்து கொள்ள தங்களது அறிவியல் ஆசிரியர்களை அணுகவும்.</p>
+            <a href="https://r5vbb.mic.gov.in/login" class="sci-btn btn">பயிற்சி செய்</a>
+        </div>
+        
+        <div class="card sci-card">
+            <span class="material-symbols-outlined icon sci-icon">school</span>
+            <h3>SIDP School Innovation Development Project</h3>
+            <p>இதில் கலந்து கொள்ள தங்களது அறிவியல் ஆசிரியர்களை அணுகவும்.</p>
+            <a href="https://sidp.editn.in/login" class="sci-btn btn">பயிற்சி செய்</a>
+        </div>
 
-    <div class="footer-links">
-        <h3>முக்கிய இணைப்புகள் & கோப்புகள்</h3>
-        <div id="links-area">இணைப்புகள் எதுவும் இல்லை.</div>
+        <!-- Science Quiz Card -->
+        <div class="card sci-card">
+            <span class="material-symbols-outlined icon sci-icon">quiz</span>
+            <h3>அறிவியல் வினாடி வினா தொகுப்பு</h3>
+            <p>அறிவியல் வகுப்புகளுக்கான பயிற்சி வினாடி வினாக்கள் இங்கே தொகுக்கப்பட்டுள்ளன.</p>
+            <div class="quiz-list">
+                <a href="https://notebooklm.google.com/notebook/b9edbf2a-a5ed-403a-980b-fec30ee81e2b/artifact/ec12ba5e-8191-4959-9283-aed9972ab95b?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="quiz-item" target="_blank">Class 8 Unit 1 (Tamil Medium)</a>
+                <a href="https://notebooklm.google.com/notebook/b9edbf2a-a5ed-403a-980b-fec30ee81e2b/artifact/1b226911-bf59-4df0-b2b5-842bb5a5068d?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="quiz-item" target="_blank">Class 8 Unit 2 (Tamil Medium)</a>
+                <a href="https://notebooklm.google.com/notebook/b9edbf2a-a5ed-403a-980b-fec30ee81e2b/artifact/c8c80f2a-115d-4e9c-96d7-f1e9c6d2ba58?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="quiz-item" target="_blank">Class 8 Unit 1 (English Medium)</a>
+                <a href="https://notebooklm.google.com/notebook/b9edbf2a-a5ed-403a-980b-fec30ee81e2b/artifact/06fc5c89-0e3e-403e-a79d-ca18c10e5dbf?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="quiz-item" target="_blank">Class 8 Unit 2 (English Medium)</a>
+                <a href="https://notebooklm.google.com/notebook/b9edbf2a-a5ed-403a-980b-fec30ee81e2b/artifact/198833ff-4403-49d4-a5dc-8371e4445bf7?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="quiz-item" target="_blank">Class 7 Term 1 Unit 1 (Eng Medium)</a>
+                <a href="https://notebooklm.google.com/notebook/b9edbf2a-a5ed-403a-980b-fec30ee81e2b/artifact/198833ff-4403-49d4-a5dc-8371e4445bf7?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="quiz-item" target="_blank">Class 7 Term 1 Unit 2 (Eng Medium)</a>
+            </div>
+        </div>
+        
+        <div class="card sci-card">
+            <span class="material-symbols-outlined icon sci-icon">grid_view</span>
+            <h3>தனிம வரிசை அட்டவணை</h3>
+            <p>வேதியியல் தனிமங்களின் பண்புகளை எளிதாகக் கண்டறிய உதவும் ஊடாடும் தளம்.</p>
+            <a href="https://agmhss.github.io/Periodic-Table/" class="sci-btn btn">தொடங்கு</a>
+        </div>
+
+        <div class="card sci-card">
+            <span class="material-symbols-outlined icon sci-icon">biotech</span>
+            <h3>அறிவியல் விளக்கங்கள்</h3>
+            <p>அறிவியல் மற்றும் சமூக அறிவியல் கருத்துகளை வரைபடங்கள் மூலம் விளக்கும் பகுதி.</p>
+            <a href="https://agmhss.github.io/charts/" class="sci-btn btn">பார்வையிடு</a>
+        </div>
+        
+        <div class="card sci-card border-success">
+            <span class="material-symbols-outlined icon sci-icon text-success">eco</span>
+            <h3>மெய்நிகர் உயிரியல் ஆய்வகம்</h3>
+            <p>தாவரங்கள் மற்றும் மனித உடல் உறுப்புகளின் செயல்பாடுகளை அனிமேஷன் மூலம் எளிதாகக் கற்றுக்கொள்ள உதவும் டிஜிட்டல் ஆய்வகம்.</p>
+            <a href="https://agmhss.github.io/biology-lab/" class="sci-btn btn btn-success" style="background-color: #16a34a;">ஆய்வகத்திற்குச் செல்</a>
+        </div>
+        
+        <div class="card sci-card border-success">
+            <span class="material-symbols-outlined icon sci-icon text-success">animal</span>
+            <h3>விலங்குகள் உலகம்</h3>
+            <p>வன விலங்குகள், பறவைகள் மற்றும் கடல்சார் உயிரினங்கள் உலகத்தை லைவ் கேமராக்கள் மூலம் காண உதவும் தளம்.</p>
+            <a href="https://explore.org/livecams/african-wildlife/african-animal-lookout-camera" class="sci-btn btn btn-success" style="background-color: #16a34a;">செல்</a>
+        </div>
+
+        <!-- Social Science Cards -->
+        <div class="card soc-card">
+            <span class="material-symbols-outlined icon soc-icon">map</span>
+            <h3>இந்திய வரைபடத் தேர்வு</h3>
+            <p>இந்தியாவின் மாநிலங்கள் மற்றும் முக்கிய நகரங்களைக் கண்டறியும் வரைபடப் பயிற்சி.</p>
+            <a href="https://agmhss.github.io/Gtk-MapTest/" class="soc-btn btn">பயிற்சி செய்</a>
+        </div>
+
+        <div class="card soc-card">
+            <span class="material-symbols-outlined icon soc-icon">history_edu</span>
+            <h3>வரலாற்றுத் திறன் தேர்வு</h3>
+            <p>சமூக அறிவியல் பாடத்தில் உள்ள முக்கிய வரலாற்று நிகழ்வுகள் குறித்த தேர்வுகள்.</p>
+            <a href="https://agmhss.github.io/GK-Test/" class="soc-btn btn">தேர்வு எழுது</a>
+        </div>
+
+        <div class="card soc-card">
+            <span class="material-symbols-outlined icon soc-icon">public</span>
+            <h3>புவியியல் மையம்</h3>
+            <p>Interactive Textbook on Earthquakes</p>
+            <a href="https://agmhss.github.io/phoenix_sidp/" class="soc-btn btn">தொடங்கு</a>
+        </div>
+
+        <!-- Social Science Quiz Card -->
+        <div class="card soc-card">
+            <span class="material-symbols-outlined icon soc-icon">quiz</span>
+            <h3>சமூக அறிவியல் வினாடி வினா</h3>
+            <p>சமூக அறிவியல் தொடர்பான பயிற்சி வினாடி வினாக்கள் இங்கே தொகுக்கப்பட்டுள்ளன.</p>
+            <div class="quiz-list">
+                <a href="https://www.proprofs.com/quiz-school/ugc/story.php?title=ndmyotcxmqlgf2" class="quiz-item quiz-soc" target="_blank">GK Quiz (Class 6 - Downloadable Certificate)</a>
+            </div>
+        </div>
+
+        <!-- New Interactive Social Science Cards -->
+        <div class="card soc-card">
+            <span class="material-symbols-outlined icon soc-icon">language</span>
+            <h3>உலக வரைபடப் பயிற்சி</h3>
+            <p>கண்டங்கள், பெருங்கடல்கள் மற்றும் உலக நாடுகளைக் கண்டறியும் ஊடாடும் பயிற்சி விளையாட்டுகள்.</p>
+            <a href="https://geogames.io/" target="_blank" class="soc-btn btn">பயிற்சி செய்</a>
+        </div>
+        
+        <div class="card soc-card">
+            <span class="material-symbols-outlined icon soc-icon">explore</span>
+            <h3>Seterra வரைபட வினாடி வினா</h3>
+            <p>நாடுகள், தலைநகரங்கள் மற்றும் கொடிகளைப் பற்றிய 400-க்கும் மேற்பட்ட வினாடி வினாக்கள்.</p>
+            <a href="https://www.geoguessr.com/quiz/seterra" target="_blank" class="soc-btn btn">பயிற்சி செய்</a>
+        </div>
+
+        <div class="card soc-card">
+            <span class="material-symbols-outlined icon soc-icon">account_balance</span>
+            <h3>பொருளியல் விளையாட்டுகள்</h3>
+            <p>அடிப்படைப் பொருளாதாரக் கருத்துகளை வகுப்பறையில் விளையாட்டுகள் மூலம் கற்றுக்கொள்ளும் தளம்.</p>
+            <a href="https://economics-games.com/" target="_blank" class="soc-btn btn">தொடங்கு</a>
+        </div>
+
+        <div class="card soc-card">
+            <span class="material-symbols-outlined icon soc-icon">menu_book</span>
+            <h3>இந்திய அரசியலமைப்பு</h3>
+            <p>இந்திய அரசியலமைப்பு, அடிப்படை உரிமைகள் மற்றும் கடமைகளை அறிந்துகொள்ளும் அரசுத் தளம்.</p>
+            <a href="https://www.india.gov.in/my-government/constitution-india" target="_blank" class="soc-btn btn">பார்வையிடு</a>
+        </div>
+
+        <div class="card soc-card">
+            <span class="material-symbols-outlined icon soc-icon">museum</span>
+            <h3>தமிழக தொல்லியல் துறை</h3>
+            <p>கீழடி உள்ளிட்ட அகழ்வாராய்ச்சித் தளங்கள் மற்றும் பண்டைய தமிழக வரலாற்றை அறியலாம்.</p>
+            <a href="https://tnarch.gov.in/" target="_blank" class="soc-btn btn">பார்வையிடு</a>
+        </div>
     </div>
 </div>
 
-<script>
-    const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSc52KK0XPd4eme9aOhLdrWSct4iFp127jIZwJwkePcSjKApGyjjG-EfrfUmAB15VyuuplR93wBdVUU/pub?output=csv"; 
-
-    // கூகுள் டிரைவ் லிங்கை சரிசெய்யும் சிறப்பு ஃபங்ஷன்
-    function getRobustImageUrl(url) {
-    if (!url) return "";
-
-    // Google Drive link-ஐ சரிசெய்
-    if (url.includes("drive.google.com")) {
-        const idMatch = url.match(/[-\w]{25,}/);  // File ID எடுக்கும்
-        if (idMatch) {
-            const fileId = idMatch[0];
-            // புதிய recommended method
-            return `https://drive.google.com/thumbnail?id=${fileId}&sz=w2000`;
-        }
-    }
-    return url; // வேறு link என்றால் அப்படியே
-}
-
-    async function loadBoardData() {
-        try {
-            const response = await fetch(sheetURL);
-            const data = await response.text();
-            
-            const rows = data.split(/\r?\n/).map(row => {
-                return row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-            });
-            
-            const board = document.getElementById('main-board');
-            const linksArea = document.getElementById('links-area');
-            
-            board.innerHTML = '';
-            linksArea.innerHTML = '';
-
-            rows.slice(1).forEach(cols => {
-                if (cols.length < 2) return;
-                
-                const category = cols[0].replace(/"/g, "").trim();
-                const content = cols[1].replace(/"/g, "").trim();
-                const subtext = cols[2] ? cols[2].replace(/"/g, "").trim() : '';
-
-                if (category === "Vision" || category === "Mission" || category === "Announcement") {
-                    const title = category === "Vision" ? "நோக்கம்" : (category === "Mission" ? "செயல்பாடுகள்" : "அறிவிப்பு");
-                    board.innerHTML += `
-                        <div class="paper-note">
-                            <h3>${title}</h3>
-                            <p>${content}</p>
-                        </div>`;
-                } 
-                else if (category === "Poster") {
-                    const finalSrc = getRobustImageUrl(subtext);
-
-                    // படம் லோட் ஆகவில்லை என்றால் சிவப்பு நிறத்தில் பிழைச் செய்தி காட்டும்
-                    board.innerHTML += `
-                        <div class="paper-note" style="text-align:center;">
-                            <h3>${content}</h3>
-                            <img src="${finalSrc}" class="poster-img" alt="Poster" 
-                                 onerror="this.onerror=null; this.src='https://via.placeholder.com/400x200?text=Image+Blocked'; this.nextElementSibling.style.display='block';">
-                            <span class="error-msg" style="display:none;">
-                                ⚠️ இந்தப் படத்தைப் பார்க்க அனுமதி இல்லை. கூகுள் டிரைவில் <b>"Anyone with the link"</b> என்பதை உறுதி செய்யவும்.
-                            </span>
-                        </div>`;
-                }
-                else if (category === "Staff") {
-                    let table = document.getElementById('staff-table');
-                    if (!table) {
-                        board.innerHTML += `
-                            <div class="paper-note">
-                                <h3>பொறுப்பு ஆசிரியர்கள்</h3>
-                                <table id="staff-table"><tr><th>பெயர்</th><th>பதவி</th></tr></table>
-                            </div>`;
-                        table = document.getElementById('staff-table');
-                    }
-                    table.innerHTML += `<tr><td>${content}</td><td>${subtext}</td></tr>`;
-                }
-                else if (category === "Link") {
-                    linksArea.innerHTML += `<a href="${subtext}" target="_blank">🔗 ${content}</a>`;
-                }
-            });
-
-        } catch (error) {
-            console.error("Error:", error);
-            document.getElementById('main-board').innerHTML = "<p style='color:red; text-align:center; grid-column:1/-1;'>தகவல்களைப் பெறுவதில் சிக்கல் ஏற்பட்டுள்ளது.</p>";
-        }
-    }
-
-    loadBoardData();
-</script>
+<footer style="text-align: center; padding: 40px; color: #94a3b8; font-size: 0.9em;">
+    வடிவமைப்பு: அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்
+</footer>
 
 </body>
 </html>
