@@ -12,7 +12,7 @@
         .home-btn { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background: white; color: var(--dark); border: none; padding: 10px; border-radius: 50%; cursor: pointer; text-decoration: none; display: flex; align-items: center; }
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .card { background: white; border-radius: 15px; padding: 25px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.3s; }
+        .card { background: white; border-radius: 15px; padding: 25px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.3s; display: flex; flex-direction: column;}
         .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
         .sci-card { border-top: 5px solid var(--sci-green); }
         .soc-card { border-top: 5px solid var(--soc-orange); }
@@ -20,10 +20,43 @@
         .sci-icon { color: var(--sci-green); }
         .soc-icon { color: var(--soc-orange); }
         h3 { margin-bottom: 10px; }
-        p { color: #64748b; font-size: 0.9em; margin-bottom: 20px; min-height: 40px; }
-        .btn { display: inline-block; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; width: 80%; transition: 0.3s; }
+        p { color: #64748b; font-size: 0.9em; margin-bottom: 20px; flex-grow: 1;}
+        .btn { display: inline-block; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; width: 80%; transition: 0.3s; margin: auto auto 0 auto; }
         .sci-btn { background: var(--sci-green); }
         .soc-btn { background: var(--soc-orange); }
+        
+        /* Quiz List Specific Styles */
+        .quiz-list {
+            max-height: 160px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+            padding-right: 5px;
+            text-align: left;
+        }
+        .quiz-list::-webkit-scrollbar { width: 5px; }
+        .quiz-list::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 5px; }
+        .quiz-list::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 5px; }
+        .quiz-list::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .quiz-item {
+            background: #f8fafc;
+            padding: 10px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 0.85em;
+            font-weight: 600;
+            border-left: 4px solid var(--sci-green);
+            transition: all 0.2s ease;
+        }
+        .quiz-item:hover {
+            background: #e2e8f0;
+            transform: translateX(4px);
+        }
+        .quiz-soc { border-left-color: var(--soc-orange); }
     </style>
 </head>
 <body>
@@ -38,55 +71,36 @@
 
 <div class="container">
     <div class="grid">
+        <!-- Science Cards -->
         <div class="card sci-card">
             <span class="material-symbols-outlined icon sci-icon">science</span>
             <h3>மெய்நிகர் வேதியியல் ஆய்வகம்</h3>
             <p>சோதனைக் குழாய்கள் இன்றி வேதிவினைகளைச் செய்து பார்க்க உதவும் டிஜிட்டல் ஆய்வகம்.</p>
             <a href="https://agmhss.github.io/chem-lab/" class="sci-btn btn">ஆய்வகத்திற்குச் செல்</a>
         </div>
-                <div class="card sci-card">
-            <span class="material-symbols-outlined icon sci-icon">clock</span>
+        
+        <div class="card sci-card">
+            <span class="material-symbols-outlined icon sci-icon">build</span>
             <h3>மெய்நிகர் இயற்பியல் ஆய்வகம்</h3>
             <p>ஆய்வக சாதனங்கள் இன்றி இயற்பியல் விதிகளை பரிசோதித்து பார்க்க உதவும் டிஜிட்டல் ஆய்வகம்.</p>
             <a href="https://agmhss.github.io/physics-lab/" class="sci-btn btn">ஆய்வகத்திற்குச் செல்</a>
-                </div>
-        <div class="card sci-card">
-            <span class="material-symbols-outlined icon sci-icon">clock</span>
-            <h3>Class 8 Unit 1 Tamil Medium </h3>
-            <p>Quiz</p>
-            <a href="https://notebooklm.google.com/notebook/b9edbf2a-a5ed-403a-980b-fec30ee81e2b/artifact/ec12ba5e-8191-4959-9283-aed9972ab95b?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_">செல்</a>
-                </div>
-        <div class="card sci-card">
-            <span class="material-symbols-outlined icon sci-icon">clock</span>
-            <h3>Class 8 Unit 2 Tamil Medium </h3>
-            <p>Quiz</p>
-            <a href="https://notebooklm.google.com/notebook/b9edbf2a-a5ed-403a-980b-fec30ee81e2b/artifact/1b226911-bf59-4df0-b2b5-842bb5a5068d?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_">செல்</a>
-                </div>
-        <div class="card sci-card">
-            <span class="material-symbols-outlined icon sci-icon">clock</span>
-            <h3>Class 8 Unit 1 English Medium </h3>
-            <p>Quiz</p>
-            <a href="https://notebooklm.google.com/notebook/b9edbf2a-a5ed-403a-980b-fec30ee81e2b/artifact/c8c80f2a-115d-4e9c-96d7-f1e9c6d2ba58?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_">செல்</a>
-                </div>
+        </div>
 
+        <!-- Combined Quiz Card -->
         <div class="card sci-card">
-            <span class="material-symbols-outlined icon sci-icon">clock</span>
-            <h3>Class 8 Unit 2 English Medium </h3>
-            <p>Quiz</p>
-            <a href="https://notebooklm.google.com/notebook/b9edbf2a-a5ed-403a-980b-fec30ee81e2b/artifact/06fc5c89-0e3e-403e-a79d-ca18c10e5dbf?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_">செல்</a>
-                </div>
-        <div class="card sci-card">
-            <span class="material-symbols-outlined icon sci-icon">clock</span>
-            <h3>Class 7 Eng Medium Term 1 Unit 1 </h3>
-            <p>Quiz</p>
-            <a href="https://notebooklm.google.com/notebook/b9edbf2a-a5ed-403a-980b-fec30ee81e2b/artifact/198833ff-4403-49d4-a5dc-8371e4445bf7?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_">செல்</a>
-                </div>
-        <div class="card sci-card">
-            <span class="material-symbols-outlined icon sci-icon">clock</span>
-            <h3>Class 7 Eng Medium Term 1 Unit 2 </h3>
-            <p>Quiz</p>
-            <a href="https://notebooklm.google.com/notebook/b9edbf2a-a5ed-403a-980b-fec30ee81e2b/artifact/198833ff-4403-49d4-a5dc-8371e4445bf7?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_">செல்</a>
-                </div>
+            <span class="material-symbols-outlined icon sci-icon">quiz</span>
+            <h3>வினாடி வினா தொகுப்பு</h3>
+            <p>அனைத்து வகுப்புகளுக்கான பயிற்சி வினாடி வினாக்கள் இங்கே தொகுக்கப்பட்டுள்ளன.</p>
+            <div class="quiz-list">
+                <a href="https://notebooklm.google.com/notebook/b9edbf2a-a5ed-403a-980b-fec30ee81e2b/artifact/ec12ba5e-8191-4959-9283-aed9972ab95b?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="quiz-item" target="_blank">Class 8 Unit 1 (Tamil Medium)</a>
+                <a href="https://notebooklm.google.com/notebook/b9edbf2a-a5ed-403a-980b-fec30ee81e2b/artifact/1b226911-bf59-4df0-b2b5-842bb5a5068d?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="quiz-item" target="_blank">Class 8 Unit 2 (Tamil Medium)</a>
+                <a href="https://notebooklm.google.com/notebook/b9edbf2a-a5ed-403a-980b-fec30ee81e2b/artifact/c8c80f2a-115d-4e9c-96d7-f1e9c6d2ba58?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="quiz-item" target="_blank">Class 8 Unit 1 (English Medium)</a>
+                <a href="https://notebooklm.google.com/notebook/b9edbf2a-a5ed-403a-980b-fec30ee81e2b/artifact/06fc5c89-0e3e-403e-a79d-ca18c10e5dbf?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="quiz-item" target="_blank">Class 8 Unit 2 (English Medium)</a>
+                <a href="https://notebooklm.google.com/notebook/b9edbf2a-a5ed-403a-980b-fec30ee81e2b/artifact/198833ff-4403-49d4-a5dc-8371e4445bf7?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="quiz-item" target="_blank">Class 7 Term 1 Unit 1 (Eng Medium)</a>
+                <a href="https://notebooklm.google.com/notebook/b9edbf2a-a5ed-403a-980b-fec30ee81e2b/artifact/198833ff-4403-49d4-a5dc-8371e4445bf7?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="quiz-item" target="_blank">Class 7 Term 1 Unit 2 (Eng Medium)</a>
+                <a href="https://www.proprofs.com/quiz-school/ugc/story.php?title=ndmyotcxmqlgf2" class="quiz-item quiz-soc" target="_blank">GK Quiz (Class 6 - Downloadable Certificate)</a>
+            </div>
+        </div>
         
         <div class="card sci-card">
             <span class="material-symbols-outlined icon sci-icon">grid_view</span>
@@ -101,20 +115,22 @@
             <p>அறிவியல் மற்றும் சமூக அறிவியல் கருத்துகளை வரைபடங்கள் மூலம் விளக்கும் பகுதி.</p>
             <a href="https://agmhss.github.io/charts/" class="sci-btn btn">பார்வையிடு</a>
         </div>
+        
         <div class="card sci-card border-success">
-    <span class="material-symbols-outlined icon sci-icon text-success">eco</span>
-    <h3>மெய்நிகர் உயிரியல் ஆய்வகம்</h3>
-    <p>தாவரங்கள் மற்றும் மனித உடல் உறுப்புகளின் செயல்பாடுகளை அனிமேஷன் மூலம் எளிதாகக் கற்றுக்கொள்ள உதவும் டிஜிட்டல் ஆய்வகம்.</p>
-    <a href="https://agmhss.github.io/biology-lab/" class="sci-btn btn btn-success">ஆய்வகத்திற்குச் செல்</a>
+            <span class="material-symbols-outlined icon sci-icon text-success">eco</span>
+            <h3>மெய்நிகர் உயிரியல் ஆய்வகம்</h3>
+            <p>தாவரங்கள் மற்றும் மனித உடல் உறுப்புகளின் செயல்பாடுகளை அனிமேஷன் மூலம் எளிதாகக் கற்றுக்கொள்ள உதவும் டிஜிட்டல் ஆய்வகம்.</p>
+            <a href="https://agmhss.github.io/biology-lab/" class="sci-btn btn btn-success" style="background-color: #16a34a;">ஆய்வகத்திற்குச் செல்</a>
         </div>
         
         <div class="card sci-card border-success">
-    <span class="material-symbols-outlined icon sci-icon text-success">animal</span>
-    <h3>விலங்குகள் உலகம்</h3>
-    <p> வன விலங்குகள், பறவைகள் மற்றும் கடல்சார் உயிரினங்கள் உலகத்தை லைவ் கேமராக்கள் மூலம் காண உதவும் தளம்.</p>
-    <a href="https://explore.org/livecams/african-wildlife/african-animal-lookout-camera" class="sci-btn btn btn-success">செல்</a>
+            <span class="material-symbols-outlined icon sci-icon text-success">animal</span>
+            <h3>விலங்குகள் உலகம்</h3>
+            <p>வன விலங்குகள், பறவைகள் மற்றும் கடல்சார் உயிரினங்கள் உலகத்தை லைவ் கேமராக்கள் மூலம் காண உதவும் தளம்.</p>
+            <a href="https://explore.org/livecams/african-wildlife/african-animal-lookout-camera" class="sci-btn btn btn-success" style="background-color: #16a34a;">செல்</a>
         </div>
 
+        <!-- Social Science Cards -->
         <div class="card soc-card">
             <span class="material-symbols-outlined icon soc-icon">map</span>
             <h3>இந்திய வரைபடத் தேர்வு</h3>
@@ -137,30 +153,24 @@
         </div>
 
         <div class="card soc-card">
-            <span class="material-symbols-outlined icon soc-icon">public</span>
+            <span class="material-symbols-outlined icon soc-icon">computer</span>
             <h3>கணினி அறிவியல் மையம்</h3>
-            <p>11 & 12 கணினி அறிவியல் மற்றும் பயன்பாடு, கல்வி தொலைக்காட்சி, மேலும் பல</p>
+            <p>11 & 12 கணினி அறிவியல் மற்றும் பயன்பாடு, கல்வி தொலைக்காட்சி, மேலும் பல.</p>
             <a href="https://tnschoolcsca.wordpress.com/kalvi-tv/" class="soc-btn btn">தொடங்கு</a>
         </div>
+        
         <div class="card soc-card">
-            <span class="material-symbols-outlined icon soc-icon">map</span>
+            <span class="material-symbols-outlined icon soc-icon">campaign</span>
             <h3>விக்சித் பாரத் பில்டத்தான்</h3>
-            <p>இதில் கலந்து கொள்ள தங்களது அறிவியல் ஆசிரியர்களை அணுகவும்</p>
+            <p>இதில் கலந்து கொள்ள தங்களது அறிவியல் ஆசிரியர்களை அணுகவும்.</p>
             <a href="https://r5vbb.mic.gov.in/login" class="soc-btn btn">பயிற்சி செய்</a>
         </div>
-        <div class="card soc-card">
-            <span class="material-symbols-outlined icon soc-icon">map</span>
-            <h3>SIDP School Innovation Development Project</h3>
-            <p>இதில் கலந்து கொள்ள தங்களது அறிவியல் ஆசிரியர்களை அணுகவும்</p>
-            <a href="https://sidp.editn.in/login" class="soc-btn btn">பயிற்சி செய்</a>
-        </div>
         
-
         <div class="card soc-card">
-            <span class="material-symbols-outlined icon soc-icon">public</span>
-            <h3>GK Quiz</h3>
-            <p>for Class 6, Certificate can be downloaded</p>
-            <a href="https://www.proprofs.com/quiz-school/ugc/story.php?title=ndmyotcxmqlgf2" class="soc-btn btn">தொடங்கு</a>
+            <span class="material-symbols-outlined icon soc-icon">school</span>
+            <h3>SIDP School Innovation Development Project</h3>
+            <p>இதில் கலந்து கொள்ள தங்களது அறிவியல் ஆசிரியர்களை அணுகவும்.</p>
+            <a href="https://sidp.editn.in/login" class="soc-btn btn">பயிற்சி செய்</a>
         </div>
     </div>
 </div>
