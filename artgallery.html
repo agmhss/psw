@@ -1,24 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ta">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Art Exhibition</title>
+    <title>மாணவர் கலைக் கண்காட்சி</title>
     <link rel="stylesheet" href="style.css">
-   
+    
+    <style>
+        /* Styling for the Home Button */
+        .home-button {
+            display: inline-block;
+            background-color: #333333;
+            color: #ffffff;
+            padding: 10px 18px;
+            margin-bottom: 15px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .home-button:hover {
+            background-color: #555555;
+        }
+
+        .home-button:active {
+            transform: scale(0.98);
+        }
+
+        /* Basic header layout */
+        .gallery-header {
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+    </style>
 </head>
 <body>
 
     <div class="gallery-header">
-        <h1>Student Art Exhibition</h1>
-        <p>Celebrating the creativity of our bright minds.</p>
-       
+        <!-- Home Button Added Here -->
+        <a href="index.html" class="home-button">← முகப்புக்குத் திரும்பு</a>
+        
+        <h1>மாணவர் கலைக் கண்காட்சி</h1>
+        <p>நமது திறமையான மாணவர்களின் படைப்பாற்றலைக் கொண்டாடுகிறோம்.</p>
     </div>
 
     <div class="art-gallery" id="gallery-container">
         <p id="loading-msg" style="text-align:center; width:100%; grid-column: 1 / -1;">
-            Curating the exhibition... Fetching artworks...
+            கண்காட்சியைத் தயார் செய்கிறது... கலைப்படைப்புகளை ஏற்றுகிறது...
         </p>
     </div>
 
