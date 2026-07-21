@@ -27,6 +27,38 @@
         .tag-tamil { background: #fff3e0; color: #e67e22; }
         .tag-english { background: #e3f2fd; color: #2980b9; }
         .tag-story { background: #f3e5f5; color: #8e44ad; }
+          /* Quiz List Specific Styles */
+        .quiz-list {
+            max-height: 160px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+            padding-right: 5px;
+            text-align: left;
+        }
+        .quiz-list::-webkit-scrollbar { width: 5px; }
+        .quiz-list::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 5px; }
+        .quiz-list::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 5px; }
+        .quiz-list::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .quiz-item {
+            background: #f8fafc;
+            padding: 10px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 0.85em;
+            font-weight: 600;
+            border-left: 4px solid var(--sci-green);
+            transition: all 0.2s ease;
+        }
+        .quiz-item:hover {
+            background: #e2e8f0;
+            transform: translateX(4px);
+        }
+        .quiz-soc { border-left-color: var(--soc-orange); }
     </style>
 </head>
 <body>
@@ -57,15 +89,15 @@
             <p>இலக்கணம் மற்றும் பாடப்புத்தகக் கருத்துக்கள் குறித்த திறன் தேர்வு.</p>
             <a href="https://agmhss.github.io/Gtk-Thiran-C9-Tamil-Test/" class="btn">தேர்வு எழுது</a>
         </div>
-        <h2 class="section-title">NotebookLM Quizzes</h2>
-<div class="grid">
+        
     
     <!-- Unified Tamil NotebookLM Quizzes Card -->
-    <div class="card">
-        <span class="tag tag-tamil">Quiz</span>
+    <div class="card sci-card">
+            <span class="material-symbols-outlined icon sci-icon">quiz</span>
         <h4>தமிழ் தேர்வுகள் (NotebookLM)</h4>
         <p>கொள்குறி வினாக்கள்</p>
-        <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div class="quiz-list">
+       
             <a href="https://notebooklm.google.com/notebook/2ee0849d-91e7-4eba-b392-ffc7bd84e066/artifact/1485f79a-481e-4a8c-b534-ba5e36175986?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">6-ம் வகுப்பு தமிழ் Term-1 அலகு 1</a>
             <a href="https://notebooklm.google.com/notebook/2ee0849d-91e7-4eba-b392-ffc7bd84e066/artifact/35bdb09c-19c1-4711-b13a-fc1889c3aa73?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">7-ம் வகுப்பு தமிழ் Term-1 அலகு 1</a>
             <a href="https://notebooklm.google.com/notebook/2ee0849d-91e7-4eba-b392-ffc7bd84e066/artifact/01ff289d-fb2b-4edc-9c46-482fc715072e?utm_source=nlmm_share" class="btn">8-ம் வகுப்பு தமிழ் அலகு 1</a>
@@ -124,11 +156,11 @@
             <a href="https://agmhss.github.io/Gtk-Listen-Answer/" class="btn">பயிற்சி செய்</a>
         </div>
             <!-- Unified English NotebookLM Quizzes Card -->
-    <div class="card">
-        <span class="tag tag-english">Quiz</span>
+     <div class="card sci-card">
+            <span class="material-symbols-outlined icon sci-icon">quiz</span>
         <h4>English Quizzes (NotebookLM)</h4>
         <p>புரிந்து கொள்ளும் நோக்கில் உருவாக்கப்பட்ட கொள்குறி தேர்வு.</p>
-        <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div class="quiz-list">
             <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/9d5db938-75d8-4b2f-9b2a-2d1b0445b919?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 6 Term 1 Unit 1</a>
             <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/2ae4ccdf-f517-4799-89b1-48804f8e0f95?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 6 Term 1 Unit 2</a>
             <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/4379854f-7ff3-4a77-91c3-e590a2070012?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 7 Term 1 Unit 1</a>
