@@ -6,24 +6,55 @@
     <title>கணிதத் திறன் மையம் | AGMHSS Patteeswaram</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <style>
-        :root { --math-blue: #1e3a8a; --math-red: #dc2626; --math-light: #f8fafc; }
+        :root { --math-blue: #1e3a8a; --math-red: #dc2626; --math-light: #f8fafc; --dark: #0f172a; }
         body { font-family: 'Arial', sans-serif; background: var(--math-light); margin: 0; padding: 0; }
         .header { background: var(--math-blue); color: white; padding: 30px; text-align: center; position: relative; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .home-btn { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background: white; color: var(--math-blue); border: none; padding: 10px; border-radius: 50%; cursor: pointer; text-decoration: none; display: flex; align-items: center; }
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .card { background: white; border-radius: 15px; padding: 25px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 5px solid var(--math-blue); transition: 0.3s; }
+        .card { background: white; border-radius: 15px; padding: 25px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 5px solid var(--math-blue); transition: 0.3s; display: flex; flex-direction: column; }
         .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
         .icon { font-size: 48px; color: var(--math-blue); margin-bottom: 15px; }
         h3 { color: var(--math-blue); margin-bottom: 10px; }
-        p { color: #64748b; font-size: 0.9em; margin-bottom: 20px; min-height: 40px; }
-        .btn { display: inline-block; background: var(--math-blue); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; width: 80%; transition: 0.3s; }
+        p { color: #64748b; font-size: 0.9em; margin-bottom: 20px; flex-grow: 1; }
+        .btn { display: inline-block; background: var(--math-blue); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; width: 80%; transition: 0.3s; margin: auto auto 0 auto; }
         .btn:hover { background: var(--math-red); }
+        
+        /* Quiz List Specific Styles */
+        .quiz-list {
+            max-height: 160px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+            padding-right: 5px;
+            text-align: left;
+        }
+        .quiz-list::-webkit-scrollbar { width: 5px; }
+        .quiz-list::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 5px; }
+        .quiz-list::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 5px; }
+        .quiz-list::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .quiz-item {
+            background: #f8fafc;
+            padding: 10px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 0.85em;
+            font-weight: 600;
+            border-left: 4px solid var(--math-blue);
+            transition: all 0.2s ease;
+        }
+        .quiz-item:hover {
+            background: #e2e8f0;
+            transform: translateX(4px);
+        }
     </style>
 </head>
 <body>
 
- 
 <div class="header">
     <a href="https://agmhss.github.io/psw/" class="home-btn" title="முகப்பிற்குச் செல்க">
         <span class="material-symbols-outlined">home</span>
@@ -31,12 +62,10 @@
     <h1>கணிதத் திறன் மையம் (Mathematics Hub)</h1>
     <p>அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்</p>
 </div>
-   
-
-
 
 <div class="container">
     <div class="grid">
+        <!-- Math Spinners -->
         <div class="card">
             <span class="material-symbols-outlined icon">published_with_changes</span>
             <h3>கணித ஸ்பின்னர்ஸ்</h3>
@@ -44,35 +73,18 @@
             <a href="https://agmhss.github.io/Spinners-Maths-Game/" class="btn">விளையாடு</a>
         </div>
 
-         <div class="card">
-            <span class="material-symbols-outlined icon">quiz</span>
-            <h3>Class 9 Unit 1 Tamil Medium</h3>
-            <p>Maths Class 9 UNIT 1</p>
-            <a href="https://notebooklm.google.com/notebook/e4124c8b-9d88-4f43-b3d1-e384f54bbe6e/artifact/93674f0f-c243-49cd-8d86-f9bd1825809a?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">பங்கேற்க</a>
-        </div>
-
+        <!-- Combined NotebookLM Quiz Card -->
         <div class="card">
             <span class="material-symbols-outlined icon">quiz</span>
-            <h3>Class 10 Unit 1 English Medium</h3>
-            <p>Maths Class 10 UNIT 1</p>
-            <a href="https://notebooklm.google.com/notebook/e4124c8b-9d88-4f43-b3d1-e384f54bbe6e/artifact/8623fc16-6fbd-4d02-9e28-a0318b6cd08e?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">பங்கேற்க</a>
+            <h3>கணித வினாடி வினா தொகுப்பு</h3>
+            <p>பல்வேறு வகுப்புகளுக்கான NotebookLM பயிற்சி வினாடி வினாக்கள் இங்கே தொகுக்கப்பட்டுள்ளன.</p>
+            <div class="quiz-list">
+                <a href="https://notebooklm.google.com/notebook/e4124c8b-9d88-4f43-b3d1-e384f54bbe6e/artifact/93674f0f-c243-49cd-8d86-f9bd1825809a?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="quiz-item" target="_blank">Class 9 Unit 1 (Tamil Medium)</a>
+                <a href="https://notebooklm.google.com/notebook/e4124c8b-9d88-4f43-b3d1-e384f54bbe6e/artifact/8623fc16-6fbd-4d02-9e28-a0318b6cd08e?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="quiz-item" target="_blank">Class 10 Unit 1 (English Medium)</a>
+                <a href="https://notebooklm.google.com/notebook/e4124c8b-9d88-4f43-b3d1-e384f54bbe6e/artifact/2cf7adc8-f777-4d9a-b057-63ca66bf26f2?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="quiz-item" target="_blank">Class 8 First Mid-Term (English Medium)</a>
+                <a href="https://notebooklm.google.com/notebook/e4124c8b-9d88-4f43-b3d1-e384f54bbe6e/artifact/7690e31b-1a9f-4523-be70-b830abd1348f?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="quiz-item" target="_blank">Class 8 First Mid-Term (Tamil Medium)</a>
+            </div>
         </div>
-    
-     <div class="card">
-            <span class="material-symbols-outlined icon">quiz</span>
-            <h3>Class 8 First Mid-Term English Medium</h3>
-            <p>Maths Class 8 MID_TERM 1</p>
-            <a href="https://notebooklm.google.com/notebook/e4124c8b-9d88-4f43-b3d1-e384f54bbe6e/artifact/2cf7adc8-f777-4d9a-b057-63ca66bf26f2?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">பங்கேற்க</a>
-        </div>
-
-         <div class="card">
-            <span class="material-symbols-outlined icon">quiz</span>
-            <h3>Class 8 First Mid-Term Tamil Medium</h3>
-            <p>Maths Class 8 MID_TERM 1 Tamil Medium</p>
-            <a href="https://notebooklm.google.com/notebook/e4124c8b-9d88-4f43-b3d1-e384f54bbe6e/artifact/7690e31b-1a9f-4523-be70-b830abd1348f?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">பங்கேற்க</a>
-        </div>
-
-        
 
         <div class="card">
             <span class="material-symbols-outlined icon">quiz</span>
@@ -81,7 +93,7 @@
             <a href="https://agmhss.github.io/spl_arith_quiz/" class="btn">தொடங்கு</a>
         </div>
         
-          <div class="card">
+        <div class="card">
             <span class="material-symbols-outlined icon">quiz</span>
             <h3>எண்கணிதப் புதிர்</h3>
             <p>அடிப்படை கணிதத் திறனை மேம்படுத்தும் பயிற்சி.</p>
@@ -115,33 +127,35 @@
             <p>6 முதல் 10-ஆம் வகுப்பு வரையிலான கணிதப் பாடக் கருத்துகளின் தொகுப்பு.</p>
             <a href="https://agmhss.github.io/Gtk_Maths_Quiz/" class="btn">பங்கேற்க</a>
         </div>
-         <div class="card">
+        
+        <div class="card">
             <span class="material-symbols-outlined icon">psychology</span>
             <h3>9-ம் வகுப்பு அடிப்படை கணிதம்</h3>
             <p>6 முதல் 9-ஆம் வகுப்பு வரையிலான கணிதப் பாடக் கருத்துகளின் தொகுப்பு.</p>
             <a href="https://agmhss.github.io/Gtk-Thiran-Class-9-Maths-Test-Tamil-Medium/" class="btn">பங்கேற்க</a>
         </div>
-         <div class="card">
+        
+        <div class="card">
             <span class="material-symbols-outlined icon">psychology</span>
             <h3>Class-6 to 9 -Basic Maths-English Medium</h3>
             <p>Class 6 to 9 Basic Maths Skills Training (English Medium).</p>
             <a href="https://agmhss.github.io/Gtk-Thiran-C9-Maths-Test-Eng-Medium/" class="btn">பங்கேற்க</a>
         </div>
+        
         <div class="card">
             <span class="material-symbols-outlined icon">psychology</span>
             <h3>Maths and Science tools</h3>
-            <p>கணிதம் மற்றும் அறிவியல் சார்ந்த பயன்பாட்டு கருவிகள்</p>
+            <p>கணிதம் மற்றும் அறிவியல் சார்ந்த பயன்பாட்டு கருவிகள்.</p>
             <a href="https://www.wolframalpha.com/" class="btn">பங்கேற்க</a>
         </div>
 
         <div class="card">
             <span class="material-symbols-outlined icon">psychology</span>
             <h3>Maths tools</h3>
-            <p>கணிதம் சார்ந்த பயன்பாட்டு கருவிகள்</p>
+            <p>கணிதம் சார்ந்த பயன்பாட்டு கருவிகள்.</p>
             <a href="https://www.mathsisfun.com/" class="btn">பங்கேற்க</a>
         </div>
-
-    
+    </div>
 </div>
 
 <footer style="text-align: center; padding: 40px; color: #94a3b8; font-size: 0.9em;">
