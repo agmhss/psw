@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spin the Wheel – English Grammar Challenge</title>
+<style>
+:root{--ink:#1d2b53;--gold:#ffc83d;--bg1:#2b1e7a;--bg2:#6a2fb8}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:"Segoe UI",Verdana,Tahoma,sans-serif;font-size:20px;color:#fff;background:radial-gradient(circle at 20% 10%,var(--bg2),var(--bg1) 70%);padding:10px 10px 40px}
+.wrap{max-width:900px;margin:0 auto}
+h1{font-size:clamp(1.4rem,5vw,2.4rem);text-align:center;margin:6px 0 10px;text-shadow:0 4px 0 #0005}
+.bar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:8px}
+.stat{background:#fff;color:var(--ink);border-radius:16px;padding:8px 16px;font-weight:800;box-shadow:0 5px 0 #0004;min-width:140px;text-align:center}
+.stat b{font-size:1.5rem;color:#d6249f}
+.prog{height:18px;background:#0004;border-radius:12px;overflow:hidden;margin:6px 0 10px;box-shadow:inset 0 2px 4px #0006}
+#pf{height:100%;width:0;background:linear-gradient(90deg,#2ecc71,#ffc83d);transition:width .5s}
+button{font:inherit;font-weight:800;cursor:pointer;border:0;border-radius:16px;padding:12px 20px;color:#fff;box-shadow:0 6px 0 #0005;transition:transform .1s}
+button:active{transform:translateY(4px);box-shadow:0 2px 0 #0005}
+button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
+button:disabled{opacity:.55;cursor:not-allowed}
+.small{padding:8px 14px;font-size:.9rem;background:#3b82f6}
+.tools{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:10px}
+.wheelbox{position:relative;width:min(86vw,440px);margin:10px auto}
+#wheel{width:100%;display:block;border-radius:50%;box-shadow:0 12px 0 #0005,0 0 0 10px var(--gold),0 0 0 16px #b8860b;transition:transform 4.6s cubic-bezier(.12,.6,.1,1)}
+.ptr{position:absolute;left:50%;top:-22px;transform:translateX(-50%);font-size:46px;filter:drop-shadow(0 4px 0 #0006);z-index:2;line-height:1}
+#spin{display:block;margin:22px auto 6px;font-size:1.8rem;padding:16px 56px;background:linear-gradient(#ff5e62,#e5252a);border-radius:50px;animation:pulse 1.4s infinite}
+#spin:disabled{animation:none}
+@keyframes pulse{50%{transform:scale(1.06)}}
+.card{background:#fff;color:var(--ink);border-radius:24px;padding:18px;margin-top:16px;box-shadow:0 8px 0 #0005;display:none}
+.badge{display:inline-block;color:#fff;border-radius:30px;padding:6px 16px;font-weight:800;margin-bottom:10px}
+.q{font-size:clamp(1.25rem,4.2vw,1.7rem);font-weight:800;line-height:1.4;margin:6px 0 14px}
+.opts{display:grid;gap:10px}
+.opt{background:#eef2ff;color:var(--ink);text-align:left;font-size:1.2rem;border:3px solid #c7d2fe;box-shadow:0 5px 0 #c7d2fe}
+.opt b{display:inline-block;width:34px;height:34px;line-height:34px;text-align:center;border-radius:50%;background:var(--ink);color:#fff;margin-right:10px}
+.opt.ok{background:#2ecc71;color:#fff;border-color:#1e9e52;box-shadow:0 5px 0 #1e9e52}
+.opt.no{background:#ffb3b3;border-color:#e74c3c;box-shadow:none}
+#fb{margin-top:14px;padding:14px;border-radius:16px;font-size:1.1rem;line-height:1.5;display:none}
+#fb.good{background:#d4f8e0}#fb.try{background:#fff3cd}#fb.rev{background:#ffe0e0}#fb.hint{background:#e0f0ff}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.hintb{background:#f59e0b}.nextb{background:#16a34a;font-size:1.2rem}
+.ov{position:fixed;inset:0;background:#120a40ee;display:none;align-items:center;justify-content:center;z-index:50;padding:14px}
+.ov.show{display:flex}
+.box{background:#fff;color:var(--ink);border-radius:28px;padding:26px;max-width:480px;width:100%;text-align:center;box-shadow:0 10px 0 #0006}
+.box h2{margin:0 0 10px;font-size:1.8rem}
+.cl{display:flex;gap:12px;justify-content:center;margin:16px 0;flex-wrap:wrap}
+.cl button{font-size:1.5rem;padding:18px 28px;background:#7c3aed}
+.big{font-size:4rem;margin:0}
+.conf{position:fixed;top:-20px;width:12px;height:18px;z-index:99;animation:fall linear forwards;pointer-events:none}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+@media (prefers-reduced-motion:reduce){#spin{animation:none}.conf{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>🎡 SPIN THE WHEEL – ENGLISH GRAMMAR CHALLENGE</h1>
+<div class="bar">
+ <div class="stat">Score ⭐ <b id="sc">0</b></div>
+ <div class="stat">Question <b id="qc">0</b>/10</div>
+ <div class="stat">Class <b id="cn">-</b></div>
+</div>
+<div class="prog" aria-hidden="true"><div id="pf"></div></div>
+<div class="tools">
+ <button class="small" id="mute">🔊 Sound ON</button>
+ <button class="small" id="ta">தமிழ் OFF</button>
+ <button class="small" id="reset" style="background:#e11d48">🔄 RESET</button>
+ <button class="small" id="chcls" style="background:#0d9488">🏫 Change Class</button>
+</div>
+
+<div class="wheelbox"><div class="ptr">🔻</div><canvas id="wheel" width="800" height="800" aria-label="Spinning wheel"></canvas></div>
+<button id="spin">🎯 SPIN!</button>
+<p id="msg" style="text-align:center;font-weight:700;min-height:1.6em" aria-live="polite">Press SPIN to start. Easy questions come first!</p>
+
+<div class="card" id="card">
+ <span class="badge" id="cat"></span>
+ <div class="q" id="q"></div>
+ <div class="opts" id="opts"></div>
+ <div id="fb" aria-live="assertive"></div>
+ <div class="row">
+  <button class="hintb" id="hint">💡 Hint</button>
+  <button class="nextb" id="next" style="display:none">Next Spin ➜</button>
+ </div>
+</div>
+</div>
+
+<div class="ov show" id="start"><div class="box">
+ <p class="big">🎡</p><h2>English Grammar Challenge</h2>
+ <p>Choose your class. 10 questions. 10 points for each correct answer!</p>
+ <div class="cl"><button data-c="10">Class 10</button><button data-c="12">Class 12</button></div>
+ <p style="font-size:.9rem">Wrong answer? No problem. Hint + second try!</p>
+</div></div>
+
+<div class="ov" id="end"><div class="box">
+ <p class="big" id="eem">🏆</p><h2 id="et"></h2>
+ <p style="font-size:1.4rem">Your score: <b id="es"></b> / 100</p>
+ <p id="ep"></p>
+ <div class="cl"><button id="again" style="background:#16a34a">▶ Play Again</button></div>
+</div></div>
+
+<script>
+const CATS=[["Direct & Indirect Speech","Speech","#e74c3c","🗣️"],["Tenses","Tenses","#f39c12","⏰"],["Articles","Articles","#f1c40f","🔤"],["Prepositions","Prepositions","#2ecc71","📍"],["Active & Passive Voice","Voice","#1abc9c","🔁"],["Synonyms & Antonyms","Synonyms","#3498db","🔀"],["Figures of Speech","Figures","#9b59b6","🎭"],["Textbook One-Mark","Textbook","#e84393","📘"]];
+const R=" Choose the correct answer.";
+/* Each category has 3 questions: easy, medium, hard. [question, options, answerIndex, hint, explanation, Tamil] */
+const BANK={
+10:[
+[[`Direct: He said, "I am happy."${R}`,["He said that he is happy.","He said that he was happy.","He told that I was happy.","He said that he had happy."],1,"'am' becomes a past word.","In indirect speech, 'am' changes to 'was'. Remove the quotes and use 'that'.","indirect speech-ல் 'am' → 'was' ஆக மாறும்."],
+ [`Direct: She said, "I can swim."${R}`,["She said that she can swim.","She said that she could swim.","She said that I could swim.","She said that she will swim."],1,"'can' changes to 'could'.","Can → could in indirect speech.","'can' → 'could' என மாறும்."],
+ [`Direct: She said, "I came yesterday."${R}`,["She said that she came yesterday.","She said that she had come the previous day.","She said that she has come tomorrow.","She said that she had come the next day."],1,"'yesterday' changes to 'the previous day'.","Past becomes past perfect (had come). Yesterday → the previous day.","'yesterday' → 'the previous day'; came → had come."]],
+[[`Look! The boy ___ a kite.${R}`,["flies","is flying","flew","fly"],1,"'Look!' means it is happening now.","Use present continuous (is + verb-ing) for actions happening now.","இப்போது நடப்பதற்கு is + verb-ing."],
+ [`I ___ my homework before the bell rang.${R}`,["finish","have finished","had finished","will finish"],2,"One past action happened before another past action.","Use past perfect (had + V3) for the earlier action.","முதலில் நடந்த செயலுக்கு had + V3."],
+ [`By next June, he ___ his school.${R}`,["will finish","will have finished","has finished","finished"],1,"It is about the future, completed before a time.","Use future perfect: will have + V3.","எதிர்காலத்தில் முடிந்திருக்கும் செயல்: will have + V3."]],
+[[`He is ___ honest man.${R}`,["a","an","the","no article"],1,"'honest' starts with a vowel SOUND (h is silent).","Use 'an' before a vowel sound. 'honest' sounds like 'onest'.","'honest' உயிர் ஒலியுடன் தொடங்குவதால் 'an'."],
+ [`___ sun rises in the east.${R}`,["A","An","The","no article"],2,"There is only one sun.","Use 'the' for unique things like the sun, the moon.","ஒன்றே உள்ள பொருளுக்கு 'the'."],
+ [`She plays ___ violin.${R}`,["a","an","the","no article"],2,"We use this word before musical instruments.","Use 'the' with musical instruments.","இசைக்கருவிகளுக்கு முன் 'the'."]],
+[[`The book is ___ the table.${R}`,["in","on","at","by"],1,"The book is touching the top of the table.","Use 'on' for a surface.","மேற்பரப்பில் இருந்தால் 'on'."],
+ [`He was born ___ 2008.${R}`,["on","at","in","by"],2,"Use this word before years.","Use 'in' with years and months.","ஆண்டுக்கு முன் 'in'."],
+ [`He is afraid ___ dogs.${R}`,["of","at","with","on"],0,"afraid + ___","The phrase is 'afraid of'.","'afraid of' என்பதே சரி."]],
+[[`Passive of: Ravi writes a letter.${R}`,["A letter is written by Ravi.","A letter was written by Ravi.","A letter writes Ravi.","Ravi is written by a letter."],0,"Present tense → is/am/are + V3.","Object becomes subject. 'writes' → 'is written'.","Present: is + V3."],
+ [`Passive of: The teacher praised the boy.${R}`,["The boy is praised by the teacher.","The boy was praised by the teacher.","The boy has praised the teacher.","The boy praised by the teacher."],1,"Past tense → was/were + V3.","'praised' (past) → 'was praised'.","Past: was/were + V3."],
+ [`Passive of: They will build a bridge.${R}`,["A bridge is built by them.","A bridge will be built by them.","A bridge will build them.","A bridge was built by them."],1,"will + be + V3","Future passive: will be + V3.","Future: will be + V3."]],
+[[`Choose the synonym of "brave":`,["Courageous","Cowardly","Weak","Careless"],0,"Synonym = same meaning.","Brave and courageous both mean not afraid.","Brave = தைரியமான."],
+ [`Choose the antonym of "ancient":`,["Old","Modern","Historic","Aged"],1,"Antonym = opposite meaning.","Ancient = very old. Opposite is modern.","Ancient × Modern."],
+ [`Choose the synonym of "enormous":`,["tiny","huge","narrow","quiet"],1,"Think of a very big elephant.","Enormous means very big = huge.","Enormous = மிகப்பெரிய."]],
+[[`"She is as brave as a lion." Figure of speech?`,["Simile","Metaphor","Personification","Hyperbole"],0,"Look for the word 'as'.","Simile compares using 'as' or 'like'.","'as / like' கொண்டு ஒப்பிடுவது Simile."],
+ [`"The moon smiled at us." Figure of speech?`,["Simile","Metaphor","Personification","Alliteration"],2,"Can a moon really smile?","Giving human actions to a non-living thing = personification.","உயிரற்றதற்கு மனித செயல் = Personification."],
+ [`"Life is a journey." Figure of speech?`,["Simile","Metaphor","Irony","Alliteration"],1,"There is no 'as' or 'like'.","A direct comparison without 'as/like' is a metaphor.","'as/like' இல்லாத ஒப்பீடு = Metaphor."]],
+[[`The plural of "child" is ___.`,["childs","children","childes","childrens"],1,"It is an irregular plural.","Child → children.","Child → Children."],
+ [`Who wrote "Gitanjali"?`,["Rabindranath Tagore","A.P.J. Abdul Kalam","Mahatma Gandhi","Nehru"],0,"He won the Nobel Prize for literature.","Gitanjali was written by Rabindranath Tagore.","கீதாஞ்சலி - தாகூர்."],
+ [`One word for "a person who cannot read or write":`,["illiterate","literate","scholar","author"],0,"The prefix 'il-' means not.","Illiterate = cannot read or write.","Illiterate = எழுதப் படிக்கத் தெரியாதவர்."]]
+],
+12:[
+[[`Direct: He said, "I live here."${R}`,["He said that he lives here.","He said that he lived there.","He said that he lived here.","He said that he had live there."],1,"'here' → 'there' and 'live' → past.","Present → past (lived). Here → there.","live → lived, here → there."],
+ [`Direct: She said to me, "I will help you."${R}`,["She told me that she will help me.","She told me that she would help me.","She said me that she would help you.","She told me that I would help her."],1,"'will' → 'would'; 'you' → 'me'.","Use 'told' with a person. Will → would.","will → would; you → me."],
+ [`Direct: He asked, "Where do you live?"${R}`,["He asked me where did I live.","He asked me where I lived.","He asked me where do I live.","He asked me that where I lived."],1,"In reported questions, use normal word order. No 'did'.","Question → statement order, past tense, no question mark.","கேள்வியை statement order-ல் மாற்றவும்."]],
+[[`She ___ in Chennai since 2015.${R}`,["lives","lived","has lived","is living"],2,"'since' shows time from past until now.","Use present perfect (has + V3) with 'since'.","'since' உடன் has/have + V3."],
+ [`When I reached the station, the train ___.${R}`,["leaves","had left","has left","will leave"],1,"The train left first.","Past perfect for the earlier past action.","முதலில் நடந்ததற்கு had + V3."],
+ [`If I ___ rich, I would help the poor.${R}`,["am","was","were","be"],2,"This is an imaginary (unreal) condition.","In unreal 'if' sentences use 'were'.","கற்பனை நிபந்தனைக்கு 'were'."]],
+[[`She is ___ university student.${R}`,["a","an","the","no article"],0,"'university' starts with a 'yoo' sound.","Use 'a' before a consonant SOUND.","'yoo' ஒலி மெய்யொலி; எனவே 'a'."],
+ [`___ Ganga is a holy river.${R}`,["A","An","The","no article"],2,"We use this word before names of rivers.","Use 'the' before rivers, seas, oceans.","ஆறு, கடல் பெயருக்கு முன் 'the'."],
+ [`He goes to ___ school every day.${R}`,["a","an","the","no article"],3,"He goes to study. That is the purpose of school.","No article when we talk about the main purpose of a place.","படிக்க செல்லும்போது article இல்லை."]],
+[[`The meeting starts ___ 9 a.m.${R}`,["in","on","at","by"],2,"Use this word before exact clock time.","Use 'at' for exact time.","சரியான நேரத்துக்கு 'at'."],
+ [`She is fond ___ music.${R}`,["of","at","with","for"],0,"fond + ___","The phrase is 'fond of'.","'fond of' என்பதே சரி."],
+ [`He congratulated me ___ my success.${R}`,["for","on","at","with"],1,"congratulate + ___ + success","We say 'congratulate someone on something'.","'congratulate on' என்பதே சரி."]],
+[[`Passive of: Kalam wrote Wings of Fire.${R}`,["Wings of Fire is written by Kalam.","Wings of Fire was written by Kalam.","Wings of Fire has written Kalam.","Wings of Fire were written by Kalam."],1,"'wrote' is past tense.","Past → was/were + V3.","Past: was + V3."],
+ [`Passive of: Someone has stolen my bag.${R}`,["My bag was stolen.","My bag has been stolen.","My bag is stolen.","My bag had stolen."],1,"has + V3 → has been + V3.","Present perfect passive: has/have been + V3.","has been + V3."],
+ [`Passive of: Open the door.${R}`,["The door is opened.","Let the door be opened.","Door was opened.","The door open."],1,"Orders (imperatives) use 'Let ... be ...'.","Imperative passive: Let + object + be + V3.","கட்டளை: Let ... be + V3."]],
+[[`Choose the synonym of "begin":`,["end","start","stop","close"],1,"Synonym = same meaning.","Begin = start.","Begin = தொடங்கு."],
+ [`Choose the antonym of "generous":`,["Kind","Selfish","Rich","Brave"],1,"Generous people love to give.","Opposite of generous is selfish.","Generous × Selfish."],
+ [`Choose the synonym of "diligent":`,["lazy","hardworking","careless","weak"],1,"A diligent student studies daily.","Diligent = hardworking.","Diligent = கடின உழைப்பாளி."]],
+[[`"The wind whispered through the trees." Figure of speech?`,["Simile","Metaphor","Personification","Alliteration"],2,"Wind cannot whisper like a person.","Human action given to wind = personification.","காற்றுக்கு மனித செயல்."],
+ [`"Peter Piper picked a peck of pickled peppers." Figure of speech?`,["Simile","Alliteration","Metaphor","Hyperbole"],1,"Many words start with the same sound.","Repeating the same starting sound = alliteration.","ஒரே தொடக்க ஒலி = Alliteration."],
+ [`"I have told you a million times." Figure of speech?`,["Simile","Metaphor","Hyperbole","Irony"],2,"Is it really a million times?","A big exaggeration = hyperbole.","மிகைப்படுத்தல் = Hyperbole."]],
+[[`The plural of "analysis" is ___.`,["analysises","analyses","analysis","analysi"],1,"Words ending in -is change to -es.","Analysis → analyses.","Analysis → Analyses."],
+ [`Who is the author of "Wings of Fire"?`,["A.P.J. Abdul Kalam","Rabindranath Tagore","Nehru","Gandhi"],0,"He was the 11th President of India.","Wings of Fire is by Dr. A.P.J. Abdul Kalam.","Wings of Fire - அப்துல் கலாம்."],
+ [`One word for "present everywhere":`,["omnipresent","omniscient","omnipotent","optimistic"],0,"'omni' = all; 'present' = being there.","Omnipresent = present everywhere.","Omnipresent = எங்கும் நிறைந்த."]]
+]};
+
+const $=id=>document.getElementById(id);
+const cv=$("wheel"),cx=cv.getContext("2d");
+let cls=10,score=0,qn=0,rot=0,used={},cur=null,tries=0,busy=false,muted=false,tamil=false,tamilText="";
+
+function drawWheel(){
+ const c=400,r=390,st=Math.PI*2/8;cx.clearRect(0,0,800,800);
+ for(let i=0;i<8;i++){
+  const a=-Math.PI/2+i*st;
+  cx.beginPath();cx.moveTo(c,c);cx.arc(c,c,r,a,a+st);cx.closePath();
+  const g=cx.createRadialGradient(c,c,40,c,c,r);g.addColorStop(0,"#fff8");g.addColorStop(.35,CATS[i][2]);g.addColorStop(1,CATS[i][2]);
+  cx.fillStyle=g;cx.fill();cx.strokeStyle="#fff";cx.lineWidth=6;cx.stroke();
+  cx.save();cx.translate(c,c);cx.rotate(a+st/2);cx.textAlign="right";cx.textBaseline="middle";
+  cx.font="bold 40px Verdana";cx.fillStyle="#fff";cx.shadowColor="#0008";cx.shadowBlur=6;
+  cx.fillText(CATS[i][1],r-24,0);cx.font="44px Verdana";cx.fillText(CATS[i][3],r-210,0);cx.restore();
+ }
+ cx.beginPath();cx.arc(c,c,48,0,7);cx.fillStyle="#ffc83d";cx.fill();cx.lineWidth=8;cx.strokeStyle="#fff";cx.stroke();
+ cx.font="40px Verdana";cx.textAlign="center";cx.textBaseline="middle";cx.fillText("⭐",c,c+2);
+}
+drawWheel();
+
+/* Sound */
+let ac=null;
+function tone(f,d,t="sine",when=0,v=.15){
+ if(muted)return;try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();
+ const o=ac.createOscillator(),g=ac.createGain();o.type=t;o.frequency.value=f;
+ g.gain.setValueAtTime(v,ac.currentTime+when);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+when+d);
+ o.connect(g);g.connect(ac.destination);o.start(ac.currentTime+when);o.stop(ac.currentTime+when+d);}catch(e){}
+}
+const sndTick=()=>{for(let i=0;i<22;i++)tone(500+(i%2)*120,.05,"square",i*.2+i*i*.012,.05)};
+const sndGood=()=>[523,659,784,1047].forEach((f,i)=>tone(f,.2,"triangle",i*.12));
+const sndBad=()=>tone(220,.35,"sine");
+const sndWin=()=>[523,659,784,659,784,1047,1319].forEach((f,i)=>tone(f,.25,"triangle",i*.14));
+
+function confetti(n=70){
+ const col=["#ff5e62","#ffc83d","#2ecc71","#3498db","#e84393","#fff"];
+ for(let i=0;i<n;i++){const d=document.createElement("div");d.className="conf";
+  d.style.left=Math.random()*100+"vw";d.style.background=col[i%6];
+  d.style.animationDuration=(2+Math.random()*2)+"s";d.style.animationDelay=Math.random()*.6+"s";
+  document.body.appendChild(d);setTimeout(()=>d.remove(),4800);}
+}
+
+/* Game flow */
+function hud(){$("sc").textContent=score;$("qc").textContent=qn;$("cn").textContent=cls;$("pf").style.width=qn*10+"%"}
+function newGame(c){
+ if(c)cls=c;score=0;qn=0;used={};cur=null;busy=false;
+ $("card").style.display="none";$("spin").disabled=false;
+ $("msg").textContent="Press SPIN to start. Easy questions come first!";hud();
+}
+function pickQuestion(cat){
+ const list=BANK[cls][cat];used[cls]=used[cls]||{};
+ let free=[0,1,2].filter(i=>!used[cls][cat+"-"+i]);
+ const pref=Math.min(2,Math.floor(qn/4)); // difficulty rises as the game goes on
+ free.sort((a,b)=>Math.abs(a-pref)-Math.abs(b-pref));
+ const i=free[0];used[cls][cat+"-"+i]=1;return list[i];
+}
+function availableCats(){
+ used[cls]=used[cls]||{};
+ return [0,1,2,3,4,5,6,7].filter(c=>[0,1,2].some(i=>!used[cls][c+"-"+i]));
+}
+$("spin").onclick=()=>{
+ if(busy)return;busy=true;$("spin").disabled=true;$("card").style.display="none";
+ let av=availableCats();if(!av.length){used[cls]={};av=availableCats();} // bank exhausted → start again
+ const cat=av[Math.floor(Math.random()*av.length)];
+ const want=(((-(cat+.5)*45)-rot)%360+360)%360;
+ rot+=want+360*5;cv.style.transform=`rotate(${rot}deg)`;
+ $("msg").textContent="Spinning… good luck! 🍀";sndTick();
+ setTimeout(()=>showQ(cat),4800);
+};
+function showQ(cat){
+ cur={cat,d:pickQuestion(cat)};tries=0;const [q,o,a,h,e,t]=cur.d;
+ const b=$("cat");b.textContent=CATS[cat][3]+" "+CATS[cat][0];b.style.background=CATS[cat][2];
+ $("q").textContent=q;const box=$("opts");box.innerHTML="";
+ o.forEach((txt,i)=>{const bt=document.createElement("button");bt.className="opt";
+  bt.innerHTML="<b>"+"ABCD"[i]+"</b>";bt.appendChild(document.createTextNode(txt));
+  bt.onclick=()=>answer(i,bt);box.appendChild(bt);});
+ const fb=$("fb");fb.style.display="none";$("next").style.display="none";$("hint").style.display="";
+ $("card").style.display="block";$("msg").textContent="Landed on: "+CATS[cat][0];
+ $("card").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function fb(cls_,html){const f=$("fb");f.className=cls_;f.innerHTML=html;f.style.display="block"}
+const OK=["Excellent! 🌟","Well done! 👏","Super! You did it! 🎉","Great job! 💪"];
+const TRY=["Good try! Let us try again. 💪","Almost there! Read the hint. 😊","Do not worry. You can do it! 🌈"];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+$("hint").onclick=()=>{if(!cur)return;fb("hint","💡 <b>Hint:</b> "+cur.d[3]);};
+function answer(i,btn){
+ const [q,o,a,h,e,t]=cur.d;const opts=[...$("opts").children];
+ if(i===a){
+  btn.classList.add("ok");finish(true);
+  qn++;score+=10;hud();sndGood();confetti(50);
+  fb("good",`<b>${pick(OK)} +10 points</b><br>✅ Correct answer: <b>${o[a]}</b><br>📖 ${e}${tamil?"<br>🟠 "+t:""}`);
+ }else{
+  btn.classList.add("no");btn.disabled=true;tries++;sndBad();
+  if(tries<2){fb("try",`<b>${pick(TRY)}</b><br>💡 Hint: ${h}${tamil?"<br>🟠 "+t:""}<br>Try another answer.`);}
+  else{opts[a].classList.add("ok");finish(true);qn++;hud();
+   fb("rev",`<b>That is okay! Learning is a journey. 💙</b><br>✅ Correct answer: <b>${o[a]}</b><br>📖 ${e}${tamil?"<br>🟠 "+t:""}`);}
+ }
+}
+function finish(){[...$("opts").children].forEach(b=>b.disabled=true);$("hint").style.display="none";
+ $("next").style.display="";$("next").textContent=qn+1>=10?"🏁 See My Result":"Next Spin ➜";}
+$("next").onclick=()=>{
+ if(qn>=10){endGame();return;}
+ $("card").style.display="none";busy=false;$("spin").disabled=false;
+ $("msg").textContent="Press SPIN for the next question!";window.scrollTo({top:0,behavior:"smooth"});
+};
+function endGame(){
+ let t,em,p;
+ if(score>=100){t="English Superstar!";em="🏆";p="Wonderful! Perfect work!"}
+ else if(score>=70){t="Grammar Champion!";em="🥇";p="Very good! Keep going!"}
+ else if(score>=40){t="Good Progress!";em="👍";p="You are improving. Play again!"}
+ else{t="Keep Practising!";em="💪";p="Every try makes you stronger. Try again!"}
+ $("eem").textContent=em;$("et").textContent=t;$("es").textContent=score;$("ep").textContent=p;
+ $("end").classList.add("show");sndWin();confetti(score>=40?120:30);
+}
+$("again").onclick=()=>{$("end").classList.remove("show");newGame()};
+$("reset").onclick=()=>newGame();
+$("chcls").onclick=()=>$("start").classList.add("show");
+document.querySelectorAll("#start button").forEach(b=>b.onclick=()=>{$("start").classList.remove("show");newGame(+b.dataset.c);tone(660,.15)});
+$("mute").onclick=()=>{muted=!muted;$("mute").textContent=muted?"🔇 Sound OFF":"🔊 Sound ON"};
+$("ta").onclick=()=>{tamil=!tamil;$("ta").textContent=tamil?"தமிழ் ON":"தமிழ் OFF"};
+hud();
+</script>
+</body>
+</html>

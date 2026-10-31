@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Grammar Target Shooter</title>
+<style>
+:root{--s1:#74d0ff;--s2:#eafaff;--ink:#16213e;--card:#ffffffd9;--gr:#3fbf63;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--s1:#1a1450;--s2:#3b2f80;--ink:#f3f0ff;--card:#120d3acc;--gr:#46d673}}
+:root[data-theme="dark"]{--s1:#1a1450;--s2:#3b2f80;--ink:#f3f0ff;--card:#120d3acc;--gr:#46d673}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%}
+body{background:linear-gradient(var(--s1),var(--s2)) fixed;color:var(--ink);font:24px/1.35 "Noto Sans Tamil","Nirmala UI",Verdana,sans-serif}
+header{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:10px 14px}
+h1{margin:0;font-size:28px;letter-spacing:.5px}
+.pill{background:var(--card);border-radius:30px;padding:4px 14px;font-weight:700}
+.bar{height:14px;background:var(--card);border-radius:10px;margin:0 14px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffb703,#3fbf63);transition:width .5s}
+#stage{position:relative;overflow:hidden;margin:12px;padding:14px;min-height:64vh;border-radius:24px;background:var(--card);display:flex;flex-direction:column;align-items:center;text-align:center;box-shadow:0 10px 0 #0003}
+#ins{font-weight:700;margin:4px 0 14px}
+#words,#opts{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin:8px 0}
+.t{--c:#e63946;--c2:#ffd166;font:inherit;font-size:30px;font-weight:800;color:#fff;text-shadow:0 2px 2px #0006;border:0;border-radius:999px;padding:16px 26px;cursor:pointer;min-height:68px;
+background:var(--c);box-shadow:inset 0 0 0 6px #fff,inset 0 0 0 12px var(--c2),0 8px 0 #0004;animation:bob 2.4s ease-in-out infinite}
+.t:nth-child(2n){animation-delay:.6s}.t:nth-child(3n){animation-delay:1.2s}
+@keyframes bob{50%{transform:translateY(-8px)}}
+.t:focus-visible,.b:focus-visible{outline:5px solid #ffb703}
+.slot{font-size:30px;font-weight:800;border-bottom:6px dashed #ffb703;padding:16px 22px;min-width:110px}.slot.ok{border-color:var(--gr);color:var(--gr)}
+.b{font:inherit;font-weight:700;font-size:24px;border:0;border-radius:16px;padding:10px 22px;margin:6px;background:#ffb703;color:#16213e;box-shadow:0 6px 0 #b27c00;cursor:pointer;min-height:56px}
+.go{background:#5ee08a;box-shadow:0 6px 0 #1f9a4a}
+#msg{margin:10px 0;font-size:24px;min-height:40px}#msg b{color:var(--gr)}
+#gun{margin-top:auto;font-size:64px;padding-top:10px}
+.shot{position:absolute;left:0;top:0;font-size:34px;pointer-events:none}
+.p{position:absolute;width:12px;height:12px;border-radius:3px;pointer-events:none}
+.fix{font-size:32px;font-weight:800;color:var(--gr)}
+footer{text-align:center;font-size:18px;padding:8px}
+@media(max-width:600px){body{font-size:20px}.t{font-size:24px;padding:12px 18px}h1{font-size:22px}}
+@media(prefers-reduced-motion:reduce){.t{animation:none}}
+</style></head><body>
+<header><h1>🎯 GRAMMAR TARGET SHOOTER</h1>
+<span><span class="pill" id="lv">Level 1</span> <span class="pill" id="sc">0 pts</span> <span class="pill" id="sr">⭐ 0</span> <button class="b" id="snd" style="margin:0;padding:4px 14px;min-height:0">🔊</button></span></header>
+<div class="bar"><i id="pb"></i></div>
+<div id="stage"></div>
+<footer>Learn grammar through play! Practise every day!</footer>
+<script>
+/* sentence | wrong word | correct word | 3 wrong options | Tamil explanation | (full corrected sentence) */
+const D=`No sooner had the teacher entered the class when the students stood up.|when|than|then,as,while|'No sooner' க்குப் பின் 'than' வரும்.
+He put of his coat.|of|off|up,in,at|'of' தவறு. கழற்றுதல் என்றால் 'put off'.
+He sat beside Philip.||||இது சரியான வாக்கியம். 'beside' என்றால் அருகில். பிழை இல்லை.
+You have to choose among rose milk and almond milk.|among|between|with,from,to|இரண்டில் ஒன்றைத் தேர்ந்தெடுக்க 'between' வரும்.
+There were a few incidents of irregularity for the emergency years.|for|during|since,from,at|காலத்தைக் குறிக்க 'during' வரும்.
+She only lost her glasses in the stampede.|only|after lost|before She,after glasses,at the end|'only' என்பது அது குறிக்கும் சொல்லுக்கு முன் வரவேண்டும்: She lost only her glasses.|She lost only her glasses in the stampede.
+It is a five-years integrated degree course.|five-years|five-year|five-yearly,fives-year,five years|இணைப்புச் சொல்லில் எண்ணுக்குப் பின் ஒருமை: five-year.
+One must finish his duty on time.|his|one's|her,their,its|'One' க்கு 'one's' வரும்.
+No less than forty persons were hurt in the accident.|less|fewer|more,much,little|எண்ணக்கூடியவற்றுக்கு 'fewer' (No fewer than).
+It is one of the most memorable day in my life.|day|days|dayes,day's,daily|'one of the' க்குப் பின் பன்மை: days.
+I regard Ram my friend.|my|as my|is my,like my,to my|'regard' க்குப் பின் 'as' வரும்: regard Ram as my friend.
+It is her who came to see us.|her|she|hers,herself,he|'It is' க்குப் பின் எழுவாய் வடிவம்: she.
+The mobile phone neither went dead or worked properly.|or|nor|and,but,also|'neither' உடன் 'nor' வரும்.
+One must finish his work in time.|his|one's|her,their,its|'One' க்கு 'one's' வரும்.
+He absented from the class.|absented|was absent|absent,absents,absenting|'absented' தவறு. 'was absent' என்று சொல்லவேண்டும்.
+Whom do you think won the prize?|Whom|Who|Whose,Which,What|'won' செய்தவர் எழுவாய்; எனவே 'Who'.
+What book do you read?||||இது சரியான வாக்கியம். பிழை இல்லை.
+When learning how to dance, technique is of utmost importance.|utmost|the utmost|more utmost,an utmost,most|'of the utmost importance' – 'the' தேவை.
+Unless you do not work hard, you will not excel in the examination.|Unless|If|Until,Since,While|'Unless' க்கே மறுப்புப் பொருள் உண்டு; இரு மறுப்பு வேண்டாம். 'If you do not' என்று எழுதுக.
+She is seventy but her hairs are not grey.|hairs|hair|hairies,hair's,haires|'hair' (தலைமுடி) ஒருமை: her hair is not grey.|She is seventy but her hair is not grey.
+Gopi is one of the tallest boy.|boy|boys|boyes,boy's,boyish|'one of the' க்குப் பின் பன்மை: boys.
+He did not listen to his father’s advices.|advices|advice|advise,advicess,advises|'advice' எண்ண முடியாத பெயர்; பன்மை இல்லை.
+He is a M.Sc student.|a|an|the,one,some|'M' என்பது 'எம்' என உயிர் ஒலியில் தொடங்கும்; எனவே 'an'.
+He made an universal appeal to all.|an|a|the,any,one|'universal' 'யூ' என மெய் ஒலியில் தொடங்கும்; எனவே 'a'.
+He wears a HMT watch presented by his uncle.|a|an|the,one,some|'HMT' 'எச்' என உயிர் ஒலியில் தொடங்கும்; எனவே 'an'.`
+.split("\n").map(l=>{const[s,w,r,d,t,f]=l.split("|");return{s,w,r,d:d?d.split(","):[],t,f}});
+const $=id=>document.getElementById(id),sh=a=>[...a].sort(()=>Math.random()-.5),pc=t=>t.replace(/[.,?]+$/,"");
+let Q,q,tot,done,score,stars,att,step,on=true,miss,AC,VO=[],busy;
+function tone(f,d){if(!on)return;try{AC=AC||new(window.AudioContext||webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain();o.frequency.value=f;g.gain.value=.12;o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+const ding=()=>{tone(660,.12);setTimeout(()=>tone(990,.2),120)},buzz=()=>tone(170,.35),pew=()=>tone(1200,.1);
+if("speechSynthesis" in window){const lv=()=>VO=speechSynthesis.getVoices();lv();speechSynthesis.onvoiceschanged=lv}
+function say(...p){if(!on||!("speechSynthesis" in window))return;speechSynthesis.cancel();
+ p.forEach(([t,l])=>{const v=VO.find(x=>x.lang.toLowerCase().replace("_","-").startsWith(l));if(!v&&l=="ta")return;
+  const u=new SpeechSynthesisUtterance(t.replace(/[\u{1F300}-\u{1FAFF}\u2705\u274C\u2B50]/gu,""));if(v)u.voice=v;u.lang=v?v.lang:"en-IN";u.rate=.8;speechSynthesis.speak(u)})}
+$("snd").onclick=()=>{on=!on;$("snd").textContent=on?"🔊":"🔇";if(!on&&"speechSynthesis" in window)speechSynthesis.cancel()};
+function hud(){$("lv").textContent="Level "+Math.min(5,Math.floor(done/5)+1);$("sc").textContent=score+" pts";$("sr").textContent="⭐ "+stars;$("pb").style.width=done/tot*100+"%"}
+function start(){Q=D.map(x=>({...x}));tot=Q.length;done=score=stars=0;hud();next()}
+function intro(){$("stage").innerHTML=`<h2>🎯 Welcome! வணக்கம்!</h2><p>1️⃣ தவறான சொல்லைத் தொடுங்கள்.<br>Tap the wrong word.</p><p>2️⃣ சரியான சொல்லைச் சுடுங்கள்.<br>Shoot the correct word.</p><p>⭐ Easy. No hurry. மெதுவாகச் செய்யுங்கள்!</p><button class="b go" id="go" style="font-size:32px">▶ Start / தொடங்கு</button><div id="gun">🏹</div>`;$("go").onclick=start;say(["Welcome! Tap the wrong word. Then shoot the correct word.","en"])}
+function el(t,c,h){const e=document.createElement(t);e.className=c;e.innerHTML=h||"";return e}
+function next(){
+ q=Q[0];if(!q)return end();att=0;step=1;miss=0;busy=0;
+ const toks=q.s.split(" ");
+ $("stage").innerHTML=`<p id="ins">👆 தவறான சொல்லைத் தொடுங்கள்<br><small>Tap the WRONG word</small></p><div id="words">${toks.map(t=>`<button class="t" data-c="${pc(t)}" style="--c:hsl(${Math.random()*360|0} 75% 42%);--c2:hsl(${Math.random()*360|0} 90% 68%)">${t}</button>`).join("")}</div><div id="opts"></div><div id="msg"></div><div><button class="b" id="ls">🔈 Listen</button><button class="b" id="ne">✅ பிழை இல்லை · No error</button></div><div id="gun">🏹</div>`;
+ document.querySelectorAll("#words .t").forEach(b=>b.onclick=()=>pick(b));
+ $("ne").onclick=noerr;$("ls").onclick=()=>say([q.s,"en"]);
+ say(["Find the wrong word. "+q.s,"en"]);
+}
+function pts(){const p=att?5:10;score+=p;att=0;hud()}
+function burst(e){const s=$("stage").getBoundingClientRect(),r=e.getBoundingClientRect(),x=r.left-s.left+r.width/2,y=r.top-s.top+r.height/2;
+ for(let i=0;i<16;i++){const p=el("i","p");p.style.cssText=`left:${x}px;top:${y}px;background:hsl(${Math.random()*360|0} 90% 55%)`;$("stage").append(p);const a=Math.random()*6.28,d=50+Math.random()*90;
+ p.animate([{transform:"translate(0,0) rotate(0)",opacity:1},{transform:`translate(${Math.cos(a)*d}px,${Math.sin(a)*d}px) rotate(300deg) scale(.2)`,opacity:0}],{duration:800}).onfinish=()=>p.remove()}}
+const shake=e=>e.animate([{transform:"translateX(0)"},{transform:"translateX(-12px)"},{transform:"translateX(12px)"},{transform:"translateX(0)"}],{duration:300});
+function pick(b){
+ if(step!=1||busy)return;
+ if(q.w&&b.dataset.c==q.w){ding();pts();burst(b);const sl=el("span","slot","?");sl.id="slot";b.replaceWith(sl);step=2;
+  $("ins").innerHTML="🏹 சரியான சொல்லைச் சுடுங்கள்<br><small>Shoot the CORRECT word</small>";$("ne").remove();
+  $("msg").innerHTML="✅ சரி! Good! This word is wrong.";
+  $("opts").innerHTML=sh([q.r,...q.d]).map(o=>`<button class="t" data-o="${o}" style="--c:hsl(${Math.random()*360|0} 75% 42%);--c2:hsl(${Math.random()*360|0} 90% 68%)">${o}</button>`).join("");
+  document.querySelectorAll("#opts .t").forEach(o=>o.onclick=()=>shoot(o));say(["Good. Now shoot the correct word.","en"])}
+ else{buzz();att++;miss=1;shake(b);$("msg").innerHTML="❌ இது தவறு இல்லை. வேறு சொல்லைத் தொடுங்கள்.<br><small>Not this word. Try another.</small>";
+  if(att>=2){const w=[...document.querySelectorAll("#words .t")].find(x=>x.dataset.c==q.w);if(w)w.animate([{transform:"scale(1)"},{transform:"scale(1.25)"},{transform:"scale(1)"}],{duration:700,iterations:3});$("msg").innerHTML+="<br>💡 Look at the shaking word! அசையும் சொல்லைப் பாருங்கள்!"}
+  say(["Not this word. Try another.","en"])}
+}
+function noerr(){
+ if(step!=1)return;
+ if(!q.w){ding();pts();pts();fin()}else{buzz();att++;miss=1;$("msg").innerHTML="❌ இந்த வாக்கியத்தில் பிழை உள்ளது. தவறான சொல்லைக் கண்டுபிடியுங்கள்.<br><small>There IS a mistake. Find it.</small>";say(["There is a mistake. Find it.","en"])}
+}
+function shoot(o){
+ if(step!=2||busy)return;busy=1;pew();
+ const s=$("stage").getBoundingClientRect(),g=$("gun").getBoundingClientRect(),r=o.getBoundingClientRect();
+ const x0=g.left-s.left+g.width/2-17,y0=g.top-s.top,x1=r.left-s.left+r.width/2-17,y1=r.top-s.top+r.height/2-17,a=el("div","shot","⭐");$("stage").append(a);
+ a.animate([{transform:`translate(${x0}px,${y0}px) scale(1)`},{transform:`translate(${x1}px,${y1}px) scale(1.6)`}],{duration:550,easing:"ease-in"}).onfinish=()=>{a.remove();busy=0;
+  if(o.dataset.o==q.r){ding();burst(o);o.remove();const sl=$("slot");sl.textContent=q.r+(q.s.split(" ").map(t=>t).find(t=>pc(t)==q.w).match(/[.,?]+$/)||[""])[0];sl.classList.add("ok");pts();fin()}
+  else{buzz();att++;miss=1;burst(o);o.style.visibility="hidden";$("msg").innerHTML=`❌ "${o.dataset.o}" தவறு. மீண்டும் சுடுங்கள்!<br><small>Wrong. Shoot again!</small><br>🗣 ${q.t.split("|")[0]}`;say(["Not correct. Shoot again.","en"])}}
+}
+function fin(){
+ step=3;const fx=q.f||q.s.split(" ").map(t=>pc(t)==q.w?q.r+(t.match(/[.,?]+$/)||[""])[0]:t).join(" ");
+ if(!miss)stars++;done++;Q.shift();if(miss&&!q.again){Q.push({...q,again:1});tot++}hud();
+ $("ins").innerHTML=done%5==0&&Q.length?`🎉 Level ${done/5} complete! நன்று!`:"🌟 சபாஷ்! Well done!";
+ $("msg").innerHTML=`<div class="fix">✔ ${fx}</div><p>🗣 ${q.t}</p>`+(miss?"<small>This question will come again for practice.<br>இந்தக் கேள்வி மீண்டும் வரும்.</small><br>":"")+`<button class="b" id="ls2">🔈 Listen</button><button class="b go" id="nx">Next ▶</button>`;
+ $("opts").innerHTML="";$("nx").onclick=next;$("ls2").onclick=()=>say(["Correct sentence: "+fx,"en"],[q.t,"ta"]);
+ say(["Correct! "+fx,"en"],[q.t,"ta"]);
+}
+function end(){
+ $("stage").innerHTML=`<h2>🏆 Super shooter! அருமை!</h2><div class="fix">${score} points · ⭐ ${stars} / 25</div><p>${stars>=20?"Excellent! மிக நன்று!":stars>=12?"Good! Play again to score more. நன்று!":"Keep practising. தினமும் பயிற்சி செய்யுங்கள்!"}</p><p><b>LEARN GRAMMAR THROUGH PLAY!<br>PRACTISE EVERY DAY!<br>SCORE WITH CONFIDENCE!</b></p><button class="b go" id="rp">🔁 Play again</button><div id="gun">🏹</div>`;
+ $("rp").onclick=start;ding();say(["You scored "+score+" points. Learn grammar through play! Practise every day!","en"]);
+}
+tot=25;done=score=stars=0;hud();intro();
+</script></body></html>

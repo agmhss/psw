@@ -1,0 +1,101 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Rainbow Wheel Quiz</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--ink:#1d1b4b;--bg1:#fff7d6;--bg2:#d9f1ff;--bg3:#ffe0f0;--card:#fff}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--ink:#fff;--bg1:#2a1d5e;--bg2:#143a66;--bg3:#4a1d52;--card:#2b2760}}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:'Trebuchet MS',Verdana,sans-serif;color:var(--ink);background:linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3));background-attachment:fixed}
+.w{max-width:1100px;margin:0 auto;padding:12px}
+h1{margin:4px 0;text-align:center;font-size:clamp(1.6rem,5vw,2.6rem);background:linear-gradient(90deg,#ff3b3b,#ff8a1f,#27c46a,#2e8bff,#a64dff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sb{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:8px 0}
+.tm{background:var(--card);border-radius:16px;padding:8px 18px;font-size:clamp(1rem,3vw,1.5rem);font-weight:bold;box-shadow:0 5px 0 #0002,0 10px 16px #0002;border:4px solid transparent;transition:.3s}
+.tm.on{transform:scale(1.1);border-color:#ffb300}
+.main{display:grid;gap:14px;grid-template-columns:1fr;align-items:center}
+@media(min-width:900px){.main{grid-template-columns:1fr 1fr}}
+.wcol{text-align:center}.stage{perspective:900px;padding-top:18px}
+.tb{position:relative;display:inline-block;transform:rotateX(22deg);filter:drop-shadow(0 28px 18px #0005)}
+.tb canvas{width:min(86vw,500px);height:auto;border-radius:50%}
+@media(min-width:900px){.tb canvas{width:min(46vw,68vh,520px)}}
+.ptr{position:absolute;left:50%;top:-18px;margin-left:-22px;border:22px solid transparent;border-top:44px solid #222;z-index:3;filter:drop-shadow(0 4px 2px #0006)}
+.btn{font:inherit;font-weight:bold;font-size:clamp(1.2rem,4vw,1.8rem);padding:14px 34px;border:0;border-radius:40px;color:#fff;background:linear-gradient(180deg,#ff6fa5,#e0236a);box-shadow:0 7px 0 #8d1040,0 14px 20px #0004;cursor:pointer;margin:14px 6px 8px;touch-action:manipulation}
+.btn:active{transform:translateY(5px);box-shadow:0 2px 0 #8d1040}.btn:disabled{opacity:.5}
+.btn.g{background:linear-gradient(180deg,#3bd67f,#14894c);box-shadow:0 7px 0 #0b5a31,0 14px 20px #0004}
+.pn{background:var(--card);border-radius:24px;padding:20px;min-height:300px;box-shadow:0 8px 0 #0002,0 18px 30px #0003;text-align:center}
+.cat{display:inline-block;color:#fff;padding:6px 22px;border-radius:30px;font-weight:bold;font-size:clamp(1.1rem,3vw,1.6rem);text-shadow:0 2px 2px #0005}
+.q{font-size:clamp(1.3rem,4.2vw,2.1rem);font-weight:bold;line-height:1.4;margin:14px 0}
+.o{display:block;width:100%;text-align:left;font:inherit;font-size:clamp(1.15rem,3.4vw,1.8rem);color:var(--ink);padding:12px 16px;margin:10px 0;background:var(--card);border:3px solid #8a7fe0;border-radius:16px;box-shadow:0 5px 0 #8a7fe0;cursor:pointer;touch-action:manipulation}
+.o.ok{background:#2ec46d;color:#fff;border-color:#14894c;box-shadow:0 5px 0 #14894c}.o.no{background:#ef4a5a;color:#fff;border-color:#a3162a;box-shadow:0 5px 0 #a3162a;animation:sh .4s}
+@keyframes sh{25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
+.fb{font-size:clamp(1.1rem,3vw,1.6rem);padding:10px;border-radius:14px;background:#8a7fe022;margin-top:8px}
+.big{font-size:clamp(1.6rem,6vw,3rem);margin:10px 0}
+.row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.rain{position:fixed;top:-40px;font-size:2rem;animation:fall 3.5s linear forwards;pointer-events:none;z-index:9}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+</style></head><body><div class="w"><h1>🌈 Rainbow Wheel Quiz 🌈</h1><div id="app"></div></div>
+<script>
+const C=["Grammar","Vocabulary","Poetry","Prose","Supplementary Reader","Literary Devices","Figures of Speech","Synonyms","Antonyms","General Revision"],S=["Grammar","Vocabulary","Poetry","Prose","Supp. Reader","Lit. Devices","Fig. of Speech","Synonyms","Antonyms","Revision"],K=['#ff3b3b','#ff8a1f','#ffd21f','#9be22b','#27c46a','#17c3c8','#2e8bff','#5a5cff','#a64dff','#ff4fa8'];
+const Q=`0|She ___ to school every day.|go|goes|going|gone|1|A singular subject (she) takes the verb with -s: goes.
+0|Pick the noun: The brave soldier fought.|brave|soldier|fought|The|1|Soldier names a person, so it is a noun.
+0|Past tense of "bring" is|brang|brought|bringed|brung|1|Bring is irregular: bring, brought, brought.
+1|"Abundant" means|scarce|plentiful|tiny|rare|1|Abundant means existing in large quantity.
+1|"Fragile" means|easily broken|very heavy|bright|noisy|0|Fragile things break easily.
+1|"Reluctant" means|eager|unwilling|happy|quick|1|Reluctant means unwilling or hesitant.
+2|Who wrote the poem "Life"?|Henry Van Dyke|Rudyard Kipling|James Kirkup|Nadia Bush|0|"Life" is by Henry Van Dyke (Unit 1).
+2|"The Secret of the Machines" is by|Lucy Maud Montgomery|James Kirkup|Rudyard Kipling|Henry Van Dyke|2|Rudyard Kipling wrote it (Unit 5).
+2|"No Men Are Foreign" is by|James Kirkup|Nadia Bush|Rakhi Nariani Shirke|Rudyard Kipling|0|James Kirkup wrote it (Unit 6).
+2|"The Grumble Family" is by|Nadia Bush|Lucy Maud Montgomery|Henry Van Dyke|James Kirkup|1|Lucy Maud Montgomery wrote it (Unit 2).
+2|"The House on Elm Street" is by|Nadia Bush|Rudyard Kipling|Lucy Maud Montgomery|James Kirkup|0|Nadia Bush wrote it (Unit 7).
+3|Who wrote "His First Flight"?|Liam O'Flaherty|James Thurber|Anton Chekhov|Rudyard Kipling|0|Liam O'Flaherty is the author.
+3|Who wrote "The Night the Ghost Got In"?|Liam O'Flaherty|James Thurber|Henry Van Dyke|Nadia Bush|1|James Thurber is the author.
+3|In "His First Flight", the young seagull was afraid to|swim|fly|eat|sing|1|He was afraid to fly.
+4|"Two Gentlemen of Verona" is written by|A.J. Cronin|Rudyard Kipling|James Thurber|Aesop|0|A.J. Cronin wrote it.
+4|A life story written by someone else is a|biography|autobiography|diary|novel|0|Biography is written by another person.
+4|The central message of a story is its|theme|plot|setting|title|0|The theme is the main idea or message.
+5|The sequence of events in a story is the|plot|mood|tone|title|0|Plot is the series of events.
+5|Repetition of the same beginning sound is|alliteration|rhyme|irony|simile|0|Example: Peter Piper picked.
+5|The time and place of a story is its|setting|theme|plot|stanza|0|Setting = when and where.
+6|"The wind whispered" is|simile|personification|metaphor|hyperbole|1|The wind is given a human action.
+6|"As brave as a lion" is a|simile|metaphor|irony|pun|0|Simile compares using as or like.
+6|"I have told you a million times" is|hyperbole|simile|alliteration|irony|0|Deliberate exaggeration is hyperbole.
+7|Synonym of "rapid"|slow|quick|late|weak|1|Rapid means quick.
+7|Synonym of "gaze"|stare|ignore|hide|sleep|0|Gaze means to look steadily.
+7|Synonym of "ancient"|old|new|young|fresh|0|Ancient means very old.
+8|Antonym of "brave"|bold|cowardly|strong|fierce|1|Brave is opposite to cowardly.
+8|Antonym of "expand"|grow|spread|contract|stretch|2|Expand is opposite to contract.
+8|Antonym of "generous"|kind|selfish|noble|giving|1|Generous is opposite to selfish.
+9|Plural of "child"|childs|children|childrens|childes|1|Child is irregular: children.
+9|"The Ant and the Cricket" is adapted from|Aesop's Fables|Grimm's Tales|Panchatantra|Kipling|0|It is adapted from Aesop's Fables.
+9|A group of words with a subject and a verb is a|clause|phrase|letter|stanza|0|A clause has a subject and a verb.`.split("\n").map(l=>{const p=l.split("|");return{c:+p[0],q:p[1],o:p.slice(2,6),a:+p[6],e:p[7]}});
+let AC,T,turn,spins,total,rot,busy,qs,cur,ans;const $=document.getElementById("app");
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+function tone(f,t,d,ty,v){if(!AC)return;try{const o=AC.createOscillator(),g=AC.createGain();o.type=ty;o.frequency.value=f;g.gain.setValueAtTime(v||.2,AC.currentTime+t);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+t+d);o.connect(g);g.connect(AC.destination);o.start(AC.currentTime+t);o.stop(AC.currentTime+t+d+.05)}catch(e){}}
+const good=()=>[523,659,784,1047,1319].forEach((f,k)=>tone(f,k*.09,.3,"triangle")),bad=()=>{tone(220,0,.25,"sawtooth",.18);tone(150,.2,.4,"sawtooth",.18)};
+function say(t){try{const u=new SpeechSynthesisUtterance(t);u.pitch=1.3;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+function home(){$.innerHTML=`<div class="pn" style="max-width:620px;margin:20px auto"><div class="big">🎡</div><h2>How many teams or players?</h2><p style="font-size:1.2rem">Each plays 5 spins. Correct answer = 10 points. Sound on!</p><div class="row">${[1,2,3,4].map(n=>`<button class="btn" data-a="go" data-v="${n}">${n}</button>`).join("")}</div></div>`}
+function go(n){try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();AC.resume&&AC.resume()}catch(e){}
+T=[...Array(n)].map((_,i)=>({n:n==1?"You":"Team "+(i+1),s:0}));turn=0;spins=0;total=n*5;rot=0;busy=false;qs=C.map((_,c)=>sh(Q.filter(q=>q.c==c)));
+$.innerHTML=`<div id="sb" class="sb"></div><div class="main"><div class="wcol"><div class="stage"><div class="tb"><div class="ptr"></div><canvas id="wh" width="700" height="700"></canvas></div></div><button class="btn" id="sp" data-a="spin">SPIN 🌈</button></div><div id="pn" class="pn"></div></div>`;draw();board();prompt_()}
+function draw(){const c=document.getElementById("wh"),x=c.getContext("2d"),R=335,a=Math.PI/5;x.translate(350,350);
+for(let k=0;k<10;k++){const s=-Math.PI/2+k*a;x.beginPath();x.moveTo(0,0);x.arc(0,0,R,s,s+a);x.closePath();x.fillStyle=K[k];x.fill();x.lineWidth=4;x.strokeStyle="#fff";x.stroke();
+x.save();x.rotate(s+a/2);x.textAlign="right";x.textBaseline="middle";x.font="bold 30px Trebuchet MS,Verdana,sans-serif";x.fillStyle=k==2?"#222":"#fff";x.shadowColor="#0008";x.shadowBlur=k==2?0:4;x.fillText(S[k],R-22,0);x.restore()}
+let g=x.createRadialGradient(-80,-100,20,0,0,R);g.addColorStop(0,"rgba(255,255,255,.45)");g.addColorStop(.5,"rgba(255,255,255,0)");g.addColorStop(1,"rgba(0,0,0,.3)");x.beginPath();x.arc(0,0,R,0,7);x.fillStyle=g;x.fill();
+x.lineWidth=14;x.strokeStyle="#ffb300";x.beginPath();x.arc(0,0,R+2,0,7);x.stroke();
+g=x.createRadialGradient(-8,-8,4,0,0,46);g.addColorStop(0,"#fff6c0");g.addColorStop(1,"#e09a00");x.beginPath();x.arc(0,0,46,0,7);x.fillStyle=g;x.fill();x.lineWidth=5;x.strokeStyle="#fff";x.stroke()}
+function board(){document.getElementById("sb").innerHTML=T.map((t,i)=>`<div class="tm ${i==turn?"on":""}">${t.n}: ⭐ ${t.s}</div>`).join("")}
+function prompt_(){document.getElementById("sp").disabled=false;document.getElementById("pn").innerHTML=`<div class="big">👉 ${T[turn].n}</div><div style="font-size:1.5rem">Spin ${spins+1} of ${total}</div><p style="font-size:1.3rem">Tap <b>SPIN</b> and see which category you get!</p>`}
+function spin(){if(busy)return;busy=true;document.getElementById("sp").disabled=true;const k=Math.random()*10|0,w=document.getElementById("wh");
+rot=rot-rot%360+360*6+(360-(k+.5)*36)+(Math.random()*20-10);w.style.transition="transform 5s cubic-bezier(.12,.7,.1,1)";w.style.transform=`rotate(${rot}deg)`;
+document.getElementById("pn").innerHTML=`<div class="big">🎡 Spinning...</div>`;let last=-1;
+(function tk(){if(!busy)return;const m=new DOMMatrix(getComputedStyle(w).transform),d=Math.atan2(m.b,m.a)*180/Math.PI,sg=Math.floor(((-d%360+360)%360)/36);if(sg!=last){last=sg;tone(900,0,.04,"square",.06)}requestAnimationFrame(tk)})();
+setTimeout(()=>ask(k),5300)}
+function ask(k){busy=false;if(!qs[k].length)qs[k]=sh(Q.filter(q=>q.c==k));cur=qs[k].pop();const op=sh(cur.o.map((t,i)=>({t,i})));ans=op.findIndex(o=>o.i==cur.a);[523,784].forEach((f,i)=>tone(f,i*.12,.2,"triangle"));
+document.getElementById("pn").innerHTML=`<span class="cat" style="background:${K[k]}">${C[k]}</span><div class="q">${cur.q}</div>${op.map((o,i)=>`<button class="o" data-a="pick" data-v="${i}">${"ABCD"[i]}) ${o.t}</button>`).join("")}<div id="fb"></div>`}
+function pick(v){const b=document.querySelectorAll(".o");b.forEach(x=>x.disabled=true);b[ans].classList.add("ok");let m;
+if(v==ans){T[turn].s+=10;good();say(["Excellent!","Well done!","Brilliant!"][Math.random()*3|0]);m=`✅ <b>Correct! +10 points</b><br>${cur.e}`}else{b[v].classList.add("no");bad();m=`❌ <b>Not this time.</b> Answer: ${"ABCD"[ans]}) ${b[ans].textContent.slice(3)}<br>${cur.e}`}
+board();document.getElementById("fb").innerHTML=`<div class="fb">${m}</div><button class="btn g" data-a="next">${spins+1>=total?"See Winner 🏆":"Next ▶"}</button>`}
+function next(){spins++;if(spins>=total)return end();turn=spins%T.length;board();prompt_()}
+function end(){const mx=Math.max(...T.map(t=>t.s)),w=T.filter(t=>t.s==mx);[523,659,784,1047,784,1047,1319].forEach((f,k)=>tone(f,k*.15,.4,"triangle"));
+say(T.length==1?"Quiz complete!":"We have a winner!");for(let i=0;i<30;i++){const e=document.createElement("div");e.className="rain";e.textContent=["🎉","⭐","🌈","🎊"][i%4];e.style.left=Math.random()*95+"vw";e.style.animationDelay=Math.random()*2+"s";document.body.appendChild(e);setTimeout(()=>e.remove(),6000)}
+$.innerHTML=`<div class="pn" style="max-width:640px;margin:20px auto"><div class="big">🏆</div><h2 style="font-size:clamp(1.6rem,6vw,2.8rem)">${T.length==1?"Your score: "+mx+" points!":w.length>1?"It's a tie: "+w.map(t=>t.n).join(" & ")+"!":"Winner: "+w[0].n+"!"}</h2>${T.slice().sort((a,b)=>b.s-a.s).map((t,i)=>`<div class="tm" style="margin:8px 0">${i+1}. ${t.n} — ⭐ ${t.s}</div>`).join("")}<button class="btn" data-a="home">Play Again</button></div>`}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(!b||b.disabled)return;const a=b.dataset.a,v=+b.dataset.v;({go,spin,pick,next,home})[a](v)});
+home();
+</script></body></html>

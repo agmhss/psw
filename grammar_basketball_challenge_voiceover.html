@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grammar Basketball Challenge</title>
+<style>
+:root{
+  --navy:#102a43;--blue:#1769aa;--sky:#dff4ff;--orange:#f28c28;
+  --green:#198754;--red:#c0392b;--cream:#fff8e8;--ink:#132238;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(160deg,#dff4ff,#fff8e8);color:var(--ink)}
+button,select{font:inherit}
+button{cursor:pointer;touch-action:manipulation}
+header{padding:18px 14px 12px;text-align:center;background:var(--navy);color:#fff}
+header h1{margin:0;font-size:clamp(1.45rem,4vw,2.35rem);letter-spacing:.02em}
+header p{margin:7px 0 0;font-size:1rem}
+main{max-width:1150px;margin:auto;padding:14px}
+.panel{background:#fff;border:2px solid #c8e2f2;border-radius:18px;padding:14px;margin:0 0 14px;box-shadow:0 5px 16px #1232}
+.setup{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap}
+select,.primary,.secondary{border:0;border-radius:12px;padding:12px 16px;font-weight:700}
+select{background:#eef7ff;border:2px solid #9dc9e5;min-width:190px}
+.primary{background:var(--orange);color:#1d2733;box-shadow:0 4px 0 #bc6517}
+.secondary{background:#e8f4ff;color:#123d5b;border:2px solid #b5d8ef}
+.primary:active,.secondary:active{transform:translateY(2px);box-shadow:none}
+.stats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.stat{background:#eef7ff;border-radius:12px;padding:8px 13px;font-weight:700}
+#game{display:none}
+.question-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.badge{display:inline-block;background:#dcefff;color:#174d76;padding:7px 11px;border-radius:999px;font-weight:700;font-size:.9rem}
+.progress{height:12px;background:#e5edf3;border-radius:20px;overflow:hidden;margin:12px 0}
+#progressFill{height:100%;width:0;background:linear-gradient(90deg,#1d9b69,#9bdc5b);transition:width .3s}
+#question{font-size:clamp(1.2rem,3.1vw,1.8rem);line-height:1.35;margin:10px 0 8px}
+#hintText,#feedback{padding:10px 12px;border-radius:12px;margin:8px 0;line-height:1.4}
+#hintText{background:#fff5d9;border:1px solid #f0d58c;display:none}
+#feedback{background:#eef8ef;border:1px solid #b9dfbf;min-height:46px}
+#feedback.bad{background:#fff0ee;border-color:#efc0b9}
+.court-wrap{background:#b85f24;padding:10px;border-radius:18px;border:4px solid #874019}
+.court{position:relative;overflow:hidden;border:3px solid #ffe2ad;border-radius:12px;min-height:220px;background:repeating-linear-gradient(90deg,#d98b45 0,#d98b45 48px,#d1813b 48px,#d1813b 96px);padding:14px}
+.court:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 0 25%,#fff2 25.3% 25.8%,transparent 26.1%),linear-gradient(90deg,transparent 49.5%,#fff7 49.5% 50.5%,transparent 50.5%)}
+.hoops{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;z-index:1}
+.hoop{background:#fffdf6;border:3px solid #173b58;border-radius:14px;min-height:126px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#173b58;font-weight:800;box-shadow:0 4px 0 #7b431d;transition:transform .2s,background .2s}
+.hoop .letter{font-size:1.15rem;background:#eaf5ff;border-radius:50%;width:32px;height:32px;display:grid;place-items:center}
+.rim{width:62px;height:20px;border:5px solid #e45b23;border-top:0;border-radius:0 0 50% 50%;position:relative}
+.rim:before{content:"";position:absolute;left:5px;right:5px;top:0;border-top:2px dashed #fff}
+.hoop small{font-size:.8rem;font-weight:700}
+.hoop:hover,.hoop:focus-visible{transform:translateY(-3px);outline:4px solid #ffe082}
+.hoop.selected{background:#fff0c2}
+.hoop.correct{background:#d8f8df;border-color:#198754}
+.hoop.wrong{background:#ffe0dc;border-color:#c0392b}
+.ball{position:absolute;z-index:5;left:50%;bottom:8px;transform:translate(-50%,0);width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#ffbd63,#f47721 65%,#bd4315);border:2px solid #71300d;box-shadow:0 4px 6px #4222;display:grid;place-items:center;color:#54270b;font-weight:900;pointer-events:none}
+.ball:before,.ball:after{content:"";position:absolute;background:#71300d}
+.ball:before{width:2px;height:100%;left:50%;top:0}
+.ball:after{height:2px;width:100%;top:50%;left:0}
+.ball .curve{position:absolute;width:70%;height:120%;border:2px solid #71300d;border-radius:50%}
+.ball.fly{transition:left .8s cubic-bezier(.2,.7,.3,1),top .8s cubic-bezier(.2,.7,.3,1),transform .8s}
+.ball.score{animation:scorePop .45s ease-in-out 2}
+@keyframes scorePop{50%{transform:translate(-50%,-12px) scale(1.15)}}
+.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+.option{padding:13px 14px;text-align:left;border:2px solid #b7d8eb;border-radius:13px;background:#f6fbff;font-weight:700;line-height:1.35;min-height:58px;color:#132238}
+.option .key{display:inline-grid;place-items:center;background:#dcefff;border-radius:8px;min-width:30px;height:30px;margin-right:8px}
+.option:hover,.option:focus-visible{border-color:#1769aa;outline:3px solid #b6e0ff}
+.option:disabled{cursor:default;opacity:.8}
+.controls{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
+#nextBtn{display:none}
+#results{display:none;text-align:center}
+#results h2{font-size:2rem;margin:6px}
+.bigscore{font-size:clamp(2.4rem,8vw,4.5rem);font-weight:900;color:#1769aa}
+.review{text-align:left;max-width:800px;margin:15px auto}
+.review-item{padding:10px;border-bottom:1px solid #d7e5ee;line-height:1.4}
+footer{text-align:center;padding:12px;color:#476276;font-size:.9rem}
+@media(max-width:620px){
+ main{padding:9px}.panel{padding:11px}.hoops{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .court{min-height:300px}.hoop{min-height:105px}.options{grid-template-columns:1fr}
+ .ball{width:32px;height:32px}.question-top{align-items:flex-start}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🏀 Grammar Basketball Challenge</h1>
+  <p>Learn English • Take a shot • Celebrate progress!</p>
+</header>
+<main>
+  <section class="panel" id="setup">
+    <div class="setup">
+      <label for="classMode"><strong>Choose your class:</strong></label>
+      <select id="classMode">
+        <option value="10">Class 10 – Samacheer Kalvi</option>
+        <option value="12">Class 12 – Samacheer Kalvi</option>
+      </select>
+      <label for="topicMode"><strong>Practice:</strong></label>
+      <select id="topicMode">
+        <option value="all">All topics</option>
+        <option value="grammar">Grammar</option>
+        <option value="vocabulary">Vocabulary</option>
+        <option value="prose">Prose</option>
+        <option value="poetry">Poetry</option>
+        <option value="supplementary">Supplementary</option>
+      </select>
+      <button class="primary" id="startBtn">Start Game</button>
+    </div>
+    <div class="stats">
+      <span class="stat">🎯 Correct shot = 10 points</span>
+      <span class="stat">💡 Hints available</span>
+      <span class="stat">🔊 Sound optional</span>
+    </div>
+  </section>
+
+  <section class="panel" id="game" aria-live="polite">
+    <div class="question-top">
+      <span class="badge" id="topicBadge">Grammar</span>
+      <span class="badge" id="questionCount">Question 1 of 10</span>
+      <span class="badge" id="scoreBadge">Score: 0</span>
+    </div>
+    <div class="progress" aria-label="Question progress"><div id="progressFill"></div></div>
+    <h2 id="question">Question goes here</h2>
+    <div id="hintText"></div>
+    <div class="controls">
+      <button class="secondary" id="hintBtn">💡 Show hint</button>
+      <button class="secondary" id="soundBtn" aria-pressed="false">🔇 Sound off</button>
+      <button class="secondary" id="voiceBtn" aria-pressed="true">🎙️ Voice-over on</button>
+      <button class="secondary" id="repeatVoiceBtn">🔁 Read aloud</button>
+      <button class="secondary" id="restartBtn">↻ Restart</button>
+    </div>
+
+    <div class="court-wrap" style="margin-top:12px">
+      <div class="court" id="court">
+        <div class="hoops" id="hoops">
+          <button class="hoop" data-index="0" aria-label="Basket A"><span class="letter">A</span><span class="rim"></span><small>SHOOT HERE</small></button>
+          <button class="hoop" data-index="1" aria-label="Basket B"><span class="letter">B</span><span class="rim"></span><small>SHOOT HERE</small></button>
+          <button class="hoop" data-index="2" aria-label="Basket C"><span class="letter">C</span><span class="rim"></span><small>SHOOT HERE</small></button>
+          <button class="hoop" data-index="3" aria-label="Basket D"><span class="letter">D</span><span class="rim"></span><small>SHOOT HERE</small></button>
+        </div>
+        <div class="ball" id="ball" aria-hidden="true"><span class="curve"></span></div>
+      </div>
+    </div>
+
+    <div class="options" id="options"></div>
+    <div id="feedback" role="status">Choose an answer to take your shot.</div>
+    <div class="controls">
+      <button class="primary" id="nextBtn">Next question →</button>
+    </div>
+  </section>
+
+  <section class="panel" id="results">
+    <h2>🏆 Final Score</h2>
+    <div class="bigscore" id="finalScore">0 / 100</div>
+    <p id="resultMessage"></p>
+    <div class="stats">
+      <span class="stat" id="correctStat">Correct: 0</span>
+      <span class="stat" id="attemptStat">Attempts: 0</span>
+      <span class="stat" id="accuracyStat">Accuracy: 0%</span>
+    </div>
+    <div class="review" id="review"></div>
+    <button class="primary" id="playAgainBtn">Play Again</button>
+    <button class="secondary" id="changeClassBtn">Choose another class</button>
+  </section>
+</main>
+<footer>Made for supportive, low-pressure English practice. Questions are sample practice items, not official examination questions.<br>Voice-over uses your browser's built-in speech feature; available English and Tamil voices depend on your device.</footer>
+
+<script>
+"use strict";
+const BANK = {
+  "10": [
+    {topic:"Grammar",kind:"grammar",q:'Choose the correct indirect speech: He said, "I am happy."',opts:["He said that he is happy.","He said that he was happy.","He told that I was happy.","He said that he had happy."],a:1,hint:"When the reporting verb is in the past, the present form often shifts back.",why:"“Am” changes to “was”, and “I” changes to “he” to match the speaker.",ta:"Reported speech-இல், reporting verb கடந்தகாலத்தில் இருந்தால் “am” பொதுவாக “was” ஆக மாறும்."},
+    {topic:"Grammar",kind:"grammar",q:"Choose the correct article: He is ___ honest man.",opts:["a","an","the","no article"],a:1,hint:"Listen to the first sound in “honest”.",why:"“Honest” begins with a vowel sound because the h is silent, so “an” is used.",ta:"“Honest” என்ற சொல்லில் h ஒலிக்காது. உயிரொலியால் தொடங்குவதால் “an” பயன்படுத்தப்படுகிறது."},
+    {topic:"Vocabulary",kind:"vocabulary",q:'Choose the synonym of “brave”.',opts:["Cowardly","Careless","Courageous","Weak"],a:2,hint:"Choose the word that means showing courage.",why:"“Courageous” means brave and willing to face danger or difficulty.",ta:"“Courageous” என்பதன் பொருள் துணிச்சலான."},
+    {topic:"Grammar",kind:"grammar",q:"Choose the correct passive voice: The teacher praised the student.",opts:["The student praised the teacher.","The student was praised by the teacher.","The student is praised by the teacher yesterday.","The teacher was praised by the student."],a:1,hint:"The object becomes the subject; keep the past tense.",why:"The object “the student” becomes the subject, and “praised” changes to “was praised”.",ta:"செயப்படுபொருள் “the student” எழுவாயாக மாறுகிறது; இறந்தகால passive வடிவம் “was praised”."},
+    {topic:"Grammar",kind:"grammar",q:"Choose the correct preposition: The cat is hiding ___ the table.",opts:["at","on","under","between"],a:2,hint:"The cat is below the table.",why:"“Under” means in a position below something.",ta:"“Under” என்பது ஒன்றின் கீழே என்று பொருள்."},
+    {topic:"Prose",kind:"prose",q:'In “His First Flight”, what does the young seagull fear?',opts:["Flying","Swimming","Eating fish","Meeting his family"],a:0,hint:"Think about the skill the young bird must learn.",why:"The young seagull is afraid to fly, but hunger eventually encourages him to try.",ta:"இளம் கடற்பறவை பறப்பதற்குப் பயப்படுகிறது."},
+    {topic:"Poetry",kind:"poetry",q:'In the poem “Life”, life is presented as something to be faced with…',opts:["Fear and surrender","Courage and determination","Anger alone","Complete silence"],a:1,hint:"Think of the poem’s encouraging message.",why:"The poem encourages courage, hope, and determination in facing life.",ta:"“Life” கவிதை தைரியத்துடனும் மனஉறுதியுடனும் வாழ ஊக்குவிக்கிறது."},
+    {topic:"Supplementary",kind:"supplementary",q:'In “The Tempest”, who is the spirit that serves Prospero?',opts:["Caliban","Ariel","Antonio","Gonzalo"],a:1,hint:"The spirit is known for carrying out Prospero’s commands.",why:"Ariel is the spirit who serves Prospero.",ta:"ப்ராஸ்பெரோவுக்குச் சேவை செய்யும் ஆவி ஏரியல் (Ariel)."},
+    {topic:"Grammar",kind:"grammar",q:"Choose the correct tense: She ___ to school every day.",opts:["go","goes","going","gone"],a:1,hint:"Use the simple present with “she”.",why:"In the simple present, a third-person singular subject takes “-s” or “-es”: “goes”.",ta:"Simple present-இல் “she” உடன் “goes” பயன்படுத்த வேண்டும்."},
+    {topic:"Vocabulary",kind:"vocabulary",q:'Choose the antonym of “ancient”.',opts:["Old","Historic","Modern","Former"],a:2,hint:"Choose a word meaning belonging to the present time.",why:"“Modern” is the opposite of “ancient”.",ta:"“Ancient” என்பதன் எதிர்ச்சொல் “Modern”."},
+    {topic:"Prose",kind:"prose",q:'In “The Night the Ghost Got In”, what creates much of the humour?',opts:["A calm science lesson","A family’s confused reaction to a disturbance","A sports competition","A school assembly"],a:1,hint:"Think about how the family reacts to the unexpected event.",why:"The family’s confusion and exaggerated reactions to the disturbance create humour.",ta:"எதிர்பாராத சம்பவத்துக்கு குடும்பத்தினர் குழப்பத்துடன் எதிர்வினையாற்றுவது நகைச்சுவையை உருவாக்குகிறது."},
+    {topic:"Grammar",kind:"grammar",q:"Choose the correct question tag: You are ready, ___?",opts:["are you","aren’t you","do you","isn’t it"],a:1,hint:"A positive statement usually takes a negative tag.",why:"“You are ready” is positive, so the matching negative tag is “aren’t you?”.",ta:"உறுதிக் கூற்றுக்கு பொதுவாக எதிர்மறை question tag வரும்: “aren’t you?”."}
+  ],
+  "12": [
+    {topic:"Grammar",kind:"grammar",q:'Choose the correct indirect speech: She said, "I can swim."',opts:["She said that she can swim.","She said that she could swim.","She said that I could swim.","She said that she will swim."],a:1,hint:"In reported speech, “can” often shifts back after a past reporting verb.",why:"“Can” changes to “could”, and “I” changes to “she”.",ta:"Reported speech-இல் “can” பொதுவாக “could” ஆக மாறும்; “I” என்பது “she” ஆக மாறும்."},
+    {topic:"Grammar",kind:"grammar",q:"Choose the correct article: She gave me ___ useful suggestion.",opts:["an","a","the","no article"],a:1,hint:"“Useful” begins with a /y/ consonant sound.",why:"“Useful” begins with the consonant sound /y/, so “a useful suggestion” is correct.",ta:"“Useful” என்பது /யூ/ என்ற மெய்யொலியுடன் தொடங்குவதால் “a” பயன்படுத்தப்படுகிறது."},
+    {topic:"Vocabulary",kind:"vocabulary",q:'Choose the closest meaning of “resilience”.',opts:["The ability to recover after difficulty","A wish to avoid all work","A sudden feeling of anger","The act of forgetting a name"],a:0,hint:"Think of the ability to recover and continue after hardship.",why:"Resilience is the ability to recover, adapt, and continue after difficulties.",ta:"“Resilience” என்பது துன்பத்திலிருந்து மீண்டு தொடர்ந்து செயல்படும் திறன்."},
+    {topic:"Poetry",kind:"poetry",q:'In “The Castle” by Edwin Muir, what ultimately enables the enemy to enter?',opts:["A storm destroys every wall","The warder is bribed and betrayal opens the way","The castle has no gate","The soldiers leave to attend a festival"],a:1,hint:"The poem contrasts strong walls with weakness inside.",why:"The warder is bribed; internal betrayal defeats the castle’s physical defences.",ta:"காவலன் லஞ்சம் பெறுவதால் துரோகம் நிகழ்கிறது; கோட்டையின் பாதுகாப்பு உள்ளிருந்து உடைகிறது."},
+    {topic:"Prose",kind:"prose",q:'In “Two Gentlemen of Verona”, what quality do the boys chiefly demonstrate?',opts:["Selfishness","Devotion and self-sacrifice","A desire for fame","Carelessness"],a:1,hint:"Think about why the brothers work so hard.",why:"The brothers work tirelessly to support their sister, showing devotion and sacrifice.",ta:"சகோதரர்கள் தங்கள் சகோதரிக்காக உழைப்பதன் மூலம் அர்ப்பணிப்பையும் தியாகத்தையும் காட்டுகின்றனர்."},
+    {topic:"Poetry",kind:"poetry",q:'“All the world’s a stage” is an example of…',opts:["Simile","Metaphor","Onomatopoeia","Oxymoron"],a:1,hint:"The world is directly compared to a stage without “like” or “as”.",why:"It is a metaphor because the world is directly described as a stage.",ta:"“உலகமே ஒரு மேடை” என்று நேரடியாக ஒப்பிடுவதால் இது உருவகம் (Metaphor)."},
+    {topic:"Supplementary",kind:"supplementary",q:'In “God Sees the Truth but Waits”, what does Ivan Dmitrich Aksionov ultimately show?',opts:["A desire for revenge","Forgiveness and spiritual endurance","A plan to escape by force","A wish to become wealthy"],a:1,hint:"Consider how Aksionov responds to the person connected with his suffering.",why:"Aksionov ultimately forgives Makar Semyonich, showing spiritual endurance and compassion.",ta:"அக்சியோனோவ் இறுதியில் மகார் செமியோனிச்சை மன்னிப்பதன் மூலம் ஆன்மிக உறுதியையும் கருணையையும் காட்டுகிறார்."},
+    {topic:"Grammar",kind:"grammar",q:"Choose the correct passive form: They have completed the work.",opts:["The work has completed by them.","The work has been completed by them.","The work was complete by them.","The work is completing by them."],a:1,hint:"Present perfect passive uses has/have + been + past participle.",why:"The present perfect passive form is “has been completed”.",ta:"Present perfect passive அமைப்பு: has/have + been + past participle."},
+    {topic:"Prose",kind:"prose",q:'In “A Nice Cup of Tea”, George Orwell discusses the art of making…',opts:["Coffee","Tea","Lemonade","Soup"],a:1,hint:"The answer appears in the title.",why:"The essay discusses the preparation and enjoyment of tea.",ta:"இந்தக் கட்டுரை தேநீர் தயாரிக்கும் முறையையும் அதன் சுவையையும் விவரிக்கிறது."},
+    {topic:"Poetry",kind:"poetry",q:'In “Our Casuarina Tree”, the tree is closely connected with…',opts:["Childhood memories and affection","A military victory","A courtroom trial","A business plan"],a:0,hint:"Think of the poet’s memories and emotional connection to the tree.",why:"The tree evokes childhood memories, affection, and the memory of loved ones.",ta:"கசுவரினா மரம் குழந்தைப் பருவ நினைவுகளையும் பாசத்தையும் அன்புக்குரியவர்களின் நினைவுகளையும் எழுப்புகிறது."},
+    {topic:"Supplementary",kind:"supplementary",q:'In “Life of Pi”, what is central to Pi’s experience at sea?',opts:["Survival and adaptation","Preparing for a school debate","Running a city council","Training for a race"],a:0,hint:"Think about Pi’s struggle to remain alive after the shipwreck.",why:"Pi must adapt, use his resourcefulness, and find ways to survive at sea.",ta:"கடலில் உயிர் பிழைக்க பை சூழ்நிலைக்கு ஏற்ப மாறி தன் அறிவைப் பயன்படுத்துகிறான்."},
+    {topic:"Grammar",kind:"grammar",q:'Choose the correct indirect speech: Ravi said, "I like tea."',opts:["Ravi said that I liked tea.","Ravi said that he likes tea.","Ravi said that he liked tea.","Ravi told that he liked tea."],a:2,hint:"Change “I” to match Ravi and shift “like” back after “said”.",why:"“I” becomes “he”, and “like” changes to “liked” in this reported statement.",ta:"“I” என்பது ரவி என்பதால் “he” ஆகவும் “like” என்பது “liked” ஆகவும் மாறுகிறது."}
+  ]
+};
+
+const $ = id => document.getElementById(id);
+let questions=[], index=0, score=0, correct=0, attempts=0, answered=false, soundOn=false, voiceOn=true, audioCtx=null, history=[];
+const letters=["A","B","C","D"];
+const topicMap={grammar:"Grammar",vocabulary:"Vocabulary",prose:"Prose",poetry:"Poetry",supplementary:"Supplementary"};
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+function speak(text, lang="en-IN"){
+  if(!voiceOn || !("speechSynthesis" in window) || !text) return;
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(String(text));
+  utterance.lang = lang;
+  utterance.rate = 0.88;
+  utterance.pitch = 1.02;
+  utterance.volume = 1;
+  const voices = window.speechSynthesis.getVoices();
+  const preferred = voices.find(v => v.lang.toLowerCase() === lang.toLowerCase())
+    || voices.find(v => v.lang.toLowerCase().startsWith(lang.split("-")[0].toLowerCase()));
+  if(preferred) utterance.voice = preferred;
+  window.speechSynthesis.speak(utterance);
+}
+function speakCurrentQuestion(){
+  if(!questions[index]) return;
+  const q=questions[index];
+  const optionText=q.opts.map((o,i)=>`${letters[i]}. ${o}`).join(". ");
+  speak(`Question ${index+1}. ${q.q}. The options are: ${optionText}. You may choose an answer or ask for a hint.`);
+}
+function startGame(){
+  const cls=$("classMode").value, topic=$("topicMode").value;
+  questions=BANK[cls].filter(q=>topic==="all"||q.kind===topic);
+  questions=shuffle([...questions]);
+  index=0;score=0;correct=0;attempts=0;answered=false;history=[];
+  $("setup").style.display="none";$("results").style.display="none";$("game").style.display="block";
+  speak("Welcome to Grammar Basketball Challenge! Read the question, choose one of the four baskets, and earn ten points for a correct answer. You can use the hint button for help. Let's learn English together!");
+  renderQuestion();
+}
+function renderQuestion(){
+  const q=questions[index]; if(!q){showResults();return;}
+  answered=false;
+  $("topicBadge").textContent=q.topic;
+  $("questionCount").textContent=`Question ${index+1} of ${questions.length}`;
+  $("scoreBadge").textContent=`Score: ${score}`;
+  $("progressFill").style.width=`${(index/questions.length)*100}%`;
+  $("question").textContent=q.q;
+  $("hintText").style.display="none";$("hintText").textContent="";
+  $("feedback").className="";$("feedback").textContent="Choose an answer to take your shot.";
+  $("nextBtn").style.display="none";$("hintBtn").disabled=false;
+  $("options").innerHTML="";
+  q.opts.forEach((opt,i)=>{
+    const b=document.createElement("button");b.className="option";b.innerHTML=`<span class="key">${letters[i]}</span>`;
+    b.append(document.createTextNode(opt));b.addEventListener("click",()=>takeShot(i));$("options").appendChild(b);
+  });
+  document.querySelectorAll(".hoop").forEach(h=>h.className="hoop");
+  const ball=$("ball");ball.className="ball";ball.style.left="50%";ball.style.top="";ball.style.bottom="8px";
+  speakCurrentQuestion();
+}
+function showHint(){
+  const q=questions[index];$("hintText").style.display="block";
+  $("hintText").textContent="💡 Hint: "+q.hint+"  |  தமிழ்: "+q.ta;
+  speak("Hint. "+q.hint, "en-IN");
+  window.setTimeout(()=>speak(q.ta, "ta-IN"), Math.max(1800, q.hint.length*45));
+}
+function playTone(freq,duration=0.12){
+  if(!soundOn)return;
+  try{audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.frequency.value=freq;o.type="sine";g.gain.value=.08;o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+duration);}catch(e){}
+}
+function takeShot(choice){
+  if(answered)return;
+  attempts++;
+  const q=questions[index], hoop=document.querySelector(`.hoop[data-index="${choice}"]`);
+  const ball=$("ball"), court=$("court"), rect=court.getBoundingClientRect(), hr=hoop.getBoundingClientRect();
+  document.querySelectorAll(".option").forEach(b=>b.disabled=true);
+  document.querySelectorAll(".hoop").forEach(h=>h.classList.remove("selected","correct","wrong"));
+  hoop.classList.add("selected");
+  const startX=rect.width/2, startY=rect.height-27;
+  const endX=hr.left-rect.left+hr.width/2, endY=hr.top-rect.top+hr.height/2;
+  ball.style.transition="none";ball.style.left=startX+"px";ball.style.top=startY+"px";ball.style.bottom="auto";ball.style.transform="translate(-50%,-50%) scale(1)";
+  void ball.offsetWidth;ball.style.transition="left .8s cubic-bezier(.2,.7,.3,1),top .8s cubic-bezier(.2,.7,.3,1),transform .8s";
+  requestAnimationFrame(()=>{ball.style.left=endX+"px";ball.style.top=endY+"px";ball.style.transform="translate(-50%,-50%) scale(.72)";});
+  setTimeout(()=>{
+    if(choice===q.a){
+      score+=10;correct++;answered=true;hoop.classList.add("correct");ball.classList.add("score");
+      $("feedback").className="";$("feedback").textContent="🏀 Great shot! +10 points. "+q.why;
+      speak("Excellent shot! That's correct. You have earned ten points. "+q.why, "en-IN");
+      playTone(660,.18);setTimeout(()=>playTone(880,.2),120);
+      $("nextBtn").style.display="inline-block";$("nextBtn").textContent=index===questions.length-1?"See results →":"Next question →";
+      history.push({q:q.q,chosen:q.opts[choice],correct:q.opts[q.a],ok:true,why:q.why,ta:q.ta});
+    }else{
+      hoop.classList.add("wrong");$("feedback").className="bad";
+      $("feedback").textContent="Good try! That basket was not the answer. "+q.why+" Try again when you are ready.";
+      speak("Good try! Don't worry. That is not the correct answer. "+q.why+" Please try another option. You can do it!", "en-IN");
+      playTone(220,.18);
+      document.querySelectorAll(".option").forEach(b=>b.disabled=false);
+      document.querySelectorAll(".hoop").forEach(h=>h.classList.remove("selected"));
+      const chosen=document.querySelectorAll(".option")[choice];chosen.disabled=true;
+      history.push({q:q.q,chosen:q.opts[choice],correct:q.opts[q.a],ok:false,why:q.why,ta:q.ta});
+      // Allow another attempt without advancing; the question remains available.
+      answered=false;
+    }
+    $("scoreBadge").textContent=`Score: ${score}`;
+  },850);
+}
+function nextQuestion(){
+  if(index<questions.length-1){index++;renderQuestion();}else showResults();
+}
+function showResults(){
+  $("game").style.display="none";$("results").style.display="block";
+  const max=questions.length*10, pct=attempts?Math.round(correct/attempts*100):0;
+  $("finalScore").textContent=`${score} / ${max}`;
+  $("resultMessage").textContent=score>=max*.8?"Excellent work! Keep shining!":score>=max*.5?"Good progress! Practise the questions you missed.":"Every attempt helps you learn. Play again and improve step by step.";
+  speak(`You have completed the Grammar Basketball Challenge. Your score is ${score} out of ${max}. ${$("resultMessage").textContent} Review the answers and keep practising.`, "en-IN");
+  $("correctStat").textContent=`Correct questions: ${correct} / ${questions.length}`;
+  $("attemptStat").textContent=`Shots taken: ${attempts}`;
+  $("accuracyStat").textContent=`First/total shot accuracy: ${pct}%`;
+  $("progressFill").style.width="100%";
+  $("review").innerHTML="<h3>Review and learn</h3>";
+  questions.forEach((q,i)=>{
+    const row=document.createElement("div");row.className="review-item";
+    row.innerHTML=`<strong>${i+1}. ${escapeHTML(q.q)}</strong><br><span>Answer: ${escapeHTML(q.opts[q.a])}</span><br><span>${escapeHTML(q.why)}</span><br><span lang="ta">தமிழ்: ${escapeHTML(q.ta)}</span>`;
+    $("review").appendChild(row);
+  });
+}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function restart(){startGame();}
+$("startBtn").addEventListener("click",startGame);
+$("hintBtn").addEventListener("click",showHint);
+$("nextBtn").addEventListener("click",nextQuestion);
+$("restartBtn").addEventListener("click",restart);
+$("playAgainBtn").addEventListener("click",startGame);
+$("changeClassBtn").addEventListener("click",()=>{$("results").style.display="none";$("setup").style.display="block";});
+$("soundBtn").addEventListener("click",()=>{soundOn=!soundOn;$("soundBtn").textContent=soundOn?"🔊 Sound on":"🔇 Sound off";$("soundBtn").setAttribute("aria-pressed",String(soundOn));if(soundOn)playTone(500,.1);});
+$("voiceBtn").addEventListener("click",()=>{
+  voiceOn=!voiceOn;
+  $("voiceBtn").textContent=voiceOn?"🎙️ Voice-over on":"🔇 Voice-over off";
+  $("voiceBtn").setAttribute("aria-pressed",String(voiceOn));
+  if(!voiceOn && "speechSynthesis" in window) window.speechSynthesis.cancel();
+  else speak("Voice-over is now on. Questions and feedback will be read aloud.");
+});
+$("repeatVoiceBtn").addEventListener("click",speakCurrentQuestion);
+document.querySelectorAll(".hoop").forEach(h=>h.addEventListener("click",()=>{const i=Number(h.dataset.index);if(!answered){const opts=document.querySelectorAll(".option");if(opts[i]&&!opts[i].disabled)takeShot(i);}}));
+</script>
+</body>
+</html>

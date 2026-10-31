@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SSLC English – Section I Part I One-Mark Quiz</title>
+<style>
+:root{
+  --p1:#6c5ce7; --p2:#00b894; --p3:#fd79a8; --p4:#fdcb6e; --p5:#0984e3;
+  --ink:#2d3436; --muted:#636e72; --card:#ffffff; --ok:#00b894; --bad:#d63031;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{
+  font-family:"Segoe UI",Roboto,Arial,sans-serif; color:var(--ink);
+  background:linear-gradient(135deg,#a29bfe 0%,#fd79a8 35%,#fdcb6e 70%,#55efc4 100%);
+  background-attachment:fixed; padding:16px; padding-top:calc(16px + env(safe-area-inset-top,0px));
+}
+.screen{display:none; max-width:760px; margin:0 auto}
+.screen.active{display:block; animation:fade .4s ease}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.card{background:var(--card); border-radius:20px; padding:22px; margin-bottom:16px; box-shadow:0 10px 30px rgba(0,0,0,.12)}
+.hero{text-align:center; background:linear-gradient(120deg,#6c5ce7,#0984e3 50%,#00b894); color:#fff}
+.hero h1{margin:4px 0 6px; font-size:1.55rem}
+.hero p{margin:0; opacity:.92}
+label{display:block; font-weight:600; margin-bottom:14px}
+input,select{
+  width:100%; margin-top:6px; padding:12px 14px; font-size:1rem; border-radius:12px;
+  border:2px solid #dfe6e9; outline:none; background:#fff; color:var(--ink);
+}
+input:focus,select:focus{border-color:var(--p1)}
+.btn{
+  border:none; border-radius:14px; padding:12px 18px; font-size:1rem; font-weight:700;
+  cursor:pointer; color:#fff; background:var(--p5); box-shadow:0 5px 0 rgba(0,0,0,.15);
+  transition:transform .08s, box-shadow .08s; font-family:inherit;
+}
+.btn:active{transform:translateY(3px); box-shadow:0 2px 0 rgba(0,0,0,.15)}
+.btn:disabled{opacity:.45; cursor:not-allowed}
+.btn.primary{background:linear-gradient(90deg,#6c5ce7,#0984e3)}
+.btn.big{width:100%; font-size:1.15rem; padding:16px; margin-top:6px}
+.btn.ghost{background:#636e72}
+.btn.hint{background:linear-gradient(90deg,#fdcb6e,#e17055); color:#2d3436}
+.btn.gold{background:linear-gradient(90deg,#f9ca24,#f0932b); color:#2d3436}
+.navrow{display:flex; gap:12px; justify-content:space-between; margin:10px 0; flex-wrap:wrap}
+.navrow .btn{flex:1; min-width:140px}
+.topbar{display:flex; justify-content:space-between; align-items:center; margin:6px 0 10px; flex-wrap:wrap; gap:8px}
+.badge{background:#fff; color:var(--p1); padding:6px 14px; border-radius:999px; font-weight:800; font-size:.9rem; box-shadow:0 3px 10px rgba(0,0,0,.1)}
+.counter{background:rgba(255,255,255,.85); padding:6px 14px; border-radius:999px; font-weight:700}
+.progress{height:14px; background:rgba(255,255,255,.6); border-radius:999px; overflow:hidden; margin-bottom:14px}
+.progress div{height:100%; width:0; background:linear-gradient(90deg,#00b894,#55efc4,#fdcb6e); transition:width .4s}
+.qtext{font-size:1.2rem; font-weight:700; line-height:1.5; margin-bottom:16px}
+.tw{text-decoration:underline; text-decoration-thickness:3px; text-underline-offset:4px; font-style:italic; font-weight:900; color:#d63031}
+.sheet .tw{color:#2d3436}
+.credit{text-align:center; font-weight:700; font-size:.92rem; margin:14px 0 4px; letter-spacing:.3px; color:#fff; text-shadow:0 1px 3px rgba(0,0,0,.3)}
+.sh-credit{text-align:center; font-size:.85rem; color:#636e72; margin-top:18px; border-top:1px solid #dfe6e9; padding-top:8px}
+.opts{display:grid; gap:10px; grid-template-columns:1fr 1fr}
+@media (max-width:520px){.opts{grid-template-columns:1fr}}
+.opt{
+  text-align:left; background:#f6f8ff; border:2px solid #dfe6e9; border-radius:14px;
+  padding:14px; font-size:1rem; cursor:pointer; font-family:inherit; color:var(--ink);
+  transition:transform .1s, background .2s;
+}
+.opt:hover:not(:disabled){transform:scale(1.02); border-color:var(--p1)}
+.opt b{display:inline-block; width:28px; height:28px; line-height:28px; text-align:center; border-radius:50%; background:var(--p1); color:#fff; margin-right:8px}
+.opt.correct{background:#d5f5e3; border-color:var(--ok)}
+.opt.correct b{background:var(--ok)}
+.opt.wrong{background:#ffe3e3; border-color:var(--bad); animation:shake .4s}
+.opt.wrong b{background:var(--bad)}
+.opt:disabled{cursor:default}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.feedback{margin:14px 0 6px; font-weight:800; min-height:26px; font-size:1.05rem}
+.feedback.ok{color:var(--ok)} .feedback.bad{color:var(--bad)} .feedback.warn{color:#e17055}
+.hintbox{margin-top:10px; background:#fff8e1; border-left:6px solid #fdcb6e; padding:12px 14px; border-radius:10px; font-size:.98rem}
+.muted{color:#fff; text-align:center; font-weight:600; margin:8px 0; text-shadow:0 1px 3px rgba(0,0,0,.2)}
+.big-emoji{font-size:4rem}
+.hero h2{margin:6px 0}
+.breakdown{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; text-align:left}
+@media (max-width:520px){.breakdown{grid-template-columns:1fr}}
+.bk{background:rgba(255,255,255,.22); border-radius:12px; padding:10px 12px; color:#fff}
+.bar2{height:8px; background:rgba(255,255,255,.3); border-radius:99px; overflow:hidden; margin-top:6px}
+.bar2 div{height:100%; background:#fff}
+.sheet-preview{background:#fff; border:2px dashed #b2bec3; border-radius:14px; padding:14px; max-height:440px; overflow:auto; margin:12px 0}
+.sheet,.cert{font-family:"Segoe UI",Arial,sans-serif; color:#2d3436}
+.sh-head{text-align:center; border-bottom:3px solid #6c5ce7; padding-bottom:10px; margin-bottom:12px}
+.sh-head h2{margin:4px 0; color:#6c5ce7}
+.sh-head p{margin:3px 0; font-size:.92rem}
+.sh-cat{background:linear-gradient(90deg,#6c5ce7,#0984e3); color:#fff; padding:6px 12px; border-radius:8px; margin:16px 0 8px}
+.sh-q{margin:8px 0 2px; font-size:1rem}
+.sh-opts{font-size:.95rem; margin-left:18px; line-height:1.7}
+.sh-ans{color:#00864f; font-weight:700; margin:4px 0 6px 18px}
+.sh-line{margin:4px 0 6px 18px; color:#636e72}
+.cert{
+  border:14px solid transparent; border-image:linear-gradient(135deg,#e84393,#fdcb6e,#00b894,#0984e3,#6c5ce7) 1;
+  background:linear-gradient(135deg,#fff7d6,#ffe0f0 45%,#d9f2ff); padding:30px; text-align:center; border-radius:6px;
+  -webkit-print-color-adjust:exact; print-color-adjust:exact;
+}
+.cert h1{font-family:Georgia,serif; color:#6c5ce7; font-size:2.1rem; margin:6px 0}
+.cert-stars{font-size:1.6rem; letter-spacing:10px; color:#f0932b}
+.cert-name{font-family:Georgia,serif; color:#e84393; font-size:2.2rem; margin:10px 0; border-bottom:2px dashed #e84393; display:inline-block; padding:0 20px}
+.cert-foot{display:flex; justify-content:space-around; margin-top:28px; font-size:.9rem; flex-wrap:wrap; gap:12px}
+.cert-foot small{color:#636e72}
+#fx{position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:50}
+#print-area{display:none}
+@media print{
+  body>*:not(#print-area){display:none!important}
+  body{background:#fff!important; padding:0!important}
+  #print-area{display:block!important; padding:10mm}
+  @page{size:A4; margin:10mm}
+  .opt b{background:#6c5ce7!important; -webkit-print-color-adjust:exact; print-color-adjust:exact}
+  .sh-cat{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<canvas id="fx"></canvas>
+
+<!-- ============ SETUP ============ -->
+<section id="setup" class="screen active">
+  <div class="card hero">
+    <div class="big-emoji">📘🏆</div>
+    <h1>SSLC English · Section I · Part I</h1>
+    <p>Vocabulary One-Mark Quiz based on Second Mid Term Question Papers (2024)</p>
+  </div>
+  <div class="card">
+    <label>Student Name
+      <input id="sName" placeholder="Enter your full name" maxlength="60">
+    </label>
+    <label>School Name
+      <input id="sSchool" placeholder="Enter your school name" maxlength="90">
+    </label>
+    <label>District
+      <select id="sDistrict"></select>
+    </label>
+    <label>Choose Category
+      <select id="sCat"></select>
+    </label>
+    <p class="muted" style="color:var(--muted);text-shadow:none;font-weight:500">
+      Each question carries 1 mark. You get two tries per question. Score 70% or more to unlock your certificate.
+    </p>
+    <button class="btn primary big" onclick="startQuiz()">Start Quiz 🚀</button>
+  </div>
+  <div class="credit">Created by S. RAMACHANDRAN, BT ASST ENG, GHS KARAGUR, KRISHNAGIRI DT</div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section id="quiz" class="screen">
+  <div class="topbar">
+    <span id="catBadge" class="badge"></span>
+    <span id="counter" class="counter"></span>
+  </div>
+  <div class="progress"><div id="bar"></div></div>
+  <div class="card">
+    <div id="qText" class="qtext"></div>
+    <div id="opts" class="opts"></div>
+    <div id="feedback" class="feedback"></div>
+    <button class="btn hint" onclick="toggleHint()">💡 Show Hint</button>
+    <div id="hint" class="hintbox" hidden></div>
+  </div>
+  <div class="navrow">
+    <button id="backBtn" class="btn ghost" onclick="prevQ()">← Back</button>
+    <button id="nextBtn" class="btn primary" onclick="nextQ()">Next →</button>
+  </div>
+  <p class="muted">Live score: <span id="live">0</span></p>
+</section>
+
+<!-- ============ RESULT ============ -->
+<section id="result" class="screen">
+  <div class="card hero">
+    <div id="rEmoji" class="big-emoji"></div>
+    <h2 id="rMsg"></h2>
+    <div id="rScore" style="font-size:1.1rem"></div>
+    <div id="rBreak" class="breakdown"></div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">📄 Worksheet – Print / Save as PDF</h3>
+    <div class="navrow">
+      <button class="btn" onclick="showWS(false)">Worksheet (Questions)</button>
+      <button class="btn" onclick="showWS(true)">Worksheet with Answers</button>
+    </div>
+    <div id="wsPreview" class="sheet-preview" hidden></div>
+    <button id="wsPrint" class="btn primary" hidden onclick="printHTML(currentWS)">🖨️ Print / Save as PDF</button>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">🎓 Certificate</h3>
+    <p id="certNote" style="color:var(--muted)"></p>
+    <div id="certBox" hidden>
+      <div id="certPreview" style="margin-bottom:14px"></div>
+      <button class="btn gold" onclick="printHTML(certHTML())">⬇️ Download Certificate (Save as PDF)</button>
+    </div>
+  </div>
+
+  <div class="credit">Created by S. RAMACHANDRAN, BT ASST ENG, GHS KARAGUR, KRISHNAGIRI DT</div>
+  <div class="navrow">
+    <button class="btn ghost" onclick="review()">↺ Review Answers</button>
+    <button class="btn primary" onclick="restart()">Try Again 🔁</button>
+  </div>
+</section>
+
+<div id="print-area"></div>
+
+<script>
+/* ================= QUESTION BANK (Section I Part I – one mark) =================
+   Format: [category, question, [options], correctIndex, hint] */
+const QS = [
+ // ---------- SYNONYMS ----------
+ ["Synonyms","They continue to *grapple* with the changes.",["settle","fight","move","stop"],1,"'Grapple' means to struggle hard with a problem. Find the word meaning 'struggle'."],
+ ["Synonyms","He has fixed his *gaze* on his icon.",["move","start","stare","touch"],2,"A 'gaze' is a long, steady look. Which word means to look fixedly?"],
+ ["Synonyms","Technology helped him to overcome physical *impairment*.",["disabilities","transitions","health","ignorance"],0,"'Impairment' is a physical weakness or limitation. Which word means a physical disability?"],
+ ["Synonyms","You can imagine how I blushed and how *frightened* I was.",["afraid","pleases","soothing","disturbed"],0,"Look for the word that has the same meaning as 'frightened'."],
+ ["Synonyms","Usually, there will be a great *bustle* in the class room.",["excitement","calamity","riot","playful"],0,"'Bustle' means busy, lively activity. Which word matches that energy?"],
+ ["Synonyms","Stephen Hawking is the world *renowned* physicist.",["famous","special","talented","typical"],0,"'Renowned' means well known and admired by many."],
+ ["Synonyms","Lessons were repeated in *unison*.",["memorizing","shouting loudly","repeating correctly","simultaneous utterance"],3,"'In unison' means all together at the same time."],
+ ["Synonyms","I had counted on the *commotion* to get to my desk.",["confusion","disturbance","unrest","calmness"],1,"A 'commotion' is a noisy, disorderly disturbance in a crowd."],
+
+ // ---------- ANTONYMS ----------
+ ["Antonyms","Technology is also a *boon* to citizens with special needs.",["bonus","blast","block","bane"],3,"A 'boon' is a blessing. Its opposite is a curse, and 'bane' means curse."],
+ ["Antonyms","Your parents were *anxious*.",["relaxed","happy","faultless","ideal"],0,"'Anxious' means worried. What is the opposite of worried?"],
+ ["Antonyms","The words *appear* on my screen and then I can print them out.",["raise","type","vanish","blink"],2,"'Appear' means to come into view. Its opposite means to go out of view."],
+ ["Antonyms","I won't *scold* you, little Franz.",["apologize","praise","compromise","beat"],1,"'Scold' means to criticise angrily. What is the opposite of criticising?"],
+ ["Antonyms","I had the strength to *resist*.",["continue","assist","defy","thwart"],1,"'Resist' means to refuse to give in. What is the opposite of resisting?"],
+ ["Antonyms","We look forward to a more inclusive way of learning, instead of the *cloistered* existence.",["confined","hidden","sheltered","open"],3,"'Cloistered' means shut away from the world. What is the opposite?"],
+ ["Antonyms","India's disabled are *deprived* by attitudinal barriers.",["unprivileged","disadvantaged","depressed","privileged"],3,"'Deprived' means lacking what others have. The opposite is having advantages."],
+ ["Antonyms","It is *essential* that much of his spare time is spent in the performing arts.",["inessential","acknowledged","compelling","fundamental"],0,"'Essential' means absolutely necessary. Its opposite begins with 'in-'."],
+ ["Antonyms","We can now *look forward* to a more inclusive way of learning.",["further","ahead","proceed","backward"],3,"'Look forward' means to anticipate eagerly. The opposite is looking back."],
+ ["Antonyms","Technology impacts the environment, people and the society as a *whole*.",["partial","entire","unabridged","hollow"],0,"'As a whole' means completely. What is the opposite: in part?"],
+
+ // ---------- ABBREVIATIONS ----------
+ ["Abbreviations","Expansion of the abbreviation IMF",["Indian Monetary Fund","International Mutual Fund","International Monetary Fund","Indian Mutual Fund"],2,"It is an 'International' organisation that works with money and loans."],
+ ["Abbreviations","Expansion of the abbreviation PDF",["Portable Document Format","Print Document Format","Press Document Facility","Payable Document Format"],0,"It is a file format used to share documents across devices."],
+ ["Abbreviations","Expansion of the abbreviation WHO",["World Human Organisation","World Health Organisation","World Health Outstation","Washington Health Organisation"],1,"It is the United Nations agency that deals with global health."],
+ ["Abbreviations","Expansion of the abbreviation MRI",["Magnified Resonance Imaging","Magnified Reasoning Imagery","Magnetic Resonance Imaging","Magnetic Resonance Imagery"],2,"A medical scan that uses magnets and radio waves."],
+ ["Abbreviations","Expansion of the abbreviation ISRO",["International Satellite Research Organization","Indian Space Research Organization","Indian Social Reforms Organization","Indian Southern Railway Organization"],1,"It is India's national space agency."],
+ ["Abbreviations","Expansion of the abbreviation CBI",["Central Bureau of Investors","Central Banks of India","Control Bureau of Investigators","Central Bureau of Investigation"],3,"It is India's premier investigating agency."],
+ ["Abbreviations","Expansion of the abbreviation VAT",["Value Application Tax","Valuable Aided Tax","Value Account Tax","Value Added Tax"],3,"It is a tax levied on the value added at each stage of sale."],
+ ["Abbreviations","Expansion of the abbreviation HDTV",["High Definition Television","High Digital Television","High Digital Technology","High Definition Technology"],0,"It refers to television with high picture resolution."],
+ ["Abbreviations","Expansion of the abbreviation VR",["Virtual Reality","Visual Reality","Video Reality","Vision Reality"],0,"A computer-generated 3D world you can feel immersed in."],
+ ["Abbreviations","Expansion of the abbreviation SIM",["Subscriber Information Module","Subscriber Identification Module","Students Identification Module","School Identification Module"],1,"The small chip in a mobile phone that identifies the subscriber."],
+ ["Abbreviations","Expansion of the abbreviation IRCTC",["Indian Railways caring and Tourism Corporation","Indian Roadways catering and Tourism corporation","Indian Railways catering and Tourism corporation","International Railways catering and Tourism corporation"],2,"It manages railway catering and tourism services."],
+ ["Abbreviations","Expansion of the abbreviation GCSE",["Global Certificate of Secondary Education","Global Currency and Stock Economics","General Certificate of Secondary Education","General Certificate of School Education"],2,"A school-leaving examination taken in the United Kingdom."],
+
+ // ---------- PLURALS ----------
+ ["Plurals","Choose the correct plural form of 'radius'",["Radeis","radios","arose","radii"],3,"Words ending in '-us' or '-ius' from Latin often change to '-ii'."],
+ ["Plurals","Choose the correct plural form of 'curriculum'",["curricula","curricular","curriculae","curriculum"],0,"Latin words ending in '-um' change to '-a'."],
+ ["Plurals","Choose the correct plural form of 'knife'",["knifes","knives","knifeses","kniveses"],1,"Words ending in 'f' or 'fe' usually change to '-ves'."],
+ ["Plurals","Choose the correct plural form of 'alumnus'",["alumna","alumnae","alumni","alumnuses"],2,"A masculine Latin word ending in '-us' changes to '-i'."],
+ ["Plurals","Choose the correct plural form of 'lorry'",["lorry","lorries","lorryes","lorrys"],1,"A consonant followed by 'y' changes 'y' to 'ies'."],
+ ["Plurals","Choose the correct plural form of 'photo'",["photo","photoes","photos","photies"],2,"Most nouns simply add 's' in the plural."],
+ ["Plurals","Choose the correct plural form of 'syllabus'",["syllables","syllabus","syllabi","syllabuses"],2,"Latin words ending in '-us' often change to '-i'."],
+ ["Plurals","Choose the correct plural form of 'leaf'",["leaves","leafs","leaf","leafes"],0,"Words ending in 'f' change to '-ves'."],
+ ["Plurals","Choose the correct plural form of 'technology'",["technologys","technologyes","tech","technologies"],3,"A consonant followed by 'y' changes to 'ies'."],
+ ["Plurals","Choose the correct plural form of 'deity'",["deitys","daities","deityes","deities"],3,"Consonant + 'y' becomes 'ies'."],
+ ["Plurals","Choose the correct plural form of 'burglar'",["burglar","burglari","burglare","burglars"],3,"Most nouns simply add 's'."],
+
+ // ---------- PHRASAL VERBS ----------
+ ["Phrasal Verbs","He had ____ his fine Sunday clothes.",["put on","put off","put out","put in"],0,"'Put on' means to wear clothes."],
+ ["Phrasal Verbs","She put on her rain coat and went out. 'Put on' means:",["weighed","took","wore","designed"],2,"Think about what you do with a coat when you go outside."],
+ ["Phrasal Verbs","That helps to ____ the calories.",["burn up","burn off","burn on","burn out"],1,"'Burn off' means to get rid of something by burning or exercising."],
+ ["Phrasal Verbs","He planned to ____ everyone for a meeting.",["break off","clean-up","call on","turn off"],2,"'Call on' means to invite or ask someone to come."],
+ ["Phrasal Verbs","Francis Bennett left the hall and ____ in a rolling armchair.",["sat down","sit on","sat by","sit up"],0,"Use the past tense of 'sit' with 'down' to show lowering oneself into a seat."],
+
+ // ---------- COMPOUND WORDS ----------
+ ["Compound Words","Pair 'SOFT' with the suitable word to form a compound word.",["cotton","ware","play","lashes"],1,"Think of the computer programs that run on a machine."],
+ ["Compound Words","Pair 'BACK' with the suitable word to form a compound word.",["up","on","ware","load"],0,"A copy of your files kept for safety is a ____."],
+ ["Compound Words","Pair 'SUN' with the suitable word to form a compound word.",["hole","hand","post","glasses"],3,"Something you wear to protect your eyes from bright light."],
+ ["Compound Words","Pair 'FARE' with the suitable word to form a compound word.",["game","ride","play","well"],3,"A word used when parting from someone."],
+ ["Compound Words","Pair 'HOUSE' with the suitable word to form a compound word.",["keeping","walking","eating","study"],0,"Managing the affairs of a home."],
+
+ // ---------- WORD FORMATION ----------
+ ["Word Formation","Form a derivative by adding the right suffix to 'communicate'.",["-ion","-ment","-ness","-ly"],0,"The noun form of 'communicate' is 'communication'."],
+ ["Word Formation","Form a derivative by adding the right suffix to 'consume'.",["-less","-able","-ly","-ist"],1,"Something that can be eaten or used up is ____."],
+ ["Word Formation","Form a derivative by adding the right suffix to 'special'.",["-ist","-ment","-ous","-ness"],0,"A person who is an expert in one field is a ____."],
+
+ // ---------- IDIOMS ----------
+ ["Idioms","'Babloo was a chicken-hearted person.' Choose the meaning of the idiom.",["brave","kind-hearted","arrogant","cowardly"],3,"A 'chicken-hearted' person gets scared very easily."],
+ ["Idioms","Choose the meaning of the idiomatic phrase 'go far'.",["finish","submit","succeed","visit"],2,"To 'go far' means to do very well in life or work."],
+
+ // ---------- GRAMMAR IN VOCABULARY ----------
+ ["Grammar in Vocabulary","This is Varun ____ father is an architect.",["who","whose","which","whom"],1,"Choose the relative pronoun that shows possession."],
+ ["Grammar in Vocabulary","Both the minister ____ the officers visited the affected areas.",["but","and","so","or"],1,"'Both ... and' is a correlative pair."],
+ ["Grammar in Vocabulary","Each of them ____ lovable.",["is","are","were","has"],0,"'Each' is always singular, so it takes a singular verb."],
+ ["Grammar in Vocabulary","Paper is made ____ wood.",["of","for","off","in"],0,"Use 'made of' to show the material used."],
+ ["Grammar in Vocabulary","Water ____ at 100° Celsius.",["boil","boiled","boils","boiles"],2,"A general truth uses the present tense with a singular subject."],
+ ["Grammar in Vocabulary","Francis Bennett ____ in solitude.",["lunching","are lunching","was lunching","were lunching"],2,"A singular subject with a past continuous action uses 'was' + verb-ing."]
+];
+
+const CATS = ["Synonyms","Antonyms","Abbreviations","Plurals","Phrasal Verbs","Compound Words","Word Formation","Idioms","Grammar in Vocabulary"];
+const DISTRICTS = ["Ariyalur","Chengalpattu","Chennai","Coimbatore","Cuddalore","Dharmapuri","Dindigul","Erode","Kallakurichi","Kancheepuram","Kanniyakumari","Karur","Krishnagiri","Madurai","Mayiladuthurai","Nagapattinam","Namakkal","Nilgiris","Perambalur","Pudukkottai","Ramanathapuram","Ranipet","Salem","Sivaganga","Tenkasi","Thanjavur","Theni","Thoothukudi","Tiruchirappalli","Tirunelveli","Tirupathur","Tiruppur","Tiruvallur","Tiruvannamalai","Tiruvarur","Vellore","Viluppuram","Virudhunagar"];
+const LETTERS = ["a","b","c","d"];
+
+/* ================= STATE ================= */
+let S = { name:"", school:"", district:"", cat:"All", list:[], idx:0, ans:[], finished:false };
+let currentWS = "";
+
+/* ================= SETUP ================= */
+(function init(){
+  const d = document.getElementById("sDistrict");
+  d.innerHTML = '<option value="">-- Select District --</option>' + DISTRICTS.map(x=>`<option>${x}</option>`).join("");
+  const c = document.getElementById("sCat");
+  c.innerHTML = `<option value="All">All Categories (${QS.length} questions)</option>` +
+    CATS.map(x=>`<option value="${x}">${x} (${QS.filter(q=>q[0]===x).length})</option>`).join("");
+})();
+
+function mark(s){ return esc(s).replace(/\*([^*]+)\*/g, '<span class="tw"><u><b><i>$1</i></b></u></span>'); }
+function esc(s){ return String(s).replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m])); }
+
+function show(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function startQuiz(){
+  const name = document.getElementById("sName").value.trim();
+  const school = document.getElementById("sSchool").value.trim();
+  const district = document.getElementById("sDistrict").value;
+  const cat = document.getElementById("sCat").value;
+  if(!name || !school || !district){
+    sfxWrong();
+    alert("Please enter your name, school name and select your district.");
+    return;
+  }
+  ctx();
+  S.name=name; S.school=school; S.district=district; S.cat=cat;
+  S.list = QS.filter(q=> cat==="All" || q[0]===cat);
+  S.ans = S.list.map(()=>({attempts:[], done:false, first:false}));
+  S.idx = 0; S.finished=false;
+  show("quiz");
+  render();
+}
+
+/* ================= QUIZ ================= */
+function render(){
+  const q = S.list[S.idx], a = S.ans[S.idx], total = S.list.length;
+  document.getElementById("catBadge").textContent = "📚 " + q[0];
+  document.getElementById("counter").textContent = `Question ${S.idx+1} of ${total}`;
+  document.getElementById("bar").style.width = ((S.idx+1)/total*100) + "%";
+  document.getElementById("qText").innerHTML = (S.idx+1) + ". " + mark(q[1]);
+  document.getElementById("live").textContent = S.ans.filter(x=>x.first).length + " / " + total;
+
+  // options
+  const box = document.getElementById("opts");
+  box.innerHTML = q[2].map((o,i)=>{
+    let cls = "opt";
+    if(a.attempts.includes(i)) cls += (i===q[3]) ? " correct" : " wrong";
+    if(a.done && i===q[3]) cls += " correct";
+    return `<button class="${cls}" ${a.done?"disabled":""} onclick="pick(${i})"><b>${LETTERS[i]}</b>${esc(o)}</button>`;
+  }).join("");
+
+  // feedback
+  const fb = document.getElementById("feedback");
+  if(a.done && a.first){ fb.className="feedback ok"; fb.textContent="✅ Correct! +1 mark"; }
+  else if(a.done && !a.first && a.attempts.length){ fb.className="feedback warn"; fb.textContent="👍 Correct on the next try! (0 mark – first try only scores)"; }
+  else if(a.done){ fb.className="feedback bad"; fb.textContent="❌ The correct answer is " + LETTERS[q[3]] + ") " + q[2][q[3]]; }
+  else if(a.attempts.length===1){ fb.className="feedback warn"; fb.textContent="🔁 Next try! Think again…"; }
+  else { fb.className="feedback"; fb.textContent=""; }
+
+  // hint reset
+  document.getElementById("hint").hidden = true;
+  document.getElementById("hint").innerHTML = "💡 " + esc(q[4]);
+
+  document.getElementById("backBtn").disabled = S.idx===0;
+  document.getElementById("nextBtn").textContent = (S.idx===total-1) ? "Finish 🏁" : "Next →";
+  document.getElementById("bar").parentElement.style.background = "rgba(255,255,255,.6)";
+}
+
+function pick(i){
+  const q = S.list[S.idx], a = S.ans[S.idx];
+  if(a.done) return;
+  ctx();
+  a.attempts.push(i);
+  if(i===q[3]){
+    a.done = true;
+    a.first = a.attempts.length===1;
+    sfxCorrect();
+  } else if(a.attempts.length>=2){
+    a.done = true;
+    sfxWrong();
+  } else {
+    sfxNextTry();
+  }
+  render();
+}
+
+function toggleHint(){
+  const h = document.getElementById("hint");
+  h.hidden = !h.hidden;
+  if(!h.hidden) sfxNext();
+}
+
+function nextQ(){
+  sfxNext();
+  if(S.idx < S.list.length-1){ S.idx++; render(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else finish();
+}
+
+function prevQ(){
+  if(S.idx>0){ sfxNext(); S.idx--; render(); window.scrollTo({top:0,behavior:"smooth"}); }
+}
+
+/* ================= RESULT ================= */
+function finish(){
+  S.finished = true;
+  const total = S.list.length;
+  const score = S.ans.filter(x=>x.first).length;
+  const pct = Math.round(score/total*100);
+  S.score = score; S.pct = pct;
+
+  let emoji, msg, level;
+  if(pct>=90){ emoji="🏆"; msg="Outstanding! You are a vocabulary champion!"; level=90; }
+  else if(pct>=70){ emoji="🎉"; msg="Excellent work! Great command of vocabulary!"; level=70; }
+  else if(pct>=50){ emoji="⭐"; msg="Good effort! Keep practising!"; level=50; }
+  else { emoji="🌱"; msg="Don't give up! Revise and try again!"; level=20; }
+
+  document.getElementById("rEmoji").textContent = emoji;
+  document.getElementById("rMsg").textContent = msg;
+  document.getElementById("rScore").innerHTML = `<b>${name()}</b> scored <b>${score} / ${total}</b> = <b>${pct}%</b>`;
+
+  // breakdown by category
+  const cats = [...new Set(S.list.map(q=>q[0]))];
+  document.getElementById("rBreak").innerHTML = cats.map(c=>{
+    const idxs = S.list.map((q,i)=>q[0]===c?i:-1).filter(i=>i>=0);
+    const sc = idxs.filter(i=>S.ans[i].first).length;
+    const p = Math.round(sc/idxs.length*100);
+    return `<div class="bk"><b>${c}</b><br>${sc} / ${idxs.length} (${p}%)<div class="bar2"><div style="width:${p}%"></div></div></div>`;
+  }).join("");
+
+  // certificate availability
+  const ok = pct>=70;
+  document.getElementById("certBox").hidden = !ok;
+  document.getElementById("certNote").textContent = ok
+    ? "Congratulations! You unlocked your certificate. Preview it below and download as PDF."
+    : `Score 70% or more to unlock your certificate. You need ${Math.ceil(total*0.7)} correct first-try answers (you have ${score}).`;
+  if(ok) document.getElementById("certPreview").innerHTML = certHTML();
+
+  // worksheet default
+  document.getElementById("wsPreview").hidden = true;
+  document.getElementById("wsPrint").hidden = true;
+
+  show("result");
+  setTimeout(()=>{ applause(level); startShower(level); }, 300);
+}
+
+function name(){ return esc(S.name); }
+
+function review(){
+  S.idx = 0; show("quiz"); render();
+}
+
+function restart(){
+  show("setup");
+}
+
+/* ================= WORKSHEETS ================= */
+function sheetHead(title){
+  return `<div class="sh-head">
+    <h2>SSLC English · Section I Part I (Vocabulary)</h2>
+    <p><b>${esc(title)}</b> · One-Mark Questions · Second Mid Term PYQ Practice</p>
+    <p>Name: ${name()} &nbsp;|&nbsp; School: ${esc(S.school)} &nbsp;|&nbsp; District: ${esc(S.district)}</p>
+    <p>Date: ${new Date().toLocaleDateString("en-IN")} &nbsp;|&nbsp; Marks: ${S.list.length} × 1 = ${S.list.length}</p>
+  </div>`;
+}
+
+function buildSheet(withAns){
+  let html = sheetHead(withAns ? "Worksheet with Answers" : "Worksheet (Questions)");
+  let n = 0;
+  const cats = [...new Set(S.list.map(q=>q[0]))];
+  cats.forEach(c=>{
+    html += `<div class="sh-cat">${c}</div>`;
+    S.list.filter(q=>q[0]===c).forEach(q=>{
+      n++;
+      html += `<div class="sh-q"><b>${n}.</b> ${mark(q[1])}</div>`;
+      html += `<div class="sh-opts">${q[2].map((o,i)=>`${LETTERS[i]}) ${esc(o)}`).join(" &nbsp;&nbsp; ")}</div>`;
+      html += withAns
+        ? `<div class="sh-ans">Answer: ${LETTERS[q[3]]}) ${esc(q[2][q[3]])}</div>`
+        : `<div class="sh-line">Answer: ______________________</div>`;
+    });
+  });
+  return html;
+}
+
+function showWS(withAns){
+  currentWS = `<div class="sheet">${buildSheet(withAns)}</div>`;
+  const pv = document.getElementById("wsPreview");
+  pv.innerHTML = currentWS;
+  pv.hidden = false;
+  document.getElementById("wsPrint").hidden = false;
+}
+
+/* ================= CERTIFICATE ================= */
+function certHTML(){
+  const date = new Date().toLocaleDateString("en-IN",{day:"2-digit",month:"long",year:"numeric"});
+  return `<div class="cert">
+    <div class="cert-stars">★ ✦ ★ ✦ ★</div>
+    <h1>Certificate of Achievement</h1>
+    <p>This certificate is proudly presented to</p>
+    <div class="cert-name">${name()}</div>
+    <p>of <b>${esc(S.school)}</b>, ${esc(S.district)} District</p>
+    <p>for scoring <b>${S.pct}%</b> (${S.score} / ${S.list.length}) in the<br>
+      <b>SSLC English · Section I Part I · One-Mark Vocabulary Quiz</b></p>
+    <div class="cert-foot">
+      <div>${date}<br><small>Date of Award</small></div>
+      <div style="font-size:2.2rem">🏆<br><small>Excellence Award</small></div>
+      <div>______________________<br><small>Signature</small></div>
+    </div>
+  </div>`;
+}
+
+/* ================= PRINT / SAVE AS PDF ================= */
+function printHTML(html){
+  if(!html) return;
+  const pa = document.getElementById("print-area");
+  pa.innerHTML = html;
+  setTimeout(()=>window.print(), 60);
+}
+
+/* ================= SOUND EFFECTS (synthesised, no files) ================= */
+let AC = null;
+function ctx(){
+  if(!AC) AC = new (window.AudioContext || window.webkitAudioContext)();
+  if(AC.state==="suspended") AC.resume();
+  return AC;
+}
+function tone(f, d=0.2, type="sine", v=0.15, t0=0){
+  try{
+    const c = ctx(), s = c.currentTime + t0;
+    const o = c.createOscillator(), g = c.createGain();
+    o.type = type; o.frequency.value = f;
+    g.gain.setValueAtTime(0.0001, s);
+    g.gain.exponentialRampToValueAtTime(v, s+0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, s+d);
+    o.connect(g).connect(c.destination);
+    o.start(s); o.stop(s+d+0.05);
+  }catch(e){}
+}
+function clap(t0=0){
+  try{
+    const c = ctx(), len = Math.floor(c.sampleRate*0.06);
+    const buf = c.createBuffer(1, len, c.sampleRate), data = buf.getChannelData(0);
+    for(let i=0;i<len;i++) data[i] = (Math.random()*2-1)*(1-i/len);
+    const src = c.createBufferSource(); src.buffer = buf;
+    const f = c.createBiquadFilter(); f.type="bandpass"; f.frequency.value=1400;
+    const g = c.createGain(); g.gain.value = 0.7;
+    src.connect(f).connect(g).connect(c.destination);
+    src.start(c.currentTime + t0);
+  }catch(e){}
+}
+function sfxCorrect(){ [523,659,784,1047].forEach((f,i)=>tone(f,0.25,"triangle",0.2,i*0.1)); }
+function sfxNextTry(){ tone(440,0.15,"square",0.07); tone(330,0.2,"square",0.07,0.18); }
+function sfxWrong(){ tone(180,0.4,"sawtooth",0.09); }
+function sfxNext(){ tone(900,0.05,"sine",0.08); }
+function applause(level){
+  const n = level>=90?18:level>=70?14:level>=50?9:4;
+  for(let i=0;i<n;i++) clap(i*0.11 + Math.random()*0.05);
+  if(level>=70){
+    [523,659,784,1047,1319].forEach((f,i)=>tone(f,0.45,"triangle",0.2,1.0+i*0.12));
+  } else if(level>=50){
+    tone(523,0.5,"sine",0.15,1.0); tone(659,0.5,"sine",0.15,1.2);
+  } else {
+    tone(392,0.5,"sine",0.12,1.0);
+  }
+}
+
+/* ================= APPRECIATION SHOWERS (canvas) ================= */
+const fx = document.getElementById("fx"), fc = fx.getContext("2d");
+function resizeFx(){ fx.width = innerWidth; fx.height = innerHeight; }
+addEventListener("resize", resizeFx); resizeFx();
+let parts = [], animId = null;
+const COLORS = ["#6c5ce7","#00b894","#fd79a8","#fdcb6e","#0984e3","#e17055"];
+function rnd(a){ return a[Math.floor(Math.random()*a.length)]; }
+
+function makePart(pool, initial){
+  const isEm = !pool.conf || Math.random()<0.4;
+  return {
+    x: Math.random()*fx.width,
+    y: initial ? Math.random()*fx.height : -30,
+    vy: 1.5 + Math.random()*2.8,
+    s: Math.random()*10,
+    r: Math.random()*6,
+    vr: (Math.random()-0.5)*0.12,
+    em: isEm ? rnd(pool.em) : null,
+    size: isEm ? 26 + Math.random()*10 : 9 + Math.random()*8,
+    c: rnd(COLORS)
+  };
+}
+
+function startShower(level){
+  const pool =
+    level>=90 ? {em:["🏆","⭐","✨","🎉","🥇"], conf:true} :
+    level>=70 ? {em:["💙","💚","🎉","🌟","🎊"], conf:true} :
+    level>=50 ? {em:["⭐","🌟","💫","✨"], conf:false} :
+                {em:["🌱","🍃","✨","🌸"], conf:false};
+  parts = [];
+  const count = level>=50 ? 130 : 70;
+  for(let i=0;i<count;i++) parts.push(makePart(pool,true));
+  const end = performance.now() + 4800;
+  cancelAnimationFrame(animId);
+  const loop = (t)=>{
+    fc.clearRect(0,0,fx.width,fx.height);
+    parts.forEach(p=>{
+      p.y += p.vy;
+      p.x += Math.sin(p.y/30 + p.s)*0.9;
+      p.r += p.vr;
+      if(p.y > fx.height+30) Object.assign(p, makePart(pool,false));
+      fc.save();
+      fc.translate(p.x,p.y); fc.rotate(p.r);
+      if(p.em){
+        fc.font = p.size+"px serif"; fc.textAlign="center"; fc.textBaseline="middle";
+        fc.fillText(p.em,0,0);
+      } else {
+        fc.fillStyle = p.c;
+        fc.fillRect(-p.size/2, -p.size/4, p.size, p.size/2);
+      }
+      fc.restore();
+    });
+    if(t < end) animId = requestAnimationFrame(loop);
+    else fc.clearRect(0,0,fx.width,fx.height);
+  };
+  animId = requestAnimationFrame(loop);
+}
+</script>
+</body>
+</html>

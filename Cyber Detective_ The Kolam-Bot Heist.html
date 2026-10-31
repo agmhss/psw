@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cyber Detective: The Kolam-Bot Heist</title>
+<style>
+:root{--bg:#f4f6fb;--fg:#14213d;--card:#fff;--line:#d5dbe8;--acc:#0b7a75;--accfg:#fff;--bad:#b3261e;--good:#1b7f3b;--mute:#5b6577;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1424;--fg:#e8ecf6;--card:#182036;--line:#2c3656;--acc:#38c7bd;--accfg:#06201e;--bad:#ff8a80;--good:#6fdc8c;--mute:#9aa6c0}}
+:root[data-theme="dark"]{--bg:#0e1424;--fg:#e8ecf6;--card:#182036;--line:#2c3656;--acc:#38c7bd;--accfg:#06201e;--bad:#ff8a80;--good:#6fdc8c;--mute:#9aa6c0}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:640px;margin:0 auto;padding:20px 16px 40px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0}
+h1{font-size:1.6rem;margin:.2em 0}h2{font-size:1.25rem;margin:.2em 0}
+.mute{color:var(--mute);font-size:.92rem}
+button{font:inherit;display:block;width:100%;text-align:left;padding:13px 14px;margin:9px 0;border-radius:11px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer}
+button.p{background:var(--acc);color:var(--accfg);border-color:var(--acc);text-align:center;font-weight:600}
+button:disabled{opacity:.55;cursor:default}
+button.ok{border-color:var(--good);border-width:2px}
+input{font:inherit;width:100%;padding:12px;border-radius:11px;border:1px solid var(--line);background:var(--bg);color:var(--fg)}
+.fb{margin-top:10px;font-weight:500}.good{color:var(--good)}.bad{color:var(--bad)}
+.frag{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:1.6rem;letter-spacing:.1em;color:var(--acc);font-weight:700}
+.sent{font-size:1.1rem;font-weight:600}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+var T=[
+{n:"Terminal 1: The Taunt Mails",sk:"Spot the Error",f:"KAL",intro:"Phantom’s taunt: “Fix my mistakes, little detective. In each sentence, ONE part is wrong. Find it and the terminal opens.”",
+qs:[
+{p:"(A) The hacker, (B) along with his two friends, (C) are hiding (D) in the old server room.",o:["A) The hacker","B) along with his two friends","C) are hiding","D) in the old server room"],a:2,ok:"Along with does not make the subject plural. The subject is “The hacker” (singular), so: is hiding.",b:["Part A is fine. Look at the verb.","Part B is only extra information. Does it change the subject?",null,"Part D is fine. In is correct here."]},
+{p:"(A) I have bought (B) a new laptop (C) yesterday (D) for the investigation.",o:["A) I have bought","B) a new laptop","C) yesterday","D) for the investigation"],a:0,ok:"Yesterday is a finished time, so we use simple past: I bought.",b:[null,"Part B is fine.","The time word is a clue to which tense is needed!","Part D is fine."]},
+{p:"(A) The detective gave (B) a valuable advice (C) to the students (D) about online safety.",o:["A) The detective gave","B) a valuable advice","C) to the students","D) about online safety"],a:1,ok:"Advice is uncountable, so it cannot take a. Say: valuable advice.",b:["Gave is the correct simple past.",null,"Gave … to is a correct pattern.","About is correct here."]}
+]},
+{n:"Terminal 2: The Witness Files",sk:"Relative Clauses",f:"VI",intro:"Phantom’s taunt: “My witnesses speak in broken sentences. Fill each gap with the right relative word, or stay locked out.”",
+qs:[
+{p:"The hacker, ▢▢▢▢ real name is unknown, uses the alias Phantom.",o:["A) who","B) whom","C) whose","D) which"],a:2,ok:"Whose shows possession: the hacker’s real name.",b:["Who is a subject word. Here we need possession.","Whom is an object word. This shows ownership of the name.",null,"Which is for things, but this is a person."]},
+{p:"The server room, ▢▢▢▢ is on the first floor, was locked.",o:["A) that","B) which","C) who","D) whose"],a:1,ok:"A non-defining clause (with commas) about a thing uses which.",b:["The commas make this non-defining, and that is never used there.",null,"Who is only for people. A room is a thing.","Whose shows possession. There is no owner here."]},
+{p:"The lab assistant to ▢▢▢▢ the hacker sent the message was shocked.",o:["A) who","B) whom","C) whose","D) which"],a:1,ok:"The assistant received the message (object) and follows the preposition to, so: to whom.",b:["Look at “to” before the gap. Is the assistant the doer or the receiver?",null,"Nothing belongs to anyone here.","Which is for things, but this is a person."]}
+]},
+{n:"Terminal 3: The Final Firewall",sk:"Mixed: combine and correct",f:"2026",intro:"Phantom’s taunt: “Last chance, detective. Combine, correct and conquer.”",
+qs:[
+{p:"Combine: “I met the girl. She cracked the code.”",o:["A) I met the girl, who cracked the code.","B) I met the girl who cracked the code.","C) I met the girl which cracked the code.","D) I met the girl whom cracked the code."],a:1,ok:"The clause tells us which girl (defining), so we use who with no commas.",b:["Commas make it non-defining, but we need the clause to identify the girl.",null,"Which is not used for people.","Whom is an object word, but the girl is the doer here."]},
+{p:"Spot the error: (A) The student (B) whom won the quiz (C) is my (D) classmate.",o:["A) The student","B) whom won the quiz","C) is my","D) classmate"],a:1,ok:"The student is the doer (subject of won), so: who won the quiz.",b:["Part A is fine.",null,"Is agrees with the singular subject.","Part D is fine."]},
+{p:"Combine: “Chennai is the capital of Tamil Nadu. Chennai is famous for Marina Beach.”",o:["A) Chennai, that is the capital of Tamil Nadu, is famous for Marina Beach.","B) Chennai which is the capital of Tamil Nadu is famous for Marina Beach.","C) Chennai, which is the capital of Tamil Nadu, is famous for Marina Beach.","D) Chennai, who is the capital of Tamil Nadu, is famous for Marina Beach."],a:2,ok:"Extra (non-defining) information about a thing uses , which … ,",b:["That cannot be used in a non-defining clause.","There is only one Chennai, so the extra information needs commas.",null,"Who is for people. A city is a thing."]}
+]}];
+var S={d:[0,0,0],m:0,name:"Agent"},app=document.getElementById("app");
+function esc(s){var e=document.createElement("div");e.textContent=s;return e.innerHTML}
+function show(h){app.innerHTML=h;window.scrollTo(0,0)}
+function start(){S={d:[0,0,0],m:0,name:"Agent"};
+show('<h1>🕵️ Cyber Detective</h1><h2>The Kolam-Bot Heist</h2><div class="card"><p><b>Coimbatore, Tamil Nadu. 11:58 PM.</b> Tomorrow at 9 AM, your school’s prize-winning robot <b>Kolam-Bot</b>, which draws traditional kolam patterns, must compete in the Inter-School Robotics Championship. Tonight a hacker called <b>Phantom</b> has locked its control software and left taunting messages full of grammar mistakes.</p><p>Crack three English puzzles, collect three code fragments and unlock the robot before sunrise.</p><p class="mute">Wrong answers give hints and lower your final rank.</p><input id="nm" placeholder="Enter your detective name" maxlength="20"></div><button class="p" onclick="S.name=document.getElementById(\'nm\').value.trim()||\'Agent\';hub()">▶ Begin the case</button>')}
+function hub(){var all=S.d[0]&&S.d[1]&&S.d[2],h='<h2>💻 The Cyber Lab</h2><p class="mute">Detective '+esc(S.name)+'. Solve all three terminals.</p>';
+T.forEach(function(t,i){var lock=i==2&&!(S.d[0]&&S.d[1]);
+h+='<button '+(S.d[i]||lock?'disabled ':'')+'onclick="intro('+i+')">'+(S.d[i]?'✅ ':lock?'🔒 ':'')+esc(t.n)+'<br><span class="mute">'+esc(t.sk)+(S.d[i]?' · Fragment: '+t.f:lock?' · Solve 1 and 2 first':'')+'</span></button>'});
+if(all)h+='<button class="p" onclick="vault()">🔐 Go to the Control Lock</button>';
+h+='<button onclick="cheat()">📘 Grammar cheat sheet</button>';show(h)}
+function cheat(){show('<h2>📘 Detective’s Cheat Sheet</h2><div class="card"><p><b>Spot the Error</b></p><ul><li>Along with, as well as, together with do not change the subject’s number.</li><li>Yesterday, last week, in 2020 need simple past, not present perfect.</li><li>Uncountable nouns (advice, information, furniture) take no a/an and no plural -s.</li><li>No double comparatives (more better, most cleverest).</li></ul><p><b>Relative pronouns</b></p><ul><li>who / whom: people (who = subject, whom = object)</li><li>whose: possession</li><li>which: things and animals</li><li>that: defining clauses only</li><li>where / when: place / time</li></ul><p><b>Defining vs non-defining</b></p><ul><li>Defining: needed for meaning, no commas.</li><li>Non-defining: extra information, commas, never “that”.</li></ul></div><button class="p" onclick="hub()">← Back to the Lab</button>')}
+function intro(i){show('<h2>'+esc(T[i].n)+'</h2><div class="card"><p>'+esc(T[i].intro)+'</p></div><button class="p" onclick="ask('+i+',0)">Start the puzzle</button>')}
+function ask(i,q){var Q=T[i].qs[q],h='<p class="mute">'+esc(T[i].sk)+' · Question '+(q+1)+' of '+Q_len(i)+'</p><div class="card"><p class="sent">'+esc(Q.p)+'</p></div>';
+Q.o.forEach(function(o,k){h+='<button id="o'+k+'" onclick="pick('+i+','+q+','+k+')">'+esc(o)+'</button>'});
+h+='<div id="fb" class="fb"></div>';show(h)}
+function Q_len(i){return T[i].qs.length}
+function pick(i,q,k){var Q=T[i].qs[q],fb=document.getElementById("fb");
+if(k==Q.a){for(var j=0;j<Q.o.length;j++)document.getElementById("o"+j).disabled=true;document.getElementById("o"+k).className="ok";
+var last=q==Q_len(i)-1;fb.innerHTML='<span class="good">✅ Correct!</span> '+esc(Q.ok)+'<button class="p" onclick="'+(last?'done('+i+')':'ask('+i+','+(q+1)+')')+'">'+(last?'Unlock terminal →':'Next →')+'</button>'}
+else{S.m++;document.getElementById("o"+k).disabled=true;fb.innerHTML='<span class="bad">❌ Not quite.</span> '+esc(Q.b[k])}}
+function done(i){S.d[i]=1;show('<h2>🔓 Terminal '+(i+1)+' unlocked</h2><div class="card"><p>Fragment '+(i+1)+':</p><p class="frag">'+T[i].f+'</p></div><button class="p" onclick="hub()">← Back to the Lab</button>')}
+function vault(msg){show('<h2>🔐 Kolam-Bot’s Control Lock</h2><div class="card"><p>Fragments: <span class="frag" style="font-size:1.2rem">KAL + VI + 2026</span></p><p>Join them in the order you found them. No spaces, no hyphens.</p><input id="pc" placeholder="Type the passcode" autocapitalize="off" autocomplete="off"><div class="fb bad">'+(msg||'')+'</div></div><button class="p" onclick="tryCode()">Enter passcode</button>')}
+function tryCode(){var v=document.getElementById("pc").value.toLowerCase().replace(/\s+/g,"");
+if(v=="kalvi2026")win();else{S.m++;vault("❌ Access denied. Join the fragments in order: Terminal 1, then 2, then 3.")}}
+function win(){var r=S.m<=2?"🏆 Chief Cyber Inspector":S.m<=6?"🥈 Senior Detective":"🥉 Junior Detective. Replay to improve!";
+show('<h1>🎉 Kolam-Bot unlocked!</h1><div class="card"><p>The robot whirs to life and draws a perfect kolam. Phantom’s real identity appears: <b>Mr. Arjun, your robotics club mentor</b>. The “hack” was a cyber-safety drill to see whether his team could stay calm and think carefully under pressure.</p><p><i>“Grammar is a firewall, '+esc(S.name)+'. Precise language protects you from confusion, fraud and fake messages.”</i></p><p>Mistakes: <b>'+S.m+'</b><br>Rank: <b>'+r+'</b></p></div><button class="p" onclick="start()">🔄 Play again</button>')}
+start();
+</script>
+</body>
+</html>

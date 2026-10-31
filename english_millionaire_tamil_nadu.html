@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>English Millionaire – Tamil Nadu State Board Edition</title>
+<style>
+:root{--navy:#081b4b;--blue:#123d88;--gold:#ffd45b;--gold2:#f2a900;--white:#fff;--ink:#14213d;--panel:#10265e;--green:#16834a;--red:#bd3434}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--white);background:radial-gradient(ellipse at top,#254f9f 0,#101d55 48%,#060b24 100%);min-height:100vh}
+button,select{font:inherit}
+button{cursor:pointer;touch-action:manipulation}
+header{text-align:center;padding:20px 12px 12px}
+header h1{font-size:clamp(1.7rem,4vw,2.7rem);margin:0;color:var(--gold);text-shadow:0 3px 0 #7e4500,0 0 18px #ffd45b66}
+header p{margin:7px 0 0;color:#e2edff}
+main{max-width:1150px;margin:auto;padding:12px}
+.card{background:linear-gradient(145deg,#16377d,#0b1b4a);border:2px solid #4d77ca;border-radius:20px;padding:16px;margin-bottom:14px;box-shadow:0 9px 24px #0005}
+.setup{text-align:center}
+.row{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap}
+label{font-weight:700}
+select{padding:12px 14px;border-radius:12px;border:2px solid #88a8ed;background:#fff;color:#14213d;min-width:190px}
+.btn{border:0;border-radius:13px;padding:12px 16px;font-weight:800;min-height:48px;transition:transform .15s,filter .15s}
+.btn:hover{filter:brightness(1.08)}.btn:active{transform:translateY(2px)}
+.gold{background:linear-gradient(#ffe68c,#ffba21);color:#211500;box-shadow:0 4px 0 #995b00}
+.light{background:#e6efff;color:#122d65;border:2px solid #a5c0ff}
+.lifeline{background:#f8c843;color:#251900;box-shadow:0 3px 0 #9a6c00}
+.smallnote{font-size:.94rem;color:#dce7ff;line-height:1.45;max-width:800px;margin:12px auto}
+#game,#results{display:none}
+.gamegrid{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:14px;align-items:start}
+.stage{background:radial-gradient(ellipse at center,#2d5fc1 0,#132c72 58%,#08163e 100%);border:2px solid #8eb4ff;border-radius:18px;padding:14px;position:relative;overflow:hidden}
+.stage:before{content:"";position:absolute;inset:0;background:repeating-conic-gradient(from 0deg at 50% 10%,#ffffff09 0deg 4deg,transparent 4deg 14deg);pointer-events:none}
+.stage-inner{position:relative;z-index:1}
+.topline{display:flex;gap:8px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.pill{background:#071642;border:1px solid #6e91e0;border-radius:999px;padding:7px 11px;font-size:.9rem;font-weight:800}
+#question{font-size:clamp(1.2rem,3vw,1.7rem);line-height:1.4;margin:18px 0 12px}
+.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.option{background:linear-gradient(110deg,#102c72,#0a1b4c);border:2px solid #7da5ff;color:white;text-align:left;border-radius:14px;min-height:64px;padding:12px;line-height:1.35;font-weight:700;font-size:1rem}
+.option .letter{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--gold);color:#14213d;margin-right:9px;font-weight:900}
+.option:hover,.option:focus-visible{border-color:var(--gold);outline:3px solid #ffd45b66}
+.option.correct{background:linear-gradient(110deg,#147a4a,#0c5635);border-color:#7bffb3}
+.option.wrong{background:linear-gradient(110deg,#a52d38,#6d1622);border-color:#ff9aa2}
+.option.hidden-choice{visibility:hidden;pointer-events:none}
+.option:disabled{cursor:default}
+#hintBox,#feedback{border-radius:12px;padding:11px 12px;margin-top:12px;line-height:1.45;background:#e8f1ff;color:#15264b;min-height:44px}
+#hintBox{display:none;background:#fff2c7;border:1px solid #ffd45b}
+#feedback.bad{background:#ffe6e6;border:1px solid #ff9e9e}
+#feedback.good{background:#dfffe9;border:1px solid #80dca0}
+.controls{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+.ladder{background:linear-gradient(160deg,#10245c,#09153c);border:2px solid #6789da;border-radius:18px;padding:12px}
+.ladder h2{font-size:1.15rem;color:var(--gold);margin:4px 0 10px;text-align:center}
+.level{display:flex;gap:8px;justify-content:space-between;padding:8px 10px;border-radius:9px;margin:4px 0;font-weight:700;font-size:.92rem;border:1px solid transparent}
+.level.active{background:linear-gradient(90deg,#ffd45b,#f3a600);color:#201500;border-color:#fff1a6;animation:pulse 1.4s infinite}
+.level.passed{color:#b9ffd2;background:#0c5839}
+@keyframes pulse{50%{box-shadow:0 0 14px #ffd45b88}}
+#stageMessage{font-weight:800;color:var(--gold);min-height:26px;margin-top:8px}
+#results{text-align:center}
+#results h2{color:var(--gold);font-size:2rem;margin:5px}
+.bigscore{font-size:clamp(2.6rem,8vw,4.8rem);font-weight:900;color:var(--gold);text-shadow:0 3px #794b00}
+.review{text-align:left;max-width:850px;margin:15px auto}
+.review-item{padding:12px 4px;border-bottom:1px solid #4564a5;line-height:1.5}
+footer{text-align:center;color:#c7d7ff;padding:12px;font-size:.9rem}
+.confetti{position:fixed;top:-15px;width:10px;height:18px;z-index:10;pointer-events:none;animation:fall 2.2s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.2}}
+@media(max-width:800px){.gamegrid{grid-template-columns:1fr}.ladder{order:2}.options{grid-template-columns:1fr}.card{padding:11px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<header>
+<h1>⭐ English Millionaire ⭐</h1>
+<p>Tamil Nadu State Board Edition • Classes 10 &amp; 12</p>
+</header>
+<main>
+<section class="card setup" id="setup">
+<h2>Ready for the English Challenge?</h2>
+<div class="row">
+<label for="classMode">Class</label>
+<select id="classMode"><option value="10">Class 10 – Samacheer Kalvi</option><option value="12">Class 12 – Samacheer Kalvi</option></select>
+<label for="mode">Learning mode</label>
+<select id="mode"><option value="remedial">Remedial Mode – Easy to Standard</option><option value="challenge">Challenge Mode</option></select>
+</div>
+<div class="smallnote">Answer questions to climb the prize ladder. Use lifelines when you need support. No timer—take your time and learn at your own pace.</div>
+<div class="row">
+<button class="btn gold" id="startBtn">▶ Start the Show</button>
+<button class="btn light" id="voiceToggle" aria-pressed="true">🎙️ Voice-over: ON</button>
+</div>
+</section>
+
+<section class="card" id="game" aria-live="polite">
+<div class="gamegrid">
+<div class="stage">
+<div class="stage-inner">
+<div class="topline">
+<span class="pill" id="classPill">Class 10</span>
+<span class="pill" id="countPill">Question 1 of 10</span>
+<span class="pill" id="scorePill">Prize: 0 points</span>
+</div>
+<div id="question">Question appears here.</div>
+<div class="options" id="options"></div>
+<div id="hintBox"></div>
+<div id="feedback" role="status">Choose an answer to continue.</div>
+<div id="stageMessage"></div>
+<div class="controls">
+<button class="btn lifeline" id="fiftyBtn">🌓 Fifty-Fifty</button>
+<button class="btn lifeline" id="hintBtn">💡 Hint</button>
+<button class="btn lifeline" id="tryBtn">🔁 Try Again</button>
+<button class="btn light" id="readBtn">🔊 Read question</button>
+<button class="btn light" id="soundBtn" aria-pressed="false">🔔 Sound: OFF</button>
+<button class="btn gold" id="nextBtn" style="display:none">Next question →</button>
+<button class="btn light" id="restartBtn">↻ Restart</button>
+</div>
+</div>
+</div>
+<aside class="ladder">
+<h2>🏆 Prize Ladder</h2>
+<div id="ladderList"></div>
+<p class="smallnote">Each correct answer moves you up the ladder. Keep learning and keep going!</p>
+</aside>
+</div>
+</section>
+
+<section class="card" id="results">
+<h2>Show Completed!</h2>
+<div class="bigscore" id="finalScore">0 points</div>
+<p id="resultMessage"></p>
+<div class="row">
+<span class="pill" id="correctPill">Correct: 0</span>
+<span class="pill" id="accuracyPill">Accuracy: 0%</span>
+</div>
+<div class="review" id="review"></div>
+<div class="row">
+<button class="btn gold" id="playAgainBtn">Play Again</button>
+<button class="btn light" id="changeBtn">Change class or mode</button>
+</div>
+</section>
+</main>
+<footer>Offline learning game with sample practice questions. Questions are for revision and are not represented as official DGE questions. Voice uses browser speech synthesis when available.</footer>
+
+<script>
+"use strict";
+const BANK={
+"10":[
+{topic:"Grammar",kind:"grammar",level:1,q:'Choose the correct article: He is ___ honest man.',o:["a","an","the","no article"],a:1,h:"Listen to the first sound in “honest”.",why:"The h in “honest” is silent, so the word begins with a vowel sound. Use “an”.",ta:"“Honest” என்ற சொல்லில் h ஒலிக்காது. உயிரொலியால் தொடங்குவதால் “an” பயன்படுத்தப்படுகிறது."},
+{topic:"Vocabulary",kind:"vocabulary",level:1,q:'Choose the synonym of “brave”.',o:["Weak","Courageous","Careless","Cowardly"],a:1,h:"Choose the word that means showing courage.",why:"“Courageous” means brave and willing to face difficulty.",ta:"“Courageous” என்பதன் பொருள் துணிச்சலான."},
+{topic:"Grammar",kind:"grammar",level:1,q:"Choose the correct form: She ___ to school every day.",o:["go","goes","going","gone"],a:1,h:"Use the simple present with “she”.",why:"With he, she, or it in the simple present, use “goes”.",ta:"Simple present-இல் “she” உடன் “goes” பயன்படுத்த வேண்டும்."},
+{topic:"Grammar",kind:"grammar",level:2,q:'Choose the correct indirect speech: He said, "I am happy."',o:["He said that he is happy.","He said that he was happy.","He told that I was happy.","He said that he had happy."],a:1,h:"The reporting verb “said” is in the past.",why:"“Am” changes to “was”, and “I” changes to “he”.",ta:"Reported speech-இல் “am” என்பது “was” ஆகவும் “I” என்பது “he” ஆகவும் மாறுகிறது."},
+{topic:"Grammar",kind:"grammar",level:2,q:"Choose the correct passive voice: The teacher praised the student.",o:["The student praised the teacher.","The student was praised by the teacher.","The student is praised yesterday.","The teacher was praised by the student."],a:1,h:"The object becomes the subject; keep the past tense.",why:"“The student” becomes the subject, and the past passive form is “was praised”.",ta:"“The student” எழுவாயாக மாறுகிறது; இறந்தகால passive வடிவம் “was praised”."},
+{topic:"Vocabulary",kind:"vocabulary",level:2,q:'Choose the antonym of “ancient”.',o:["Historic","Modern","Former","Old"],a:1,h:"Choose a word meaning belonging to the present time.",why:"“Modern” is the opposite of “ancient”.",ta:"“Ancient” என்பதன் எதிர்ச்சொல் “Modern”."},
+{topic:"Prose",kind:"prose",level:2,q:'In “His First Flight”, what is the young seagull afraid to do?',o:["Fly","Swim","Eat fish","Meet his family"],a:0,h:"Think about the skill the young bird must learn.",why:"The young seagull fears flying, but hunger eventually encourages him to try.",ta:"இளம் கடற்பறவை பறப்பதற்குப் பயப்படுகிறது; பசி அதனை முயற்சி செய்யத் தூண்டுகிறது."},
+{topic:"Poetry",kind:"poetry",level:3,q:'The poem “Life” encourages the reader to face life with…',o:["Fear and surrender","Courage and determination","Anger alone","Complete silence"],a:1,h:"Think about the poem’s encouraging message.",why:"The poem encourages courage and determination when facing life.",ta:"“Life” கவிதை தைரியத்துடனும் மனஉறுதியுடனும் வாழ ஊக்குவிக்கிறது."},
+{topic:"Supplementary",kind:"supplementary",level:3,q:'In “The Tempest”, who is the spirit serving Prospero?',o:["Caliban","Ariel","Antonio","Gonzalo"],a:1,h:"This spirit carries out Prospero’s commands.",why:"Ariel is the spirit who serves Prospero.",ta:"ப்ராஸ்பெரோவுக்குச் சேவை செய்யும் ஆவி ஏரியல் (Ariel)."},
+{topic:"Prose",kind:"prose",level:3,q:'In “The Night the Ghost Got In”, what creates much of the humour?',o:["A calm science lesson","The family’s confused reaction to a disturbance","A sports competition","A school assembly"],a:1,h:"Think about how the family reacts to an unexpected event.",why:"The family’s confusion and exaggerated reactions create much of the humour.",ta:"எதிர்பாராத சம்பவத்துக்கு குடும்பத்தினர் குழப்பத்துடன் எதிர்வினையாற்றுவது நகைச்சுவையை உருவாக்குகிறது."},
+{topic:"Comprehension",kind:"comprehension",level:4,q:'Read: “Meena watered the plants every morning. During a hot week, she gave them extra water, and the leaves became fresh again.” Why did Meena give the plants extra water?',o:["The plants were in a hot week and needed more water","She wanted to move the plants","The leaves were already fresh","She forgot to water them"],a:0,h:"Look for the cause stated in the passage.",why:"The passage says the week was hot, so Meena gave the plants extra water.",ta:"வாரம் வெப்பமாக இருந்ததால் செடிகளுக்கு கூடுதல் தண்ணீர் தேவைப்பட்டது."},
+{topic:"Grammar",kind:"grammar",level:4,q:"Choose the correct question tag: You are ready, ___?",o:["are you","aren’t you","do you","isn’t it"],a:1,h:"A positive statement usually takes a negative tag.",why:"The positive statement “You are ready” takes the negative tag “aren’t you?”.",ta:"உறுதிக் கூற்றுக்கு எதிர்மறை question tag வரும்: “aren’t you?”."}
+],
+"12":[
+{topic:"Grammar",kind:"grammar",level:1,q:'Choose the correct indirect speech: She said, "I can swim."',o:["She said that she can swim.","She said that she could swim.","She said that I could swim.","She said that she will swim."],a:1,h:"In reported speech, “can” often shifts back after a past reporting verb.",why:"“Can” changes to “could”, and “I” changes to “she”.",ta:"Reported speech-இல் “can” பொதுவாக “could” ஆக மாறும்; “I” என்பது “she” ஆக மாறும்."},
+{topic:"Vocabulary",kind:"vocabulary",level:1,q:'Choose the closest meaning of “resilience”.',o:["The ability to recover after difficulty","A wish to avoid all work","A sudden feeling of anger","The act of forgetting a name"],a:0,h:"Think of the ability to recover and continue after hardship.",why:"Resilience is the ability to recover and continue after difficulties.",ta:"“Resilience” என்பது துன்பத்திலிருந்து மீண்டு தொடர்ந்து செயல்படும் திறன்."},
+{topic:"Grammar",kind:"grammar",level:2,q:"Choose the correct passive form: They have completed the work.",o:["The work has completed by them.","The work has been completed by them.","The work was complete by them.","The work is completing by them."],a:1,h:"Present perfect passive uses has/have + been + past participle.",why:"The present perfect passive form is “has been completed”.",ta:"Present perfect passive அமைப்பு: has/have + been + past participle."},
+{topic:"Prose",kind:"prose",level:2,q:'In “A Nice Cup of Tea”, George Orwell discusses the preparation of…',o:["Coffee","Tea","Lemonade","Soup"],a:1,h:"The answer appears in the title.",why:"The essay discusses the preparation and enjoyment of tea.",ta:"இந்தக் கட்டுரை தேநீர் தயாரிக்கும் முறையையும் அதன் சுவையையும் விவரிக்கிறது."},
+{topic:"Prose",kind:"prose",level:3,q:'In “Two Gentlemen of Verona”, what quality do the brothers chiefly demonstrate?',o:["Selfishness","Devotion and self-sacrifice","A desire for fame","Carelessness"],a:1,h:"Think about why the brothers work so hard.",why:"The brothers work tirelessly to support their sister, showing devotion and sacrifice.",ta:"சகோதரர்கள் தங்கள் சகோதரிக்காக உழைப்பதன் மூலம் அர்ப்பணிப்பையும் தியாகத்தையும் காட்டுகின்றனர்."},
+{topic:"Poetry",kind:"poetry",level:3,q:'“All the world’s a stage” is an example of…',o:["Simile","Metaphor","Onomatopoeia","Oxymoron"],a:1,h:"The comparison is direct and does not use “like” or “as”.",why:"It is a metaphor because the world is directly described as a stage.",ta:"“உலகமே ஒரு மேடை” என்று நேரடியாக ஒப்பிடுவதால் இது உருவகம் (Metaphor)."},
+{topic:"Supplementary",kind:"supplementary",level:3,q:'In “God Sees the Truth but Waits”, what does Aksionov ultimately demonstrate?',o:["A desire for revenge","Forgiveness and spiritual endurance","A plan to escape by force","A wish to become wealthy"],a:1,h:"Consider how Aksionov responds to the person connected with his suffering.",why:"Aksionov ultimately forgives Makar Semyonich, showing spiritual endurance and compassion.",ta:"அக்சியோனோவ் மகார் செமியோனிச்சை மன்னிப்பதன் மூலம் ஆன்மிக உறுதியையும் கருணையையும் காட்டுகிறார்."},
+{topic:"Poetry",kind:"poetry",level:4,q:'In Edwin Muir’s “The Castle”, what allows the enemy to overcome the castle?',o:["A storm destroys every wall","The warder is bribed and betrayal opens the way","The castle has no gate","The soldiers attend a festival"],a:1,h:"The poem contrasts strong walls with weakness inside.",why:"The warder is bribed, and internal betrayal defeats the castle’s physical defences.",ta:"காவலன் லஞ்சம் பெறுவதால் துரோகம் நிகழ்கிறது; கோட்டையின் பாதுகாப்பு உள்ளிருந்து உடைகிறது."},
+{topic:"Poetry",kind:"poetry",level:4,q:'In “Our Casuarina Tree”, the tree is closely connected with…',o:["Childhood memories and affection","A military victory","A courtroom trial","A business plan"],a:0,h:"Think about the poet’s memories and emotional connection to the tree.",why:"The tree evokes childhood memories, affection, and the memory of loved ones.",ta:"கசுவரினா மரம் குழந்தைப் பருவ நினைவுகளையும் பாசத்தையும் அன்புக்குரியவர்களின் நினைவுகளையும் எழுப்புகிறது."},
+{topic:"Supplementary",kind:"supplementary",level:4,q:'In “Life of Pi”, what is central to Pi’s experience at sea?',o:["Survival and adaptation","Preparing for a school debate","Running a city council","Training for a race"],a:0,h:"Think about Pi’s struggle after the shipwreck.",why:"Pi must adapt, use his resourcefulness, and find ways to survive at sea.",ta:"கடலில் உயிர் பிழைக்க பை சூழ்நிலைக்கு ஏற்ப மாறி தன் அறிவைப் பயன்படுத்துகிறான்."},
+{topic:"Comprehension",kind:"comprehension",level:5,q:'Read: “The village library opened at eight. Arjun arrived early to finish his project, but he first helped the librarian arrange returned books.” What can we infer about Arjun?',o:["He is helpful and responsible","He dislikes books","He arrived after closing time","He refused to finish his project"],a:0,h:"Use Arjun’s actions to infer a quality.",why:"Arjun arrives early to work on his project and helps the librarian, showing responsibility and helpfulness.",ta:"அர்ஜுன் முன்கூட்டியே வந்து திட்டப்பணியைச் செய்யவும் நூலகருக்கு உதவவும் செய்கிறான்; இது பொறுப்புணர்வையும் உதவும் மனப்பான்மையையும் காட்டுகிறது."},
+{topic:"Grammar",kind:"grammar",level:5,q:'Choose the correct indirect speech: Ravi said, "I like tea."',o:["Ravi said that I liked tea.","Ravi said that he likes tea.","Ravi said that he liked tea.","Ravi told that he liked tea."],a:2,h:"Change the pronoun to match Ravi and shift the tense after “said”.",why:"“I” changes to “he”, and “like” changes to “liked” in this reported statement.",ta:"“I” என்பது ரவியைக் குறிக்கும் “he” ஆகவும் “like” என்பது “liked” ஆகவும் மாறுகிறது."}
+]
+};
+const PRIZES=[100,200,300,500,1000,2000,5000,10000,25000,50000,100000,1000000];
+const $=id=>document.getElementById(id);
+let questions=[],idx=0,score=0,answered=false,triesUsed=false,fiftyUsed=false,hintUsed=false,voiceOn=true,soundOn=false,ctx=null,review=[];
+const letters=["A","B","C","D"];
+function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function speak(text,lang="en-IN"){
+ if(!voiceOn||!("speechSynthesis"in window)||!text)return;
+ speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(text));u.lang=lang;u.rate=.88;u.pitch=1.02;u.volume=1;
+ const vs=speechSynthesis.getVoices();const v=vs.find(x=>x.lang.toLowerCase()===lang.toLowerCase())||vs.find(x=>x.lang.toLowerCase().startsWith(lang.split("-")[0].toLowerCase()));if(v)u.voice=v;speechSynthesis.speak(u);
+}
+function sayQuestion(){let q=questions[idx];if(!q)return;speak(`Question ${idx+1}. ${q.q}. The options are: ${q.o.map((x,i)=>letters[i]+". "+x).join(". ")}. Take your time. You may use a lifeline.`);}
+function start(){
+ const cls=$("classMode").value,mode=$("mode").value;
+ let bank=BANK[cls].map(q=>({...q}));
+ questions=mode==="remedial"?bank.sort((a,b)=>a.level-b.level):shuffle(bank).sort((a,b)=>a.level-b.level).reverse();
+ // Preserve progression in remedial mode; challenge mode starts with harder items.
+ if(mode==="challenge")questions=bank.sort((a,b)=>b.level-a.level);
+ idx=0;score=0;answered=false;triesUsed=false;fiftyUsed=false;hintUsed=false;review=[];
+ $("setup").style.display="none";$("results").style.display="none";$("game").style.display="block";
+ $("classPill").textContent="Class "+cls+" • "+(mode==="remedial"?"Remedial":"Challenge");
+ $("fiftyBtn").disabled=false;$("hintBtn").disabled=false;$("tryBtn").disabled=false;
+ buildLadder();speak("Welcome to English Millionaire, Tamil Nadu State Board Edition! Read each question, choose the best answer, and climb the prize ladder. You can use Fifty-Fifty, Hint, or Try Again. There is no timer. Let's begin!");render();
+}
+function buildLadder(){
+ $("ladderList").innerHTML="";
+ const n=questions.length;
+ questions.forEach((q,i)=>{let d=document.createElement("div");d.className="level";d.id="level"+i;d.innerHTML=`<span>${i+1}. ${q.level===1?"Warm-up":q.level===2?"Easy":q.level===3?"Practice":q.level===4?"Exam style":"Challenge"}</span><span>${PRIZES[Math.min(i,PRIZES.length-1)].toLocaleString("en-IN")} pts</span>`;$("ladderList").prepend(d);});
+}
+function render(){
+ const q=questions[idx];if(!q){finish();return;}
+ answered=false;triesUsed=false;fiftyUsed=false;hintUsed=false;
+ $("countPill").textContent=`Question ${idx+1} of ${questions.length}`;
+ $("scorePill").textContent=`Prize: ${score.toLocaleString("en-IN")} points`;
+ $("question").textContent=q.q;$("hintBox").style.display="none";$("hintBox").textContent="";
+ $("feedback").className="";$("feedback").textContent="Choose the best answer. You can take your time.";
+ $("stageMessage").textContent=idx===0?"Welcome to the show!":`Current prize level: ${PRIZES[Math.min(idx-1,PRIZES.length-1)].toLocaleString("en-IN")} points`;
+ $("nextBtn").style.display="none";$("options").innerHTML="";
+ q.o.forEach((text,i)=>{const b=document.createElement("button");b.className="option";b.dataset.i=i;b.innerHTML=`<span class="letter">${letters[i]}</span>`;b.append(document.createTextNode(text));b.onclick=()=>choose(i);$("options").append(b);});
+ $("fiftyBtn").disabled=false;$("hintBtn").disabled=false;$("tryBtn").disabled=false;
+ document.querySelectorAll(".level").forEach((el,i)=>{el.classList.toggle("active",i===idx);el.classList.toggle("passed",i<idx);});
+ sayQuestion();
+}
+function choose(i){
+ if(answered)return;
+ const q=questions[idx],buttons=[...document.querySelectorAll(".option")],b=buttons.find(x=>Number(x.dataset.i)===i);
+ if(!b||b.disabled)return;
+ if(i===q.a){
+  answered=true;score=PRIZES[Math.min(idx,PRIZES.length-1)];b.classList.add("correct");buttons.forEach(x=>x.disabled=true);
+  $("scorePill").textContent=`Prize: ${score.toLocaleString("en-IN")} points`;
+  $("feedback").className="good";$("feedback").textContent="🎉 Correct answer! "+q.why+" தமிழ்: "+q.ta;
+  $("stageMessage").textContent="🎉 Correct! You are moving up the prize ladder!";
+  $("nextBtn").style.display="inline-block";$("nextBtn").textContent=idx===questions.length-1?"See final result →":"Next question →";
+  review.push({q:q.q,chosen:q.o[i],answer:q.o[q.a],ok:true,why:q.why,ta:q.ta});confetti();tone(620);setTimeout(()=>tone(820),130);
+  speak("That is the correct answer! Well done. "+q.why,"en-IN");
+ }else{
+  b.classList.add("wrong");b.disabled=true;
+  if(!triesUsed){
+   $("feedback").className="bad";$("feedback").textContent="Good try! That option is not correct. Use Try Again to make another attempt, or use a Hint.";
+   $("stageMessage").textContent="Keep calm. You have another chance.";
+   buttons.forEach(x=>{if(!x.classList.contains("wrong"))x.disabled=true;});
+   $("tryBtn").disabled=false;
+   speak("Good try! That option is not correct. Don't worry. You may use Try Again or ask for a hint.","en-IN");
+  }else{
+   $("feedback").className="bad";$("feedback").textContent="Let's learn from this. "+q.why+" தமிழ்: "+q.ta;
+   $("stageMessage").textContent="Every mistake is a chance to learn.";
+   buttons.forEach(x=>x.disabled=true);
+   $("nextBtn").style.display="inline-block";$("nextBtn").textContent=idx===questions.length-1?"See final result →":"Continue →";
+   review.push({q:q.q,chosen:q.o[i],answer:q.o[q.a],ok:false,why:q.why,ta:q.ta});
+   speak("Let's learn from this. "+q.why,"en-IN");
+  }
+  tone(220);
+ }
+}
+function fifty(){
+ if(fiftyUsed||answered)return;fiftyUsed=true;$("fiftyBtn").disabled=true;
+ const q=questions[idx],wrong=shuffle([0,1,2,3].filter(i=>i!==q.a)).slice(0,2);
+ wrong.forEach(i=>{const b=document.querySelector(`.option[data-i="${i}"]`);if(b)b.classList.add("hidden-choice");});
+ $("feedback").className="";$("feedback").textContent="Fifty-Fifty used! Two incorrect options have been removed.";
+ speak("Fifty-Fifty lifeline used. Two incorrect options have been removed.");
+}
+function hint(){
+ if(hintUsed||answered)return;hintUsed=true;$("hintBtn").disabled=true;const q=questions[idx];
+ $("hintBox").style.display="block";$("hintBox").textContent="💡 Hint: "+q.h+"  |  தமிழ் உதவி: "+q.ta;
+ $("feedback").className="";$("feedback").textContent="Read the clue, think carefully, and choose an answer.";
+ speak("Here is your hint. "+q.h,"en-IN");
+ setTimeout(()=>speak(q.ta,"ta-IN"),Math.max(1600,q.h.length*45));
+}
+function tryAgain(){
+ if(answered)return;
+ if(triesUsed){$("feedback").textContent="You have used your extra attempt. Read the explanation and continue when ready.";return;}
+ triesUsed=true;$("tryBtn").disabled=true;
+ document.querySelectorAll(".option").forEach(b=>{if(!b.classList.contains("wrong")&&!b.classList.contains("hidden-choice"))b.disabled=false;});
+ $("feedback").className="";$("feedback").textContent="Your extra attempt is ready. Choose another option.";
+ speak("Try Again lifeline activated. You have one more attempt. Think carefully.");
+}
+function next(){idx++;render();}
+function finish(){
+ $("game").style.display="none";$("results").style.display="block";
+ const max=PRIZES[Math.min(questions.length-1,PRIZES.length-1)];
+ $("finalScore").textContent=score.toLocaleString("en-IN")+" points";
+ const good=review.filter(x=>x.ok).length;
+ $("resultMessage").textContent=good>=questions.length*.8?"Outstanding! You are an English Millionaire Champion!":good>=questions.length*.5?"Well done! Review the explanations and keep practising.":"Every attempt helps you improve. Try Remedial Mode again and build your confidence.";
+ $("correctPill").textContent=`Questions mastered: ${good} / ${questions.length}`;
+ $("accuracyPill").textContent=`Success rate: ${Math.round(good/questions.length*100)}%`;
+ $("review").innerHTML="<h3>Answer Review</h3>";
+ questions.forEach((q,i)=>{const r=review.find(x=>x.q===q.q);const d=document.createElement("div");d.className="review-item";d.innerHTML=`<strong>${i+1}. ${esc(q.q)}</strong><br><span>Correct answer: ${esc(q.o[q.a])}</span><br>${esc(q.why)}<br><span>தமிழ்: ${esc(q.ta)}</span>`;$("review").append(d);});
+ confetti();speak(`You have completed English Millionaire. You mastered ${good} out of ${questions.length} questions. ${$("resultMessage").textContent}`);
+}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function tone(freq){
+ if(!soundOn)return;try{ctx=ctx||new(window.AudioContext||window.webkitAudioContext)();let o=ctx.createOscillator(),g=ctx.createGain();o.frequency.value=freq;g.gain.value=.07;o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+.13);}catch(e){}
+}
+function confetti(){
+ for(let i=0;i<24;i++){const el=document.createElement("i");el.className="confetti";el.style.left=Math.random()*100+"vw";el.style.background=["#ffd45b","#6dffb1","#ff70a6","#8fd3ff","#fff"][i%5];el.style.animationDelay=Math.random()*.4+"s";document.body.append(el);setTimeout(()=>el.remove(),2800);}
+}
+$("startBtn").onclick=start;$("nextBtn").onclick=next;$("restartBtn").onclick=start;$("playAgainBtn").onclick=start;
+$("changeBtn").onclick=()=>{$("results").style.display="none";$("setup").style.display="block";};
+$("fiftyBtn").onclick=fifty;$("hintBtn").onclick=hint;$("tryBtn").onclick=tryAgain;
+$("readBtn").onclick=sayQuestion;
+$("voiceToggle").onclick=()=>{voiceOn=!voiceOn;$("voiceToggle").textContent=voiceOn?"🎙️ Voice-over: ON":"🔇 Voice-over: OFF";$("voiceToggle").setAttribute("aria-pressed",String(voiceOn));if(!voiceOn&&"speechSynthesis"in window)speechSynthesis.cancel();else speak("Voice-over is on. I will read questions and feedback aloud.");};
+$("soundBtn").onclick=()=>{soundOn=!soundOn;$("soundBtn").textContent=soundOn?"🔔 Sound: ON":"🔔 Sound: OFF";$("soundBtn").setAttribute("aria-pressed",String(soundOn));if(soundOn)tone(500);};
+</script>
+</body>
+</html>

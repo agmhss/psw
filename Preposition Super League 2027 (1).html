@@ -1,0 +1,157 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Preposition Super League 2027</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:"Noto Sans Tamil","Nirmala UI",Latha,system-ui,sans-serif;background:linear-gradient(135deg,#1e3a8a,#7c3aed 55%,#db2777);min-height:100vh;color:#1f2937;font-size:20px}
+#app{max-width:980px;margin:auto;padding:14px}
+h1{color:#fff;text-align:center;margin:8px 0 0;font-size:clamp(22px,5vw,38px);text-shadow:0 3px 0 #0006}
+.sub{color:#fde68a;text-align:center;margin:4px 0 14px;font-size:clamp(14px,3vw,19px)}
+.card{background:#fff;border-radius:22px;padding:18px;margin:12px 0;box-shadow:0 10px 0 #0003}
+.worlds{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;perspective:900px}
+.w{border:0;border-radius:24px;padding:18px;color:#fff;font:inherit;font-weight:700;text-align:left;cursor:pointer;transform:rotateX(7deg);transition:.3s;box-shadow:0 12px 0 #0004,inset 0 4px 0 #fff5}
+.w:hover,.w:focus-visible{transform:rotateX(0) translateY(-6px) scale(1.03)}
+.w b{display:block;font-size:28px}.w span{font-size:52px;display:block}
+.btn{font:inherit;font-weight:700;font-size:22px;border:0;border-radius:16px;padding:14px 22px;margin:6px;cursor:pointer;background:#f59e0b;color:#1f2937;box-shadow:0 5px 0 #b45309}
+.btn:active{transform:translateY(4px);box-shadow:none}.btn:disabled{opacity:.4}
+.btn.g{background:#22c55e;color:#fff;box-shadow:0 5px 0 #15803d}.btn.b{background:#3b82f6;color:#fff;box-shadow:0 5px 0 #1d4ed8}
+.opt{display:block;width:100%;font-size:32px;padding:20px;margin:10px 0}
+.pic{font-size:64px;text-align:center;line-height:1.3;background:#eef2ff;border-radius:18px;padding:12px;animation:fl 3s infinite}
+@keyframes fl{50%{transform:translateY(-8px)}}@media(prefers-reduced-motion:reduce){.pic{animation:none}.w{transition:none}}
+.q{font-size:clamp(24px,5vw,36px);font-weight:700;text-align:center;margin:12px 0}
+.bar{height:16px;background:#e5e7eb;border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#22c55e,#facc15)}
+.fb{font-size:26px;text-align:center;min-height:70px;font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:16px}td,th{border:1px solid #ccc;padding:6px;text-align:center}
+.cert{border:12px double #b45309;text-align:center;padding:30px;background:#fffbeb}
+#vn{display:none;background:#fef3c7;border-radius:12px;padding:10px;font-size:16px}
+footer{color:#fff;text-align:center;font-size:15px;padding:10px}
+@media print{body{background:#fff}.np,footer,h1,.sub{display:none}}
+</style></head><body><div id="app">
+<h1>🏆 PREPOSITION SUPER LEAGUE 2027<br>LEARN, PLAY AND SCORE!</h1>
+<p class="sub">Special English Coaching Programme for Very Slow Learners – Class XII Tamil Nadu State Board</p>
+<div id="vn" class="np">⚠️ இந்தச் சாதனத்தில் தமிழ்க் குரல் இல்லை. Tamil voice not installed – install a Tamil voice, or put recorded files in the <b>audio</b> folder (e.g. audio/ta_since.mp3).</div>
+<div id="v"></div>
+<footer>© G M Senthil Kumar, PGT English, Villupuram</footer></div>
+<script>
+const W=[{w:["since","for"],t:"Time Machine",e:"⏳",c:"#2563eb"},{w:["above","over"],t:"Helicopter Adventure",e:"🚁",c:"#0891b2"},{w:["below","under"],t:"Treasure Hunt",e:"💎",c:"#b45309"},{w:["along","through"],t:"Forest Adventure",e:"🌳",c:"#16a34a"},{w:["between","among"],t:"Friendship Challenge",e:"🤝",c:"#db2777"},{w:["before","after"],t:"Daily Routine World",e:"⏰",c:"#7c3aed"}];
+const D={
+since:["‘since’ – தொடங்கிய நேரம் அல்லது தேதியைக் குறிக்கும். (எ.கா.) 2015 முதல், திங்கள்கிழமை முதல்.","I have lived here since 2015.","நான் 2015 முதல் இங்கு வசிக்கிறேன்.","📅 2015 ➜ ➜ ➜ 🕐 இப்போது<br>முதல்"],
+for:["‘for’ – எவ்வளவு காலம் என்பதைக் குறிக்கும். (எ.கா.) இரண்டு ஆண்டுகள், ஒரு மணி நேரம்.","She has studied for two years.","அவள் இரண்டு ஆண்டுகளாகப் படித்து வருகிறாள்.","⏱️ ⬜⬜⬜⬜<br>இரண்டு ஆண்டுகள்"],
+above:["‘above’ – ஒன்றுக்கு மேலே, தொடாமல் உயரத்தில் இருப்பதைக் குறிக்கும்.","The plane is above the clouds.","விமானம் மேகங்களுக்கு மேலே உள்ளது.","✈️<br>☁️☁️☁️<br>மேலே"],
+over:["‘over’ – ஒன்றின் மீது மூடியவாறு இருப்பதை அல்லது தாண்டிச் செல்வதைக் குறிக்கும்.","He jumped over the wall.","அவன் சுவரைத் தாண்டிக் குதித்தான்.","🧒⤴️<br>🧱🧱🧱<br>தாண்டி"],
+below:["‘below’ – ஒன்றை விடக் கீழ்மட்டத்தில் இருப்பதைக் குறிக்கும்.","Write your name below the line.","உங்கள் பெயரைக் கோட்டுக்குக் கீழே எழுதுங்கள்.","➖➖➖➖<br>✍️<br>கீழே"],
+under:["‘under’ – ஒன்றின் அடியில், நேரடியாகக் கீழே இருப்பதைக் குறிக்கும்.","The cat is under the table.","பூனை மேசைக்கு அடியில் உள்ளது.","🪑<br>🐱<br>அடியில்"],
+along:["‘along’ – சாலை, ஆறு போன்றவற்றின் நீளவாக்கில் ஓரமாகச் செல்வதைக் குறிக்கும்.","We walk along the river.","நாங்கள் ஆற்றின் ஓரமாக நடக்கிறோம்.","🌊🌊🌊🌊<br>🚶🚶🚶<br>ஓரமாக"],
+through:["‘through’ – ஒன்றின் உள்ளே நுழைந்து மறுபுறம் வெளியே செல்வதைக் குறிக்கும்.","The train goes through the tunnel.","ரயில் சுரங்கத்தின் வழியாகச் செல்கிறது.","🚂 ➜ 🕳️ ➜<br>வழியாக"],
+between:["‘between’ – இரண்டு பேர் அல்லது பொருட்களுக்கு நடுவில் இருப்பதைக் குறிக்கும்.","The ball is between two boys.","பந்து இரண்டு சிறுவர்களுக்கு நடுவில் உள்ளது.","🧒 ⚽ 🧒<br>இருவருக்கு நடுவில்"],
+among:["‘among’ – இரண்டுக்கு மேற்பட்டவர்களுக்கு இடையில் இருப்பதைக் குறிக்கும்.","She sat among her friends.","அவள் தன் நண்பர்களுக்கு மத்தியில் அமர்ந்தாள்.","🧒👧🧑👦<br>👧<br>பலருக்கு மத்தியில்"],
+before:["‘before’ – முன்பு நடப்பதைக் குறிக்கும்.","Wash your hands before eating.","சாப்பிடுவதற்கு முன் கைகளைக் கழுவுங்கள்.","🧼 ➜ 🍽️<br>முன்பு"],
+after:["‘after’ – பின்பு நடப்பதைக் குறிக்கும்.","Thursday comes after Wednesday.","வியாழன் புதன்கிழமைக்குப் பின் வரும்.","📚 ➜ ⚽<br>பின்பு"]};
+const PRAISE=["மிகவும் நன்று!","அருமை! சரியான விடை!","மிகச் சிறப்பு! தொடர்ந்து செய்யுங்கள்!"];
+// level|pair|text|answer|extra options.  level 0 basic,1 moderate,2 exam. [word] = error to correct
+const Q=`0|0|I have lived here ___ 2015.|since
+0|0|She has studied English ___ two years.|for
+0|0|He has been absent ___ Monday.|since
+0|0|They have waited ___ one hour.|for
+1|0|Ravi has played cricket ___ he was ten.|since
+1|0|We have known each other ___ five years.|for|from
+1|0|It has been raining ___ morning.|since|from
+2|0|He has worked here [since] ten years.|for
+2|0|She has been ill [for] last Sunday.|since
+2|0|I have not seen him [since] a long time.|for
+0|1|The aeroplane is flying ___ the clouds.|above
+0|1|He put a blanket ___ the baby.|over
+0|1|The balloon is high ___ the roof.|above
+0|1|The boy jumped ___ the wall.|over|on
+1|1|The sun rose high ___ the hills.|above
+1|1|We walked ___ the bridge to reach the village.|over
+1|1|The lamp is high ___ the door.|above
+2|1|The cat jumped [above] the fence.|over
+2|1|The thief climbed [above] the gate.|over
+2|1|The teacher spread a cloth [above] the table.|over
+0|2|The cat is sleeping ___ the table.|under
+0|2|The sun went ___ the horizon.|below
+0|2|Write your name ___ the line.|below
+1|2|The ball is ___ the bed.|under
+1|2|The temperature fell ___ zero.|below
+1|2|The child hid ___ the blanket.|under|on
+1|2|The village lies ___ the hill.|below
+2|2|The treasure is buried [below] the big tree.|under
+2|2|Her marks are [under] the pass mark.|below
+2|2|The dog is hiding [below] the chair.|under
+0|3|We walked ___ the road.|along
+0|3|The train goes ___ the tunnel.|through
+0|3|Trees grow ___ the river bank.|along
+1|3|Light came ___ the window.|through|on
+1|3|They planted flowers ___ the path.|along
+1|3|The thief ran ___ the forest.|through
+1|3|She walked slowly ___ the beach.|along
+2|3|The bus passed [along] the tunnel.|through
+2|3|Cars are parked [through] the street.|along
+2|3|The thread went [along] the needle's eye.|through
+0|4|The ball is ___ two boys.|between
+0|4|She sat ___ her friends.|among
+0|4|There is a lamp ___ the two beds.|between
+1|4|Share the sweets ___ the five children.|among|in
+1|4|The match is ___ India and Australia.|between
+1|4|He is the tallest ___ all the boys.|among
+2|4|The money was divided [between] ten workers.|among
+2|4|The girl stood [among] her two sisters.|between
+2|4|A rose grows [between] the weeds.|among
+2|4|The secret is [among] you and me.|between
+0|5|Wash your hands ___ eating.|before
+0|5|Thursday comes ___ Wednesday.|after
+0|5|Rise early ___ sunrise.|before
+1|5|Tuesday comes ___ Monday.|after
+1|5|The bell rang ___ the class began.|before|at
+1|5|He went to play ___ finishing his homework.|after
+2|5|Wednesday comes [before] Tuesday.|after
+2|5|The letter A comes [after] B.|before
+2|5|Brush your teeth [after] going to bed.|before
+2|5|The number 7 comes [before] 6.|after`.split("\n").map(l=>{const[a,b,c,d,e]=l.split("|");return{l:+a,p:+b,t:c,a:d,x:e?e.split(","):[]}});
+
+const $=id=>document.getElementById(id),sh=a=>[...a].sort(()=>Math.random()-.5),esc=s=>String(s).replace(/[&<>"']/g,c=>"&#"+c.charCodeAt(0)+";");
+let S;try{S=JSON.parse(localStorage.getItem("psl27"))}catch(e){}S=S||{users:{},me:""};
+const save=()=>{try{localStorage.setItem("psl27",JSON.stringify(S))}catch(e){}};
+let me=S.me||"";const U=()=>S.users[me];
+const rk=p=>p>=600?"🥇 Gold Grammar Champion":p>=300?"🥈 Silver Grammar Champion":p>=100?"🥉 Bronze Grammar Champion":"🎯 Keep going";
+const PS=u=>W.map((_,i)=>{const h=u.h.filter(x=>x[0]==i);return{a:h.length,c:h.reduce((s,x)=>s+x[1],0)}});
+const acc=s=>s.a?Math.round(100*s.c/s.a):0;
+const imp=u=>{const h=u.h;if(h.length<20)return"—";const r=a=>a.reduce((s,x)=>s+x[1],0)*10,d=r(h.slice(-10))-r(h.slice(0,10));return(d>0?"+":"")+d+"%"};
+function hdr(){const u=U();return u?`<div class="card np" style="display:flex;justify-content:space-between;flex-wrap:wrap;margin:0 0 8px"><b>👤 ${esc(me)}</b><b>⭐ ${u.pts} • ${rk(u.pts)}</b></div>`:""}
+function show(h){$("v").innerHTML=hdr()+h;scrollTo(0,0)}
+function say(t,l,r){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=l;u.rate=r;const v=speechSynthesis.getVoices().find(v=>v.lang.replace("_","-").toLowerCase().startsWith(l.slice(0,2)));if(v)u.voice=v;else if(l=="ta-IN")$("vn").style.display="block";speechSynthesis.speak(u)}catch(e){}}
+// Tamil: plays recorded audio/<key>.mp3 if present, else device Tamil voice
+const ta=(t,k)=>{if(!k)return say(t,"ta-IN",.7);const a=new Audio("audio/"+k+".mp3");a.onerror=()=>say(t,"ta-IN",.7);a.play().catch(()=>say(t,"ta-IN",.7))};
+const en=(t,r=.6)=>say(t,"en-IN",r);
+function need(){const n=$("nm").value.trim();if(!n){alert("பெயரை எழுதவும் / Please type your name");return false}me=n;S.me=n;S.users[n]=S.users[n]||{pts:0,h:[]};save();return true}
+const go=f=>{if(need())f()};
+function home(){show(`<div class="card"><b>பெயர் / Student name:</b><input id="nm" value="${esc(me)}" style="font:inherit;font-size:24px;width:100%;padding:12px;margin-top:8px;border-radius:12px;border:3px solid #7c3aed"></div>
+<div class="worlds">${W.map((w,i)=>`<button class="w" style="background:linear-gradient(145deg,${w.c},#0f172a)" onclick="go(()=>lesson(${i},0))"><span>${w.e}</span>World ${i+1}<b>${w.w[0].toUpperCase()} vs ${w.w[1].toUpperCase()}</b>${w.t}</button>`).join("")}</div>
+<div class="card" style="text-align:center"><button class="btn g" onclick="go(()=>quiz(Q.filter(q=>q.l==0),{mode:'slow',title:'🐢 Slow Practice'}))">🐢 Slow Learner Practice</button><button class="btn b" onclick="go(exam)">📝 Exam Practice</button><button class="btn" onclick="go(badges)">🏅 My Badges</button><button class="btn" onclick="dash()">👩‍🏫 Teacher Dashboard</button></div>`)}
+function lesson(p,s){const w=W[p],X=w.w,L=["படம் • Picture","தமிழ் விளக்கம் • Tamil","எடுத்துக்காட்டு • Example","உச்சரிப்பு • Pronunciation","பயிற்சி • Practice","விளையாட்டு • Game","தேர்வு • Test"];
+if(s>3){const l=s==4?Q.filter(q=>q.p==p&&q.l==0):s==5?sh(Q.filter(q=>q.p==p)).slice(0,5):Q.filter(q=>q.p==p&&q.l>0);return quiz(l,{mode:s==6?"exam":"slow",title:w.t+" – "+L[s],game:s==5,done:()=>s<6?lesson(p,s+1):home()})}
+const nv=`<div class="np" style="text-align:center">${s?`<button class="btn" onclick="lesson(${p},${s-1})">⬅ Back</button>`:`<button class="btn" onclick="home()">🏠 Home</button>`}<button class="btn g" onclick="lesson(${p},${s+1})">Next ➜</button></div>`;
+let b="";
+if(s==0)b=X.map(x=>`<div class="pic">${D[x][3]}</div><div class="q">${x.toUpperCase()}</div>`).join("");
+if(s==1)b=X.map(x=>`<div class="q" style="text-align:left">${D[x][0]}</div><button class="btn g" onclick="ta(D['${x}'][0],'ta_${x}')">🔊 தமிழ்</button>`).join("<hr>");
+if(s==2)b=X.map(x=>`<div class="q">${D[x][1]}</div><button class="btn b" onclick="en(D['${x}'][1])">🔊 English</button><div class="q">${D[x][2]}</div><button class="btn g" onclick="ta(D['${x}'][2],'tx_${x}')">🔊 தமிழ்</button>`).join("<hr>");
+if(s==3)b="<p>கேளுங்கள், திரும்பச் சொல்லுங்கள் • Listen and repeat 🗣️</p>"+X.map(x=>`<div class="q">${x}</div><button class="btn b" onclick="en('${x}')">🔊 English</button><button class="btn b" onclick="en('${x}',.35)">🐢 Slow</button><button class="btn g" onclick="ta(D['${x}'][0],'ta_${x}')">🔊 தமிழ்</button>`).join("<hr>");
+show(`<div class="card"><div class="bar"><i style="width:${(s+1)/7*100}%"></i></div><p><b>${w.e} ${w.t} • Step ${s+1}/7: ${L[s]}</b></p>${b}${nv}</div>`)}
+function quiz(list,o){list=sh(list);let i=0,sc=0,tried=0;
+const fix=q=>q.t.includes("[")?q.t.replace(/\[(.+?)\]/,"<b>"+q.a+"</b>"):q.t.replace("___","<b>"+q.a+"</b>");
+function nx(){if(i>=list.length)return done();const q=list[i],e=q.t.includes("["),opts=sh([...W[q.p].w,...q.x]);tried=0;window.QS=q.t.replace("___","blank").replace(/[\[\]]/g,"");
+const t=e?q.t.replace(/\[(.+?)\]/,'<u style="color:#dc2626">$1</u>'):q.t.replace("___",'<span style="border-bottom:5px solid #7c3aed;padding:0 40px"></span>');
+show(`<div class="card"><div class="bar"><i style="width:${i/list.length*100}%"></i></div><p>${o.title} • ${i+1}/${list.length} • ${o.game?"⚽ Goals":"✅ Score"}: ${sc}</p><div class="q">${e?"❌ தவறைக் கண்டுபிடியுங்கள் • Correct the error:":"சரியான சொல்லைத் தேர்ந்தெடுங்கள் • Choose:"}<br><br>${t}</div><div style="text-align:center"><button class="btn b" onclick="en(QS)">🔊 Read</button></div>${opts.map(x=>`<button class="btn b opt" onclick="A('${x}',this)">${x}</button>`).join("")}<div class="fb" id="fb"></div></div>`)}
+window.A=(x,b)=>{const q=list[i],fb=$("fb"),first=tried++==0,ok=x==q.a;
+const lock=()=>document.querySelectorAll(".opt").forEach(z=>z.disabled=true),nxt=()=>{fb.insertAdjacentHTML("beforeend",'<br><button class="btn g" onclick="N()">Next ➜</button>');window.N=()=>{i++;nx()}};
+if(first){U().h.push([q.p,ok?1:0]);save()}
+if(ok){if(first)sc++;U().pts+=10;save();lock();fb.innerHTML=`<span style="color:#16a34a">✅ சரி! Correct! +10 ⭐</span><br><small>${fix(q)}</small>`;ta(PRAISE[Math.random()*3|0]);nxt()}
+else if(o.mode=="slow"){b.disabled=true;fb.innerHTML=`<span style="color:#dc2626">🙂 பரவாயில்லை! மீண்டும் முயற்சி செய்யுங்கள்.</span><br><small>${D[q.a][0]}</small>`;ta("பரவாயில்லை, மீண்டும் முயற்சி செய்யுங்கள்.")}
+else{lock();fb.innerHTML=`<span style="color:#dc2626">❌ சரியான விடை: <b>${q.a}</b></span><br><small>${fix(q)}</small>`;ta("சரியான விடையைப் பாருங்கள்.");nxt()}};
+function done(){save();const pct=Math.round(100*sc/list.length);show(`<div class="card" style="text-align:center"><div class="pic">${pct>=80?"🏆":pct>=50?"🌟":"💪"}</div><div class="q">${sc} / ${list.length}</div><div class="fb">${pct>=50?"மிகச் சிறப்பு! Well done!":"பரவாயில்லை! மீண்டும் முயற்சி செய்யுங்கள். Try again!"}</div><button class="btn g" onclick="DN()">Continue ➜</button></div>`);ta(pct>=50?PRAISE[2]:"பரவாயில்லை, மீண்டும் முயற்சி செய்யுங்கள்.");window.DN=()=>o.done?o.done():home()}
+nx()}
+function exam(){show(`<div class="card"><h2>📝 Examination Practice</h2>${[["Basic",0],["Moderate",1],["Examination",2]].map(([n,l])=>`<button class="btn b opt" onclick="quiz(Q.filter(q=>q.l==${l}),{mode:'exam',title:'${n}'})">${n} – 20 questions</button>`).join("")}<button class="btn opt" onclick="quiz(Q,{mode:'exam',title:'Full Paper'})">All 60 mixed</button><button class="btn" onclick="home()">🏠 Home</button></div>`)}
+function badges(){const u=U(),s=PS(u),ok=s.every(x=>x.a>=5&&acc(x)>=80);show(`<div class="card"><h2>🏅 My Achievements</h2><div class="q">⭐ ${u.pts} points<br>${rk(u.pts)}</div><p>🥉 Bronze: 100 • 🥈 Silver: 300 • 🥇 Gold: 600 points</p>${W.map((w,i)=>`<p>${w.e} ${w.w.join(" / ")} — ${acc(s[i])}%<span class="bar" style="display:block"><i style="width:${acc(s[i])}%"></i></span></p>`).join("")}${ok?`<button class="btn g" onclick="cert()">🎓 Get Certificate</button>`:`<p>🎓 Preposition Master Certificate: score 80% or more in all six pairs (at least 5 answers in each).</p>`}<button class="btn" onclick="home()">🏠 Home</button></div>`)}
+function cert(){show(`<div class="cert card"><h1 style="color:#b45309;text-shadow:none">🏆 Preposition Master Certificate</h1><p>This is to certify that</p><h2 style="font-size:40px">${esc(me)}</h2><p>has mastered the six preposition pairs of<br><b>Preposition Super League 2027</b><br>Class XII – Tamil Nadu State Board</p><p>⭐ ${U().pts} points</p><p><br>G M Senthil Kumar, PGT English, Villupuram</p></div><div class="np" style="text-align:center"><button class="btn g" onclick="print()">🖨️ Print</button><button class="btn" onclick="badges()">Back</button></div>`)}
+function dash(){const us=Object.keys(S.users);show(`<div class="card"><h2>👩‍🏫 Teacher Dashboard</h2>${us.length?`<div style="overflow-x:auto"><table><tr><th>Student<th>Attempted<th>Correct<th>Incorrect<th>Improvement<th>Pair-wise accuracy<th>Needs coaching</tr>${us.map(n=>{const u=S.users[n],s=PS(u),a=u.h.length,c=u.h.reduce((t,x)=>t+x[1],0),cw=W.filter((w,i)=>s[i].a<5||acc(s[i])<60).map(w=>w.w.join("/"));return`<tr><td>${esc(n)}<td>${a}<td>${c}<td>${a-c}<td>${imp(u)}<td>${W.map((w,i)=>w.w.join("/")+": "+(s[i].a?acc(s[i])+"%":"–")).join("<br>")}<td>${cw.length?"⚠️ "+cw.join("<br>⚠️ "):"✅ None"}`}).join("")}</table></div>`:"<p>No student data yet.</p>"}<p style="font-size:15px">Data is saved in this browser on this computer only. Improvement = last 10 answers vs first 10 (shown after 20 answers). Coaching = under 5 answers or below 60%.</p><button class="btn" onclick="home()">🏠 Home</button><button class="btn g" onclick="print()">🖨️ Print</button><button class="btn" onclick="if(confirm('Delete all student data?')){S.users={};S.me='';me='';save();dash()}">🗑️ Reset</button></div>`)}
+try{speechSynthesis.getVoices()}catch(e){}
+home();
+</script></body></html>

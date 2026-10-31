@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>English Grammar Fishing Challenge</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",Verdana,Tahoma,sans-serif;font-size:18px;color:#0b2a4a;background:#e6f6ff;padding:8px 8px 30px}
+.wrap{max-width:900px;margin:0 auto}
+h1{margin:4px 0;text-align:center;font-size:clamp(1.25rem,4.5vw,2rem);color:#064a85}
+h1 small{display:block;font-size:.55em;color:#0d7a5f}
+.hud{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:6px 0}
+.chip{background:#fff;border-radius:14px;padding:6px 14px;font-weight:800;box-shadow:0 4px 0 #9cc8e6}
+.chip b{color:#d6249f;font-size:1.3rem}
+.prog{height:16px;background:#bfe3f7;border-radius:10px;overflow:hidden;margin:4px 0 8px}
+#pf{height:100%;width:0;background:linear-gradient(90deg,#34d399,#fbbf24);transition:width .5s}
+button{font:inherit;font-weight:800;cursor:pointer;border:0;border-radius:14px;color:#fff;box-shadow:0 5px 0 #0004}
+button:active{transform:translateY(3px);box-shadow:0 2px 0 #0004}
+button:focus-visible{outline:4px solid #fbbf24;outline-offset:2px}
+.tools{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:8px}
+.tools button{padding:8px 12px;font-size:.9rem;background:#2563eb}
+#qbox{background:#fff;border-radius:20px;padding:12px 16px;box-shadow:0 6px 0 #9cc8e6;margin-bottom:10px}
+#topic{display:inline-block;background:#0d9488;color:#fff;border-radius:20px;padding:3px 14px;font-size:.85rem;font-weight:800}
+#q{font-size:clamp(1.25rem,4.6vw,1.8rem);font-weight:800;line-height:1.35;margin-top:6px}
+#pond{position:relative;height:clamp(340px,52vh,470px);border-radius:22px;overflow:hidden;box-shadow:0 8px 0 #0a3d6e;background:linear-gradient(#bfeaff 0 38px,#46b7f0 38px,#1688d4 45%,#0a4f94 100%);touch-action:manipulation;user-select:none}
+.wave{position:absolute;left:0;right:0;top:30px;height:14px;background:repeating-radial-gradient(circle at 20px 14px,transparent 0 9px,#fff9 9px 11px);background-size:40px 14px;animation:wv 6s linear infinite}
+@keyframes wv{to{background-position:40px 0}}
+.sand{position:absolute;left:0;right:0;bottom:0;height:26px;background:#e8c77a;border-top:4px solid #d4a94e}
+.deco{position:absolute;bottom:14px;font-size:2rem;pointer-events:none}
+.bub{position:absolute;bottom:-20px;border-radius:50%;background:#fff5;border:2px solid #fff8;animation:rise linear infinite;pointer-events:none}
+@keyframes rise{to{transform:translateY(-110vh);opacity:.2}}
+#boat{position:absolute;left:50%;top:4px;transform:translateX(-50%);width:130px;height:34px;z-index:5;pointer-events:none}
+#boat i{position:absolute;bottom:0;left:0;right:0;height:16px;background:#92400e;border-radius:0 0 40px 40px;border-top:4px solid #b45309}
+#boat span{position:absolute;left:50%;top:-14px;font-size:2.2rem;transform:translateX(-30%)}
+svg#ln{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:6}
+.fish{position:absolute;left:0;top:0;z-index:3;--c:#fbbf24;background:var(--c);color:#0b2a4a;border:3px solid #0b2a4a33;padding:9px 20px;border-radius:50px;max-width:min(46vw,210px);min-width:92px;font-size:clamp(.95rem,3.6vw,1.15rem);line-height:1.2;box-shadow:0 4px 0 #0004;color:#0b2a4a;transition:opacity .6s}
+.fish::after{content:"";position:absolute;top:50%;margin-top:-16px;border-top:16px solid transparent;border-bottom:16px solid transparent}
+.fish.r::after{left:-22px;border-left:24px solid var(--c)}
+.fish.l::after{right:-22px;border-right:24px solid var(--c)}
+.fish::before{content:"";position:absolute;top:7px;width:9px;height:9px;border-radius:50%;background:#fff;border:2px solid #0b2a4a}
+.fish.r::before{right:9px}.fish.l::before{left:9px}
+.fish.fade{opacity:0}
+.rip{position:absolute;width:20px;height:20px;margin:-10px;border:3px solid #fffc;border-radius:50%;animation:rp 1s forwards;z-index:4;pointer-events:none}
+@keyframes rp{to{transform:scale(5);opacity:0}}
+#pz{position:absolute;inset:0;background:#0a3d6ecc;color:#fff;display:none;align-items:center;justify-content:center;font-size:2rem;font-weight:800;z-index:9}
+#fb{display:none;margin-top:10px;padding:12px 14px;border-radius:16px;font-size:1.1rem;line-height:1.5}
+.good{background:#d1fae5}.try{background:#fef3c7}.hint{background:#dbeafe}.info{background:#fff}
+#next{display:none;margin:10px auto 0;padding:12px 30px;font-size:1.2rem;background:#16a34a}
+.ov{position:fixed;inset:0;background:#06284dee;display:none;align-items:center;justify-content:center;z-index:50;padding:12px;overflow:auto}
+.ov.show{display:flex}
+.box{background:#fff;border-radius:26px;padding:22px;max-width:520px;width:100%;text-align:center;box-shadow:0 8px 0 #0006}
+.box h2{margin:4px 0 8px}
+.row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:10px 0}
+.cls{padding:12px 24px;font-size:1.2rem;background:#94a3b8}.cls.on{background:#7c3aed}
+.lv{display:block;width:100%;padding:13px;margin:8px 0;font-size:1.1rem;text-align:left}
+.conf{position:fixed;top:-20px;width:12px;height:18px;z-index:99;animation:fall linear forwards;pointer-events:none}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+@media (prefers-reduced-motion:reduce){.bub,.wave{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>🎣 ENGLISH GRAMMAR FISHING CHALLENGE<small>Catch the Correct Answer!</small></h1>
+<div class="hud">
+ <div class="chip">Score ⭐ <b id="sc">0</b></div>
+ <div class="chip">Question <b id="qc">0</b>/6</div>
+ <div class="chip" id="info">-</div>
+</div>
+<div class="prog"><div id="pf"></div></div>
+<div class="tools">
+ <button id="hintb" style="background:#f59e0b">💡 Hint</button>
+ <button id="pause">⏸ Pause</button>
+ <button id="mute">🔊 Sound ON</button>
+ <button id="ta">தமிழ் OFF</button>
+ <button id="rest" style="background:#e11d48">🔄 Restart</button>
+ <button id="menu" style="background:#0d9488">🏠 Menu</button>
+</div>
+<div id="qbox"><span id="topic"></span><div id="q"></div></div>
+<div id="pond">
+ <div class="wave"></div><div class="sand"></div>
+ <div class="deco" style="left:4%">🌿</div><div class="deco" style="left:44%">🐚</div><div class="deco" style="right:5%">🌿</div>
+ <div id="boat"><span>🎣</span><i></i></div>
+ <svg id="ln"><line id="line" stroke="#fff" stroke-width="3" x1="0" y1="0" x2="0" y2="0" opacity="0"/><path id="hook" d="M0 0 v12 a7 7 0 1 1 -13 0" fill="none" stroke="#fbbf24" stroke-width="4" stroke-linecap="round" opacity="0"/></svg>
+ <div id="pz">⏸ Paused</div>
+</div>
+<div id="fb" aria-live="polite"></div>
+<button id="next">Next ➜</button>
+</div>
+
+<div class="ov show" id="menuov"><div class="box">
+ <div style="font-size:3.5rem">🎣🐟</div><h2>Grammar Fishing</h2>
+ <p>Tap the fish with the right answer. Take your time!</p>
+ <div class="row"><button class="cls on" data-c="10">Class 10</button><button class="cls" data-c="12">Class 12</button></div>
+ <button class="lv" data-l="1" style="background:#16a34a">🐠 Level 1 – Easy Fishing<br><small>Articles, prepositions, vocabulary</small></button>
+ <button class="lv" data-l="2" style="background:#2563eb">🐡 Level 2 – Grammar Fishing<br><small>Tenses, speech, voice</small></button>
+ <button class="lv" data-l="3" style="background:#9333ea">🦈 Level 3 – Textbook Fishing<br><small>Poetry, figures of speech, comprehension</small></button>
+ <button class="lv" data-l="4" style="background:#e11d48">🏆 Level 4 – Public Exam Challenge<br><small>One-mark, transformation, vocabulary</small></button>
+</div></div>
+
+<div class="ov" id="endov"><div class="box">
+ <div style="font-size:3.5rem" id="eem">🏆</div><h2 id="et"></h2>
+ <p style="font-size:1.3rem">Score: <b id="es"></b> / 60<br>Caught on first try: <b id="ec"></b> / 6</p>
+ <p id="ew" style="text-align:left"></p>
+ <div class="row"><button id="again" style="background:#16a34a;padding:12px 22px">▶ Play Again</button><button id="tomenu" style="background:#0d9488;padding:12px 22px">🏠 Menu</button></div>
+</div></div>
+
+<script>
+/* [topic, question, [correct, wrong, wrong, wrong], hint, English explanation, Tamil explanation] */
+const D={
+1:{a:[
+["Articles","He is ___ honest man.",["an","a","the","no article"],"'honest' starts with a vowel sound.","Use 'an' before a vowel sound. 'honest' sounds like 'onest'.","உயிர் ஒலிக்கு முன் 'an'."],
+["Prepositions","She was born ___ Monday.",["on","in","at","to"],"Use this word before days.","Use 'on' with days: on Monday.","நாட்களுக்கு முன் 'on'."],
+["Vocabulary",'Choose the synonym of "brave".',["courageous","cowardly","weak","careless"],"Synonym = same meaning.","Brave and courageous both mean not afraid.","Brave = தைரியமான."],
+["Vocabulary",'Choose the antonym of "ancient".',["modern","old","aged","historic"],"Antonym = opposite meaning.","Ancient means very old. The opposite is modern.","Ancient × Modern."]],
+10:[["Articles","___ sun rises in the east.",["The","A","An","No article"],"There is only one sun.","Use 'the' for unique things like the sun.","ஒன்றே உள்ளவற்றுக்கு 'the'."],
+["Vocabulary",'Choose the synonym of "enormous".',["huge","tiny","narrow","quiet"],"Think of a very big elephant.","Enormous means very big = huge.","Enormous = மிகப்பெரிய."]],
+12:[["Articles","She is ___ university student.",["a","an","the","no article"],"'university' starts with a 'yoo' sound.","Use 'a' before a consonant sound. 'university' sounds like 'yoo'.","'yoo' மெய்யொலி; எனவே 'a'."],
+["Prepositions","He is afraid ___ dogs.",["of","at","with","on"],"afraid + ___","The phrase is 'afraid of'.","'afraid of' என்பதே சரி."]]},
+2:{a:[
+["Tenses","Look! The boy ___ a kite.",["is flying","flies","flew","fly"],"'Look!' means it is happening now.","Use present continuous (is + verb-ing) for actions happening now.","இப்போது நடப்பது: is + verb-ing."],
+["Subject–Verb Agreement","The children ___ playing in the park.",["are","is","was","has"],"'children' means many.","A plural subject takes a plural verb: are.","பன்மைக்கு 'are'."],
+["Direct & Indirect Speech",'He said, "I am happy." Choose the correct indirect speech.',["He said that he was happy.","He said that he is happy.","He said that I was happy.","He said that he had happy."],"'am' changes to a past word.","'am' changes to 'was'. Remove the quotes and use 'that'.","indirect speech-ல் am → was."],
+["Active & Passive Voice","Passive of: Ravi writes a letter.",["A letter is written by Ravi.","A letter was written by Ravi.","A letter writes Ravi.","Ravi is written by a letter."],"Present tense: is/am/are + V3.","The object becomes the subject: 'is written'.","நிகழ்காலம்: is + V3."]],
+10:[["Direct & Indirect Speech",'She said, "I can swim." Choose the correct indirect speech.',["She said that she could swim.","She said that she can swim.","She said that I could swim.","She said that she will swim."],"'can' changes to 'could'.","In indirect speech, can → could.","can → could."],
+["Tenses","I ___ my homework before the bell rang.",["had finished","finish","have finished","will finish"],"One past action happened before another.","Use past perfect (had + V3) for the earlier past action.","முதலில் நடந்தது: had + V3."]],
+12:[["Direct & Indirect Speech",'She said, "I came yesterday." Choose the correct indirect speech.',["She said that she had come the previous day.","She said that she came yesterday.","She said that she has come tomorrow.","She said that she had come the next day."],"'yesterday' changes to 'the previous day'.","Past becomes past perfect. Yesterday → the previous day.","yesterday → the previous day."],
+["Active & Passive Voice","Passive of: Someone has stolen my bag.",["My bag has been stolen.","My bag was stolen.","My bag is stolen.","My bag had stolen."],"has + V3 → has been + V3.","Present perfect passive: has/have been + V3.","has been + V3."]]},
+3:{a:[
+["Figures of Speech",'"She is as brave as a lion." Which figure of speech?',["Simile","Metaphor","Personification","Hyperbole"],"Look for the word 'as'.","A simile compares using 'as' or 'like'.","'as/like' ஒப்பீடு = Simile."],
+["Figures of Speech",'"The moon smiled at us." Which figure of speech?',["Personification","Simile","Metaphor","Alliteration"],"Can a moon really smile?","Giving human actions to a non-living thing is personification.","உயிரற்றதற்கு மனித செயல் = Personification."],
+["Poetry Appreciation","Words that end with the same sound in a poem (cat – hat) are called ___.",["rhyme","rhythm","stanza","theme"],"cat and hat sound alike at the end.","Rhyme means the same ending sound.","ஒரே முடிவு ஒலி = Rhyme."],
+["Poetry Appreciation","A group of lines in a poem is called a ___.",["stanza","paragraph","chapter","scene"],"Poems have this, like prose has paragraphs.","A group of lines in a poem is a stanza.","கவிதையின் வரிக்குழு = Stanza."]],
+10:[["Comprehension",'Read: "Ravi woke up early. He had a test. He studied for two hours." Why did Ravi study?',["He had a test.","He was hungry.","He had a holiday.","He was sleepy."],"Find the sentence with 'test'.","The passage says Ravi had a test, so he studied.","தேர்வு இருந்ததால் படித்தான்."],
+["Textbook",'Who wrote "Gitanjali"?',["Rabindranath Tagore","A.P.J. Abdul Kalam","Mahatma Gandhi","Nehru"],"He won the Nobel Prize for literature.","Gitanjali was written by Rabindranath Tagore.","கீதாஞ்சலி – தாகூர்."]],
+12:[["Comprehension",'Read: "The farmer worked hard. The rains came late, so the crops were poor." Why were the crops poor?',["The rains came late.","The farmer was lazy.","There was too much rain.","He had no field."],"Look at the word 'so'.","The passage says the rains came late, so the crops were poor.","மழை தாமதமாக வந்தது."],
+["Textbook",'Who wrote "Wings of Fire"?',["A.P.J. Abdul Kalam","Rabindranath Tagore","Nehru","Gandhi"],"He was the 11th President of India.","Wings of Fire is by Dr. A.P.J. Abdul Kalam.","Wings of Fire – அப்துல் கலாம்."]]},
+4:{a:[
+["One-Mark",'The plural of "child" is ___.',["children","childs","childes","childrens"],"It is an irregular plural.","Child → children.","Child → Children."],
+["Transformation","Change to negative: She is happy.",["She is not happy.","She not is happy.","She does not happy.","She is no happy."],"Put 'not' after 'is'.","With 'is', we add 'not' after it.","is-க்கு பின் not."],
+["Vocabulary",'One word for "a person who cannot read or write":',["illiterate","literate","scholar","author"],"The prefix 'il-' means not.","Illiterate = cannot read or write.","Illiterate = எழுதப் படிக்கத் தெரியாதவர்."],
+["Transformation","Superlative: He is taller than all other boys.",["He is the tallest boy.","He is tallest boy.","He is the taller boy.","He is more tall boy."],"Use 'the' + the -est word.","Superlative: the + tallest.","the + tallest."]],
+10:[["One-Mark","Choose the correct spelling:",["receive","recieve","receeve","riceive"],"Remember: 'i' before 'e' except after 'c'.","After 'c', write 'ei': receive.","c-க்கு பின் 'ei'."],
+["Comprehension",'Read: "Anu planted a tree. She watered it daily. After a year, it grew tall." What did Anu do daily?',["She watered the tree.","She cut the tree.","She sold the tree.","She climbed the tree."],"Find the word 'daily'.","The passage says she watered it daily.","தினமும் தண்ணீர் ஊற்றினாள்."]],
+12:[["Transformation","Passive: Open the door.",["Let the door be opened.","The door is opened.","Door was opened.","The door open."],"Orders use 'Let ... be ...'.","Imperative passive: Let + object + be + V3.","கட்டளை: Let ... be + V3."],
+["Vocabulary",'One word for "present everywhere":',["omnipresent","omniscient","omnipotent","optimistic"],"'omni' means all.","Omnipresent = present everywhere.","Omnipresent = எங்கும் நிறைந்த."]]}
+};
+const LN={1:"Level 1 – Easy",2:"Level 2 – Grammar",3:"Level 3 – Textbook",4:"Level 4 – Exam"};
+const COL=["#fbbf24","#fb7185","#a3e635","#c084fc","#fdba74","#5eead4"];
+const $=id=>document.getElementById(id);
+const pond=$("pond");
+let cls=10,lvl=1,qs=[],qi=0,score=0,first=0,weak={},fishes=[],wrong=0,busy=false,done=false,paused=false,muted=false,tamil=false,FB=null,cur=null;
+
+/* Sound */
+let ac=null;
+function tone(f,d,t="sine",w=0,v=.15){if(muted)return;try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.type=t;o.frequency.setValueAtTime(f,ac.currentTime+w);g.gain.setValueAtTime(v,ac.currentTime+w);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+w+d);o.connect(g);g.connect(ac.destination);o.start(ac.currentTime+w);o.stop(ac.currentTime+w+d)}catch(e){}}
+const sCast=()=>{tone(700,.25,"sine",0,.08);tone(400,.25,"sine",.1,.08)};
+const sGood=()=>[523,659,784,1047].forEach((f,i)=>tone(f,.22,"triangle",i*.12));
+const sBad=()=>{tone(300,.2,"sine");tone(240,.3,"sine",.15)};
+const sWin=()=>[523,659,784,659,784,1047,1319].forEach((f,i)=>tone(f,.25,"triangle",i*.14));
+
+/* Bubbles */
+for(let i=0;i<14;i++){const b=document.createElement("div");b.className="bub";const s=6+Math.random()*14;b.style.cssText=`left:${Math.random()*96}%;width:${s}px;height:${s}px;animation-duration:${7+Math.random()*8}s;animation-delay:${-Math.random()*10}s`;pond.insertBefore(b,pond.children[2])}
+
+function confetti(n=60){const c=["#ff5e62","#ffc83d","#2ecc71","#3498db","#e84393","#fff"];for(let i=0;i<n;i++){const d=document.createElement("div");d.className="conf";d.style.left=Math.random()*100+"vw";d.style.background=c[i%6];d.style.animationDuration=(2+Math.random()*2)+"s";d.style.animationDelay=Math.random()*.5+"s";document.body.appendChild(d);setTimeout(()=>d.remove(),4600)}}
+function ripple(x,y){const r=document.createElement("div");r.className="rip";r.style.left=x+"px";r.style.top=y+"px";pond.appendChild(r);setTimeout(()=>r.remove(),1000)}
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const ease=p=>p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+const tween=(ms,fn)=>new Promise(r=>{const s=performance.now();(function f(n){const p=Math.min(1,(n-s)/ms);fn(p);p<1?requestAnimationFrame(f):r()})(s)});
+
+/* Fishing line */
+const ln=$("line"),hk=$("hook");
+const rod=()=>({x:pond.clientWidth/2+22,y:26});
+function setLine(x,y){const r=rod();ln.setAttribute("x1",r.x);ln.setAttribute("y1",r.y);ln.setAttribute("x2",x);ln.setAttribute("y2",y);hk.setAttribute("transform",`translate(${x},${y})`);ln.setAttribute("opacity",1);hk.setAttribute("opacity",1)}
+const hideLine=()=>{ln.setAttribute("opacity",0);hk.setAttribute("opacity",0)};
+
+/* Fish */
+function laneY(f){const H=pond.clientHeight,h=f.el.offsetHeight;return 90+Math.max(0,H-90-h-34)*f.lane/3}
+function place(f){f.y=laneY(f)+Math.sin(f.t*1.6+f.ph)*5;f.el.style.transform=`translate(${f.x}px,${f.y}px)`;const d=f.vx>0?"r":"l";if(f.d!==d){f.d=d;f.el.classList.remove("r","l");f.el.classList.add(d)}}
+let last=performance.now();
+function loop(ts){const dt=Math.min(.05,(ts-last)/1000);last=ts;
+ if(!paused){const W=pond.clientWidth;fishes.forEach(f=>{if(f.frozen||f.gone)return;const w=f.el.offsetWidth;f.x+=f.vx*dt;const mn=30,mx=Math.max(mn,W-w-30);if(f.x<mn){f.x=mn;f.vx=Math.abs(f.vx)}if(f.x>mx){f.x=mx;f.vx=-Math.abs(f.vx)}f.t+=dt;place(f)})}
+ requestAnimationFrame(loop)}
+requestAnimationFrame(loop);
+
+/* Feedback */
+function showFb(c,html,ta){FB=[c,html,ta];drawFb()}
+function drawFb(){if(!FB)return;const f=$("fb");f.className=FB[0];f.innerHTML=FB[1]+(tamil&&FB[2]?"<br>🟠 "+FB[2]:"");f.style.display="block"}
+
+/* Game flow */
+function start(l){lvl=l;qs=shuf([...D[l].a,...D[l][cls]]);qi=0;score=0;first=0;weak={};$("menuov").classList.remove("show");$("endov").classList.remove("show");loadQ()}
+function hud(){$("sc").textContent=score;$("qc").textContent=Math.min(qi+(done?1:0),6);$("pf").style.width=((qi+(done?1:0))/6*100)+"%";$("info").textContent="Class "+cls+" · "+LN[lvl]}
+function loadQ(){
+ cur=qs[qi];wrong=0;busy=false;done=false;FB=null;hideLine();
+ fishes.forEach(f=>f.el.remove());fishes=[];$("fb").style.display="none";$("next").style.display="none";
+ $("topic").textContent=cur[0];$("q").textContent=cur[1];
+ const W=pond.clientWidth;
+ shuf([0,1,2,3]).forEach((o,k)=>{
+  const el=document.createElement("button");el.className="fish r";el.style.setProperty("--c",COL[(k+qi)%6]);el.textContent=cur[2][o];
+  pond.appendChild(el);
+  const f={el,ok:o===0,lane:k,x:40+Math.random()*Math.max(10,W-260),t:0,ph:Math.random()*6,vx:(Math.random()<.5?-1:1)*(32+Math.random()*24),frozen:false,gone:false,d:""};
+  el.onclick=()=>pickFish(f);fishes.push(f);place(f)});
+ hud();
+}
+async function pickFish(f){
+ if(busy||paused||done||f.gone)return;busy=true;f.frozen=true;
+ const r=rod(),w=f.el.offsetWidth,h=f.el.offsetHeight,fx=f.x+w/2,fy=f.y+h/2;
+ sCast();ripple(r.x,40);
+ await tween(750,p=>{const e=ease(p);setLine(r.x+(fx-r.x)*e,r.y+(fy-r.y)*e)});
+ ripple(fx,fy);
+ if(f.ok){
+  const pts=wrong===0?10:wrong===1?5:0;score+=pts;if(wrong===0)first++;else weak[cur[0]]=1;
+  const x0=f.x,y0=f.y,tx=pond.clientWidth/2-w/2-8,ty=48;
+  await tween(1000,p=>{const e=ease(p);f.x=x0+(tx-x0)*e;f.y=y0+(ty-y0)*e;f.el.style.transform=`translate(${f.x}px,${f.y}px)`;setLine(f.x+w/2,f.y+h/2)});
+  sGood();confetti(60);ripple(f.x+w/2,40);
+  fishes.forEach(o=>{if(o!==f){o.gone=true;o.el.classList.add("fade")}});
+  await tween(500,()=>{});hideLine();
+  const head=wrong===0?"🎉 Excellent Catch! +10 points":wrong===1?"👏 Good Catch! +5 points":"💪 You caught it! Keep practising!";
+  showFb("good",`<b>${head}</b><br>✅ Answer: <b>${cur[2][0]}</b><br>📖 ${cur[4]}`,cur[5]);
+  done=true;hud();$("next").style.display="block";$("next").textContent=qi>=5?"🏁 See My Result":"Next Question ➜";
+  $("next").scrollIntoView({behavior:"smooth",block:"nearest"});
+ }else{
+  wrong++;weak[cur[0]]=1;sBad();
+  const dir=f.vx>0?1:-1,x0=f.x,hx=fx,hy=fy;
+  await tween(900,p=>{const e=p*p;
+   f.x=x0+dir*e*(pond.clientWidth+250)+(p<.4?Math.sin(p*60)*5:0);f.el.style.transform=`translate(${f.x}px,${f.y}px)`;
+   const q=Math.min(1,p*2.2);setLine(hx+(r.x-hx)*ease(q),hy+(r.y-hy)*ease(q))});
+  f.gone=true;f.el.style.display="none";hideLine();
+  const left=fishes.filter(o=>!o.gone).length;
+  const msg=left===1?"Only one fish is left. Catch it!":"No problem. Try another fish!";
+  showFb("try",`<b>${["Good Try! 🐟","Try Again! 🌈","Almost there! 💙"][Math.min(wrong-1,2)]}</b> That fish swam away. ${msg}<br>💡 Hint: ${cur[3]}`,"");
+  busy=false;
+ }
+}
+$("hintb").onclick=()=>{if(cur&&!done)showFb("hint","💡 <b>Hint:</b> "+cur[3],"")};
+$("next").onclick=()=>{qi++;if(qi>=6){endGame()}else loadQ()};
+function endGame(){
+ hud();const t=score>=50?["🏆","English Superstar!"]:score>=30?["🥇","Good Progress!"]:["💪","Keep Practising!"];
+ $("eem").textContent=t[0];$("et").textContent=t[1];$("es").textContent=score;$("ec").textContent=first;
+ const w=Object.keys(weak);$("ew").innerHTML=w.length?"📚 <b>Practise more:</b><br>• "+w.join("<br>• "):"🌟 No weak topics. Great fishing!";
+ $("endov").classList.add("show");sWin();confetti(score>=30?110:30);
+}
+$("again").onclick=()=>start(lvl);
+$("tomenu").onclick=$("menu").onclick=()=>{$("endov").classList.remove("show");$("menuov").classList.add("show")};
+$("rest").onclick=()=>start(lvl);
+$("pause").onclick=()=>{paused=!paused;$("pz").style.display=paused?"flex":"none";$("pause").textContent=paused?"▶ Resume":"⏸ Pause"};
+$("mute").onclick=()=>{muted=!muted;$("mute").textContent=muted?"🔇 Sound OFF":"🔊 Sound ON"};
+$("ta").onclick=()=>{tamil=!tamil;$("ta").textContent=tamil?"தமிழ் ON":"தமிழ் OFF";drawFb()};
+document.querySelectorAll(".cls").forEach(b=>b.onclick=()=>{cls=+b.dataset.c;document.querySelectorAll(".cls").forEach(x=>x.classList.toggle("on",x===b))});
+document.querySelectorAll(".lv").forEach(b=>b.onclick=()=>{paused=false;$("pz").style.display="none";$("pause").textContent="⏸ Pause";start(+b.dataset.l);tone(660,.15)});
+</script>
+</body>
+</html>
