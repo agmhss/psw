@@ -17,13 +17,13 @@
         .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
         .section-title { border-left: 5px solid var(--accent); padding-left: 15px; margin: 40px 0 20px; color: var(--primary); }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: 0.3s; border: 1px solid #eee; }
+        .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: 0.3s; border: 1px solid #eee; display: flex; flex-direction: column; }
         .card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.1); border-color: var(--accent); }
-        .card h4 { margin-top: 0; color: #34495e; font-size: 1.2em; }
-        .card p { font-size: 0.9em; color: #7f8c8d; line-height: 1.4; }
-        .btn { display: inline-block; margin-top: 15px; padding: 8px 15px; background: var(--accent); color: white; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 0.9em; }
+        .card h4 { margin-top: 0; color: #34495e; font-size: 1.2em; margin-bottom: 10px; }
+        .card p { font-size: 0.9em; color: #7f8c8d; line-height: 1.4; flex-grow: 1; }
+        .btn { display: inline-block; margin-top: 15px; padding: 8px 15px; background: var(--accent); color: white; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 0.9em; width: max-content; }
         .btn:hover { background: #16a085; }
-        .tag { display: inline-block; padding: 3px 8px; border-radius: 3px; font-size: 0.75em; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; }
+        .tag { display: inline-block; padding: 3px 8px; border-radius: 3px; font-size: 0.75em; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; width: max-content; }
         .tag-tamil { background: #fff3e0; color: #e67e22; }
         .tag-english { background: #e3f2fd; color: #2980b9; }
         .tag-story { background: #f3e5f5; color: #8e44ad; }
@@ -62,13 +62,11 @@
     </style>
 </head>
 <body>
-    
 
 <div class="header">
     <h1>மொழித்திறன் மற்றும் டிஜிட்டல் நூலகம்</h1>
     <p>அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம் - மாணவர் வழிகாட்டி</p>
     <a href="index.html" class="home-btn">🏠 முகப்பு</a>
-
 </div>
 
 <div class="container">
@@ -88,7 +86,7 @@
             <p>இலக்கணம் மற்றும் பாடப்புத்தகக் கருத்துக்கள் குறித்த திறன் தேர்வு.</p>
             <a href="https://agmhss.github.io/Gtk-Thiran-C9-Tamil-Test/" class="btn">தேர்வு எழுது</a>
         </div>
-        <!-- Unified Thiran Tamil Workbooks Card -->
+        
         <div class="card">
             <span class="tag tag-tamil">திறன் (THIRAN)</span>
             <h4>தமிழ் திறன் பயிற்சிகள்</h4>
@@ -99,7 +97,6 @@
             </div>
         </div>
         
-        <!-- Unified Tamil NotebookLM Quizzes Card -->
         <div class="card sci-card">
             <span class="material-symbols-outlined icon sci-icon">quiz</span>
             <h4>தமிழ் தேர்வுகள் (NotebookLM)</h4>
@@ -135,115 +132,102 @@
             <p>தமிழ் டிஜிட்டல் நூலகம் மூலம் புத்தகங்களை பதிவிறக்கம் செய்து வாசிக்க.</p>
             <a href="https://tamildigitallibrary.in/" class="btn">உள்ளே செல்</a>
         </div>
-    </div> <!-- Close grid -->
-</div> <!-- Close container -->
+    </div>
 
     <h2 class="section-title">ஆங்கில மொழி மற்றும் இலக்கணப் பயிற்சிகள்</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+    <div class="grid">
 
- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+        <div class="card">
+            <span class="tag tag-english">வினாடி வினா</span>
+            <h4>The Secret of the Machines</h4>
+            <p>10-ஆம் வகுப்பு ஆங்கிலப் பದ್ಯ வினாடி வினா.</p>
+            <a href="./secret_of_the_machines_quiz_easy%20(1).html" class="btn">விளையாட</a>
+        </div>
 
-  <!-- Secret of the Machines Quiz -->
-  <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col h-full">
-    <span class="bg-blue-50 text-blue-600 text-xs font-semibold px-2 py-1 rounded w-max mb-4">வினாடி வினா</span>
-    <h3 class="text-lg font-bold text-gray-900 mb-2">The Secret of the Machines</h3>
-    <p class="text-sm text-gray-500 mb-6 flex-grow">10-ஆம் வகுப்பு ஆங்கிலப் பದ್ಯ வினாடி வினா.</p>
-    <a href="./secret_of_the_machines_quiz_easy%20(1).html" class="bg-[#12b9a3] hover:bg-[#0e9987] text-white px-5 py-2 rounded text-sm font-semibold w-max transition-colors">விளையாட</a>
-  </div>
+        <div class="card">
+            <span class="tag tag-english">விளையாட்டு</span>
+            <h4>Rainbow Wheel Quiz</h4>
+            <p>ஆங்கில இலக்கண சக்கர விளையாட்டு.</p>
+            <a href="./Rainbow%20Wheel%20Quiz.html" class="btn">விளையாட</a>
+        </div>
 
-  <!-- Rainbow Wheel Quiz -->
-  <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col h-full">
-    <span class="bg-blue-50 text-blue-600 text-xs font-semibold px-2 py-1 rounded w-max mb-4">விளையாட்டு</span>
-    <h3 class="text-lg font-bold text-gray-900 mb-2">Rainbow Wheel Quiz</h3>
-    <p class="text-sm text-gray-500 mb-6 flex-grow">ஆங்கில இலக்கண சக்கர விளையாட்டு.</p>
-    <a href="./Rainbow%20Wheel%20Quiz.html" class="bg-[#12b9a3] hover:bg-[#0e9987] text-white px-5 py-2 rounded text-sm font-semibold w-max transition-colors">விளையாட</a>
-  </div>
+        <div class="card">
+            <span class="tag tag-english">விளையாட்டு</span>
+            <h4>Cyber Detective</h4>
+            <p>கோலம்-பாட் மீட்பு - ஆங்கில இலக்கணப் புதிர்.</p>
+            <a href="./Cyber%20Detective_%20The%20Kolam-Bot%20Heist.html" class="btn">விளையாட</a>
+        </div>
 
-  <!-- Cyber Detective -->
-  <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col h-full">
-    <span class="bg-blue-50 text-blue-600 text-xs font-semibold px-2 py-1 rounded w-max mb-4">விளையாட்டு</span>
-    <h3 class="text-lg font-bold text-gray-900 mb-2">Cyber Detective</h3>
-    <p class="text-sm text-gray-500 mb-6 flex-grow">கோலம்-பாட் மீட்பு - ஆங்கில இலக்கணப் புதிர்.</p>
-    <a href="./Cyber%20Detective_%20The%20Kolam-Bot%20Heist.html" class="bg-[#12b9a3] hover:bg-[#0e9987] text-white px-5 py-2 rounded text-sm font-semibold w-max transition-colors">விளையாட</a>
-  </div>
+        <div class="card">
+            <span class="tag tag-english">பயிற்சி</span>
+            <h4>SSLC English One-Mark Quiz</h4>
+            <p>10-ஆம் வகுப்பு ஆங்கிலம் - 1 மதிப்பெண் பயிற்சி.</p>
+            <a href="./SSLC%20English%20–%20Section%20I%20Part%20I%20One-Mark%20Quiz%20(1).html" class="btn">விளையாட</a>
+        </div>
 
-  <!-- SSLC English Section I Part I -->
-  <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col h-full">
-    <span class="bg-blue-50 text-blue-600 text-xs font-semibold px-2 py-1 rounded w-max mb-4">பயிற்சி</span>
-    <h3 class="text-lg font-bold text-gray-900 mb-2">SSLC English One-Mark Quiz</h3>
-    <p class="text-sm text-gray-500 mb-6 flex-grow">10-ஆம் வகுப்பு ஆங்கிலம் - 1 மதிப்பெண் பயிற்சி.</p>
-    <a href="./SSLC%20English%20–%20Section%20I%20Part%20I%20One-Mark%20Quiz%20(1).html" class="bg-[#12b9a3] hover:bg-[#0e9987] text-white px-5 py-2 rounded text-sm font-semibold w-max transition-colors">விளையாட</a>
-  </div>
+        <div class="card">
+            <span class="tag tag-english">விளையாட்டு</span>
+            <h4>Spin the Wheel Challenge</h4>
+            <p>சுழல் சக்கர ஆங்கில இலக்கண சவால்.</p>
+            <a href="./Spin%20the%20Wheel%20–%20English%20Grammar%20Challenge.html" class="btn">விளையாட</a>
+        </div>
 
-  <!-- Spin the Wheel Challenge -->
-  <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col h-full">
-    <span class="bg-blue-50 text-blue-600 text-xs font-semibold px-2 py-1 rounded w-max mb-4">விளையாட்டு</span>
-    <h3 class="text-lg font-bold text-gray-900 mb-2">Spin the Wheel Challenge</h3>
-    <p class="text-sm text-gray-500 mb-6 flex-grow">சுழல் சக்கர ஆங்கில இலக்கண சவால்.</p>
-    <a href="./Spin%20the%20Wheel%20–%20English%20Grammar%20Challenge.html" class="bg-[#12b9a3] hover:bg-[#0e9987] text-white px-5 py-2 rounded text-sm font-semibold w-max transition-colors">விளையாட</a>
-  </div>
+        <div class="card">
+            <span class="tag tag-english">விளையாட்டு</span>
+            <h4>Grammar Fishing Challenge</h4>
+            <p>தூண்டில் இலக்கண விளையாட்டு.</p>
+            <a href="./english_grammar_fishing.html" class="btn">விளையாட</a>
+        </div>
 
-  <!-- English Grammar Fishing -->
-  <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col h-full">
-    <span class="bg-blue-50 text-blue-600 text-xs font-semibold px-2 py-1 rounded w-max mb-4">விளையாட்டு</span>
-    <h3 class="text-lg font-bold text-gray-900 mb-2">Grammar Fishing Challenge</h3>
-    <p class="text-sm text-gray-500 mb-6 flex-grow">தூண்டில் இலக்கண விளையாட்டு.</p>
-    <a href="./english_grammar_fishing.html" class="bg-[#12b9a3] hover:bg-[#0e9987] text-white px-5 py-2 rounded text-sm font-semibold w-max transition-colors">விளையாட</a>
-  </div>
+        <div class="card">
+            <span class="tag tag-english">விளையாட்டு</span>
+            <h4>Grammar Basketball Challenge</h4>
+            <p>கூடைப்பந்து ஆங்கில இலக்கண விளையாட்டு.</p>
+            <a href="./grammar_basketball_challenge_voiceover.html" class="btn">விளையாட</a>
+        </div>
 
-  <!-- Grammar Basketball -->
-  <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col h-full">
-    <span class="bg-blue-50 text-blue-600 text-xs font-semibold px-2 py-1 rounded w-max mb-4">விளையாட்டு</span>
-    <h3 class="text-lg font-bold text-gray-900 mb-2">Grammar Basketball Challenge</h3>
-    <p class="text-sm text-gray-500 mb-6 flex-grow">கூடைப்பந்து ஆங்கில இலக்கண விளையாட்டு.</p>
-    <a href="./grammar_basketball_challenge_voiceover.html" class="bg-[#12b9a3] hover:bg-[#0e9987] text-white px-5 py-2 rounded text-sm font-semibold w-max transition-colors">விளையாட</a>
-  </div>
+        <div class="card">
+            <span class="tag tag-english">வினாடி வினா</span>
+            <h4>English Millionaire</h4>
+            <p>ஆங்கில மில்லியனர் - வினாடி வினா.</p>
+            <a href="./english_millionaire_tamil_nadu.html" class="btn">விளையாட</a>
+        </div>
 
-  <!-- English Millionaire -->
-  <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col h-full">
-    <span class="bg-blue-50 text-blue-600 text-xs font-semibold px-2 py-1 rounded w-max mb-4">வினாடி வினா</span>
-    <h3 class="text-lg font-bold text-gray-900 mb-2">English Millionaire</h3>
-    <p class="text-sm text-gray-500 mb-6 flex-grow">ஆங்கில மில்லியனர் - வினாடி வினா.</p>
-    <a href="./english_millionaire_tamil_nadu.html" class="bg-[#12b9a3] hover:bg-[#0e9987] text-white px-5 py-2 rounded text-sm font-semibold w-max transition-colors">விளையாட</a>
-  </div>
+        <div class="card">
+            <span class="tag tag-english">விளையாட்டு</span>
+            <h4>Grammar Target Shooter</h4>
+            <p>இலக்கண இலக்கு சுடும் விளையாட்டு.</p>
+            <a href="./grammar_target_shooter.html" class="btn">விளையாட</a>
+        </div>
 
-  <!-- Grammar Target Shooter -->
-  <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col h-full">
-    <span class="bg-blue-50 text-blue-600 text-xs font-semibold px-2 py-1 rounded w-max mb-4">விளையாட்டு</span>
-    <h3 class="text-lg font-bold text-gray-900 mb-2">Grammar Target Shooter</h3>
-    <p class="text-sm text-gray-500 mb-6 flex-grow">இலக்கண இலக்கு சுடும் விளையாட்டு.</p>
-    <a href="./grammar_target_shooter.html" class="bg-[#12b9a3] hover:bg-[#0e9987] text-white px-5 py-2 rounded text-sm font-semibold w-max transition-colors">விளையாட</a>
-  </div>
+        <div class="card">
+            <span class="tag tag-english">பயிற்சி</span>
+            <h4>Preposition Super League 2027</h4>
+            <p>12-ஆம் வகுப்பு - முன்விபத்திகள் பயிற்சி.</p>
+            <a href="./Preposition%20Super%20League%202027%20(1).html" class="btn">விளையாட</a>
+        </div>
 
-  <!-- Preposition Super League -->
-  <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col h-full">
-    <span class="bg-blue-50 text-blue-600 text-xs font-semibold px-2 py-1 rounded w-max mb-4">பயிற்சி</span>
-    <h3 class="text-lg font-bold text-gray-900 mb-2">Preposition Super League 2027</h3>
-    <p class="text-sm text-gray-500 mb-6 flex-grow">12-ஆம் வகுப்பு - முன்விபத்திகள் பயிற்சி.</p>
-    <a href="./Preposition%20Super%20League%202027%20(1).html" class="bg-[#12b9a3] hover:bg-[#0e9987] text-white px-5 py-2 rounded text-sm font-semibold w-max transition-colors">விளையாட</a>
-  </div>
-
-</div>
-        <div class="grid">
         <div class="card">
             <span class="tag tag-english">கேட்டல்</span>
             <h4>Listening Test (Sparkles)</h4>
             <p>ஆடியோக்களைக் கேட்டு ஆங்கிலப் புரிதல் திறனை வளர்க்கும் பயிற்சி.</p>
             <a href="https://agmhss.github.io/Sparkles-ListeningTest/" class="btn">தொடங்கு</a>
         </div>
+        
         <div class="card">
             <span class="tag tag-english">தட்டச்சு</span>
             <h4>Listen & Type</h4>
             <p>ஆங்கிலச் சொற்களைக் கேட்டு துல்லியமாக தட்டச்சு செய்யும் பயிற்சி.</p>
             <a href="https://agmhss.github.io/Gtk-Listen-Type/" class="btn">பயிற்சி செய்</a>
         </div>
-         <div class="card">
+        
+        <div class="card">
             <span class="tag tag-english">தட்டச்சு</span>
-            <h4>Listen & Type</h4>
+            <h4>Listen & Answer</h4>
             <p>ஆங்கிலச் சொற்களைக் கேட்டு ஆங்கிலப் புரிதல் திறனை வளர்க்கும் பயிற்சி.</p>
             <a href="https://agmhss.github.io/Gtk-Listen-Answer/" class="btn">பயிற்சி செய்</a>
         </div>
-        <!-- Unified Thiran Tamil Workbooks Card -->
+        
         <div class="card">
             <span class="tag tag-tamil">திறன் (THIRAN)</span>
             <h4>ஆங்கில திறன் பயிற்சிகள்</h4>
@@ -254,30 +238,27 @@
             </div>
         </div>
         
-            <!-- Unified English NotebookLM Quizzes Card -->
-     <div class="card sci-card">
+        <div class="card sci-card">
             <span class="material-symbols-outlined icon sci-icon">quiz</span>
-        <h4>English Quizzes (NotebookLM)</h4>
-        <p>புரிந்து கொள்ளும் நோக்கில் உருவாக்கப்பட்ட கொள்குறி தேர்வு.</p>
-        <div class="quiz-list">
-            <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/9d5db938-75d8-4b2f-9b2a-2d1b0445b919?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 6 Term 1 Unit 1</a>
-            <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/2ae4ccdf-f517-4799-89b1-48804f8e0f95?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 6 Term 1 Unit 2</a>
-            <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/4379854f-7ff3-4a77-91c3-e590a2070012?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 7 Term 1 Unit 1</a>
-            <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/600514ab-a55a-4346-8f73-bff2ef989850?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 7 Term 1 Unit 2</a>
-            <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/2d50fdb8-22fb-4d28-be77-cf5c23b9e7ea?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 8 Unit 1</a>
-            <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/2e0622e2-1536-44f4-818f-0bab4c85ef43?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 8 Unit 2</a>
-            <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/76c146f7-1984-4986-b410-57878d749e9b?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 9 Unit 1</a>
-            <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/ee7aff29-1296-4c97-a63c-994b1c8f66de?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 9 Unit 2</a>
-            <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/2556a41e-6e28-4c9a-8ed9-be75043df6cc?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 10 Unit 1</a>
-            <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/ebf81ae8-c92e-4f8a-95d2-09e6036f2f8e?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 10 Unit 2</a>
-            <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/621cedcf-702b-4921-a00c-ca7f44dd7a10?utm_source=nlmm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 11 Unit 1</a>
-            <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/45fa9819-b023-4ace-a5ae-a4ac964870e8?utm_source=nlmm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 11 Unit 2</a>
-            <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/b1933756-9f09-4c27-a7a9-661fd9166d4e?utm_source=nlmm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 12 Unit 1</a>
-            <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/9d9c5c6d-7733-4739-a987-7bf7f95a506c?utm_source=nlmm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 12 Unit 2</a>
+            <h4>English Quizzes (NotebookLM)</h4>
+            <p>புரிந்து கொள்ளும் நோக்கில் உருவாக்கப்பட்ட கொள்குறி தேர்வு.</p>
+            <div class="quiz-list">
+                <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/9d5db938-75d8-4b2f-9b2a-2d1b0445b919?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 6 Term 1 Unit 1</a>
+                <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/2ae4ccdf-f517-4799-89b1-48804f8e0f95?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 6 Term 1 Unit 2</a>
+                <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/4379854f-7ff3-4a77-91c3-e590a2070012?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 7 Term 1 Unit 1</a>
+                <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/600514ab-a55a-4346-8f73-bff2ef989850?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 7 Term 1 Unit 2</a>
+                <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/2d50fdb8-22fb-4d28-be77-cf5c23b9e7ea?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 8 Unit 1</a>
+                <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/2e0622e2-1536-44f4-818f-0bab4c85ef43?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 8 Unit 2</a>
+                <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/76c146f7-1984-4986-b410-57878d749e9b?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 9 Unit 1</a>
+                <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/ee7aff29-1296-4c97-a63c-994b1c8f66de?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 9 Unit 2</a>
+                <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/2556a41e-6e28-4c9a-8ed9-be75043df6cc?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 10 Unit 1</a>
+                <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/ebf81ae8-c92e-4f8a-95d2-09e6036f2f8e?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 10 Unit 2</a>
+                <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/621cedcf-702b-4921-a00c-ca7f44dd7a10?utm_source=nlmm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 11 Unit 1</a>
+                <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/45fa9819-b023-4ace-a5ae-a4ac964870e8?utm_source=nlmm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 11 Unit 2</a>
+                <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/b1933756-9f09-4c27-a7a9-661fd9166d4e?utm_source=nlmm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 12 Unit 1</a>
+                <a href="https://notebooklm.google.com/notebook/c3bdde20-c330-483c-93b3-e67c3a385fbe/artifact/9d9c5c6d-7733-4739-a987-7bf7f95a506c?utm_source=nlmm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" class="btn">Class 12 Unit 2</a>
+            </div>
         </div>
-        </div>
-
-        
 
         <div class="card">
             <span class="tag tag-english">இலக்கணம்</span>
@@ -286,25 +267,27 @@
             <a href="https://agmhss.github.io/Gtk-ClassX-Onemarktest/" class="btn">தேர்வு எழுது</a>
         </div>
 
-        
         <div class="card">
             <span class="tag tag-english">வாசிப்பு</span>
             <h4>Kids' Reading Program</h4>
             <p>சிறப்பு ஆங்கில இலக்கணத் தேர்வுகள்.</p>
             <a href="https://agmhss.github.io/Gtk-Grammar-Test/" class="btn">தேர்வு எழுது</a>
         </div>
-         <div class="card">
+        
+        <div class="card">
             <span class="tag tag-english">வாசிப்பு</span>
             <h4>English News</h4>
             <p>சிறுவர்களின் வாசிப்பு & கேட்டு ஆங்கிலப் புரிதல் திறனை மேம்படுத்தும் சிறப்புத் தளம்.</p>
             <a href="https://agmhss.github.io/Daily-News/" class="btn">வாசிக்க</a>
         </div>
+        
         <div class="card">
             <span class="tag tag-english">மொழிகள்</span>
             <h4>Mozhigal</h4>
             <p>ஆங்கில விளையாட்டுகள் மற்றும் செயல்பாடுகள் பயிற்சி.</p>
             <a href="https://mozhigal.tnschools.gov.in/login" class="btn">பயிற்சி செய்</a>
         </div>
+        
         <div class="card">
             <span class="tag tag-english">வாசிப்பு</span>
             <h4>Digital Library</h4>
@@ -312,11 +295,13 @@
             <a href="https://www.gutenberg.org/" class="btn">உள்ளே செல்க</a>
         </div>
     </div>
-<div style="text-align: center; margin: 20px;">
-    <a href="radio.html" style="background-color: #4CAF50; color: white; padding: 15px 25px; text-decoration: none; font-size: 18px; border-radius: 8px; font-weight: bold; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-        📻 ரேடியோ கேட்க (தமிழ்/ஆங்கிலம்)
-    </a>
-</div>
+    
+    <div style="text-align: center; margin: 20px;">
+        <a href="radio.html" style="background-color: #4CAF50; color: white; padding: 15px 25px; text-decoration: none; font-size: 18px; border-radius: 8px; font-weight: bold; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            📻 ரேடியோ கேட்க (தமிழ்/ஆங்கிலம்)
+        </a>
+    </div>
+
     <h2 class="section-title">AI கதை நூலகம் (Digital Library)</h2>
     <div class="grid">
         <div class="card">
@@ -345,90 +330,76 @@
         </div>
          <div class="card">
             <span class="tag tag-story">Stars</span>
-            <h4>The Map to the Morning Stars
-</h4>
+            <h4>The Map to the Morning Stars</h4>
             <p>English Story about a girl who is not willing to go to school.</p>
             <a href="https://gemini.google.com/share/50aa01d8db8c" class="btn">வாசிக்க</a>
         </div>
         <div class="card">
             <span class="tag tag-story">Spiderman</span>
-            <h4>Spiderman Oru Pudhiya Thodakkam
-
-</h4>
+            <h4>Spiderman Oru Pudhiya Thodakkam</h4>
             <p>தமிழ் கதை.</p>
             <a href="https://gemini.google.com/share/a3ebf238d4bd" class="btn">வாசிக்க</a>
         </div>
         <div class="card">
             <span class="tag tag-story">Dosai</span>
-            <h4>The Dosai-O-Matic Disaster
-</h4>
+            <h4>The Dosai-O-Matic Disaster</h4>
             <p>English Story.</p>
             <a href="https://gemini.google.com/share/7b78a92ca465" class="btn">வாசிக்க</a>
         </div>
          <div class="card">
             <span class="tag tag-story">Naruto</span>
-            <h4>The Way of Ninja: Naruto’s Great Trials
-</h4>
+            <h4>The Way of Ninja: Naruto’s Great Trials</h4>
             <p>English Story.</p>
             <a href="https://gemini.google.com/share/06419a0ca2aa" class="btn">வாசிக்க</a>
         </div>
          <div class="card">
             <span class="tag tag-story">Noodles</span>
-            <h4>Vedin Maaperum Noodle’s Thedal
-</h4>
+            <h4>Vedin Maaperum Noodle’s Thedal</h4>
             <p>தமிழ் கதை.</p>
             <a href="https://gemini.google.com/share/8b7572634070" class="btn">வாசிக்க</a>
         </div>
          <div class="card">
             <span class="tag tag-story">Quest</span>
-            <h4>Wade’s Great Noodle Quest
-</h4>
+            <h4>Wade’s Great Noodle Quest</h4>
             <p>English Story.</p>
             <a href="https://gemini.google.com/share/8deeb446cd27" class="btn">வாசிக்க</a>
         </div>
         <div class="card">
             <span class="tag tag-story">Nizhal Kaavalan</span>
-            <h4>Nizhal kaavalan: Keerthivasan
-</h4>
+            <h4>Nizhal kaavalan: Keerthivasan</h4>
             <p>தமிழ் கதை</p>
             <a href="https://gemini.google.com/share/e9e3d12b962c" class="btn">வாசிக்க</a>
         </div>
         <div class="card">
             <span class="tag tag-story">Nizhalin Nayagan</span>
-            <h4>Karuppu Nizhalin Nayagan: Shakthi Ganesh
-</h4>
+            <h4>Karuppu Nizhalin Nayagan: Shakthi Ganesh</h4>
             <p>தமிழ் கதை.</p>
             <a href="https://gemini.google.com/share/8133fcffd461" class="btn">வாசிக்க</a>
         </div>
         <div class="card">
             <span class="tag tag-story">Colour</span>
-            <h4>The colour between
-</h4>
+            <h4>The colour between</h4>
             <p>English Story.</p>
             <a href="https://gemini.google.com/share/a4d5f85b218f" class="btn">வாசிக்க</a>
         </div>
         <div class="card">
             <span class="tag tag-story">Rhythem</span>
-            <h4>The Rhythm of the Breath
-</h4>
+            <h4>The Rhythm of the Breath</h4>
             <p>English Story.</p>
             <a href="https://gemini.google.com/share/dd8ac30dd603" class="btn">வாசிக்க</a>
         </div>
          <div class="card">
             <span class="tag tag-story">Ninja</span>
-            <h4>Ninja Tharaneesin Amaithi Payanam
-</h4>
+            <h4>Ninja Tharaneesin Amaithi Payanam</h4>
             <p>தமிழ் கதை.</p>
             <a href="https://gemini.google.com/share/1e1035f69cca" class="btn">வாசிக்க</a>
         </div>
     </div>
-    </div>
 </div>
 
-   
 <div style="text-align: center; padding: 40px; color: #95a5a6; font-size: 0.9em;">
-    <p>வடிவமைப்பு: திரு. திரவிய குமார் ஜி | அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்</p>
+    <p>Designed by Thiraviya Kumar G | அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்</p>
 </div>
 
 </body>
-                </html>
+</html>
