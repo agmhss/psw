@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direct & Indirect Speech – Playway Grammar Lab</title>
+<style>
+:root{--navy:#14213d;--blue:#2563eb;--cyan:#06b6d4;--gold:#fbbf24;--green:#16a34a;--red:#dc2626;--paper:#fff}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,"Noto Sans Tamil",sans-serif;background:linear-gradient(135deg,#dbeafe,#fef3c7 55%,#dcfce7);color:#172554}
+header{background:linear-gradient(110deg,#172554,#1d4ed8,#0891b2);color:white;padding:24px 16px;text-align:center}
+header h1{font-size:clamp(1.7rem,4vw,2.8rem);margin:0 0 8px;text-shadow:2px 3px 0 #0f172a}
+header p{margin:6px auto;max-width:850px;line-height:1.5}
+.badge{display:inline-block;background:#fbbf24;color:#422006;font-weight:bold;padding:7px 14px;border-radius:20px;margin-top:8px}
+nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;background:#0f172a;padding:10px;position:sticky;top:0;z-index:5}
+nav button{border:0;border-radius:22px;padding:10px 15px;background:#e0f2fe;color:#0c4a6e;font-weight:bold;cursor:pointer}
+nav button.active,nav button:hover{background:#fbbf24;color:#422006}
+main{max-width:1100px;margin:20px auto;padding:0 14px}
+.panel{display:none;background:#ffffffed;border:3px solid #bfdbfe;border-radius:22px;padding:20px;margin-bottom:18px;box-shadow:0 8px 22px #1e3a8a20}
+.panel.active{display:block}
+h2{color:#1d4ed8;margin-top:0}
+h3{color:#0f766e}
+.cardgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.card{background:#eff6ff;border:2px solid #93c5fd;border-radius:17px;padding:15px}
+.big{font-size:2.5rem}
+.say{background:#fef9c3;border-left:6px solid #eab308;padding:12px;border-radius:10px;margin:10px 0}
+.tamil{color:#7c2d12;background:#fff7ed;padding:10px;border-radius:10px;line-height:1.7}
+table{width:100%;border-collapse:collapse;margin:12px 0}
+th,td{border:1px solid #bfdbfe;padding:10px;text-align:left}
+th{background:#dbeafe}
+.good{color:#166534;font-weight:bold}.bad{color:#b91c1c;font-weight:bold}
+button.action{background:#2563eb;color:white;border:0;border-radius:12px;padding:11px 16px;font-weight:bold;cursor:pointer;margin:5px}
+button.action:hover{background:#1e40af}
+button.alt{background:#0f766e}
+input,select{padding:11px;border:2px solid #93c5fd;border-radius:10px;font-size:1rem;max-width:100%}
+.question{font-size:1.15rem;font-weight:bold;background:#f1f5f9;padding:14px;border-radius:12px}
+.options{display:grid;gap:9px;margin:12px 0}
+.options button{text-align:left;background:white;border:2px solid #cbd5e1;border-radius:12px;padding:12px;cursor:pointer;font-size:1rem}
+.options button:hover{border-color:#2563eb;background:#eff6ff}
+.feedback{min-height:40px;font-weight:bold;padding:10px;border-radius:10px}
+.score{background:#172554;color:white;padding:12px;border-radius:12px;display:inline-block;font-weight:bold}
+.progress{height:12px;background:#dbeafe;border-radius:10px;overflow:hidden;margin:10px 0}
+.progress span{display:block;height:100%;background:#16a34a;width:0;transition:.3s}
+footer{text-align:center;padding:20px;color:#334155;font-weight:bold}
+.small{font-size:.92rem;color:#475569}
+@media print{nav,button{display:none!important}.panel{display:block!important;box-shadow:none;break-inside:avoid}body{background:white}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🗣️ DIRECT & INDIRECT SPEECH</h1>
+  <p>12th Standard English Grammar • Playway Learning Lab</p>
+  <p>SEE → UNDERSTAND → LISTEN → REPEAT → PLAY → PRACTISE → REMEMBER → ANSWER</p>
+  <span class="badge">🎯 ZERO TO HERO – GRAMMAR MISSION</span>
+</header>
+<nav>
+  <button class="active" onclick="showTab('learn',this)">📘 Learn</button>
+  <button onclick="showTab('changes',this)">🔄 Change Rules</button>
+  <button onclick="showTab('game',this)">🎮 Play a Game</button>
+  <button onclick="showTab('practice',this)">✍️ Practice</button>
+  <button onclick="showTab('chant',this)">🎵 Rap & Recall</button>
+</nav>
+<main>
+<section id="learn" class="panel active">
+<h2>1. Meet the Two Speakers! 👦👧</h2>
+<div class="cardgrid">
+ <div class="card"><div class="big">🎤</div><h3>Direct Speech</h3><p>We repeat the speaker's exact words. We use quotation marks (“ ”).</p><div class="say">Ravi said, <b>“I am happy.”</b></div><p class="tamil">ஒருவர் பேசிய அதே சொற்களை மாற்றாமல் கூறுவது Direct Speech. மேற்கோள் குறிகள் (“ ”) பயன்படுத்தப்படும்.</p></div>
+ <div class="card"><div class="big">🗨️</div><h3>Indirect Speech</h3><p>We report the speaker's words without quotation marks.</p><div class="say">Ravi said <b>that he was happy.</b></div><p class="tamil">ஒருவர் கூறிய கருத்தை நம் சொற்களில் தெரிவிப்பது Indirect Speech. மேற்கோள் குறிகள் நீக்கப்படும்.</p></div>
+</div>
+<h3>🎭 Mini Story</h3>
+<div class="say"><b>Ravi:</b> “I am hungry.”<br><b>Meena:</b> Ravi said that he was hungry.</div>
+<p class="tamil">ரவி நேரடியாகப் பேசும்போது Direct Speech. மீனா ரவி கூறியதைப் பிறரிடம் தெரிவிக்கும்போது Indirect Speech.</p>
+<h3>Remember!</h3>
+<ul><li>Direct = Exact words.</li><li>Indirect = Reported meaning.</li><li>Quotation marks are removed in indirect speech.</li></ul>
+</section>
+
+<section id="changes" class="panel">
+<h2>2. The Change-O-Matic Machine 🔄</h2>
+<p>When the reporting verb is in the past (said/told) and the reporting situation requires a backshift, the tense commonly moves one step back.</p>
+<table>
+<tr><th>Direct Speech</th><th>Indirect Speech</th><th>Example</th></tr>
+<tr><td>Simple Present</td><td>Simple Past</td><td>“I play.” → He said that he played.</td></tr>
+<tr><td>Present Continuous</td><td>Past Continuous</td><td>“I am playing.” → He said that he was playing.</td></tr>
+<tr><td>Present Perfect</td><td>Past Perfect</td><td>“I have played.” → He said that he had played.</td></tr>
+<tr><td>Simple Past</td><td>Past Perfect</td><td>“I played.” → He said that he had played.</td></tr>
+<tr><td>Will</td><td>Would</td><td>“I will play.” → He said that he would play.</td></tr>
+<tr><td>Can</td><td>Could</td><td>“I can swim.” → He said that he could swim.</td></tr>
+<tr><td>May</td><td>Might</td><td>“I may come.” → He said that he might come.</td></tr>
+</table>
+<h3>Pronoun Change 👥</h3>
+<table><tr><th>Direct</th><th>Reported form (example)</th></tr>
+<tr><td>I</td><td>he / she</td></tr><tr><td>we</td><td>they</td></tr><tr><td>my</td><td>his / her</td></tr><tr><td>our</td><td>their</td></tr><tr><td>you</td><td>he / she / I / they (according to meaning)</td></tr></table>
+<h3>Time and Place Change 🕒</h3>
+<table><tr><th>Direct</th><th>Indirect</th></tr>
+<tr><td>now</td><td>then</td></tr><tr><td>today</td><td>that day</td></tr><tr><td>yesterday</td><td>the previous day</td></tr><tr><td>tomorrow</td><td>the next day</td></tr><tr><td>here</td><td>there</td></tr><tr><td>this</td><td>that</td></tr><tr><td>these</td><td>those</td></tr><tr><td>ago</td><td>before</td></tr></table>
+<p class="tamil">தமிழ் குறிப்பு: எல்லா இடங்களிலும் ஒரே மாதிரி மாற்றம் செய்யக் கூடாது. யார் பேசுகிறார், யாரிடம் பேசுகிறார், எப்போது/எங்கு பேசுகிறார் என்பதைக் கவனித்து Pronoun மற்றும் Time/Place சொற்களை மாற்ற வேண்டும்.</p>
+<div class="say"><b>Important:</b> Universal truths and facts that are still true generally remain in the present tense. Example: The teacher said, “The sun rises in the east.” → The teacher said that the sun rises in the east.</div>
+</section>
+
+<section id="game" class="panel">
+<h2>3. 🎮 Reporter Robot – Choose the Correct Answer!</h2>
+<p>Help the robot report the sentence correctly. Choose one answer.</p>
+<div class="score">⭐ Score: <span id="gameScore">0</span></div>
+<div class="progress"><span id="gameProgress"></span></div>
+<div class="question" id="gameQuestion"></div>
+<div class="options" id="gameOptions"></div>
+<div class="feedback" id="gameFeedback" aria-live="polite"></div>
+<button class="action" onclick="nextGame()">Next Challenge ➜</button>
+<button class="action alt" onclick="resetGame()">Restart Game ↻</button>
+</section>
+
+<section id="practice" class="panel">
+<h2>4. ✍️ Your Turn – Five Easy Questions</h2>
+<p>Change each sentence into indirect speech. Type your answer and check the model answer.</p>
+<div class="score">📝 Practice: <span id="practiceNo">1</span> / 5</div>
+<div class="question" id="practiceQuestion"></div>
+<p><input id="answerInput" style="width:min(100%,700px)" placeholder="Type your indirect speech answer here"></p>
+<button class="action" onclick="checkTyped()">Check My Answer</button>
+<button class="action alt" onclick="nextPractice()">Next Question ➜</button>
+<div class="feedback" id="practiceFeedback" aria-live="polite"></div>
+</section>
+
+<section id="chant" class="panel">
+<h2>5. 🎵 Clap, Chant and Remember!</h2>
+<div class="card">
+<h3>THE REPORTER RAP</h3>
+<p style="font-size:1.2rem;line-height:1.9">
+🎤 Direct means exact words – quote them right!<br>
+🗣️ Indirect reports the meaning – take the quotes out of sight!<br>
+👏 Tense may move back – check the reporting time!<br>
+👏 Pronouns change with meaning – make the sentence fine!<br>
+👏 Now becomes then; today becomes that day!<br>
+👏 Tomorrow becomes the next day – hip, hip, hooray!
+</p>
+<button class="action" onclick="speakRap()">🔊 Listen to the Rap</button>
+<button class="action alt" onclick="speakTamil()">🔊 Tamil Explanation</button>
+</div>
+<div class="tamil"><b>தமிழ் நினைவுக் குறிப்பு:</b><br>
+Direct – பேசிய அதே சொற்கள்.<br>
+Indirect – கூறிய செய்தியைத் தெரிவிப்பது.<br>
+Quotation marks நீக்கு; தேவையான இடத்தில் tense, pronoun, time/place சொற்களை மாற்று.</div>
+<h3>Daily 5-Question Oral Check</h3>
+<ol><li>What is Direct Speech?</li><li>What is Indirect Speech?</li><li>What does “now” usually become?</li><li>What does “will” usually become after a past reporting verb?</li><li>Do universal truths always change to past tense?</li></ol>
+<p class="small">Teacher tip: Let students answer together first, then invite individual learners. Praise effort and correct gently.</p>
+</section>
+</main>
+<footer>ZERO TO HERO ENGLISH GRAMMAR COACHING • Learn with confidence!</footer>
+<script>
+function showTab(id,btn){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));btn.classList.add('active')}
+const games=[
+{q:'Rani said, “I am tired.” Rani said that ____ tired.',o:['I am','she was','she is','I was'],a:1,e:'“I” changes to “she” and “am” changes to “was” in this reported sentence.'},
+{q:'He said, “I will come tomorrow.” He said that he ____ the next day.',o:['will come tomorrow','would come','comes','came tomorrow'],a:1,e:'“will” → “would”; “tomorrow” → “the next day”.'},
+{q:'The teacher said, “The Earth moves around the Sun.” The teacher said that the Earth ____ around the Sun.',o:['moved','had moved','moves','would move'],a:2,e:'A universal/scientific fact generally remains in the present tense.'},
+{q:'She said, “I have finished my work.” She said that she ____ her work.',o:['has finished','had finished','finished','will finish'],a:1,e:'Present perfect “have finished” commonly changes to past perfect “had finished”.'},
+{q:'Arun said, “I can swim.” Arun said that he ____ swim.',o:['can','could','will','may'],a:1,e:'“can” commonly changes to “could” after a past reporting verb.'},
+{q:'He said, “I saw her yesterday.” He said that he had seen her ____.',o:['tomorrow','today','the previous day','now'],a:2,e:'“yesterday” changes to “the previous day”.'},
+{q:'Meena said, “We are ready.” Meena said that ____ were ready.',o:['we','they','I','she'],a:1,e:'“We” changes according to the speaker group: “they”.'}
+];
+let gi=0,gs=0,answered=false;
+function renderGame(){let x=games[gi];document.getElementById('gameQuestion').textContent=(gi+1)+'. '+x.q;document.getElementById('gameOptions').innerHTML='';document.getElementById('gameFeedback').textContent='';answered=false;x.o.forEach((v,i)=>{let b=document.createElement('button');b.textContent=String.fromCharCode(65+i)+'. '+v;b.onclick=()=>choose(i);document.getElementById('gameOptions').appendChild(b)});document.getElementById('gameProgress').style.width=(gi/games.length*100)+'%'}
+function choose(i){if(answered)return;answered=true;let x=games[gi],f=document.getElementById('gameFeedback');if(i===x.a){gs++;f.textContent='🌟 Excellent! Correct answer. '+x.e;f.style.color='#166534'}else{f.textContent='💪 Good try! Correct answer: '+x.o[x.a]+'. '+x.e;f.style.color='#b45309'}document.getElementById('gameScore').textContent=gs;document.querySelectorAll('#gameOptions button').forEach((b,n)=>{if(n===x.a)b.style.background='#dcfce7';else if(n===i)b.style.background='#fee2e2'})}
+function nextGame(){gi=(gi+1)%games.length;if(gi===0&&gs>0)document.getElementById('gameFeedback').textContent='🏆 Round complete! Your score: '+gs+' / '+games.length+'. Play again to improve!';renderGame()}
+function resetGame(){gi=0;gs=0;document.getElementById('gameScore').textContent='0';renderGame()}
+const practices=[
+{q:'Kumar said, “I am a student.”',a:'Kumar said that he was a student.'},
+{q:'Latha said, “I like music.”',a:'Latha said that she liked music.'},
+{q:'The boy said, “I can run fast.”',a:'The boy said that he could run fast.'},
+{q:'Ravi said, “I will visit Chennai tomorrow.”',a:'Ravi said that he would visit Chennai the next day.'},
+{q:'The teacher said, “Honesty is the best policy.”',a:'The teacher said that honesty is the best policy.'}
+];let pi=0;
+function renderPractice(){document.getElementById('practiceNo').textContent=pi+1;document.getElementById('practiceQuestion').textContent=practices[pi].q;document.getElementById('answerInput').value='';document.getElementById('practiceFeedback').textContent=''}
+function checkTyped(){let v=document.getElementById('answerInput').value.trim();let f=document.getElementById('practiceFeedback');if(!v){f.textContent='Type your answer first. You can do it!';return}f.innerHTML='<span class="good">Model answer:</span> '+practices[pi].a+'<br><span class="small">Compare your sentence with the model. Check pronoun, tense and time words.</span>'}
+function nextPractice(){pi=(pi+1)%practices.length;renderPractice()}
+function speak(text,lang){if('speechSynthesis'in window){speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(text);u.lang=lang;u.rate=.85;speechSynthesis.speak(u)}else alert('Audio is not supported in this browser.')}
+function speakRap(){speak('Direct means exact words, quote them right. Indirect reports the meaning, take the quotes out of sight. Tense may move back, check the reporting time. Pronouns change with meaning, make the sentence fine. Now becomes then. Today becomes that day. Tomorrow becomes the next day. Hip hip hooray!','en-IN')}
+function speakTamil(){speak('Direct Speech என்றால் ஒருவர் பேசிய அதே சொற்கள். Indirect Speech என்றால் அவர் கூறிய செய்தியை நம் சொற்களில் தெரிவிப்பது. மேற்கோள் குறிகளை நீக்க வேண்டும். தேவையான இடங்களில் காலம், சுட்டுப்பெயர், காலத்தையும் இடத்தையும் குறிக்கும் சொற்களை மாற்ற வேண்டும். எல்லா வாக்கியங்களிலும் ஒரே மாதிரி மாற்றம் செய்ய வேண்டியதில்லை.','ta-IN')}
+renderGame();renderPractice();
+</script>
+</body>
+</html>

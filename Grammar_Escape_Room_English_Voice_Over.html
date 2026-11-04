@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grammar Escape Room – Class XII English</title>
+<style>
+:root{--navy:#14213d;--blue:#2563eb;--cyan:#06b6d4;--gold:#fbbf24;--green:#16a34a;--red:#dc2626;--paper:#f8fbff}
+*{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#071b3a,#123b68 55%,#0e7490);color:#172554;min-height:100vh}
+header{padding:22px 14px;text-align:center;color:white;background:linear-gradient(90deg,#7c2d12,#b45309,#7c2d12);border-bottom:5px solid #facc15}
+header h1{margin:0;font-size:clamp(26px,5vw,44px);letter-spacing:1px;text-shadow:2px 3px #54200b} header p{margin:8px 0 0;font-weight:bold}
+.wrap{max-width:1000px;margin:18px auto;padding:0 12px 28px}
+.panel{background:var(--paper);border:3px solid #fbbf24;border-radius:20px;padding:18px;box-shadow:0 12px 30px #0005}
+.toprow{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center}
+.badge{background:#e0f2fe;color:#075985;border-radius:999px;padding:9px 14px;font-weight:bold}
+.progress{height:14px;background:#dbeafe;border-radius:99px;overflow:hidden;margin:14px 0}.bar{height:100%;width:0;background:linear-gradient(90deg,#22c55e,#84cc16);transition:width .3s}
+.rooms{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin:16px 0}
+.room{border:2px solid #cbd5e1;border-radius:14px;padding:12px;text-align:center;background:white;font-weight:bold;min-height:92px}
+.room .icon{font-size:26px;display:block;margin-bottom:5px}.room.locked{opacity:.55;background:#e2e8f0}.room.current{border:3px solid #f59e0b;background:#fffbeb}.room.done{border-color:#16a34a;background:#f0fdf4}
+h2{margin:12px 0;color:#0f2c58}.story{background:#eff6ff;border-left:5px solid #2563eb;padding:12px;border-radius:10px;line-height:1.5}
+.questionbox{margin-top:16px;background:white;border:2px solid #bfdbfe;border-radius:16px;padding:16px}
+.qmeta{color:#475569;font-weight:bold;font-size:14px}.question{font-size:21px;font-weight:bold;line-height:1.4;margin:12px 0}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:10px}.opt{padding:13px;border:2px solid #cbd5e1;border-radius:12px;background:#f8fafc;text-align:left;font-size:16px;font-weight:bold;cursor:pointer;color:#172554}.opt:hover{border-color:#2563eb;background:#eff6ff}.opt:disabled{cursor:default;opacity:.85}.opt.correct{background:#dcfce7;border-color:#16a34a}.opt.wrong{background:#fee2e2;border-color:#dc2626}
+.feedback{margin-top:14px;padding:13px;border-radius:12px;line-height:1.5;display:none}.feedback.good{display:block;background:#dcfce7;border:1px solid #16a34a}.feedback.bad{display:block;background:#fff7ed;border:1px solid #fb923c}
+.controls{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}.btn{border:0;border-radius:10px;padding:11px 15px;font-weight:bold;font-size:15px;cursor:pointer;background:#1d4ed8;color:white}.btn.secondary{background:#475569}.btn.gold{background:#b45309}.btn:disabled{opacity:.45;cursor:not-allowed}
+.voice{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:#f1f5f9;padding:10px;border-radius:12px;margin-top:14px}
+.voice label{font-weight:bold}.voice select{padding:8px;border-radius:8px;border:1px solid #94a3b8}
+#status{font-weight:bold;color:#0f766e}
+footer{text-align:center;color:#e0f2fe;padding:16px;font-size:13px}
+@media(max-width:600px){.options{grid-template-columns:1fr}.question{font-size:18px}.panel{padding:13px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🔐 GRAMMAR ESCAPE ROOM</h1>
+  <p>CLASS XII – ENGLISH | TAMIL NADU STATE BOARD</p>
+  <p>Unlock 5 rooms • Answer 25 questions • Escape with grammar mastery!</p>
+</header>
+<div class="wrap"><main class="panel">
+  <div class="toprow">
+    <span class="badge" id="roomBadge">ROOM 1 OF 5</span>
+    <span class="badge" id="scoreBadge">SCORE: 0 / 25</span>
+    <span class="badge" id="questionBadge">QUESTION 1 OF 5</span>
+  </div>
+  <div class="progress"><div class="bar" id="progressBar"></div></div>
+  <div class="rooms" id="rooms"></div>
+  <h2 id="roomTitle">🚪 Room 1: Articles</h2>
+  <div class="story" id="story">The first door is locked. Answer five questions about Articles to collect the key.</div>
+  <div class="questionbox" id="gameArea">
+    <div class="qmeta" id="qmeta">CHALLENGE 1</div>
+    <div class="question" id="question">Loading question…</div>
+    <div class="options" id="options"></div>
+    <div class="feedback" id="feedback" aria-live="polite"></div>
+    <div class="controls">
+      <button class="btn" id="speakQuestion">🔊 Hear Question</button>
+      <button class="btn secondary" id="speakExplanation" disabled>🗣️ Hear Explanation</button>
+      <button class="btn gold" id="nextBtn" disabled>Next Question ➜</button>
+    </div>
+  </div>
+  <div class="voice">
+    <label for="voiceSelect">Voice:</label><select id="voiceSelect"><option value="">Default English voice</option></select>
+    <button class="btn secondary" id="voiceToggle">🔊 Voice ON</button>
+    <span id="status">Voice-over ready</span>
+  </div>
+  <div class="controls">
+    <button class="btn secondary" id="repeatRoom">↻ Repeat Room Introduction</button>
+    <button class="btn secondary" id="restart">Start Again</button>
+  </div>
+</main></div>
+<footer>Learn • Practise • Listen • Unlock • Succeed</footer>
+<script>
+const rooms = [
+ {name:"Articles",icon:"📘",story:"The first door is locked. Answer five questions about Articles to collect the key.",intro:"Welcome to Room One: Articles. Choose A, An or The to complete each sentence. Listen carefully to the explanation after every answer.",qs:[
+  ["I saw ___ elephant at the zoo.","a","an","the","no article",1,"Use 'an' before a vowel sound. 'Elephant' begins with a vowel sound, so the correct phrase is 'an elephant'."],
+  ["She is ___ honest girl.","a","an","the","no article",1,"Use 'an' before the silent h in 'honest'. The word begins with a vowel sound."],
+  ["The sun rises in ___ east.","a","an","the","no article",2,"Use 'the' with unique things and directions such as the east. The correct phrase is 'in the east'."],
+  ["He bought ___ book yesterday.","a","an","the","no article",0,"Use 'a' before a singular countable noun when it is mentioned for the first time. 'Book' begins with a consonant sound."],
+  ["She plays ___ piano well.","a","an","the","no article",2,"We generally use 'the' before the names of musical instruments when talking about playing them: 'play the piano'."]
+ ]},
+ {name:"Prepositions",icon:"📍",story:"The second door opens only when you choose the correct preposition in all five sentences.",intro:"Welcome to Room Two: Prepositions. A preposition shows a relationship of time, place or direction. Choose the word that completes each sentence.",qs:[
+  ["The cat is hiding ___ the table.","under","between","during","since",0,"'Under' shows that something is below another thing. The cat is below the table."],
+  ["The train arrives ___ 6 o'clock.","in","on","at","by",2,"Use 'at' for an exact time: at 6 o'clock."],
+  ["My birthday is ___ Monday.","at","on","in","for",1,"Use 'on' with days and dates: on Monday."],
+  ["He has lived here ___ 2020.","for","since","from","by",1,"Use 'since' with the starting point of an action: since 2020."],
+  ["She is interested ___ music.","on","at","in","for",2,"The correct expression is 'interested in'. This preposition commonly follows the adjective 'interested'."]
+ ]},
+ {name:"Tenses",icon:"⏳",story:"The third door is controlled by a time machine. Identify the correct tense in each sentence.",intro:"Welcome to Room Three: Tenses. Think about when an action happens: in the past, present or future. Select the correct verb form.",qs:[
+  ["She ___ to school every day.","go","goes","going","gone",1,"Use the simple present for habits. With he, she or it, add s or es: 'She goes'."],
+  ["They ___ cricket now.","play","played","are playing","has played",2,"'Now' indicates an action happening at this moment. Use the present continuous: are playing."],
+  ["I ___ my homework yesterday.","complete","completed","will complete","am completing",1,"'Yesterday' indicates the past. Use the simple past form 'completed'."],
+  ["We ___ Chennai next week.","visit","visited","will visit","visiting",2,"'Next week' refers to the future. Use 'will' plus the base form of the verb."],
+  ["He ___ here since morning.","is","was","has been","will be",2,"Use the present perfect form with 'since' to describe a situation continuing from a past starting point: 'has been'."]
+ ]},
+ {name:"Modals",icon:"💡",story:"The fourth door asks you to choose the modal verb that expresses advice, ability, permission or obligation.",intro:"Welcome to Room Four: Modals. Modal verbs express ability, advice, possibility, permission or obligation. Choose the modal that best completes each sentence.",qs:[
+  ["You ___ respect your elders.","should","might","would","could",0,"'Should' expresses advice or what is the right thing to do."],
+  ["___ I borrow your pen, please?","Must","May","Should","Would",1,"'May I…?' is a polite way to ask for permission."],
+  ["She ___ swim when she was five.","can","may","could","must",2,"'Could' expresses ability in the past. She had the ability to swim when she was five."],
+  ["You ___ wear a helmet while riding a bike.","might","must","would","could",1,"'Must' expresses strong obligation or necessity. Wearing a helmet is necessary for safety."],
+  ["It ___ rain tonight; take an umbrella.","must","should","might","can",2,"'Might' expresses possibility. Rain is possible, but not certain."]
+ ]},
+ {name:"Error Spotting",icon:"🔎",story:"The final door is guarded by five incorrect sentences. Find and correct each grammatical error to escape!",intro:"Welcome to Room Five: Error Spotting. Read each sentence carefully and identify the incorrect part. Choose the correct replacement to unlock the final door.",qs:[
+  ["Choose the correct sentence.","He go to school.","He goes to school.","He going to school.","He gone to school.",1,"With the singular subject 'he' in the simple present tense, the verb takes s or es. Therefore, 'He goes to school' is correct."],
+  ["Choose the correct sentence.","She do not like tea.","She does not likes tea.","She does not like tea.","She not like tea.",2,"Use 'does not' with she, he or it. After 'does not', use the base form 'like', not 'likes'."],
+  ["Choose the correct sentence.","Each of the boys are ready.","Each of the boys is ready.","Each of the boys were ready.","Each of the boys have ready.",1,"'Each' is singular, so it takes the singular verb 'is'. The correct sentence is 'Each of the boys is ready'."],
+  ["Choose the correct sentence.","I have seen him yesterday.","I saw him yesterday.","I see him yesterday.","I had see him yesterday.",1,"Use the simple past 'saw' with a finished time expression such as 'yesterday'."],
+  ["Choose the correct sentence.","Neither of the answers are correct.","Neither of the answers were correct.","Neither of the answers is correct.","Neither answers is correct.",2,"'Neither' is treated as singular in this sentence, so use 'is'. The correct sentence is 'Neither of the answers is correct'."]
+ ]}
+];
+const labels=["A","B","C","D"];let room=0,q=0,score=0,answered=false,voiceOn=true,lastExplanation="";
+const $=id=>document.getElementById(id);
+function populateRooms(){ $("rooms").innerHTML=rooms.map((r,i)=>`<div class="room ${i<room?'done':i===room?'current':'locked'}"><span class="icon">${i<room?'🔓':i===room?'🚪':'🔒'}</span>ROOM ${i+1}<br>${r.name}<br><small>${i<room?'UNLOCKED':i===room?'IN PROGRESS':'LOCKED'}</small></div>`).join("");}
+function update(){populateRooms();$("roomBadge").textContent=`ROOM ${room+1} OF 5`;$("scoreBadge").textContent=`SCORE: ${score} / 25`;$("questionBadge").textContent=`QUESTION ${q+1} OF 5`;$("progressBar").style.width=((room*5+q)/25*100)+"%";}
+function speak(text){if(!voiceOn||!("speechSynthesis"in window)){ $("status").textContent="Voice unavailable on this browser";return;}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-IN";u.rate=.88;u.pitch=1;const sel=$("voiceSelect").value;const v=speechSynthesis.getVoices().find(x=>x.name===sel);if(v)u.voice=v;u.onstart=()=>$("status").textContent="Speaking…";u.onend=()=>$("status").textContent="Voice-over ready";u.onerror=()=>$("status").textContent="Voice could not play";speechSynthesis.speak(u);}
+function load(){answered=false;update();const r=rooms[room],item=r.qs[q];$("roomTitle").textContent=`${r.icon} Room ${room+1}: ${r.name}`;$("story").textContent=r.story;$("qmeta").textContent=`CHALLENGE ${q+1} • ${r.name.toUpperCase()}`;$("question").textContent=item[0];$("options").innerHTML=item.slice(1,5).map((x,i)=>`<button class="opt" data-i="${i}">${labels[i]}. ${x}</button>`).join("");$("feedback").className="feedback";$("feedback").textContent="";$("speakExplanation").disabled=true;$("nextBtn").disabled=true;$("nextBtn").textContent=q===4?(room===4?"🏆 Escape!":"Unlock Next Room 🔓"):"Next Question ➜";$("options").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>choose(+b.dataset.i))); }
+function choose(i){if(answered)return;answered=true;const item=rooms[room].qs[q],correct=item[5],buttons=[...$("options").querySelectorAll("button")];buttons.forEach((b,n)=>{b.disabled=true;if(n===correct)b.classList.add("correct");if(n===i&&i!==correct)b.classList.add("wrong")});const ok=i===correct;if(ok)score++;lastExplanation=`${ok?"Correct!":"Not quite."} ${item[6]} ${ok?"You have earned one point.":"The correct answer is "+labels[correct]+": "+item[correct+1]+"."}`;$("feedback").className="feedback "+(ok?"good":"bad");$("feedback").innerHTML=`<strong>${ok?"✅ Correct!":"💡 Let's learn!"}</strong><br>${item[6]}<br><strong>Correct answer: ${labels[correct]}. ${item[correct+1]}</strong>`;$("speakExplanation").disabled=false;$("nextBtn").disabled=false;update();speak(lastExplanation);}
+$("speakQuestion").addEventListener("click",()=>{const item=rooms[room].qs[q];speak(`Question ${q+1}. ${item[0]} Option A: ${item[1]}. Option B: ${item[2]}. Option C: ${item[3]}. Option D: ${item[4]}.`);});
+$("speakExplanation").addEventListener("click",()=>speak(lastExplanation));
+$("nextBtn").addEventListener("click",()=>{if(q<4){q++;load();}else if(room<4){room++;q=0;load();speak(`Congratulations! You have unlocked Room ${room+1}, ${rooms[room].name}. ${rooms[room].intro}`);}else{finish();}});
+function finish(){$("progressBar").style.width="100%";$("rooms").innerHTML=rooms.map(r=>`<div class="room done"><span class="icon">🔓</span>${r.name}<br><small>UNLOCKED</small></div>`).join("");$("roomTitle").textContent="🏆 YOU ESCAPED!";$("story").textContent=`You unlocked all five rooms and completed all 25 questions. Your score is ${score} out of 25.`;$("gameArea").innerHTML=`<h2>🎉 GRAMMAR ESCAPE CHAMPION!</h2><p class="question">Your final score: ${score} / 25</p><p>${score===25?"Perfect score! Excellent grammar mastery!":score>=20?"Excellent work! Keep practising to reach 25 out of 25.":score>=15?"Good effort! Review the explanations and try again.":"Keep learning! Every attempt makes you stronger. Try again and improve your score."}</p><button class="btn" onclick="location.reload()">Play Again ↻</button>`;speak(`Congratulations! You have escaped all five grammar rooms. Your final score is ${score} out of 25. ${score===25?"Perfect score! Excellent grammar mastery!":"Well done for completing the mission. Review your mistakes and play again to improve."}`);}
+$("repeatRoom").addEventListener("click",()=>speak(rooms[room].intro));
+$("restart").addEventListener("click",()=>{if("speechSynthesis"in window)speechSynthesis.cancel();room=0;q=0;score=0;$("gameArea").innerHTML=`<div class="qmeta" id="qmeta"></div><div class="question" id="question"></div><div class="options" id="options"></div><div class="feedback" id="feedback" aria-live="polite"></div><div class="controls"><button class="btn" id="speakQuestion">🔊 Hear Question</button><button class="btn secondary" id="speakExplanation" disabled>🗣️ Hear Explanation</button><button class="btn gold" id="nextBtn" disabled>Next Question ➜</button></div>`;bindDynamic();load();speak(rooms[0].intro);});
+function bindDynamic(){$("speakQuestion").addEventListener("click",()=>{const x=rooms[room].qs[q];speak(`Question ${q+1}. ${x[0]} Option A: ${x[1]}. Option B: ${x[2]}. Option C: ${x[3]}. Option D: ${x[4]}.`);});$("speakExplanation").addEventListener("click",()=>speak(lastExplanation));$("nextBtn").addEventListener("click",()=>{if(q<4){q++;load();}else if(room<4){room++;q=0;load();speak(`Congratulations! You have unlocked Room ${room+1}, ${rooms[room].name}. ${rooms[room].intro}`);}else finish();});}
+$("voiceToggle").addEventListener("click",()=>{voiceOn=!voiceOn;$("voiceToggle").textContent=voiceOn?"🔊 Voice ON":"🔇 Voice OFF";if(!voiceOn&&"speechSynthesis"in window)speechSynthesis.cancel();});
+function loadVoices(){if(!("speechSynthesis"in window))return;const voices=speechSynthesis.getVoices().filter(v=>v.lang.toLowerCase().startsWith("en"));$("voiceSelect").innerHTML='<option value="">Default English voice</option>'+voices.map(v=>`<option value="${v.name}">${v.name} (${v.lang})</option>`).join("");}
+if("speechSynthesis"in window){loadVoices();speechSynthesis.onvoiceschanged=loadVoices;}
+load();setTimeout(()=>speak(rooms[0].intro),700);
+</script>
+</body></html>
