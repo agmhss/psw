@@ -135,7 +135,7 @@ function draw(){const x=$("wheel").getContext("2d"),n=keys.length,s=2*Math.PI/n,
  keys.forEach((k,i)=>{const a=-Math.PI/2+i*s;x.beginPath();x.moveTo(h,h);x.arc(h,h,h-4,a,a+s);x.fillStyle=T[k].c;x.fill();x.strokeStyle="#fff";x.lineWidth=5;x.stroke();
  x.save();x.translate(h,h);x.rotate(a+s/2);x.textAlign="right";x.fillStyle="#fff";x.font=(n>8?"bold 25px":"bold 32px")+" Segoe UI,sans-serif";x.shadowColor="#0008";x.shadowBlur=4;x.fillText(lab(k),h-22,n>8?9:12);x.font=(n>8?"34px":"52px")+" sans-serif";x.fillText(T[k].e,n>8?h-262:h-300,n>8?12:18);x.restore()})}
 function pickKeys(){return Object.keys(T)}
-function ui(){$("h1").textContent=t("🧮 SPIN THE WHEEL – MATHS ADVENTURE","🧮 சுழல் சக்கரம் – கணிதச் சாகசம்");$("tl").textContent=t("Level","நிலை");$("ts").textContent=t("Score ⭐","மதிப்பெண் ⭐");
+function ui(){$("h1").textContent=t("🧮 SPIN THE WHEEL – MATHS ADVENTURE","🧮 சுழல் சக்கரம் – கணித சாகசம்");$("tl").textContent=t("Level","நிலை");$("ts").textContent=t("Score ⭐","மதிப்பெண் ⭐");
  $("mute").textContent=snd?t("🔊 Sound ON","🔊 ஒலி ON"):t("🔇 Sound OFF","🔇 ஒலி OFF");$("ta").textContent=ta?"🌐 English Medium":"🌐 தமிழ் வழி";$("reset").textContent=t("🔄 RESET","🔄 மீண்டும் தொடங்கு");
  $("spin").textContent=t("🎯 SPIN!","🎯 சுழற்று!");$("hint").textContent=t("💡 Hint","💡 குறிப்பு");[...$("jump").options].forEach(o=>o.textContent=t("Level ","நிலை ")+o.value)}
 function show(){done=false;keys=pickKeys();$("lv").textContent=S.level;$("sc").textContent=S.score;$("pf").style.width=Math.max(1,S.level-1)+"%";
