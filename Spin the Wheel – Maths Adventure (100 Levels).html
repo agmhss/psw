@@ -170,5 +170,5 @@ $("ta").onclick=()=>{ta=!ta;save();ui();draw();if($("card").style.display=="bloc
 $("reset").onclick=()=>overlay("🔄",t("Start again?","மீண்டும் தொடங்கவா?"),t("This clears your level and score.","நிலையும் மதிப்பெண்ணும் அழிக்கப்படும்."),[[t("Yes, reset","ஆம்"),()=>{S={level:1,score:0,max:1,ta};save();show()}],[t("Cancel","வேண்டாம்"),()=>{}]]);
 const st=[[t("▶ New Game","▶ புதிய ஆட்டம்"),()=>{S={level:1,score:0,max:1,ta};save();show()}]];
 if(S.level>1)st.unshift([t(`Continue – Level ${S.level}`,`தொடர் – நிலை ${S.level}`),show]);
-overlay("🧮",t("Maths Adventure","கணிதச் சாகசம்"),t("100 levels, 16 chapters! Spin the wheel, solve, and climb. Wrong answer? Hint + second try.","100 நிலைகள், 16 பாடங்கள்! சக்கரத்தைச் சுழற்றி, விடை கண்டு, முன்னேறுங்கள். தவறா? குறிப்பு + இரண்டாவது வாய்ப்பு."),st);show();
+overlay("🧮",t("Maths Adventure","கணித சாகசம்"),t("100 levels, 16 chapters! Spin the wheel, solve, and climb. Wrong answer? Hint + second try.","100 நிலைகள், 16 பாடங்கள்! சக்கரத்தைச் சுழற்றி, விடை கண்டு, முன்னேறுங்கள். தவறா? குறிப்பு + இரண்டாவது வாய்ப்பு."),st);show();
 </script></body></html>
