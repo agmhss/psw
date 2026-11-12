@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Spin the Wheel – Social Science Challenge</title>
+<style>
+:root{--ink:#1d2b53;--gold:#ffc83d}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:"Segoe UI",Verdana,Tahoma,"Nirmala UI",sans-serif;font-size:19px;color:#fff;background:radial-gradient(circle at 20% 10%,#c2410c,#6d28d9 80%);padding:calc(10px + env(safe-area-inset-top,0px)) 10px calc(30px + env(safe-area-inset-bottom,0px))}
+.wrap{max-width:900px;margin:0 auto}
+h1{font-size:clamp(1.2rem,4.6vw,2.1rem);text-align:center;margin:6px 0 10px;text-shadow:0 4px 0 #0005}
+.bar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:8px}
+.stat{background:#fff;color:var(--ink);border-radius:16px;padding:8px 16px;font-weight:800;box-shadow:0 5px 0 #0004;min-width:130px;text-align:center}
+.stat b{font-size:1.4rem;color:#c2410c}
+.tools{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:8px}
+button{font:inherit;font-weight:800;cursor:pointer;border:0;border-radius:16px;padding:12px 20px;color:#fff;box-shadow:0 6px 0 #0005;background:#7c3aed;transition:transform .1s}
+button:active{transform:translateY(4px);box-shadow:0 2px 0 #0005}
+button:disabled{opacity:.55;cursor:not-allowed}
+button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
+.small{padding:8px 14px;font-size:.9rem}
+.wheelbox{position:relative;width:min(86vw,420px);margin:12px auto}
+#wheel{width:100%;display:block;border-radius:50%;box-shadow:0 12px 0 #0005,0 0 0 10px var(--gold),0 0 0 16px #b8860b;transition:transform 4.6s cubic-bezier(.12,.6,.1,1)}
+.ptr{position:absolute;left:50%;top:-22px;transform:translateX(-50%);font-size:46px;z-index:2;filter:drop-shadow(0 4px 0 #0006);line-height:1}
+#spin{display:block;margin:20px auto 6px;font-size:1.7rem;padding:16px 56px;background:linear-gradient(#f97316,#dc2626);border-radius:50px;animation:pulse 1.4s infinite}
+#spin:disabled{animation:none}
+@keyframes pulse{50%{transform:scale(1.06)}}
+.card{background:#fff;color:var(--ink);border-radius:24px;padding:18px;margin-top:14px;box-shadow:0 8px 0 #0005;display:none}
+.badge{display:inline-block;color:#fff;border-radius:30px;padding:6px 16px;font-weight:800;margin-bottom:10px}
+.q{font-size:clamp(1.2rem,4vw,1.6rem);font-weight:800;line-height:1.4;margin:6px 0 14px}
+.opts{display:grid;gap:10px}
+.opt{background:#eef2ff;color:var(--ink);text-align:left;font-size:1.15rem;border:3px solid #c7d2fe;box-shadow:0 5px 0 #c7d2fe}
+.opt b{display:inline-block;width:32px;height:32px;line-height:32px;text-align:center;border-radius:50%;background:var(--ink);color:#fff;margin-right:10px}
+.opt.ok{background:#22c55e;color:#fff;border-color:#15803d;box-shadow:0 5px 0 #15803d}
+.opt.no{background:#fecaca;border-color:#ef4444;box-shadow:none}
+#fb{margin-top:14px;padding:14px;border-radius:16px;font-size:1.05rem;line-height:1.5;display:none}
+#fb.good{background:#dcfce7}#fb.try{background:#fef9c3}#fb.rev{background:#fee2e2}#fb.hint{background:#e0f2fe}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.ov{position:fixed;inset:0;background:#2a1205e6;display:none;align-items:center;justify-content:center;z-index:50;padding:14px}
+.ov.show{display:flex}
+.box{background:#fff;color:var(--ink);border-radius:26px;padding:24px;max-width:560px;width:100%;text-align:center;box-shadow:0 10px 0 #0006;max-height:92vh;overflow:auto}
+.box h2{margin:0 0 8px;font-size:1.5rem}
+.big{font-size:3.6rem;margin:0}
+.cl{display:flex;gap:10px;justify-content:center;margin:12px 0;flex-wrap:wrap}
+.mede{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:6px 0}
+.form{display:grid;gap:9px;text-align:left;margin:10px 0}
+.form label{font-weight:700;font-size:.95rem}
+.form input{display:block;width:100%;font:inherit;font-size:1.05rem;padding:8px 12px;margin-top:3px;border-radius:12px;border:2px solid #fdba74;color:var(--ink);background:#fff}
+.err{color:#dc2626;font-weight:700;min-height:1.3em;text-align:center;margin:6px 0}
+.go{background:#16a34a;width:100%;font-size:1.25rem}
+.who{font-weight:700;margin:8px 0}
+.lvls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.lbtn{color:var(--ink);border-radius:18px;padding:12px 8px;font-size:1rem;line-height:1.4;box-shadow:0 6px 0 #0003;background:#fff}
+.lbtn b{display:block;font-size:1.1rem}
+.lbtn small{display:block}
+.lbtn:nth-child(1){background:#dcfce7}.lbtn:nth-child(2){background:#dbeafe}.lbtn:nth-child(3){background:#fef3c7}.lbtn:nth-child(4){background:#fce7f3}
+.hidden{display:none!important}
+.note{font-size:.85rem;opacity:.85;margin-top:8px}
+footer{text-align:center;margin-top:24px;font-weight:700;font-size:.95rem;opacity:.9;line-height:1.5}
+.conf{position:fixed;top:-20px;width:12px;height:18px;z-index:99;animation:fall linear forwards;pointer-events:none}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+@media (prefers-reduced-motion:reduce){#spin{animation:none}.conf{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>🌍 SOCIAL SCIENCE CHALLENGE / சமூக அறிவியல் சவால்</h1>
+<div class="bar">
+ <div class="stat"><span id="l1">Score</span> ⭐ <b id="sc">0</b></div>
+ <div class="stat"><span id="l2">Question</span> <b id="qc">0</b>/4</div>
+ <div class="stat"><span id="lbl">Level</span> <b id="cn">-</b></div>
+</div>
+<div class="tools">
+ <button class="small" id="mute" style="background:#2563eb">🔊 Sound ON</button>
+ <button class="small" id="chcls" style="background:#0d9488">📚 Change Level</button>
+ <button class="small" id="ta" style="background:#ca8a04">தமிழ் medium OFF</button>
+</div>
+<div class="wheelbox"><div class="ptr">🔻</div><canvas id="wheel" width="800" height="800" aria-label="Spinning wheel"></canvas></div>
+<button id="spin">🎯 SPIN!</button>
+<p id="msg" style="text-align:center;font-weight:700;min-height:1.6em" aria-live="polite"></p>
+<div class="card" id="card">
+ <span class="badge" id="cat"></span>
+ <div class="q" id="q"></div>
+ <div class="opts" id="opts"></div>
+ <div id="fb" aria-live="assertive"></div>
+ <div class="row">
+  <button id="hint" style="background:#f59e0b">💡 Hint</button>
+  <button id="next" style="display:none;background:#16a34a">Next Spin ➜</button>
+ </div>
+</div>
+<footer>Created by S.SUDHARSAN 9 A, AGMHSS PATTEESWARAM<br>Created by Roshan R, Class 9C, AGMHSS Patteeswaram</footer>
+</div>
+
+<div class="ov show" id="start"><div class="box">
+ <p class="big">🌍</p>
+ <h2>Social Science Challenge / சமூக அறிவியல் சவால்</h2>
+ <p>4 questions per level · 10 points each correct answer<br>ஒரு நிலைக்கு 4 கேள்விகள் · சரியான பதிலுக்கு 10 புள்ளிகள்</p>
+ <div id="pForm">
+  <div class="mede"><button class="small" data-m="en" style="background:#2563eb">English medium</button><button class="small" data-m="ta" style="background:#ca8a04">தமிழ் medium</button></div>
+  <div class="form">
+   <label>Name / பெயர்<input id="f-name" maxlength="40" autocomplete="off"></label>
+   <label>Class / வகுப்பு<input id="f-cl" maxlength="10" autocomplete="off"></label>
+   <label>Section / பிரிவு<input id="f-sec" maxlength="5" autocomplete="off"></label>
+   <label>Exam Number / தேர்வு எண்<input id="f-exam" maxlength="20" autocomplete="off"></label>
+   <label>School / பள்ளி<input id="f-school" maxlength="80" autocomplete="off"></label>
+  </div>
+  <p id="ferr" class="err"></p>
+  <button id="go" class="go">Continue ➜</button>
+  <p class="note">Your marks stay in this browser, kept under your Exam Number.</p>
+ </div>
+ <div id="pLvl" class="hidden">
+  <p id="who" class="who"></p>
+  <div id="lvls" class="lvls"></div>
+  <p id="summ" class="who"></p>
+  <div class="cl"><button id="back" class="small" style="background:#64748b">⬅ Edit details</button><button id="ocert" class="small" style="background:#16a34a">🎓 My Certificate</button></div>
+ </div>
+</div></div>
+
+<div class="ov" id="end"><div class="box">
+ <p class="big" id="eem">🏆</p><h2 id="et"></h2>
+ <p>Your score: <b id="es"></b> / 40</p>
+ <p id="ep"></p>
+ <div class="cl"><button id="again" style="background:#16a34a">▶ Play Again</button></div>
+</div></div>
+
+<div class="ov" id="cert"><div style="width:min(94vw,900px)">
+ <div class="cwrap"><div class="cert" id="certBody"></div></div>
+ <p id="cmsg" style="color:#fde68a;font-weight:700;text-align:center;min-height:1.3em;margin:8px 0"></p>
+ <div class="cl"><button id="cdl" class="small" style="background:#16a34a">⬇️ Download certificate</button><button id="ccl" class="small" style="background:#64748b">Close</button></div>
+</div></div>
+
+<script>
+/* Topics: [English, Tamil, colour, icon] */
+const CATS=[["History","வரலாறு","#dc2626","📜"],["Geography","புவியியல்","#16a34a","🗺️"],["Civics","குடிமையியல்","#2563eb","🏛️"],["Economics","பொருளாதாரம்","#f59e0b","💰"]];
+
+/* Questions: BANK[level][topic] = [English item, Tamil item]
+   item = [question, options, answerIndex, hint, explanation] */
+const BANK={
+6:[
+ [["Who was the first Prime Minister of India?",["Mahatma Gandhi","Jawaharlal Nehru","Sardar Patel","B. R. Ambedkar"],1,"Children called him Chacha Nehru.","Jawaharlal Nehru became India’s first Prime Minister in 1947."],
+  ["இந்தியாவின் முதல் பிரதமர் யார்?",["மகாத்மா காந்தி","ஜவஹர்லால் நேரு","சர்தார் படேல்","பி.ஆர். அம்பேத்கர்"],1,"குழந்தைகள் இவரை சாச்சா நேரு என்று அழைத்தனர்.","ஜவஹர்லால் நேரு 1947 இல் இந்தியாவின் முதல் பிரதமர் ஆனார்."]],
+ [["Which major river of Tamil Nadu is also called Ponni?",["Vaigai","Kaveri","Tamirabarani","Palar"],1,"Tamil people also call it Ponni.","The Kaveri flows through the Thanjavur delta and is the main river of Tamil Nadu."],
+  ["தமிழ்நாட்டின் முக்கிய ஆறு எது?",["வைகை","காவிரி","தாமிரபரணி","பாலாறு"],1,"தமிழர்கள் இதைப் பொன்னி என்றும் அழைப்பர்.","காவிரி தஞ்சாவூர் டெல்டா வழியாகப் பாயும் தமிழ்நாட்டின் முக்கிய ஆறு."]],
+ [["Which law is the supreme law of India?",["Act of Parliament","The Constitution","Panchayat rules","Union Budget"],1,"It is the basic document of the nation.","The Constitution is India’s supreme law and came into force in 1950."],
+  ["இந்தியாவின் உயர்ந்த சட்டம் எது?",["நாடாளுமன்றச் சட்டம்","அரசியலமைப்புச் சட்டம்","பஞ்சாயத்து விதிகள்","ஒன்றிய வரவு செலவுத் திட்டம்"],1,"இது நாட்டின் அடிப்படை ஆவணம்.","அரசியலமைப்புச் சட்டமே இந்தியாவின் உயர்ந்த சட்டம்; இது 1950 இல் நடைமுறைக்கு வந்தது."]],
+ [["Which of these is a basic need?",["Toy","Food","Video game","Ice cream"],1,"We cannot live without it.","Food is a basic need. Toys and treats are wants."],
+  ["பின்வருவனவற்றில் அடிப்படைத் தேவை எது?",["பொம்மை","உணவு","வீடியோ விளையாட்டு","ஐஸ்கிரீம்"],1,"இது இல்லாமல் உயிர் வாழ முடியாது.","உணவு அடிப்படைத் தேவை; பொம்மையும் ஐஸ்கிரீமும் விருப்பங்கள்."]]
+],
+7:[
+ [["Who led the freedom struggle through non-violence and is called the Father of the Nation?",["Bhagat Singh","Mahatma Gandhi","Subhas Chandra Bose","Lala Lajpat Rai"],1,"He followed the path of Satyagraha.","Mahatma Gandhi led the freedom movement through non-violence and Satyagraha."],
+  ["அகிம்சை வழியில் விடுதலைப் போராட்டத்தை வழிநடத்தி, தேசத்தந்தை என அழைக்கப்படுபவர் யார்?",["பகத் சிங்","மகாத்மா காந்தி","சுபாஷ் சந்திர போஸ்","லாலா லஜபதி ராய்"],1,"இவர் சத்தியாகிரகப் பாதையைப் பின்பற்றினார்.","மகாத்மா காந்தி அகிம்சை மற்றும் சத்தியாகிரகம் மூலம் விடுதலைப் போராட்டத்தை வழிநடத்தினார்."]],
+ [["Which is the largest continent in the world?",["Africa","Asia","Europe","Australia"],1,"It is the largest by area and population.","Asia is the largest continent by area."],
+  ["உலகின் மிகப் பெரிய கண்டம் எது?",["ஆப்பிரிக்கா","ஆசியா","ஐரோப்பா","ஆஸ்திரேலியா"],1,"பரப்பளவிலும் மக்கள் தொகையிலும் இது முதன்மையானது.","பரப்பளவில் ஆசியாவே உலகின் மிகப் பெரிய கண்டம்."]],
+ [["For how many years is a Lok Sabha member elected?",["3 years","5 years","6 years","4 years"],1,"Elections are held once in this many years.","Lok Sabha members serve a term of five years."],
+  ["மக்களவை உறுப்பினரின் பதவிக்காலம் எத்தனை ஆண்டுகள்?",["3 ஆண்டுகள்","5 ஆண்டுகள்","6 ஆண்டுகள்","4 ஆண்டுகள்"],1,"பொதுத் தேர்தல் இத்தனை ஆண்டுகளுக்கு ஒருமுறை நடைபெறும்.","மக்களவை உறுப்பினர்களின் பதவிக்காலம் ஐந்து ஆண்டுகள்."]],
+ [["Where can people keep their savings safely and earn interest?",["Bank","Market","Factory","Farm"],0,"It keeps money safe and pays interest.","Banks keep savings safely and pay interest on deposits."],
+  ["மக்கள் தங்கள் சேமிப்பை பாதுகாப்பாக எங்கே வைக்கலாம், வட்டியும் பெறலாம்?",["வங்கி","சந்தை","தொழிற்சாலை","பண்ணை"],0,"இங்கு பணம் பாதுகாப்பாக இருக்கும்; வட்டியும் கிடைக்கும்.","வங்கி சேமிப்பைப் பாதுகாத்து, வைப்புத் தொகைக்கு வட்டி தருகிறது."]]
+],
+8:[
+ [["Which war ended with the Treaty of Versailles in 1919?",["World War I","World War II","Hundred Years War","Crimean War"],0,"It began in 1914.","World War I ended in 1918 and the Treaty of Versailles was signed in 1919."],
+  ["1919 இல் வெர்சாய் உடன்படிக்கையுடன் முடிவடைந்த போர் எது?",["முதலாம் உலகப் போர்","இரண்டாம் உலகப் போர்","நூறாண்டுப் போர்","கிரிமியப் போர்"],0,"இது 1914 இல் தொடங்கியது.","முதலாம் உலகப் போர் 1918 இல் முடிந்தது; வெர்சாய் உடன்படிக்கை 1919 இல் கையெழுத்தானது."]],
+ [["Which imaginary line divides the Earth into Northern and Southern Hemispheres?",["Prime Meridian","Equator","Tropic of Cancer","International Date Line"],1,"It is at 0 degrees latitude.","The Equator is 0° latitude and divides the Earth into two hemispheres."],
+  ["பூமியை வடக்கு, தெற்கு அரைக்கோளங்களாகப் பிரிக்கும் கற்பனைக் கோடு எது?",["முதன்மை நெட்டாங்கு","நிலநடுக்கோடு","கடகரேகை","பன்னாட்டு நாள் எல்லைக் கோடு"],1,"இது 0° அட்சரேகை.","நிலநடுக்கோடு 0° அட்சரேகை; இது பூமியை இரு அரைக்கோளங்களாகப் பிரிக்கிறது."]],
+ [["Who is the constitutional head of state of India?",["Prime Minister","President","Chief Justice","Governor"],1,"This person is elected by an electoral college.","The President is the head of state; the Prime Minister is the head of government."],
+  ["இந்தியாவின் அரசியலமைப்புத் தலைவர் (நாட்டுத் தலைவர்) யார்?",["பிரதமர்","குடியரசுத் தலைவர்","தலைமை நீதிபதி","ஆளுநர்"],1,"தேர்வாளர் குழுவால் தேர்ந்தெடுக்கப்படுவார்.","குடியரசுத் தலைவர் நாட்டுத் தலைவர்; பிரதமர் அரசின் தலைவர்."]],
+ [["What does inflation mean?",["Fall in prices","Rise in general prices","Rise in exports","Fall in population"],1,"Things cost more over time.","Inflation is a sustained rise in the general price level."],
+  ["பணவீக்கம் என்றால் என்ன?",["விலைகள் குறைவது","பொதுவான விலைகள் தொடர்ந்து உயர்வது","ஏற்றுமதி உயர்வது","மக்கள் தொகை குறைவது"],1,"காலப்போக்கில் பொருள்களின் விலை அதிகரிக்கும்.","பணவீக்கம் என்பது பொதுவான விலை மட்டம் தொடர்ந்து உயர்வதைக் குறிக்கிறது."]]
+],
+9:[
+ [["Which Mughal emperor built the Taj Mahal at Agra?",["Akbar","Shah Jahan","Babur","Aurangzeb"],1,"He built it in memory of his wife.","Shah Jahan built the Taj Mahal in memory of Mumtaz Mahal."],
+  ["ஆக்ராவில் தாஜ்மஹாலைக் கட்டிய முகலாய மன்னர் யார்?",["அக்பர்","ஷாஜகான்","பாபர்","அவுரங்கசீப்"],1,"தன் மனைவியின் நினைவாகக் கட்டினார்.","ஷாஜகான் மும்தாஜ் மஹால் நினைவாக தாஜ்மஹாலைக் கட்டினார்."]],
+ [["Which desert covers much of northern Africa?",["Thar","Sahara","Gobi","Kalahari"],1,"It is the largest hot desert in the world.","The Sahara covers much of northern Africa."],
+  ["வட ஆப்பிரிக்காவின் பெரும்பகுதியை உள்ளடக்கிய பாலைவனம் எது?",["தார்","சகாரா","கோபி","கலஹாரி"],1,"உலகின் மிகப் பெரிய வெப்பப் பாலைவனம்.","சகாரா வட ஆப்பிரிக்காவின் பெரும்பகுதியை உள்ளடக்கியுள்ளது."]],
+ [["Which Article gives the right to approach the Supreme Court directly to enforce fundamental rights?",["Article 14","Article 32","Article 370","Article 21"],1,"Dr. Ambedkar called it the heart and soul of the Constitution.","Article 32 lets citizens approach the Supreme Court directly to enforce fundamental rights."],
+  ["அடிப்படை உரிமைகளை நிலைநாட்ட உச்சநீதிமன்றத்தை நேரடியாக அணுக உரிமை தரும் பிரிவு எது?",["பிரிவு 14","பிரிவு 32","பிரிவு 370","பிரிவு 21"],1,"அம்பேத்கர் இதை அரசியலமைப்பின் இதயம் என்றார்.","பிரிவு 32 மூலம் அடிப்படை உரிமைகளைக் காக்க உச்சநீதிமன்றத்தை நேரடியாக அணுகலாம்."]],
+ [["What does GDP stand for?",["Gross Domestic Product","General Development Plan","Government Deposit Price","Gross Dividend Payment"],0,"It measures the value of goods and services produced in a country.","GDP is the total market value of all goods and services produced in a country in a year."],
+  ["GDP என்பதன் விரிவாக்கம் என்ன?",["மொத்த உள்நாட்டு உற்பத்தி","பொதுவான மேம்பாட்டுத் திட்டம்","அரசு வைப்பு விலை","மொத்த ஈவுத்தொகை"],0,"ஒரு நாட்டில் உற்பத்தியாகும் பொருள், சேவைகளின் மொத்த மதிப்பை அளக்கும்.","GDP என்பது ஒரு ஆண்டில் நாட்டில் உற்பத்தியாகும் பொருள், சேவைகளின் மொத்த சந்தை மதிப்பு."]]
+]
+};
+
+/* Level names: key = BANK level */
+const LV=[[6,"Beginners","துவக்க நிலை"],[7,"Easy","எளிய நிலை"],[8,"Medium","நடு நிலை"],[9,"Advanced","உயர் நிலை"]];
+const OKE=["Excellent! 🌟","Well done! 👏","Super! You did it! 🎉","Great job! 💪"],OKT=["அருமை! 🌟","நன்று! 👏","சூப்பர்! செய்து காட்டினீர்கள்! 🎉","சிறப்பு! 💪"];
+const TRYE=["Good try! Let us try again. 💪","Almost there! Read the hint. 😊"],TRYT=["நல்ல முயற்சி! மீண்டும் முயல்வோம். 💪","கிட்டத்தட்ட! குறிப்பைப் படியுங்கள். 😊"];
+
+/* Game state */
+let tm=false,cls=6,score=0,qn=0,used={},cur=null,busy=false,rot=0,tries=0,muted=false,me=null;
+const $=id=>document.getElementById(id);
+const L=(e,t)=>tm?t:e;
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const lvlName=k=>{const x=LV.find(a=>a[0]===k);return x?L(x[1],x[2]):""};
+
+/* Records: kept only in this browser, filed under the Exam Number */
+const STORE_KEY="socialWheelRecords";
+let DB={};
+try{DB=JSON.parse(localStorage.getItem(STORE_KEY)||"{}")}catch(e){DB={}}
+const saveDB=()=>{try{localStorage.setItem(STORE_KEY,JSON.stringify(DB))}catch(e){}};
+
+/* Wheel */
+const cv=$("wheel"),cx=cv.getContext("2d");
+function drawWheel(){
+ const c=400,r=390,st=Math.PI/2;
+ cx.clearRect(0,0,800,800);
+ CATS.forEach((cat,i)=>{
+  const a=-Math.PI/2+i*st;
+  cx.beginPath();cx.moveTo(c,c);cx.arc(c,c,r,a,a+st);cx.closePath();
+  cx.fillStyle=cat[2];cx.fill();cx.lineWidth=6;cx.strokeStyle="#fff";cx.stroke();
+  cx.save();cx.translate(c,c);cx.rotate(a+st/2);cx.textBaseline="middle";
+  cx.fillStyle="#fff";cx.textAlign="right";cx.font='bold 34px "Nirmala UI",Verdana,sans-serif';
+  cx.fillText(tm?cat[1]:cat[0],r-120,0);
+  cx.textAlign="center";cx.font="60px sans-serif";cx.fillText(cat[3],r-40,0);
+  cx.restore();
+ });
+ cx.beginPath();cx.arc(c,c,48,0,7);cx.fillStyle="#ffc83d";cx.fill();cx.lineWidth=8;cx.strokeStyle="#fff";cx.stroke();
+}
+drawWheel();
+
+/* Sound and confetti */
+let ac=null;
+function tone(f,d,t="sine",w=0,v=.15){
+ if(muted)return;
+ try{
+  ac=ac||new (window.AudioContext||window.webkitAudioContext)();
+  const o=ac.createOscillator(),g=ac.createGain();
+  o.type=t;o.frequency.value=f;
+  g.gain.setValueAtTime(v,ac.currentTime+w);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+w+d);
+  o.connect(g);g.connect(ac.destination);o.start(ac.currentTime+w);o.stop(ac.currentTime+w+d);
+ }catch(e){}
+}
+const sndTick=()=>{for(let i=0;i<20;i++)tone(500+(i%2)*120,.05,"square",i*.2+i*i*.012,.05)};
+const sndGood=()=>[523,659,784,1047].forEach((f,i)=>tone(f,.2,"triangle",i*.12));
+const sndBad=()=>tone(220,.35);
+const sndWin=()=>[523,659,784,1047,1319].forEach((f,i)=>tone(f,.25,"triangle",i*.14));
+function confetti(n){
+ const col=["#ff5e62","#ffc83d","#2ecc71","#3498db","#e84393","#fff"];
+ for(let i=0;i<n;i++){
+  const d=document.createElement("div");d.className="conf";
+  d.style.left=Math.random()*100+"vw";d.style.background=col[i%6];
+  d.style.animationDuration=(2+Math.random()*2)+"s";d.style.animationDelay=Math.random()*.6+"s";
+  document.body.appendChild(d);setTimeout(()=>d.remove(),4800);
+ }
+}
+
+/* Game flow */
+function hud(){$("sc").textContent=score;$("qc").textContent=qn;$("cn").textContent=lvlName(cls)}
+function newGame(k){
+ if(k)cls=k;
+ score=0;qn=0;used={};cur=null;busy=false;tries=0;
+ $("card").style.display="none";$("spin").disabled=false;
+ $("msg").textContent=L("Press SPIN to start!","தொடங்க SPIN அழுத்துங்கள்!");
+ hud();
+}
+function show(c,html){const f=$("fb");f.className=c;f.innerHTML=html;f.style.display="block"}
+function showQ(cat){
+ const it=BANK[cls][cat][tm?1:0];
+ cur={cat,d:it};tries=0;used[cat]=1;
+ const [q,o]=it;
+ $("cat").textContent=CATS[cat][3]+" "+(tm?CATS[cat][1]:CATS[cat][0]);
+ $("cat").style.background=CATS[cat][2];
+ $("q").textContent=q;
+ $("opts").innerHTML="";
+ o.forEach((t,i)=>{
+  const b=document.createElement("button");b.className="opt";
+  b.innerHTML="<b>"+"ABCD"[i]+"</b>";b.appendChild(document.createTextNode(t));
+  b.onclick=()=>answer(i,b);$("opts").appendChild(b);
+ });
+ $("fb").style.display="none";$("next").style.display="none";$("hint").style.display="";
+ $("card").style.display="block";
+ $("msg").textContent=L("Landed on: ","வந்த தலைப்பு: ")+(tm?CATS[cat][1]:CATS[cat][0]);
+ $("card").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function finish(){
+ [...$("opts").children].forEach(b=>b.disabled=true);
+ $("hint").style.display="none";$("next").style.display="";
+ $("next").textContent=qn>=4?L("🏁 See My Result","🏁 முடிவைப் பாருங்கள்"):L("Next Spin ➜","அடுத்த SPIN ➜");
+}
+function answer(i,btn){
+ const [q,o,a,h,e]=cur.d;
+ const bs=[...$("opts").children];
+ if(i===a){
+  btn.classList.add("ok");score+=10;qn++;finish();sndGood();confetti(40);
+  show("good",`<b>${pick(tm?OKT:OKE)} ${L("+10 points","+10 புள்ளிகள்")}</b><br>✅ ${L("Correct answer:","சரியான பதில்:")} <b>${o[a]}</b><br>📖 ${e}`);
+ }else{
+  btn.classList.add("no");btn.disabled=true;tries++;sndBad();
+  if(tries<2){
+   show("try",`<b>${pick(tm?TRYT:TRYE)}</b><br>💡 ${L("Hint:","குறிப்பு:")} ${h}<br>${L("Try another answer.","வேறு பதிலை முயற்சி செய்யுங்கள்.")}`);
+  }else{
+   bs[a].classList.add("ok");qn++;finish();
+   show("rev",`<b>${L("That is okay! Learning is a journey. 💙","பரவாயில்லை! கற்றல் ஒரு பயணம். 💙")}</b><br>✅ ${L("Correct answer:","சரியான பதில்:")} <b>${o[a]}</b><br>📖 ${e}`);
+  }
+ }
+ hud();
+}
+function record(){
+ if(!me)return;
+ const p=me.lv[cls]||{best:0,n:0};
+ me.lv[cls]={best:Math.max(p.best,score),n:p.n+1};
+ DB[me.key]=me;saveDB();
+}
+function endGame(){
+ const r=score>=30?[L("Excellent!","அருமை!"),"🏆"]:score>=20?[L("Good Progress!","நல்ல முன்னேற்றம்!"),"👍"]:[L("Keep Learning!","தொடர்ந்து கற்போம்!"),"💪"];
+ record();
+ $("eem").textContent=r[1];$("et").textContent=r[0];$("es").textContent=score;
+ $("ep").textContent=me?L("Level saved in this browser.","நிலை இந்த உலாவியில் சேமிக்கப்பட்டது."):"";
+ $("end").classList.add("show");sndWin();confetti(score>=30?100:30);
+}
+
+$("spin").onclick=()=>{
+ if(busy)return;
+ busy=true;$("spin").disabled=true;$("card").style.display="none";
+ const av=[0,1,2,3].filter(c=>!used[c]);
+ const cat=av[Math.floor(Math.random()*av.length)];
+ const want=((-(cat+.5)*90-rot)%360+360)%360;
+ rot+=want+1800;
+ cv.style.transform=`rotate(${rot}deg)`;
+ $("msg").textContent=L("Spinning… good luck! 🍀","சுழல்கிறது… நல்ல அதிர்ஷ்டம்! 🍀");
+ sndTick();
+ setTimeout(()=>showQ(cat),4800);
+};
+$("hint").onclick=()=>{if(cur)show("hint",`<b>${L("Hint:","குறிப்பு:")}</b> ${cur.d[3]}`)};
+$("next").onclick=()=>{
+ if(qn>=4){endGame();return}
+ $("card").style.display="none";busy=false;$("spin").disabled=false;
+ $("msg").textContent=L("Press SPIN for the next question!","அடுத்த கேள்விக்கு SPIN அழுத்துங்கள்!");
+ window.scrollTo({top:0,behavior:"smooth"});
+};
+
+/* Details, levels and certificate */
+function applyLang(){
+ $("ta").textContent=tm?"தமிழ் medium ON":"தமிழ் medium OFF";
+ $("l1").textContent=L("Score","மதிப்பெண்");
+ $("l2").textContent=L("Question","கேள்வி");
+ $("lbl").textContent=L("Level","நிலை");
+ $("chcls").textContent=L("📚 Change Level","📚 நிலை மாற்று");
+ $("go").textContent=L("Continue ➜","தொடர்க ➜");
+ $("back").textContent=L("⬅ Edit details","⬅ விவரங்களைத் திருத்து");
+ $("ocert").textContent=L("🎓 My Certificate","🎓 என் சான்றிதழ்");
+ $("ccl").textContent=L("Close","மூடு");
+ $("cdl").textContent=L("⬇️ Download certificate","⬇️ சான்றிதழைப் பதிவிறக்கு");
+ $("again").textContent=L("▶ Play Again","▶ மீண்டும் விளையாடு");
+ if($("next").style.display!=="none")$("next").textContent=qn>=4?L("🏁 See My Result","🏁 முடிவைப் பாருங்கள்"):L("Next Spin ➜","அடுத்த SPIN ➜");
+ drawWheel();hud();
+ if(!$("pLvl").classList.contains("hidden"))openLevels();
+}
+function showForm(){
+ $("pLvl").classList.add("hidden");$("pForm").classList.remove("hidden");
+ if(me)["name","cl","sec","exam","school"].forEach(f=>$("f-"+f).value=me[f]||"");
+ $("start").classList.add("show");
+}
+function openLevels(){
+ if(!me){showForm();return}
+ $("pForm").classList.add("hidden");$("pLvl").classList.remove("hidden");$("start").classList.add("show");
+ $("lvls").innerHTML="";
+ let done=0,total=0;
+ LV.forEach(([k,en,ta])=>{
+  const r=me.lv[k];
+  if(r){done++;total+=r.best}
+  const b=document.createElement("button");b.className="lbtn";
+  b.innerHTML=`<b>${en} / ${ta}</b><small>${r?L("✔ Done · Best ","✔ முடிந்தது · சிறந்தது ")+r.best+"/40":L("Not yet played","இன்னும் விளையாடவில்லை")}</small>`;
+  b.onclick=()=>startLevel(k);
+  $("lvls").appendChild(b);
+ });
+ $("who").textContent=L("Welcome, ","வரவேற்கிறோம், ")+me.name+" ("+me.exam+")";
+ $("summ").textContent=L("Levels completed: ","முடித்த நிலைகள்: ")+done+"/4 · "+L("Total marks: ","மொத்த மதிப்பெண்: ")+total+"/160";
+}
+function startLevel(k){$("start").classList.remove("show");$("end").classList.remove("show");newGame(k);tone(660,.15)}
+
+function certInner(){
+ let done=0,total=0;
+ const names=LV.map(([k,en,ta])=>{const r=me.lv[k];if(r){done++;total+=r.best}return "<td>"+L(en,ta)+"</td>"}).join("");
+ const marks=LV.map(([k])=>{const r=me.lv[k];return "<td>"+(r?r.best+"/40":"—")+"</td>"}).join("");
+ const T=(e,t)=>L(e,t);
+ return `<div class="cin"><h3>${T("CERTIFICATE OF ACHIEVEMENT","சாதனைச் சான்றிதழ்")}</h3><div class="sub">${T("Social Science Challenge","சமூக அறிவியல் சவால்")}</div><div class="meta">${T("This certificate is proudly presented to","இச்சான்றிதழ் பெருமையுடன் வழங்கப்படுகிறது")}</div><div class="nm${me.name.length>22?" long":""}">${esc(me.name)}</div><div class="meta">${T("Class","வகுப்பு")}: ${esc(me.cl)} | ${T("Section","பிரிவு")}: ${esc(me.sec)} | ${T("Exam No","தேர்வு எண்")}: ${esc(me.exam)}<br>${T("School","பள்ளி")}: ${esc(me.school)}</div><div class="meta">${T("for successfully completing these social science levels","இந்த சமூக அறிவியல் நிலைகளை வெற்றிகரமாக முடித்தமைக்காக")}</div><table><tr>${names}</tr><tr>${marks}</tr></table><div class="meta"><b>${T("Total marks","மொத்த மதிப்பெண்")}: ${total} / 160</b> (${T("Levels completed","முடித்த நிலைகள்")}: ${done}/4)</div><div class="meta">${T("Congratulations! Keep learning about history, geography and civics.","வாழ்த்துகள்! வரலாறு, புவியியல், குடிமையியலைத் தொடர்ந்து கற்று ஆராயுங்கள்.")}</div><div class="foot">${T("Date","தேதி")}: ${new Date().toLocaleDateString(tm?"ta-IN":"en-IN")}</div></div>`;
+}
+function openCert(){
+ if(!me)return;
+ const done=LV.filter(([k])=>me.lv[k]).length;
+ $("cmsg").textContent="";
+ $("certBody").innerHTML=done?certInner():`<div class="cin"><div class="meta">${L("Finish at least one level to get your certificate.","சான்றிதழ் பெற ஒரு நிலையையாவது முடியுங்கள்.")}</div></div>`;
+ $("cdl").classList.toggle("hidden",!done);
+ $("cert").classList.add("show");
+}
+function certHTML(){
+ return `<!DOCTYPE html><html lang="${tm?"ta":"en"}"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Certificate ${esc(me.exam)}</title><style>${CERT_CSS}body{margin:0;padding:20px;background:#e5e7eb;display:flex;justify-content:center}.cwrap{width:min(100%,1123px)}@media print{body{background:none;padding:0;display:block}}</style></head><body><div class="cwrap"><div class="cert">${certInner()}</div></div></body></html>`;
+}
+async function downloadCert(){
+ if(!me)return;
+ $("cmsg").textContent="";
+ try{
+  const dl=window.claude?await window.claude.use("downloads"):null;
+  if(!dl){$("cmsg").textContent=L("Download is not available in this view.","இந்தக் காட்சியில் பதிவிறக்கம் கிடைக்கவில்லை.");return}
+  await dl.save({filename:"Social_Science_Certificate_"+me.exam.replace(/[^A-Za-z0-9_-]/g,"_")+".html",data:certHTML()});
+  $("cmsg").textContent=L("Saved. Open the file and choose Print, then Save as PDF.","சேமிக்கப்பட்டது. கோப்பைத் திறந்து அச்சிடு, பின்பு PDF ஆக சேமி என்பதைத் தேர்வு செய்யுங்கள்.");
+ }catch(e){
+  $("cmsg").textContent=L("The certificate was not saved.","சான்றிதழ் சேமிக்கப்படவில்லை.");
+ }
+}
+const CERT_CSS=`
+.cwrap{container-type:inline-size;width:100%}
+.cert{position:relative;width:100%;aspect-ratio:1.414/1;background:#fffdf5;color:#1d2b53;border:4px solid #b8860b;border-radius:8px;overflow:hidden;font-family:"Nirmala UI",Latha,"Noto Sans Tamil",Segoe UI,Verdana,sans-serif;font-size:19px;font-size:2.1cqw}
+.cert:before{content:"";position:absolute;inset:2.5%;border:3px double #b8860b;border-radius:6px;pointer-events:none}
+.cin{position:absolute;inset:7% 9%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:.8cqw;overflow:hidden}
+.cin h3{margin:0;font-size:3.2cqw;letter-spacing:.15cqw;color:#8a5a00}
+.cin .sub{font-size:2.2cqw;font-weight:700}
+.cin .meta{font-size:2cqw;line-height:1.45;max-width:100%;overflow-wrap:anywhere}
+.cin .nm{font-size:4.2cqw;font-weight:800;color:#0b4f4a;border-bottom:.25cqw solid #b8860b;padding:0 2cqw;line-height:1.25;max-width:100%;overflow-wrap:anywhere}
+.cin .nm.long{font-size:3.2cqw}
+.cin table{border-collapse:collapse;font-size:2cqw;max-width:100%}
+.cin td{border:1px solid #d4b86a;padding:.6cqw 1.6cqw}
+.cin .foot{font-size:1.9cqw}
+@media print{body *{visibility:hidden}.cwrap,.cwrap *{visibility:visible}.cwrap{position:fixed;left:0;top:0;width:100vw}@page{size:A4 landscape;margin:0}}
+`;
+const cst=document.createElement("style");cst.textContent=CERT_CSS;document.head.appendChild(cst);
+
+/* Wiring */
+document.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{tm=b.dataset.m==="ta";applyLang()});
+$("go").onclick=()=>{
+ const g=id=>$(id).value.trim();
+ const d={name:g("f-name"),cl:g("f-cl"),sec:g("f-sec"),exam:g("f-exam").toUpperCase(),school:g("f-school")};
+ if(!d.name||!d.cl||!d.sec||!d.exam||!d.school){$("ferr").textContent=L("Please fill in every box.","எல்லாக் கட்டங்களையும் நிரப்புங்கள்.");return}
+ $("ferr").textContent="";
+ me=Object.assign({key:d.exam,lv:{}},DB[d.exam]||{},d);
+ DB[d.exam]=me;saveDB();
+ openLevels();
+};
+$("back").onclick=()=>showForm();
+$("chcls").onclick=()=>openLevels();
+$("ocert").onclick=()=>openCert();
+$("ccl").onclick=()=>$("cert").classList.remove("show");
+$("cdl").onclick=()=>downloadCert();
+$("again").onclick=()=>{$("end").classList.remove("show");openLevels()};
+$("mute").onclick=()=>{muted=!muted;$("mute").textContent=muted?"🔇 Sound OFF":"🔊 Sound ON"};
+$("ta").onclick=()=>{
+ tm=!tm;applyLang();
+ if(cur&&$("card").style.display==="block"&&$("next").style.display==="none")showQ(cur.cat);
+};
+hud();
+</script>
+</body>
+</html>
