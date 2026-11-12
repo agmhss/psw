@@ -79,7 +79,7 @@ select{background:#0d9488}
  <div class="row"><button class="hintb" id="hint">💡 Hint</button><button class="nextb" id="next" style="display:none"></button></div>
 </div>
 </div>
-<p class="credit">Created by Gurumoorthy S, 9A, AGMHSS Patteeswaram<br>Created by Shyam Sundar K, 9C, AGMHSS Patteeswaram</p>
+<p class="credit">Created by Shyam Sundar K, 9C, AGMHSS Patteeswaram</p>
 <div class="ov show" id="lg"><div class="box">
  <p class="big">📚</p><h2 id="lgt"></h2>
  <label class="lb" id="l1" for="f_name"></label><input class="fld" id="f_name" maxlength="60" autocomplete="off">
@@ -211,7 +211,7 @@ function certCanvas(){const W=1600,H=1130,c=document.createElement("canvas");c.w
  x.fillText(t(`and earned a total of ${S.score} points.`,`மொத்தம் ${S.score} புள்ளிகள் பெற்றுள்ளார்.`),W/2,850);
  x.fillStyle="#16a34a";x.font="bold 52px Segoe UI,sans-serif";x.fillText(lvl[1],W/2,925);x.font="bold 36px Segoe UI,sans-serif";x.fillText(t("Congratulations! Keep learning and shining! 🌟","வாழ்த்துகள்! தொடர்ந்து கற்று ஒளிருங்கள்! 🌟"),W/2,985);
  x.fillStyle="#555";x.font="28px Segoe UI,sans-serif";x.textAlign="left";x.fillText(t("Date","தேதி")+": "+new Date().toLocaleDateString(),120,1040);
- x.textAlign="right";x.fillText("Created by Gurumoorthy S, 9A, AGMHSS Patteeswaram",W-120,1012);x.fillText("Created by Shyam Sundar K, 9C, AGMHSS Patteeswaram",W-120,1046);return c}
+ x.textAlign="right";x.fillText("Created by Shyam Sundar K, 9C, AGMHSS Patteeswaram",W-120,1046);return c}
 $("cert").onclick=()=>{if(!PF)return showLogin();
  if(!(S.done>0))return overlay("🏅",t("Certificate","சான்றிதழ்"),t("Complete at least 1 level to earn your certificate!","சான்றிதழ் பெற குறைந்தது 1 நிலையை முடிக்கவும்!"),[[t("OK","சரி"),()=>{}]]);
  const c=certCanvas(),url=c.toDataURL("image/png");
