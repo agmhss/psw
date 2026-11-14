@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NMMS இணையவழித் தேர்வுகள் - அறிவியல் மையம்</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Baloo Thambi 2 & Noto Sans Tamil -->
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@500;600;700;800&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans Tamil', sans-serif;
+            background-color: #f1f5f9;
+        }
+        h1, h2, h3, .heading-font {
+            font-family: 'Baloo Thambi 2', cursive;
+        }
+        .tab-active-sci {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+        .tab-active-soc {
+            background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+        }
+        .tab-active-mat {
+            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+        .lesson-card {
+            transition: all 0.25s ease;
+        }
+        .lesson-card:hover {
+            transform: translateY(-4px);
+        }
+    </style>
+</head>
+<body class="p-3 md:p-6">
+
+<!-- NMMS Main Card Container (Paste into Ariviyal Maiyyam) -->
+<div class="max-w-6xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200">
+    
+    <!-- Top Banner / Header -->
+    <div class="bg-gradient-to-r from-teal-800 via-emerald-700 to-teal-900 p-6 md:p-8 text-white relative overflow-hidden">
+        <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+                <div class="bg-white/15 p-4 rounded-2xl backdrop-blur-md border border-white/20 text-3xl text-yellow-300 shadow-inner">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <span class="bg-yellow-400 text-slate-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">அறிவியல் மையம் • AGMHSS</span>
+                    <h1 class="text-2xl md:text-4xl font-extrabold mt-1 tracking-wide">NMMS இணையவழிப் பயிற்சித் தேர்வுகள்</h1>
+                    <p class="text-emerald-100 text-sm md:text-base mt-1">தேசிய வருவாய் வழி மற்றும் தகுதிப் படிப்புதவித் திட்டத் தேர்வு (SAT & MAT)</p>
+                </div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/15 text-xs md:text-sm max-w-xs text-emerald-50">
+                <p class="font-semibold text-yellow-300 mb-1"><i class="fa-solid fa-circle-info mr-1"></i> தேர்வு எழுதும் முறை:</p>
+                <p>கீழே உள்ள PDF கையேடுகளையோ அல்லது பாட வாரியான பட்டன்களையோ சொடுக்கித் தேர்வை எழுதவும். முடிவில் <b>'Finish'</b> பட்டனை அழுத்தி மதிப்பெண்ணை அறியலாம்.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Direct PDF Access Hub -->
+    <div class="bg-emerald-50/70 p-4 md:p-6 border-b border-emerald-100">
+        <div class="flex items-center gap-2 mb-3">
+            <i class="fa-solid fa-file-pdf text-red-600 text-lg"></i>
+            <h2 class="text-base md:text-lg font-bold text-slate-800">இணையவழித் தேர்வு PDF கையேடுகள் (நேரடி இணைப்புகளுடன்)</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            
+            <!-- Science PDF Card -->
+            <div class="bg-white p-4 rounded-2xl border border-emerald-200 shadow-sm flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-flask"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-800 text-sm">அறிவியல் (SAT)</h3>
+                        <p class="text-xs text-slate-500">வகுப்பு 7 & 8 • 24 பாடங்கள்</p>
+                    </div>
+                </div>
+                <div class="flex gap-1.5 shrink-0">
+                    <a href="pdfs/Science_Live_worksheets.pdf" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1" title="PDF-ஐத் திறக்க">
+                        <i class="fa-solid fa-eye"></i> திறக்க
+                    </a>
+                    <a href="pdfs/Science_Live_worksheets.pdf" download class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-2 rounded-xl text-xs font-bold transition" title="பதிவிறக்கம் செய்க">
+                        <i class="fa-solid fa-download"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Social Science PDF Card -->
+            <div class="bg-white p-4 rounded-2xl border border-amber-200 shadow-sm flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-earth-asia"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-800 text-sm">சமூக அறிவியல் (SAT)</h3>
+                        <p class="text-xs text-slate-500">வகுப்பு 7 & 8 • 42 பாடங்கள்</p>
+                    </div>
+                </div>
+                <div class="flex gap-1.5 shrink-0">
+                    <a href="pdfs/Social_science_live_worksheets.pdf" target="_blank" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1" title="PDF-ஐத் திறக்க">
+                        <i class="fa-solid fa-eye"></i> திறக்க
+                    </a>
+                    <a href="pdfs/Social_science_live_worksheets.pdf" download class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-2 rounded-xl text-xs font-bold transition" title="பதிவிறக்கம் செய்க">
+                        <i class="fa-solid fa-download"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- MAT PDF Card -->
+            <div class="bg-white p-4 rounded-2xl border border-indigo-200 shadow-sm flex items-center justify-between gap-3 ring-2 ring-indigo-500/20">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-800 text-sm">மனத்திறன் தேர்வு (MAT)</h3>
+                        <p class="text-xs text-indigo-600 font-medium">38 தலைப்புகள் (PDF உள்ளே சொடுக்கவும்)</p>
+                    </div>
+                </div>
+                <div class="flex gap-1.5 shrink-0">
+                    <a href="pdfs/MAT_ONLINE_TEST_SERIES.pdf" target="_blank" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1" title="PDF-ஐத் திறக்க">
+                        <i class="fa-solid fa-eye"></i> திறக்க
+                    </a>
+                    <a href="pdfs/MAT_ONLINE_TEST_SERIES.pdf" download class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-2 rounded-xl text-xs font-bold transition" title="பதிவிறக்கம் செய்க">
+                        <i class="fa-solid fa-download"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Navigation & Search Bar -->
+    <div class="p-4 md:p-6 bg-slate-50 border-b border-slate-200 flex flex-col lg:flex-row items-center justify-between gap-4">
+        <!-- Subject Tabs -->
+        <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto justify-center">
+            <button onclick="switchSubject('science')" id="tab-science" class="tab-btn tab-active-sci px-5 py-2.5 rounded-xl font-bold text-sm md:text-base transition-all flex items-center gap-2">
+                <i class="fa-solid fa-flask"></i> அறிவியல் (24)
+            </button>
+            <button onclick="switchSubject('social')" id="tab-social" class="tab-btn bg-white text-slate-700 border border-slate-300 hover:bg-slate-100 px-5 py-2.5 rounded-xl font-bold text-sm md:text-base transition-all flex items-center gap-2">
+                <i class="fa-solid fa-earth-asia"></i> சமூக அறிவியல் (42)
+            </button>
+            <button onclick="switchSubject('mat')" id="tab-mat" class="tab-btn bg-white text-slate-700 border border-slate-300 hover:bg-slate-100 px-5 py-2.5 rounded-xl font-bold text-sm md:text-base transition-all flex items-center gap-2">
+                <i class="fa-solid fa-brain"></i> மனத்திறன் தேர்வு - MAT (38)
+            </button>
+        </div>
+
+        <!-- Search Filter -->
+        <div class="relative w-full lg:w-80">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-400"></i>
+            <input type="text" id="searchInput" onkeyup="filterLessons()" placeholder="பாடத் தலைப்பைத் தேடுக..." 
+                class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm bg-white shadow-sm">
+        </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="p-4 md:p-6">
+        
+        <!-- Filter Pills for Social Science (Hidden by default) -->
+        <div id="social-filters" class="hidden mb-5 flex flex-wrap gap-2 justify-center md:justify-start">
+            <button onclick="filterSocialCategory('all', event)" class="soc-cat-btn bg-amber-600 text-white text-xs font-bold px-3.5 py-1.5 rounded-lg">அனைத்தும்</button>
+            <button onclick="filterSocialCategory('வ', event)" class="soc-cat-btn bg-amber-100 text-amber-900 hover:bg-amber-200 text-xs font-bold px-3.5 py-1.5 rounded-lg">🏛️ வரலாறு</button>
+            <button onclick="filterSocialCategory('பு', event)" class="soc-cat-btn bg-amber-100 text-amber-900 hover:bg-amber-200 text-xs font-bold px-3.5 py-1.5 rounded-lg">🌍 புவியியல்</button>
+            <button onclick="filterSocialCategory('கு', event)" class="soc-cat-btn bg-amber-100 text-amber-900 hover:bg-amber-200 text-xs font-bold px-3.5 py-1.5 rounded-lg">⚖️ குடிமையியல்</button>
+            <button onclick="filterSocialCategory('பொ', event)" class="soc-cat-btn bg-amber-100 text-amber-900 hover:bg-amber-200 text-xs font-bold px-3.5 py-1.5 rounded-lg">📈 பொருளியல்</button>
+        </div>
+
+        <!-- Notice Banner for MAT Tab (Hidden by default) -->
+        <div id="mat-notice" class="hidden mb-5 bg-indigo-50 border border-indigo-200 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3 text-indigo-900 text-sm">
+                <i class="fa-solid fa-circle-Exclamation text-indigo-600 text-xl"></i>
+                <span><b>குறிப்பு:</b> மனத்திறன் தேர்வுக்கான (MAT) இணைப்புகள் PDF கோப்பிற்குள் கொடுக்கப்பட்டுள்ளன. PDF-ஐத் திறந்து எந்தத் தலைப்பில் தேர்வு எழுத வேண்டுமோ அதன் மீது சொடுக்கித் தேர்வை எழுதவும்.</span>
+            </div>
+            <a href="pdfs/MAT_ONLINE_TEST_SERIES.pdf" target="_blank" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl text-xs font-bold shrink-0 shadow-sm">
+                <i class="fa-solid fa-file-pdf mr-1"></i> MAT PDF-ஐத் திறக்க
+            </a>
+        </div>
+
+        <!-- Dynamic Grid Container -->
+        <div id="lessons-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+
+        <!-- Empty State -->
+        <div id="empty-state" class="hidden text-center py-12 text-slate-500">
+            <i class="fa-solid fa-folder-open text-4xl mb-3 text-slate-400"></i>
+            <p class="font-semibold">தேடிய தலைப்பில் பாடங்கள் எதுவும் கிடைக்கவில்லை.</p>
+        </div>
+    </div>
+
+    <!-- Card Footer & Credits -->
+    <div class="bg-slate-100 px-6 py-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-600 gap-2">
+        <div>
+            <span class="font-semibold text-slate-700">பயிற்சித்தாள் உருவாக்கம்:</span> NMMS SAT Preparation Team & திரு. G. இளவரசு (ப.ஆ., அ.உ.நி.பள்ளி, திருவைப்பாடி)
+        </div>
+        <div class="font-semibold text-slate-700">
+            Designed by Thiraviya Kumar G
+        </div>
+    </div>
+</div>
+
+<script>
+// PDF File Paths (Change these if your folder name is different)
+const MAT_PDF_URL = "pdfs/MAT_ONLINE_TEST_SERIES.pdf";
+
+// 1. SCIENCE DATA
+const scienceData = [
+    { cls: "வகுப்பு 7 & 8", title: "அளவீட்டியல்", icon: "fa-ruler-combined", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=gc&i=dfddxdu&r=jj&db=0&f=dzddzuut&cd=kzeibknennmnxqq2ngnngxxzze" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=jq&i=dfddxco&r=vk&db=0&f=dzddzuut&cd=kzeiqtnennmkjyc2ngnngxxzze" },
+        { label: "வினா 71-105", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=gb&i=dfddxxu&r=mx&db=0&f=dzddzuut&cd=kzeibfnennmmxvm2ngnngxxzze" },
+        { label: "வினா 106-140", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=eg&i=dfddxsx&r=uh&db=0&f=dzddzuut&cd=kzeirbnennmpmxw2ngnngxxzze" }
+    ]},
+    { cls: "வகுப்பு 7 & 8", title: "விசை, இயக்கம் மற்றும் அழுத்தம்", icon: "fa-gauge-high", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=ti&i=dfddsut&r=by&db=0&f=dzddzuut&cd=kzeizonennpxzfi2ngnngxxzze" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=ae&i=dfddsds&r=zd&db=0&f=dzddzuut&cd=kzeidrnennpnpgn2ngnngxxzze" },
+        { label: "வினா 71-105", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=if&i=dfddsxu&r=ps&db=0&f=dzddzuut&cd=kzeioenennpmxhp2ngnngxxzze" },
+        { label: "வினா 106-140", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=oh&i=dfddsxx&r=hb&db=0&f=dzddzuut&cd=kzeijwnennpmmwf2ngnngxxzze" },
+        { label: "வினா 141-183", url: "https://www.liveworksheets.com/c?a=c&mn=ct&sr=y&ms=ct&l=ik&i=dfddsst&r=jk&db=0&f=dzddzuut&cd=kkziocnennppzqc2ngnngxxzkz" }
+    ]},
+    { cls: "வகுப்பு 7 & 8", title: "நம்மை சுற்றியுள்ள பருப்பொருள்கள்", icon: "fa-cubes", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=ov&i=dfddsou&r=sk&db=0&f=dzddzuuo&cd=kzeijynennpjxpc2ngnngxxjze" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=rj&i=dfddsnc&r=nv&db=0&f=dzddzuuo&cd=kzeisqnennplkly2ngnngxxjze" },
+        { label: "வினா 71-105", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=lc&i=dfddsns&r=kx&db=0&f=dzddzuuo&cd=kzeiaknennplpcm2ngnngxxjze" },
+        { label: "வினா 106-140", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=lj&i=dfddozd&r=yq&db=0&f=dzddzuuo&cd=kzeiaqnennjgnit2ngnngxxjze" },
+        { label: "வினா 141-175", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=uk&i=dfddout&r=fl&db=0&f=dzddzuuo&cd=kzeixcnennjxzea2ngnngxxjze" },
+        { label: "வினா 176-185", url: "https://www.liveworksheets.com/c?a=c&mn=uz&sr=y&ms=uz&l=zz&i=dfddoux&r=no&db=0&f=dzddzuuo&cd=kxgiggnennjxmlj2ngnngxxjxg" }
+    ]},
+    { cls: "வகுப்பு 7 & 8", title: "அணு அமைப்பு", icon: "fa-atom", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=ic&i=dfddodn&r=ls&db=0&f=dzddzuuo&cd=kzeioknennjnlap2ngnngxxjze" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=du&i=dfddoct&r=rv&db=0&f=dzddzuuo&cd=kzeinxnennjkzsy2ngnngxxjze" },
+        { label: "வினா 71-105", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=vh&i=dfddofd&r=oh&db=0&f=dzddzuuo&cd=kzeiywnennjenjw2ngnngxxjze" },
+        { label: "வினா 106-147", url: "https://www.liveworksheets.com/c?a=c&mn=cd&sr=y&ms=cd&l=nl&i=dfddoxd&r=jb&db=0&f=dzddzuuo&cd=kknilanennjmnqf2ngnngxxjkn" }
+    ]},
+    { cls: "வகுப்பு 7", title: "தாவரங்களின் இனப்பெருக்கம் மற்றும் மாற்றுருக்கள்", icon: "fa-seedling", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=qq&i=dfddooz&r=ai&db=0&f=dzddzuuo&cd=kzeittnennjjgdo2ngnngxxjze" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=cc&i=dfddnzo&r=nk&db=0&f=dzddzuuo&cd=kzeikknennlgjlc2ngnngxxjze" },
+        { label: "வினா 71-101", url: "https://www.liveworksheets.com/c?a=c&mn=tu&sr=y&ms=tu&l=of&i=dfddnuo&r=pv&db=0&f=dzddzuuo&cd=kzxijenennlxjhy2ngnngxxjzx" }
+    ]},
+    { cls: "வகுப்பு 7", title: "உடல்நலமும் சுகாதாரமும்", icon: "fa-heart-pulse", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=yn&i=dfddntc&r=lz&db=0&f=dzddzuuo&cd=kzeiilnennlzkag2ngnngxxjze" },
+        { label: "வினா 36-46", url: "https://www.liveworksheets.com/c?a=c&mn=uu&sr=y&ms=uu&l=sj&i=dfddncd&r=hk&db=0&f=dzddzuuo&cd=kxxipqnennlknwc2ngnngxxjxx" }
+    ]},
+    { cls: "வகுப்பு 7", title: "காட்சித் தொடர்பியல் (பகுதி 1 & 2)", icon: "fa-desktop", tests: [
+        { label: "பகுதி 1 (1-20)", url: "https://www.liveworksheets.com/c?a=c&mn=dz&sr=y&ms=dz&l=oq&i=dfddnxu&r=zu&db=0&f=dzddzuuo&cd=kngijtnennlmxgx2ngnngxxjng" },
+        { label: "பகுதி 2 (1-20)", url: "https://www.liveworksheets.com/c?a=c&mn=dz&sr=y&ms=dz&l=ia&i=dfucsft&r=sr&db=0&f=dzddzudd&cd=kngiodnexkpezps2ngnngxnnng" }
+    ]},
+    { cls: "வகுப்பு 7 & 8", title: "வெப்பம் மற்றும் வெப்பநிலை", icon: "fa-temperature-high", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=mp&i=dfddnss&r=th&db=0&f=dzddzuuo&cd=kzeivhnennlppzw2ngnngxxjze" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=mg&i=dfddnnc&r=dl&db=0&f=dzddzuuo&cd=kzeivbnennllkna2ngnngxxjze" },
+        { label: "வினா 71-105", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=uo&i=dfdtzzt&r=fb&db=0&f=dzddzuuo&cd=kzeixjnenzggzef2ngnngxxjze" },
+        { label: "வினா 106-136", url: "https://www.liveworksheets.com/c?a=c&mn=tu&sr=y&ms=tu&l=gp&i=dfdtzdz&r=db&db=0&f=dzddzuuo&cd=kzxibhnenzgngnf2ngnngxxjzx" }
+    ]},
+    { cls: "வகுப்பு 7 & 8", title: "மின்னோட்டவியல், மின்னியல்", icon: "fa-bolt", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=an&i=dfdtztz&r=ub&db=0&f=dzddzuuo&cd=kzeidlnenzgzgxf2ngnngxxjze" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=xz&i=dfznuuz&r=iv&db=0&f=dzddzuuo&cd=kzeimgneglxxgoy2ngnngxxjze" },
+        { label: "வினா 71-104", url: "https://www.liveworksheets.com/c?a=c&mn=tc&sr=y&ms=tc&l=oz&i=dfzndtu&r=ur&db=0&f=dzddzuuo&cd=kzkijgneglnzxxs2ngnngxxjzk" }
+    ]},
+    { cls: "வகுப்பு 7 & 8", title: "நம்மைச் சுற்றி நிகழும் மாற்றங்கள்", icon: "fa-arrows-spin", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=eg&i=dfzncdt&r=ax&db=0&f=dzddzuun&cd=kzeirbneglknzdm2ngnngxxlze" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=sb&i=dfzncod&r=dg&db=0&f=dzddzuun&cd=kzeipfneglkjnnb2ngnngxxlze" },
+        { label: "வினா 71-105", url: "https://www.liveworksheets.com/c?a=s&t=x6h77rxedhq&mn=tf&sr=y&ms=tf&l=uk&i=dfznxzt&r=gf&db=0&f=dzddzuun&cd=pm1w33smrnwtzeixcneglmgzbe2ngnngxxlze" },
+        { label: "வினா 106-117", url: "https://www.liveworksheets.com/c?a=c&mn=ud&sr=y&ms=ud&l=ns&i=dfznxtz&r=qy&db=0&f=dzddzuun&cd=kxnilpneglmzgti2ngnngxxlxn" }
+    ]},
+    { cls: "வகுப்பு 7", title: "செல் உயிரியல்", icon: "fa-microscope", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=ty&i=dfuzffn&r=ib&db=0&f=dzddzuun&cd=kzeizinexgeelof2ngnngxxlze" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=bn&i=dfuzszz&r=io&db=0&f=dzddzuun&cd=kzeiflnexgpggoj2ngnngxxlze" },
+        { label: "வினா 71-105", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=mk&i=dfuzots&r=fq&db=0&f=dzddzuun&cd=kzeivcnexgjzpet2ngnngxxlze" },
+        { label: "வினா 106-130", url: "https://www.liveworksheets.com/c?a=c&mn=tz&sr=y&ms=tz&l=vx&i=dfuznun&r=xv&db=0&f=dzddzuun&cd=kzgiymnexglxlmy2ngnngxxlzg" }
+    ]},
+    { cls: "வகுப்பு 7", title: "வகைப்பாட்டியலின் அடிப்படைகள்", icon: "fa-sitemap", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=ed&i=dfudczz&r=pk&db=0&f=dzddzuun&cd=kzeirnnexnkgghc2ngnngxxlze" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=ve&i=dfudffd&r=iz&db=0&f=dzddzuun&cd=kzeiyrnexneenog2ngnngxxlze" },
+        { label: "வினா 71-105", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=kv&i=dfudxzn&r=hb&db=0&f=dzddzuun&cd=kzeicynexnmglwf2ngnngxxlze" }
+    ]},
+    { cls: "வகுப்பு 7", title: "கணினி வரைகலை", icon: "fa-palette", tests: [
+        { label: "வினா 1-22", url: "https://www.liveworksheets.com/c?a=c&mn=dd&sr=y&ms=dd&l=gy&i=dfudxof&r=zg&db=0&f=dzddzuun&cd=knnibinexnmjegb2ngnngxxlnn" }
+    ]},
+    { cls: "வகுப்பு 7 & 8", title: "ஒளியியல்", icon: "fa-lightbulb", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=mc&i=dfudozd&r=fn&db=0&f=dzddzudd&cd=kzeivknexnjgnel2ngnngxnnze" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=lz&i=dfudooo&r=ar&db=0&f=dzddzudd&cd=kzeiagnexnjjjds2ngnngxnnze" },
+        { label: "வினா 71-105", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=la&i=dfudnso&r=sa&db=0&f=dzddzudd&cd=kzeiadnexnlpjpd2ngnngxnnze" },
+        { label: "வினா 106-140", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=lm&i=dfutztf&r=gq&db=0&f=dzddzudd&cd=kzeiavnexzgzebt2ngnngxnnze" },
+        { label: "வினா 141-175", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=cs&i=dfutuzc&r=th&db=0&f=dzddzudd&cd=zxgkzw2ngnngxnnze" },
+        { label: "வினா 176-194", url: "https://www.liveworksheets.com/c?a=c&mn=un&sr=y&ms=un&l=xl&i=dfutucd&r=gy&db=0&f=dzddzudd&cd=kxlimanexzxknbi2ngnngxnnxl" }
+    ]},
+    { cls: "வகுப்பு 7", title: "அண்டம் மற்றும் விண்வெளி", icon: "fa-shuttle-space", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=qf&i=dfuczsn&r=bj&db=0&f=dzddzudd&cd=kzeitenexkgplfq2ngnngxnnze" },
+        { label: "வினா 36-72", url: "https://www.liveworksheets.com/c?a=c&mn=ts&sr=y&ms=ts&l=ee&i=dfucutz&r=jp&db=0&f=dzddzudd&cd=kzpirrnexkxzgqh2ngnngxnnzp" }
+    ]},
+    { cls: "வகுப்பு 7", title: "பலபடி வேதியியல்", icon: "fa-vials", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=n&ms=tf&l=uz&i=dfuttsx&r=rn&db=0&f=dzddzudd&cd=kzelxgnexzzpmsl2ngnngxnnze" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=ie&i=dfutccc&r=de&db=0&f=dzddzudd&cd=kzeiornexzkkknr2ngnngxnnze" }
+    ]},
+    { cls: "வகுப்பு 7", title: "அன்றாட வாழ்வில் வேதியியல்", icon: "fa-flask-vial", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=dr&i=dfutodn&r=nb&db=0&f=dzddzudd&cd=kzeinsnexzjnllf2ngnngxnnze" },
+        { label: "வினா 36-71", url: "https://www.liveworksheets.com/c?a=c&mn=tx&sr=y&ms=tx&l=gc&i=dfutnud&r=lb&db=0&f=dzddzudd&cd=kzmibknexzlxnaf2ngnngxnnzm" }
+    ]},
+    { cls: "வகுப்பு 7", title: "அன்றாட வாழ்வில் விலங்குகள்", icon: "fa-paw", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=ci&i=dfutnst&r=zn&db=0&f=dzddzudd&cd=kzeikonexzlpzgl2ngnngxnnze" },
+        { label: "வினா 36-57", url: "https://www.liveworksheets.com/c?a=c&mn=dd&sr=y&ms=dd&l=jb&i=dfuczdd&r=ia&db=0&f=dzddzudd&cd=knniqfnexkgnnod2ngnngxnnnn" }
+    ]},
+    { cls: "வகுப்பு 8", title: "ஒலியியல்", icon: "fa-volume-high", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=ed&i=dfucnzo&r=sa&db=0&f=dzddzudd&cd=kzeirnnexklgjpd2ngnngxnnze" },
+        { label: "வினா 36-59", url: "https://www.liveworksheets.com/c?a=c&mn=dc&sr=y&ms=dc&l=jc&i=dfufzzf&r=bh&db=0&f=dzddzudd&cd=knkiqknexeggefw2ngnngxnnnk" }
+    ]},
+    { cls: "வகுப்பு 8", title: "காற்று", icon: "fa-wind", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=gh&i=dfufuzn&r=vp&db=0&f=dzddzudd&cd=kzeibwnexexglyh2ngnngxnnze" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=al&i=dfufdts&r=zj&db=0&f=dzddzudd&cd=kzeidanexenzpgq2ngnngxnnze" },
+        { label: "வினா 71-105", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=pr&i=dfuftfo&r=gs&db=0&f=dzddzudd&cd=kzeihsnexezejbp2ngnngxnnze" },
+        { label: "வினா 106-142", url: "https://www.liveworksheets.com/c?a=c&mn=ts&sr=y&ms=ts&l=sk&i=dfufcxx&r=et&db=0&f=dzddzudd&cd=kzpipcnexekmmrz2ngnngxnnzp" }
+    ]},
+    { cls: "வகுப்பு 8", title: "நீர்", icon: "fa-droplet", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=am&i=dfusoxu&r=ua&db=0&f=dzddzudd&cd=kzeidvnexpjmxxd2ngnngxnnze" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=n&ms=tf&l=kh&i=dfuocnz&r=qx&db=0&f=dzddzudd&cd=kzelcwnexjklgtm2ngnngxnnze" },
+        { label: "வினா 71-105", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=nm&i=dfuoffu&r=ks&db=0&f=dzddzudd&cd=kzeilvnexjeexcp2ngnngxnnze" },
+        { label: "வினா 106-120", url: "https://www.liveworksheets.com/c?a=c&mn=uf&sr=y&ms=uf&l=sh&i=dfuofou&r=vs&db=0&f=dzddzudd&cd=kxeipwnexjejxyp2ngnngxnnxe" }
+    ]},
+    { cls: "வகுப்பு 8", title: "அமிலங்கள் மற்றும் காரங்கள்", icon: "fa-prescription-bottle", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=vd&i=dfuoxfx&r=nb&db=0&f=dzddzudd&cd=kzeiynnexjmemlf2ngnngxnnze" },
+        { label: "வினா 36-72", url: "https://www.liveworksheets.com/c?a=c&mn=ts&sr=y&ms=ts&l=kp&i=dfuosuf&r=pl&db=0&f=dzddzudd&cd=kzpichnexjpxeha2ngnngxnnzp" }
+    ]},
+    { cls: "வகுப்பு 8", title: "நுண்ணுயிரிகள்", icon: "fa-bacteria", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=gh&i=dfuosff&r=de&db=0&f=dzddzudd&cd=kzeibwnexjpeenr2ngnngxnnze" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=ik&i=dfunzcc&r=pf&db=0&f=dzddzudd&cd=kzeiocnexlgkkhe2ngnngxnnze" },
+        { label: "வினா 71-101", url: "https://www.liveworksheets.com/c?a=c&mn=tu&sr=y&ms=tu&l=oz&i=dfunuzz&r=bo&db=0&f=dzddzudd&cd=kzxijgnexlxggfj2ngnngxnnzx" }
+    ]},
+    { cls: "வகுப்பு 8", title: "தாவர உலகம்", icon: "fa-leaf", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=vy&i=dfundzf&r=vb&db=0&f=dzddzudd&cd=kzeiyinexIngeyf2ngnngxnnze" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=hl&i=dfuncdu&r=sa&db=0&f=dzddzudd&cd=kzeiwanexlknxpd2ngnngxnnze" },
+        { label: "வினா 71-105", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=ld&i=dfunfdo&r=fc&db=0&f=dzddzudd&cd=kzeiannexlenjek2ngnngxnnze" }
+    ]},
+    { cls: "வகுப்பு 8", title: "உயிரினங்களின் ஒருங்கமைவு", icon: "fa-dna", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=lq&i=dfunxnt&r=ah&db=0&f=dzddzudd&cd=kzeiatnexImlzdw2ngnngxnnze" },
+        { label: "வினா 36-52", url: "https://www.liveworksheets.com/c?a=c&mn=us&sr=y&ms=us&l=td&i=dfunsff&r=ku&db=0&f=dzddzudd&cd=kxpiznnexlpeecx2ngnngxnnxp" }
+    ]},
+    { cls: "வகுப்பு 8", title: "விலங்குகளின் இயக்கம்", icon: "fa-dove", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=cz&i=dfunnxn&r=ga&db=0&f=dzddzudd&cd=kzeikgnexllmlbd2ngnngxnnze" },
+        { label: "வினா 36-66", url: "https://www.liveworksheets.com/c?a=c&mn=tu&sr=y&ms=tu&l=qu&i=dfdzzno&r=fy&db=0&f=dzddzudd&cd=kzxitxnenggljei2ngnngxnnzx" }
+    ]},
+    { cls: "வகுப்பு 8", title: "வளரிளம் பருவம் அடைதல்", icon: "fa-child-reaching", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/c?a=c&mn=tf&sr=y&ms=tf&l=qz&i=dfdzdns&r=ir&db=0&f=dzddzudd&cd=kzeitgnengnlpos2ngnngxnnze" },
+        { label: "வினா 36-50", url: "https://www.liveworksheets.com/c?a=c&mn=uf&sr=y&ms=uf&l=kh&i=dfdztos&r=ly&db=0&f=dzddzudd&cd=kxeicwnengzjpai2ngnngxnnxe" }
+    ]}
+];
+
+// 2. SOCIAL SCIENCE DATA
+const socialData = [
+    { cat: "வ", cls: "7.I.வ.1", title: "இடைக்கால இந்திய வரலாற்று ஆதாரங்கள்", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/dx2537887mf" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/lf2538617oc" },
+        { label: "வினா 71-87", url: "https://www.liveworksheets.com/vf2540561ca" }
+    ]},
+    { cat: "வ", cls: "7.I.வ.2", title: "வட இந்தியப் புதிய அரசுகளின் தோற்றம்", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/qa2541683eh" },
+        { label: "வினா 36-69", url: "https://www.liveworksheets.com/tu2541924bs" }
+    ]},
+    { cat: "வ", cls: "7.I.வ.3", title: "தென்னிந்தியப் புதிய அரசுகள் சோழர்களும் பாண்டியர்களும்", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/zb2542982yi" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/ga2543188sb" },
+        { label: "வினா 71-82", url: "https://www.liveworksheets.com/ug2543276ac" }
+    ]},
+    { cat: "வ", cls: "7.I.வ.4", title: "டெல்லி சுல்தானியம்", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/co2550162vd" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/ex2550493fc" },
+        { label: "வினா 71-100", url: "https://www.liveworksheets.com/ys2550720ce" }
+    ]},
+    { cat: "பு", cls: "7.I.பு.1", title: "புவியின் உள்ளமைப்பு", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/ft2551788kf" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/gr2554014mh" },
+        { label: "வினா 71-105", url: "https://www.liveworksheets.com/qy2554146js" },
+        { label: "வினா 106-146", url: "https://www.liveworksheets.com/fi2554350xy" }
+    ]},
+    { cat: "பு", cls: "7.I.பு.2", title: "நிலத்தோற்றங்கள்", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/cp2554607qe" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/tv2554822xk" },
+        { label: "வினா 71-102", url: "https://www.liveworksheets.com/pq2555036tz" }
+    ]},
+    { cat: "பு", cls: "7.I.பு.3", title: "மக்கள்தொகை மற்றும் குடியிருப்புகளும்", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/ed2556068ny" },
+        { label: "வினா 36-68", url: "https://www.liveworksheets.com/vu2556215jz" }
+    ]},
+    { cat: "கு", cls: "7.I.கு.1", title: "சமத்துவம்", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/lt2561852gx" },
+        { label: "வினா 36-61", url: "https://www.liveworksheets.com/md2561901rb" }
+    ]},
+    { cat: "கு", cls: "7.I.கு.2", title: "அரசியல் கட்சிகள்", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/ds2559896pf" },
+        { label: "வினா 36-58", url: "https://www.liveworksheets.com/ev2559936hf" }
+    ]},
+    { cat: "பொ", cls: "7.I.பொ.1", title: "உற்பத்தி", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/dp2562413dd" },
+        { label: "வினா 36-57", url: "https://www.liveworksheets.com/fv2562468vt" }
+    ]},
+    { cat: "வ", cls: "7.II.வ.1", title: "விஜயநகர, பாமினி அரசுகள்", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/rn2564417uv" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/ap2564888mb" },
+        { label: "வினா 71-111", url: "https://www.liveworksheets.com/uu2566019vb" }
+    ]},
+    { cat: "வ", cls: "7.II.வ.2", title: "முகலாயப் பேரரசு", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/nv2568574fr" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/cc2568802ur" },
+        { label: "வினா 71-105", url: "https://www.liveworksheets.com/fr2569124bv" },
+        { label: "வினா 106-128", url: "https://www.liveworksheets.com/yg2570695fz" }
+    ]},
+    { cat: "வ", cls: "7.II.வ.3", title: "மராத்தியர்கள் மற்றும் பேஷ்வாக்களின் எழுச்சி", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/ls2571442mu" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/hn2571334bg" },
+        { label: "வினா 71-90", url: "https://www.liveworksheets.com/dy2571258kr" }
+    ]},
+    { cat: "பு", cls: "7.II.பு.1", title: "வளங்கள்", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/ny2570667uh" },
+        { label: "வினா 36-51", url: "https://www.liveworksheets.com/sq2570534qx" }
+    ]},
+    { cat: "பு", cls: "7.II.பு.2", title: "சுற்றுலா", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/df2570489qp" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/yz2570268xk" },
+        { label: "வினா 71-88", url: "https://www.liveworksheets.com/pg2569003do" }
+    ]},
+    { cat: "கு", cls: "7.II.கு.1 & 8.கு.1", title: "மாநில அரசு & மாநில அரசு எவ்வாறு செயல்படுகிறது?", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/el2568931ri" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/yc2568838ap" },
+        { label: "வினா 71-83", url: "https://www.liveworksheets.com/ev2568739kk" }
+    ]},
+    { cat: "கு", cls: "7.II.கு.2", title: "ஊடகமும் ஜனநாயகமும்", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/qq2564429dr" },
+        { label: "வினா 36-50", url: "https://www.liveworksheets.com/cm2564517ev" }
+    ]},
+    { cat: "வ", cls: "7.III.வ.1", title: "புதிய சமயக் கருத்துக்களும் இயக்கங்களும்", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/tm2567814cs" },
+        { label: "வினா 36-50", url: "https://www.liveworksheets.com/yd2567727tp" }
+    ]},
+    { cat: "வ", cls: "7.III.வ.2", title: "தமிழ்நாட்டில் கலையும் கட்டடக்கலையும்", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/nd2567691ih" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/tr2567621ab" },
+        { label: "வினா 71-83", url: "https://www.liveworksheets.com/ff2564721ya" }
+    ]},
+    { cat: "வ", cls: "7.III.வ.3", title: "தமிழகத்தில் சமணம், பௌத்தம், ஆசிவகத் தத்துவங்கள்", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/yi2564663mm" },
+        { label: "வினா 36-50", url: "https://www.liveworksheets.com/xq2564576dq" }
+    ]},
+    { cat: "பு", cls: "7.III.பு.1", title: "கண்டங்களை ஆராய்தல் (வட மற்றும் தென் அமெரிக்கா)", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/bd2563630ra" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/te2563551ey" },
+        { label: "வினா 71-105", url: "https://www.liveworksheets.com/vd2563479lh" },
+        { label: "வினா 106-130", url: "https://www.liveworksheets.com/tz2563389gi" }
+    ]},
+    { cat: "பு", cls: "7.III.பு.2", title: "நிலவரைபடத்தைக் கற்றறிதல்", tests: [
+        { label: "வினா 1-39", url: "https://www.liveworksheets.com/lk2563333fj" }
+    ]},
+    { cat: "பு", cls: "7.III.பு.3", title: "இயற்கை இடர்கள் - பேரிடர் மேலாண்மை", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/ms2563197ix" },
+        { label: "வினா 36-47", url: "https://www.liveworksheets.com/du2563139vb" }
+    ]},
+    { cat: "கு", cls: "7.III.கு.1", title: "பெண்கள் மேம்பாடு", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/kh2563098pf" }
+    ]},
+    { cat: "கு", cls: "7.III.கு.2", title: "சந்தை மற்றும் நுகர்வோர் பாதுகாப்பு", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/jq2563055sg" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/sy2563015vx" },
+        { label: "வினா 71-82", url: "https://www.liveworksheets.com/co2562958yr" }
+    ]},
+    { cat: "கு", cls: "7.III.கு.3", title: "சாலைப் பாதுகாப்பு", tests: [
+        { label: "வினா 106-140", url: "https://www.liveworksheets.com/lk2562729qv" }
+    ]},
+    { cat: "பொ", cls: "7.III.பொ.1", title: "வரி மற்றும் அதன் முக்கியத்துவம்", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/pq2561695pa" },
+        { label: "வினா 36-51", url: "https://www.liveworksheets.com/ol2561649fh" }
+    ]},
+    { cat: "வ", cls: "8.வ.1", title: "ஐரோப்பியர்கள் வருகை", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/cu2561333ix" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/nx2561265tq" },
+        { label: "வினா 71-112", url: "https://www.liveworksheets.com/np2561062mf" }
+    ]},
+    { cat: "வ", cls: "8.வ.2", title: "வர்த்தகத்தில் இருந்து பேரரசு வரை", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/sa2560982gx" },
+        { label: "வினா 36-52", url: "https://www.liveworksheets.com/tx2560921In" }
+    ]},
+    { cat: "வ", cls: "8.வ.3", title: "கிராம சமூகமும் வாழ்க்கை முறையும்", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/cp2560870ma" },
+        { label: "வினா 36-54", url: "https://www.liveworksheets.com/ya2560818pr" }
+    ]},
+    { cat: "வ", cls: "8.வ.4", title: "மக்களின் புரட்சி", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/vu2560783km" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/pn2560713iu" },
+        { label: "வினா 71-105", url: "https://www.liveworksheets.com/ui2560619yb" },
+        { label: "வினா 106-140", url: "https://www.liveworksheets.com/qy2560560mc" },
+        { label: "வினா 141-160", url: "https://www.liveworksheets.com/ir2560522xs" }
+    ]},
+    { cat: "வ", cls: "8.வ.5", title: "இந்தியாவில் கல்வி வளர்ச்சி", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/lf2560486pa" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/ev2560445on" },
+        { label: "வினா 71-105", url: "https://www.liveworksheets.com/tp2560407jo" }
+    ]},
+    { cat: "வ", cls: "8.வ.6", title: "இந்தியாவில் தொழிலகங்களின் வளர்ச்சி", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/vf2559229fn" },
+        { label: "வினா 36-46", url: "https://www.liveworksheets.com/ik2559177pf" }
+    ]},
+    { cat: "வ", cls: "8.வ.7", title: "ஆங்கிலேயர் ஆட்சியில் நகர்ப்புற மாற்றங்கள்", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/lr2559143aj" },
+        { label: "வினா 36-78", url: "https://www.liveworksheets.com/bz2559084pt" }
+    ]},
+    { cat: "பு", cls: "8.பு.1", title: "பாறை மற்றும் மண்", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/vj2553985dl" },
+        { label: "வினா 36-73", url: "https://www.liveworksheets.com/qd2558983cl" }
+    ]},
+    { cat: "பு", cls: "8.பு.2", title: "வானிலை மற்றும் காலநிலை", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/so2558665zk" },
+        { label: "வினா 36-48", url: "https://www.liveworksheets.com/vu2558551hg" }
+    ]},
+    { cat: "பு", cls: "8.பு.3", title: "நீரியல் சுழற்சி", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/dc2558480kg" },
+        { label: "வினா 36-48", url: "https://www.liveworksheets.com/fr2558385by" }
+    ]},
+    { cat: "பு", cls: "8.பு.4", title: "இடம்பெயர்தல் மற்றும் நகரமயமாதல்", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/qn2558260vl" },
+        { label: "வினா 36-63", url: "https://www.liveworksheets.com/ux2558173ek" }
+    ]},
+    { cat: "பு", cls: "8.பு.5", title: "இடர்கள்", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/bb2557880fn" },
+        { label: "வினா 36-66", url: "https://www.liveworksheets.com/iz2557829ch" }
+    ]},
+    { cat: "பு", cls: "8.பு.6", title: "தொழிலகங்கள்", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/oj2557532tn" },
+        { label: "வினா 36-78", url: "https://www.liveworksheets.com/oa2557776sb" }
+    ]},
+    { cat: "பு", cls: "8.பு.7", title: "கண்டங்களை ஆராய்தல் (ஆப்பிரிக்கா, ஆஸ்திரேலியா, அண்டார்டிகா)", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/lp2554315fs" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/ke2554432ia" },
+        { label: "வினா 71-105", url: "https://www.liveworksheets.com/xk2554744pc" },
+        { label: "வினா 106-140", url: "https://www.liveworksheets.com/ht2554844ut" },
+        { label: "வினா 141-175", url: "https://www.liveworksheets.com/gv2554929tb" },
+        { label: "வினா 176-210", url: "https://www.liveworksheets.com/zd2555012ls" },
+        { label: "வினா 211-245", url: "https://www.liveworksheets.com/mv2557201jn" },
+        { label: "வினா 246-280", url: "https://www.liveworksheets.com/so2557279gy" },
+        { label: "வினா 281-318", url: "https://www.liveworksheets.com/hi2557343kz" },
+        { label: "கூடுதல் 1-20", url: "https://www.liveworksheets.com/ok2561448le" },
+        { label: "கூடுதல் 21-38", url: "https://www.liveworksheets.com/va2561530jb" }
+    ]},
+    { cat: "கு", cls: "8.கு.2", title: "குடிமக்களும் குடியுரிமையும்", tests: [
+        { label: "வினா 1-41", url: "https://www.liveworksheets.com/ei2553609kz" }
+    ]},
+    { cat: "கு", cls: "8.கு.3", title: "சமயச் சார்பின்மையைப் புரிந்து கொள்ளல்", tests: [
+        { label: "வினா 1-42", url: "https://www.liveworksheets.com/fq2553859hr" }
+    ]},
+    { cat: "கு", cls: "8.கு.4", title: "மனித உரிமைகளும் ஐக்கிய நாடுகள் சபையும்", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/oa2552665vi" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/xm2552752ze" },
+        { label: "வினா 71-113", url: "https://www.liveworksheets.com/pe2553535jn" }
+    ]},
+    { cat: "கு", cls: "8.கு.5", title: "சாலை பாதுகாப்பு விதிகள் மற்றும் நெறிமுறைகள்", tests: [
+        { label: "வினா 1-43", url: "https://www.liveworksheets.com/vd2552597ko" }
+    ]},
+    { cat: "பொ", cls: "8.பொ.1", title: "பணம், சேமிப்பு மற்றும் முதலீடு", tests: [
+        { label: "வினா 1-35", url: "https://www.liveworksheets.com/qn2552196yf" },
+        { label: "வினா 36-70", url: "https://www.liveworksheets.com/hr2552376ig" },
+        { label: "வினா 71-84", url: "https://www.liveworksheets.com/qp2552454nx" }
+    ]}
+];
+
+// 3. MAT DATA (Points directly to the MAT PDF in your folder)
+const matData = [
+    { no: "1", title: "எண் தொடரை நிரப்புதல் (Missing Number in Series)", marks: 50, time: 50 },
+    { no: "2", title: "எழுத்து தொடரை நிரப்புதல் (Missing Letter in Series)", marks: 30, time: 30 },
+    { no: "3", title: "ஒப்புமை - எண்கள் (Analogy - Number)", marks: 25, time: 25 },
+    { no: "4", title: "ஒப்புமை - எழுத்துக்கள்/வார்த்தைகள் (Analogy - Letter/Word)", marks: 60, time: 60 },
+    { no: "5", title: "மாறுபட்ட எண்/இணை எண்ணைத் தேர்ந்தெடுத்தல்", marks: 30, time: 30 },
+    { no: "6", title: "மாறுபட்ட எழுத்து/வார்த்தையைத் தேர்ந்தெடுத்தல்", marks: 60, time: 60 },
+    { no: "7", title: "வடிவியல் உருவங்களின் எண்ணிக்கையைக் கண்டறிதல்", marks: 50, time: 50 },
+    { no: "8", title: "வெண்படங்கள் (Venn Diagrams)", marks: 50, time: 50 },
+    { no: "9", title: "எண்/எழுத்து குறியிடல் (Coding)", marks: 25, time: 25 },
+    { no: "10", title: "குறியீட்டின் பொருள் அறிதல் (Decoding)", marks: 25, time: 25 },
+    { no: "11", title: "படங்களில் விடுபட்ட எண்ணை நிரப்புதல்", marks: 50, time: 50 },
+    { no: "12", title: "படங்களில் விடுபட்ட எழுத்தை நிரப்புதல்", marks: 25, time: 25 },
+    { no: "13", title: "செருகப்பட்ட படங்கள் - எண்/எழுத்து விபரங்கள்", marks: 35, time: 35 },
+    { no: "14", title: "வார்த்தைக்குள் அமைந்த வார்த்தை (Word within Word)", marks: 25, time: 25 },
+    { no: "15", title: "வார்த்தைக்குள் அமையாத வார்த்தை", marks: 25, time: 25 },
+    { no: "16", title: "ஆங்கில அகராதி வரிசைப்படி வார்த்தைகளை வரிசைப்படுத்துதல்", marks: 25, time: 25 },
+    { no: "17", title: "எண் அணிகள் (Number Matrix)", marks: 25, time: 25 },
+    { no: "18", title: "எண்கள், குறிகள் மற்றும் குறியீடுகள்", marks: 25, time: 25 },
+    { no: "19", title: "எண் தொடரில் உள்ள தவறான எண்ணைக் கண்டறிதல்", marks: 25, time: 25 },
+    { no: "20", title: "எண்ணியல் கணக்குகள் (Numerical Problems)", marks: 50, time: 50 },
+    { no: "21அ", title: "சூழ்நிலைக் கணக்குகள் (Situation Related Problems)", marks: 20, time: 20 },
+    { no: "21ஆ", title: "சூழ்நிலைக் கணக்குகள் - இருக்கை அமைப்புகள்", marks: 30, time: 30 },
+    { no: "21இ", title: "சூழ்நிலைக் கணக்குகள் - வயது கணக்குகள்", marks: 10, time: 10 },
+    { no: "22", title: "உறவுமுறைக் கணக்குகள் (Blood Relationship)", marks: 25, time: 25 },
+    { no: "23", title: "திசைகள் சார்ந்த கணக்குகள் (Directions)", marks: 25, time: 25 },
+    { no: "24", title: "காலம் சார்ந்த கணக்குகள் (Time Related)", marks: 20, time: 20 },
+    { no: "25", title: "புதிர் கணக்குகள் (Puzzle Problems)", marks: 30, time: 30 },
+    { no: "26", title: "தரம் சார்ந்த கணக்குகள் (Ranking Test)", marks: 20, time: 20 },
+    { no: "27", title: "வார்த்தைகளைப் பொருள்பட வரிசைப்படுத்துதல்", marks: 15, time: 15 },
+    { no: "28", title: "பகடைக் கணக்குகள் (Dice Problems)", marks: 20, time: 20 },
+    { no: "29", title: "கன சதுரக் கணக்குகள் (Cube Problems)", marks: 16, time: 16 },
+    { no: "30", title: "உருவ/பட வரிசையை நிரப்புதல் (Figural Series)", marks: 35, time: 35 },
+    { no: "31", title: "ஒப்புமை படங்கள் (Analogy - Figures)", marks: 20, time: 20 },
+    { no: "32", title: "மாறுபட்ட படத்தைத் தேர்ந்தெடுத்தல் (Odd Figure)", marks: 25, time: 25 },
+    { no: "33", title: "கண்ணாடி பிம்பங்கள் (Mirror Images)", marks: 16, time: 16 },
+    { no: "34", title: "நீர் பிம்பங்கள் (Water Images)", marks: 20, time: 20 },
+    { no: "35", title: "மறைந்திருக்கும் உருவங்களைக் கண்டறிதல்", marks: 20, time: 20 },
+    { no: "36", title: "படத்தில் உள்ள விடுபட்ட பகுதியை நிரப்புதல்", marks: 25, time: 25 }
+];
+
+let currentSubject = 'science';
+let currentSocialCat = 'all';
+
+function renderLessons() {
+    const grid = document.getElementById('lessons-grid');
+    const searchVal = document.getElementById('searchInput').value.toLowerCase();
+    grid.innerHTML = '';
+    
+    let itemsToRender = [];
+
+    if (currentSubject === 'science') {
+        itemsToRender = scienceData.filter(item => item.title.toLowerCase().includes(searchVal) || item.cls.toLowerCase().includes(searchVal));
+        itemsToRender.forEach(item => {
+            const buttonsHtml = item.tests.map(t => `
+                <a href="${t.url}" target="_blank" rel="noopener noreferrer" 
+                   class="inline-flex items-center gap-1.5 bg-emerald-50 hover:bg-emerald-600 text-emerald-800 hover:text-white border border-emerald-200 px-3 py-1.5 rounded-lg text-xs font-bold transition-all shadow-sm">
+                    <i class="fa-solid fa-play text-[10px]"></i> ${t.label}
+                </a>
+            `).join('');
+
+            grid.innerHTML += `
+                <div class="lesson-card bg-white rounded-2xl p-4 border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-md">${item.cls}</span>
+                            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                                <i class="fa-solid ${item.icon}"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-800 mb-3">${item.title}</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-100">
+                        ${buttonsHtml}
+                    </div>
+                </div>
+            `;
+        });
+    } 
+    else if (currentSubject === 'social') {
+        itemsToRender = socialData.filter(item => {
+            const matchesSearch = item.title.toLowerCase().includes(searchVal) || item.cls.toLowerCase().includes(searchVal);
+            const matchesCat = currentSocialCat === 'all' || item.cat === currentSocialCat;
+            return matchesSearch && matchesCat;
+        });
+
+        const catBadge = {
+            'வ': { label: 'வரலாறு', icon: 'fa-landmark', color: 'bg-amber-100 text-amber-800' },
+            'பு': { label: 'புவியியல்', icon: 'fa-earth-americas', color: 'bg-sky-100 text-sky-800' },
+            'கு': { label: 'குடிமையியல்', icon: 'fa-scale-balanced', color: 'bg-purple-100 text-purple-800' },
+            'பொ': { label: 'பொருளியல்', icon: 'fa-coins', color: 'bg-rose-100 text-rose-800' }
+        };
+
+        itemsToRender.forEach(item => {
+            const badge = catBadge[item.cat];
+            const buttonsHtml = item.tests.map(t => `
+                <a href="${t.url}" target="_blank" rel="noopener noreferrer" 
+                   class="inline-flex items-center gap-1.5 bg-amber-50 hover:bg-amber-600 text-amber-900 hover:text-white border border-amber-200 px-3 py-1.5 rounded-lg text-xs font-bold transition-all shadow-sm">
+                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> ${t.label}
+                </a>
+            `).join('');
+
+            grid.innerHTML += `
+                <div class="lesson-card bg-white rounded-2xl p-4 border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold ${badge.color} px-2.5 py-0.5 rounded-md">${item.cls} • ${badge.label}</span>
+                            <div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+                                <i class="fa-solid ${badge.icon}"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-800 mb-3">${item.title}</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-100">
+                        ${buttonsHtml}
+                    </div>
+                </div>
+            `;
+        });
+    } 
+    else if (currentSubject === 'mat') {
+        itemsToRender = matData.filter(item => item.title.toLowerCase().includes(searchVal) || item.no.toLowerCase().includes(searchVal));
+        itemsToRender.forEach(item => {
+            grid.innerHTML += `
+                <div class="lesson-card bg-white rounded-2xl p-4 border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold bg-indigo-100 text-indigo-800 px-2.5 py-0.5 rounded-md">தலைப்பு #${item.no}</span>
+                            <div class="flex items-center gap-2 text-xs text-slate-500 font-semibold">
+                                <span><i class="fa-solid fa-star text-amber-400"></i> ${item.marks} மதிப்பெண்</span>
+                                <span><i class="fa-regular fa-clock text-indigo-500"></i> ${item.time} நிமிடம்</span>
+                            </div>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-800 mb-3">${item.title}</h3>
+                    </div>
+                    <div class="pt-2 border-t border-slate-100 flex justify-end">
+                        <a href="${MAT_PDF_URL}" target="_blank" rel="noopener noreferrer" 
+                           class="w-full text-center bg-indigo-50 hover:bg-indigo-600 text-indigo-700 hover:text-white border border-indigo-200 px-4 py-2 rounded-xl text-xs font-bold transition-all">
+                            <i class="fa-solid fa-file-pdf mr-1"></i> PDF-ல் திறந்து எழுதுக
+                        </a>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    document.getElementById('empty-state').classList.toggle('hidden', itemsToRender.length > 0);
+}
+
+function switchSubject(sub) {
+    currentSubject = sub;
+    document.getElementById('searchInput').value = '';
+    
+    const tabs = {
+        'science': { el: document.getElementById('tab-science'), activeClass: 'tab-active-sci' },
+        'social': { el: document.getElementById('tab-social'), activeClass: 'tab-active-soc' },
+        'mat': { el: document.getElementById('tab-mat'), activeClass: 'tab-active-mat' }
+    };
+
+    Object.keys(tabs).forEach(k => {
+        const t = tabs[k];
+        t.el.className = 'tab-btn px-5 py-2.5 rounded-xl font-bold text-sm md:text-base transition-all flex items-center gap-2 ';
+        if (k === sub) {
+            t.el.className += t.activeClass;
+        } else {
+            t.el.className += 'bg-white text-slate-700 border border-slate-300 hover:bg-slate-100';
+        }
+    });
+
+    document.getElementById('social-filters').classList.toggle('hidden', sub !== 'social');
+    document.getElementById('mat-notice').classList.toggle('hidden', sub !== 'mat');
+    renderLessons();
+}
+
+function filterSocialCategory(cat, e) {
+    currentSocialCat = cat;
+    const btns = document.querySelectorAll('.soc-cat-btn');
+    btns.forEach(btn => {
+        btn.className = 'soc-cat-btn bg-amber-100 text-amber-900 hover:bg-amber-200 text-xs font-bold px-3.5 py-1.5 rounded-lg transition-all';
+    });
+    if (e && e.target) {
+        e.target.className = 'soc-cat-btn bg-amber-600 text-white text-xs font-bold px-3.5 py-1.5 rounded-lg shadow-sm transition-all';
+    }
+    renderLessons();
+}
+
+function filterLessons() {
+    renderLessons();
+}
+
+// Initial Render
+renderLessons();
+</script>
+
+</body>
+</html>
