@@ -285,170 +285,562 @@
       </div>
     </div>
 
-<!-- START: ANNA GOVT MODEL HR SEC SCHOOL 10-DAY FORTHCOMING EVENTS CARD -->
-<div id="schoolEventsWidgetCard" style="max-width: 580px; margin: 0 auto; background: #ffffff; border-radius: 20px; box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.18), 0 0 0 1px rgba(226, 232, 240, 0.9); overflow: hidden; color: #1e293b; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;">
-  <div style="background: linear-gradient(135deg, #2e1065 0%, #3b0764 50%, #1e1b4b 100%); padding: 22px 24px 18px; color: #ffffff; position: relative; border-bottom: 3px solid #f59e0b;">
-    <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(245, 158, 11, 0.2); border: 1px solid rgba(245, 158, 11, 0.5); padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 8px; color: #fde68a;">
-      🔔 அடுத்த 10 நாட்களுக்கான நிகழ்வுகள் (10-Day Horizon)
+
+<!-- AGMHSS LIVE 10-DAY EVENTS & POSTER WIDGET -->
+<div id="schoolEventsWidgetCard">
+
+  <style>
+    #schoolEventsWidgetCard {
+      max-width: 650px;
+      margin: 15px auto;
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 12px 35px rgba(30,20,70,.13);
+      font-family: Inter, Arial, sans-serif;
+      color: #1e293b;
+    }
+
+    #schoolEventsWidgetCard * { box-sizing: border-box; }
+
+    #schoolEventsWidgetCard .sc-header {
+      background: linear-gradient(135deg,#2e1065,#4c1d95,#1e1b4b);
+      padding: 23px 20px;
+      color: white;
+      border-bottom: 4px solid #f59e0b;
+    }
+
+    #schoolEventsWidgetCard .sc-kicker {
+      display: inline-block;
+      background: #ffffff20;
+      color: #fde68a;
+      border: 1px solid #fbbf2460;
+      border-radius: 30px;
+      padding: 6px 11px;
+      font-size: 11px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    #schoolEventsWidgetCard h2 {
+      margin: 0;
+      font-size: 19px;
+      line-height: 1.5;
+      color: #fde68a;
+    }
+
+    #schoolEventsWidgetCard .sc-subtitle {
+      font-size: 12px;
+      margin-top: 7px;
+      opacity: .9;
+    }
+
+    #schoolEventsWidgetCard .sc-status {
+      font-size: 11px;
+      margin-top: 10px;
+      color: #bbf7d0;
+    }
+
+    #schoolEventsWidgetCard .sc-toolbar {
+      padding: 12px 15px;
+      background: #f8fafc;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    #schoolEventsWidgetCard .sc-refresh {
+      background: #2e1065;
+      color: white;
+      border: 0;
+      border-radius: 30px;
+      padding: 9px 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    #schoolEventsWidgetCard .sc-tabs {
+      display: flex;
+      gap: 7px;
+      padding: 12px 15px;
+      overflow-x: auto;
+      background: #fff;
+    }
+
+    #schoolEventsWidgetCard .sc-tab {
+      white-space: nowrap;
+      border: 1px solid #ddd6fe;
+      border-radius: 25px;
+      padding: 7px 13px;
+      background: white;
+      color: #4c1d95;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    #schoolEventsWidgetCard .sc-tab.active {
+      background: #2e1065;
+      color: #fde68a;
+    }
+
+    #schoolEventsWidgetCard .sc-list {
+      padding: 14px;
+      max-height: 570px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      background: #f8fafc;
+    }
+
+    #schoolEventsWidgetCard .sc-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-left: 5px solid #6d28d9;
+      border-radius: 14px;
+      padding: 13px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      box-shadow: 0 3px 9px #0f172a08;
+    }
+
+    #schoolEventsWidgetCard .sc-date {
+      flex: 0 0 57px;
+      min-height: 65px;
+      border-radius: 11px;
+      background: linear-gradient(160deg,#4c1d95,#1e1b4b);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 2px;
+    }
+
+    #schoolEventsWidgetCard .sc-date strong {
+      font-size: 21px;
+      line-height: 1.2;
+    }
+
+    #schoolEventsWidgetCard .sc-date small {
+      color: #fde68a;
+      font-weight: 800;
+      font-size: 10px;
+    }
+
+    #schoolEventsWidgetCard .sc-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    #schoolEventsWidgetCard .sc-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 7px;
+    }
+
+    #schoolEventsWidgetCard .sc-tag {
+      background: #fef3c7;
+      color: #92400e;
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    #schoolEventsWidgetCard .sc-date-label {
+      background: #ede9fe;
+      color: #5b21b6;
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    #schoolEventsWidgetCard .sc-title {
+      font-size: 14px;
+      line-height: 1.5;
+      font-weight: 800;
+      margin: 0 0 8px;
+      color: #0f172a;
+      overflow-wrap: anywhere;
+    }
+
+    #schoolEventsWidgetCard .sc-meta {
+      font-size: 12px;
+      line-height: 1.8;
+      color: #64748b;
+      overflow-wrap: anywhere;
+    }
+
+    #schoolEventsWidgetCard .sc-poster {
+      display: block;
+      width: 100%;
+      max-height: 300px;
+      object-fit: contain;
+      background: #f1f5f9;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    #schoolEventsWidgetCard .sc-message {
+      text-align: center;
+      padding: 35px 15px;
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    #schoolEventsWidgetCard .sc-footer {
+      padding: 13px 16px;
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    #schoolEventsWidgetCard .sc-footer a {
+      color: #4c1d95;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    @media(max-width:420px) {
+      #schoolEventsWidgetCard .sc-header { padding: 18px 15px; }
+      #schoolEventsWidgetCard h2 { font-size: 16px; }
+      #schoolEventsWidgetCard .sc-card { padding: 10px; gap: 9px; }
+      #schoolEventsWidgetCard .sc-date { flex-basis: 49px; }
+      #schoolEventsWidgetCard .sc-title { font-size: 13px; }
+    }
+  </style>
+
+  <div class="sc-header">
+    <div class="sc-kicker">🔔 LIVE 10-DAY EVENT HORIZON</div>
+    <h2>ANNA GOVT MODEL HR SEC SCHOOL, PATTEESWARAM</h2>
+    <div class="sc-subtitle" id="scDateRange">
+      அடுத்த 10 நாட்களுக்கான நிகழ்வுகள்
     </div>
-    <h2 style="margin: 0; font-size: 19px; font-weight: 800; line-height: 1.3; color: #fde68a;">ANNA GOVT MODEL HR SEC SCHOOL, PATTEESWARAM</h2>
-    <p style="margin: 4px 0 0; font-size: 12px; opacity: 0.9;" id="widgetDateRangeSubtitle">தற்போதைய தேதியிலிருந்து 10 நாட்கள்</p>
+    <div class="sc-status" id="scStatus">● Connecting to Live Scheduler...</div>
   </div>
 
-  <div style="display: flex; gap: 6px; padding: 12px 18px; background: #f8fafc; border-bottom: 1px solid #e2e8f0; overflow-x: auto;">
-    <button class="sc-tab-btn active" onclick="filterSchoolWidget('ALL', this)" style="border: 1px solid #cbd5e1; background: #2e1065; color: #fde68a; padding: 6px 13px; border-radius: 999px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap;">அனைத்தும் (All)</button>
-    <button class="sc-tab-btn" onclick="filterSchoolWidget('STUDENTS', this)" style="border: 1px solid #cbd5e1; background: #ffffff; color: #475569; padding: 6px 13px; border-radius: 999px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap;">🎓 மாணவர்கள்</button>
-    <button class="sc-tab-btn" onclick="filterSchoolWidget('TEACHERS', this)" style="border: 1px solid #cbd5e1; background: #ffffff; color: #475569; padding: 6px 13px; border-radius: 999px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap;">👩‍🏫 ஆசிரியர்கள்</button>
+  <div class="sc-toolbar">
+    <strong style="font-size:12px;color:#4c1d95">
+      📅 LIVE SCHOOL EVENTS
+    </strong>
+    <button class="sc-refresh" id="scRefresh" type="button">
+      ↻ Refresh Now
+    </button>
   </div>
 
-  <div id="scWidgetList" style="padding: 16px; max-height: 460px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px;">
-    <!-- Populated dynamically -->
+  <div class="sc-tabs">
+    <button class="sc-tab active" data-filter="ALL">அனைத்தும் (All)</button>
+    <button class="sc-tab" data-filter="STUDENTS">🎓 Students</button>
+    <button class="sc-tab" data-filter="TEACHERS">👩‍🏫 Teachers</button>
   </div>
 
-  <div style="padding: 10px 18px; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #64748b;">
-    <span>AGMHSS பட்டீஸ்வரம் — அதிகாரப்பூர்வ அறிவிப்புப் பலகை</span>
-    <strong style="color: #2e1065;">Live 10-Day Window</strong>
+  <div class="sc-list" id="scWidgetList">
+    <div class="sc-message">⏳ Loading live events...</div>
+  </div>
+
+  <div class="sc-footer">
+    <span>🏫 AGMHSS பட்டீஸ்வரம்</span>
+    <span id="scLastUpdated">Waiting for data...</span>
+    <a href="https://agmhss.github.io/scheduler/"
+       target="_blank" rel="noopener">
+      Open Scheduler ↗
+    </a>
   </div>
 </div>
 
 <script>
-  let SC_WIDGET_EVENTS = [
-    {
-      isoDate: '2026-11-15',
-      dateDisplay: '15.11.2026',
-      dayName: 'ஞாயிற்றுக்கிழமை',
-      tag: 'புதிய சுற்றறிக்கை',
-      icon: '📌',
-      time: 'காலை 9.30 மணி',
-      title: 'Photo from Thiraviya Kumar',
-      venue: 'AGMHSS பட்டீஸ்வரம்',
-      category: 'Academic',
-      isStudent: true,
-      isTeacher: true
-    },
-    {
-      isoDate: '2026-11-16',
-      dateDisplay: '16.11.2026 – 20.11.2026',
-      dayName: 'திங்கள் முதல் வெள்ளி வரை',
-      tag: 'தேர்வு வாரம்',
-      icon: '📝',
-      time: 'காலை 9.30 மணி',
-      title: 'தஞ்சாவூர் மாவட்டம் — இரண்டாம் இடைப்பருவத் தேர்வுகள் (Second Mid Term Exams)',
-      venue: 'அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரમ',
-      category: 'Examination',
-      isStudent: true,
-      isTeacher: true
-    },
-    {
-      isoDate: '2026-11-19',
-      dateDisplay: '19.11.2026',
-      dayName: 'வியாழக்கிழமை',
-      tag: 'சுற்றறிக்கை',
-      icon: '📄',
-      time: 'காலை 9.30 மணி',
-      title: 'TNTET (ஆசிரியர் தகுதித் தேர்வு) — விண்ணப்பிக்கக் கடைசி தேதி நெருங்குகிறது',
-      venue: 'AGMHSS பட்டீஸ்வரம்',
-      category: 'Academic',
-      isStudent: false,
-      isTeacher: true
-    },
-    {
-      isoDate: '2026-11-20',
-      dateDisplay: '20.11.2026',
-      dayName: 'வெள்ளிக்கிழமை',
-      tag: 'புதிய நிகழ்வு',
-      icon: '🎬',
-      time: 'காலை 9.30 மணி',
-      title: 'Children Movie Screening',
-      venue: 'பட்டீஸ்வரம்',
-      category: 'Sports/Cultural',
-      isStudent: true,
-      isTeacher: true
-    }
+(function () {
+  "use strict";
+
+  const API_URL =
+    "https://script.google.com/macros/s/AKfycbzPu_As_teGVKl8ryxlSYfd3X1si92lV8pv-aMEDNFhne8kpCffsOXlglefVseqK4d0rA/exec";
+
+  const ROOT = document.getElementById("schoolEventsWidgetCard");
+  if (!ROOT || ROOT.dataset.initialized) return;
+  ROOT.dataset.initialized = "true";
+
+  const list = ROOT.querySelector("#scWidgetList");
+  const status = ROOT.querySelector("#scStatus");
+  const updated = ROOT.querySelector("#scLastUpdated");
+  const dateRange = ROOT.querySelector("#scDateRange");
+
+  let allEvents = [];
+  let activeFilter = "ALL";
+  let loading = false;
+
+  const months = [
+    "ஜன","பிப்","மார்","ஏப்","மே","ஜூன்",
+    "ஜூலை","ஆக","செப்","அக்","நவ","டிச"
   ];
 
-  const SC_CAT_COLORS = {
-    'Examination': '#e11d48',
-    'Academic': '#2e1065',
-    'Meeting': '#d97706',
-    'Sports/Cultural': '#059669'
-  };
+  function localISO(date) {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2,"0");
+    const d = String(date.getDate()).padStart(2,"0");
+    return `${y}-${m}-${d}`;
+  }
 
-  function renderSchoolWidgetList(mode) {
-    const listEl = document.getElementById('scWidgetList');
-    if (!listEl) return;
+  function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, c => ({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#39;"
+    })[c]);
+  }
 
-    // Current Date: 2026-11-15, plus 10 days -> 2026-11-25
-    const todayStr = '2026-11-15';
-    const futureStr = '2026-11-25';
+  function safeImageURL(value) {
+    if (!value) return "";
+    try {
+      const url = new URL(value, location.href);
+      return ["https:","http:"].includes(url.protocol)
+        ? url.href : "";
+    } catch (e) {
+      return "";
+    }
+  }
 
-    const filteredDays = SC_WIDGET_EVENTS.filter(ev => {
-      const d = ev.isoDate || '';
-      return d >= todayStr && d <= futureStr;
+  function getImage(ev) {
+    return safeImageURL(
+      ev.posterUrl || ev.imageUrl ||
+      ev.posterURL || ev.image ||
+      ev.poster || ev.photoUrl || ""
+    );
+  }
+
+  function getAudience(ev) {
+    const raw = String(
+      ev.audience || ev.targetAudience || ev.for || ""
+    ).toLowerCase();
+
+    if (ev.isStudent === true || raw.includes("student") ||
+        raw.includes("மாணவ")) return "STUDENTS";
+
+    if (ev.isTeacher === true || raw.includes("teacher") ||
+        raw.includes("ஆசிரிய")) return "TEACHERS";
+
+    return "ALL";
+  }
+
+  function categoryColor(tag) {
+    const t = String(tag || "").toLowerCase();
+
+    if (t.includes("தேர்வு") || t.includes("exam"))
+      return "#e11d48";
+
+    if (t.includes("கடைசி") || t.includes("last"))
+      return "#d97706";
+
+    if (t.includes("விளையாட்டு") || t.includes("sport"))
+      return "#059669";
+
+    return "#6d28d9";
+  }
+
+  function updateDateRange() {
+    const today = new Date();
+    const end = new Date(today);
+    end.setDate(end.getDate() + 10);
+
+    dateRange.textContent =
+      `${today.toLocaleDateString("en-IN")} – ` +
+      `${end.toLocaleDateString("en-IN")} | அடுத்த 10 நாட்கள்`;
+  }
+
+  function flattenData(data) {
+    const result = [];
+
+    (data.days || []).forEach(day => {
+      (day.events || []).forEach(ev => {
+        result.push({
+          ...ev,
+          isoDate: day.isoDate,
+          dateDisplay: day.dateDisplay,
+          dayName: day.dayName,
+          tag: ev.tag || day.tag || "நிகழ்வு",
+          venue: ev.venue || data.school || "AGMHSS பட்டீஸ்வரம்"
+        });
+      });
     });
 
-    const items = filteredDays.filter(ev => {
-      const aud = (ev.audience || '').toLowerCase();
-      const isStudent = ev.isStudent || aud.includes('student') || aud.includes('மாணவ');
-      const isTeacher = ev.isTeacher || aud.includes('teacher') || aud.includes('ஆசிரியர்');
-      
-      if (mode === 'STUDENTS') return isStudent;
-      if (mode === 'TEACHERS') return isTeacher;
-      return true;
-    });
+    return result;
+  }
 
-    if (items.length === 0) {
-      listEl.innerHTML = '<div style="text-align:center;padding:28px;color:#94a3b8;font-size:13px;">அடுத்த 10 நாட்களுக்குள் (15.11.2026 - 25.11.2026) நிகழ்வுகள் எதுவும் இல்லை.</div>';
+  function render() {
+    const today = new Date();
+    const end = new Date(today);
+    end.setDate(end.getDate() + 10);
+
+    const startStr = localISO(today);
+    const endStr = localISO(end);
+
+    const events = allEvents
+      .filter(ev => ev.isoDate >= startStr && ev.isoDate <= endStr)
+      .filter(ev => {
+        if (activeFilter === "ALL") return true;
+        return getAudience(ev) === activeFilter;
+      })
+      .sort((a,b) => a.isoDate.localeCompare(b.isoDate));
+
+    if (!events.length) {
+      const message = activeFilter === "ALL"
+        ? "📭 அடுத்த 10 நாட்களுக்குள் நிகழ்வுகள் எதுவும் இல்லை."
+        : "இந்தப் பிரிவிற்கான audience தகவல் API-ல் இல்லை அல்லது நிகழ்வுகள் இல்லை.";
+
+      list.innerHTML =
+        `<div class="sc-message">${escapeHTML(message)}</div>`;
       return;
     }
 
-    listEl.innerHTML = items.map(ev => {
-      const stripe = SC_CAT_COLORS[ev.category] || '#2e1065';
-      const parts = (ev.isoDate || '').split('-');
-      const monthShort = parts.length === 3 ? ['ஜன', 'பெப்', 'மார்', 'ஏப்', 'மே', 'ஜூன்', 'ஜூலை', 'ஆக', 'செப்', 'அக்', 'நவ', 'டிச'][parseInt(parts[1], 10) - 1] : 'நவ';
-      const dayNum = parts.length === 3 ? parts[2] : '15';
+    list.innerHTML = events.map(ev => {
+      const dateParts = (ev.isoDate || "").split("-");
+      const month = months[Number(dateParts[1]) - 1] || "";
+      const day = dateParts[2] || "";
+      const stripe = categoryColor(ev.tag);
+      const image = getImage(ev);
 
       return `
-        <div style="display: flex; align-items: flex-start; gap: 14px; padding: 14px; border-radius: 14px; background: #ffffff; border: 1px solid #e2e8f0; border-left: 5px solid ${stripe};">
-          <div style="min-width: 56px; height: 62px; border-radius: 12px; background: linear-gradient(180deg, #2e1065 0%, #1e1b4b 100%); color: #ffffff; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; flex-shrink: 0;">
-            <span style="font-size: 10px; font-weight: 800; text-transform: uppercase; color: #fde68a;">${monthShort}</span>
-            <span style="font-size: 18px; font-weight: 900; line-height: 1.1;">${dayNum}</span>
-            <span style="font-size: 9px; opacity: 0.85; font-weight: 600;">${ev.dayName || ''}</span>
+        <article class="sc-card" style="border-left-color:${stripe}">
+          <div class="sc-date">
+            <small>${escapeHTML(month)}</small>
+            <strong>${escapeHTML(day)}</strong>
+            <small>${escapeHTML(ev.dayName || "")}</small>
           </div>
-          <div style="flex: 1; min-width: 0;">
-            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 5px;">
-              <span style="font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 6px; background: #fef3c7; color: #92400e;">${ev.tag || 'நிகழ்வு'}</span>
-              <span style="font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 6px; background: #e0e7ff; color: #3730a3;">${ev.dateDisplay || ''}</span>
+
+          <div class="sc-content">
+            <div class="sc-tags">
+              <span class="sc-tag">${escapeHTML(ev.tag)}</span>
+              <span class="sc-date-label">
+                ${escapeHTML(ev.dateDisplay || ev.isoDate)}
+              </span>
             </div>
-            <h3 style="margin: 0 0 6px; font-size: 14px; font-weight: 700; color: #0f172a; line-height: 1.35;"><span style="margin-right:6px;">${ev.icon || '📌'}</span>${ev.title}</h3>
-            <div style="font-size: 12px; color: #475569; display: flex; flex-wrap: wrap; gap: 10px;">
-              <span>🕒 ${ev.time || 'காலை 9.30 மணி'}</span>
-              <span>📍 ${ev.venue || 'பட்டீஸ்வரம்'}</span>
+
+            <h3 class="sc-title">
+              ${escapeHTML(ev.icon || "📌")}
+              ${escapeHTML(ev.title || "Untitled Event")}
+            </h3>
+
+            <div class="sc-meta">
+              🕒 ${escapeHTML(ev.time || "நேரம் குறிப்பிடப்படவில்லை")}<br>
+              📍 ${escapeHTML(ev.venue || "பட்டீஸ்வரம்")}
             </div>
+
+            ${image ? `
+              <a href="${escapeHTML(image)}"
+                 target="_blank" rel="noopener">
+                <img class="sc-poster"
+                     src="${escapeHTML(image)}"
+                     alt="Event poster"
+                     loading="lazy">
+              </a>` : ""}
           </div>
-        </div>
+        </article>
       `;
-    }).join('');
+    }).join("");
   }
 
-  function filterSchoolWidget(mode, btnEl) {
-    document.querySelectorAll('#schoolEventsWidgetCard .sc-tab-btn').forEach(b => {
-      b.style.background = '#ffffff';
-      b.style.color = '#475569';
-    });
-    if (btnEl) {
-      btnEl.style.background = '#2e1065';
-      btnEl.style.color = '#fde68a';
+  async function loadEvents() {
+    if (loading) return;
+    loading = true;
+
+    const refreshBtn = ROOT.querySelector("#scRefresh");
+    refreshBtn.disabled = true;
+    refreshBtn.textContent = "⏳ Loading...";
+
+    status.textContent = "● Fetching live scheduler data...";
+
+    try {
+      const response = await fetch(API_URL + "?_=" + Date.now(), {
+        method: "GET",
+        cache: "no-store",
+        redirect: "follow"
+      });
+
+      if (!response.ok) {
+        throw new Error("HTTP " + response.status);
+      }
+
+      const data = await response.json();
+
+      if (data.status !== "ok" || !Array.isArray(data.days)) {
+        throw new Error("Invalid scheduler JSON");
+      }
+
+      allEvents = flattenData(data);
+      render();
+      updateDateRange();
+
+      status.textContent =
+        "● LIVE CONNECTED • " + allEvents.length + " events";
+
+      updated.textContent = data.updatedAt
+        ? "Updated: " + new Date(data.updatedAt).toLocaleString("en-IN")
+        : "Live data loaded";
+
+    } catch (error) {
+      console.error("AGMHSS Scheduler:", error);
+
+      status.textContent = "● Connection problem — Retry available";
+
+      if (!allEvents.length) {
+        list.innerHTML = `
+          <div class="sc-message">
+            ⚠️ Live data could not be loaded.<br><br>
+            Please check the Apps Script deployment and access permissions.
+            <br><br>
+            <button class="sc-refresh" type="button"
+                    onclick="document.getElementById('scRefresh').click()">
+              Try Again
+            </button>
+          </div>`;
+      }
+    } finally {
+      loading = false;
+      refreshBtn.disabled = false;
+      refreshBtn.textContent = "↻ Refresh Now";
     }
-    renderSchoolWidgetList(mode);
   }
 
-  renderSchoolWidgetList('ALL');
-</script>
-<!-- END: ANNA GOVT MODEL HR SEC SCHOOL 10-DAY FORTHCOMING EVENTS CARD -->
+  ROOT.querySelectorAll(".sc-tab").forEach(button => {
+    button.addEventListener("click", () => {
+      activeFilter = button.dataset.filter;
 
-  
-  
+      ROOT.querySelectorAll(".sc-tab").forEach(b =>
+        b.classList.toggle("active", b === button)
+      );
+
+      render();
+    });
+  });
+
+  ROOT.querySelector("#scRefresh").addEventListener(
+    "click", loadEvents
+  );
+
+  updateDateRange();
+  loadEvents();
+
+  // Automatically refresh every 5 minutes.
+  setInterval(loadEvents, 5 * 60 * 1000);
+
+})();
+</script>
+<!-- END AGMHSS LIVE EVENTS WIDGET -->
+
     <!-- 6 Quick Access Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       
