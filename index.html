@@ -286,8 +286,8 @@
     </div>
 
 <!-- ==========================================
-     AGMHSS LIVE UPCOMING EVENTS SLIDER CARD (v2)
-     (Strict Containment, Active Loop Buttons, 10-Day Window)
+     AGMHSS LIVE UPCOMING EVENTS SLIDER CARD (v3)
+     (No Fallback Data - Pure Live Sync)
      ========================================== -->
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@600;700;800&family=Noto+Sans+Tamil:wght@400;500;600;700;800&display=swap');
@@ -354,7 +354,7 @@
     width: 100%;
   }
 
-  /* Date & Day Header inside Glass - Stacked & Contained */
+  /* Date & Day Header inside Glass */
   .agmhss-day-banner {
     display: flex;
     flex-direction: column;
@@ -432,7 +432,7 @@
     padding: 2px;
   }
 
-  /* Vertically Scrollable Area for Long Contents */
+  /* Vertically Scrollable Area */
   .agmhss-events-scroll {
     max-height: 210px;
     overflow-y: auto;
@@ -509,7 +509,7 @@
     overflow-wrap: anywhere;
   }
 
-  /* Golden Control Bar (Always Active) */
+  /* Golden Control Bar */
   .agmhss-nav-bar {
     display: flex;
     align-items: center;
@@ -595,25 +595,30 @@
   <!-- Yellow Pill Header -->
   <div class="agmhss-sched-pill">
     <span>📢</span>
-    <span>வரவிருக்கும் பள்ளி நிகழ்வுகள் பலகை</span>
+    <span>பள்ளி நிகழ்வுகள் பலகை</span>
   </div>
+
+  <!-- Main Title -->
+  <h2 class="agmhss-sched-heading">
+    🏛️ வரவிருக்கும் பள்ளி நிகழ்வுகள் &amp; சுற்றறிக்கைகள்!
+  </h2>
 
   <!-- Inner Frosted Glass Box -->
   <div class="agmhss-sched-glass">
     
-    <!-- Dynamic Day Banner (Strictly Contained) -->
+    <!-- Dynamic Day Banner -->
     <div class="agmhss-day-banner">
       <div class="agmhss-day-top-row">
         <span class="agmhss-date-badge" id="schedActiveDate">--.--.----</span>
         <span class="agmhss-day-tag" id="schedActiveTag">நிகழ்வு</span>
       </div>
-      <div class="agmhss-day-name" id="schedActiveDay">ஏற்றுகிறது...</div>
+      <div class="agmhss-day-name" id="schedActiveDay">தற்போதைய நிகழ்வுகள் ஏற்றப்படுகின்றன...</div>
     </div>
 
     <!-- Touch-Slideable & Vertically Scrollable Viewport -->
     <div class="agmhss-slider-viewport" id="schedSliderViewport">
       <div class="agmhss-slider-track" id="schedSliderTrack">
-        <!-- Slides injected automatically by JS -->
+        <!-- Live slides injected by JS -->
       </div>
     </div>
 
@@ -632,7 +637,7 @@
 
     <!-- Bottom Teal Status Box -->
     <div class="agmhss-bottom-status">
-      <span id="schedSummaryCounter">📊 நிகழ்வுகள் ஏற்றப்படுகின்றன...</span>
+      <span id="schedSummaryCounter">📊 நேரலைத் தரவு ஒத்திசைக்கப்படுகிறது...</span>
     </div>
 
   </div>
@@ -643,7 +648,6 @@
   const SCHEDULER_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzEHfDkelY5TRX3vIjAbsVABZdBY6mWFZNQzO-rKdBgOk5KmWlxi3f8xADOiaHJN16X/exec';
   const SCHEDULER_STORAGE_KEY = 'agmhss_vertical_tamil_poster_v4';
 
-  
   let upcomingDays = [];
   let currentSlideIdx = 0;
 
@@ -657,55 +661,16 @@
     return null;
   }
 
-  // Expands grouped multi-event cards if an event has its own date like "நவம்பர் 17"
-  function expandGroupedEvents(daysArray) {
-    const expanded = [];
-    (daysArray || []).forEach(d => {
-      if (Array.isArray(d.events) && d.events.length > 1 && String(d.dateDisplay || '').includes('–')) {
-        const primaryEvents = [];
-        const secondaryEvents = [];
-        d.events.forEach(ev => {
-          if (/17/.test(String(ev.time || ''))) {
-            secondaryEvents.push(ev);
-          } else {
-            primaryEvents.push(ev);
-          }
-        });
-        if (primaryEvents.length > 0 && secondaryEvents.length > 0) {
-          expanded.push({
-            ...d,
-            isoDate: '2026-11-16',
-            dateDisplay: '16.11.2026',
-            dayName: 'திங்கட்கிழமை',
-            events: primaryEvents
-          });
-          expanded.push({
-            ...d,
-            isoDate: '2026-11-17',
-            dateDisplay: '17.11.2026',
-            dayName: 'செவ்வாய்க்கிழமை',
-            tag: 'தேர்வு தொடர்ச்சி',
-            events: secondaryEvents
-          });
-          return;
-        }
-      }
-      expanded.push(d);
-    });
-    return expanded;
-  }
-
-  // Filters schedule for Current Date to Next 10 Days
+  // Filters live schedule for Current Date to Next 10 Days
   function filterNext10Days(daysArray) {
     if (!Array.isArray(daysArray) || daysArray.length === 0) return [];
     
-    const expandedList = expandGroupedEvents(daysArray);
     const now = new Date();
     const todayIso = new Date(now.getTime() - (now.getTimezoneOffset() * 60000)).toISOString().slice(0, 10);
     const plus10 = new Date(now.getTime() + 10 * 86400000 - (now.getTimezoneOffset() * 60000));
     const maxIso = plus10.toISOString().slice(0, 10);
 
-    const normalized = expandedList
+    const normalized = daysArray
       .map(d => ({
         ...d,
         isoDate: parseIso(d.isoDate) || parseIso(d.dateDisplay) || '9999-12-31'
@@ -727,7 +692,7 @@
       return endIso >= todayIso && startIso <= maxIso;
     });
 
-    return within10Days.length > 0 ? within10Days : normalized;
+    return within10Days.length > 0 ? within10Days : normalized.filter(d => d.isoDate >= todayIso);
   }
 
   function renderSlides() {
@@ -739,7 +704,11 @@
     dotsBox.innerHTML = '';
 
     if (upcomingDays.length === 0) {
-      upcomingDays = filterNext10Days(FALLBACK_DAYS);
+      document.getElementById('schedActiveDate').textContent = '--.--.----';
+      document.getElementById('schedActiveTag').textContent = 'தகவல்';
+      document.getElementById('schedActiveDay').textContent = 'அட்டவணை எதுவும் இல்லை';
+      document.getElementById('schedSummaryCounter').textContent = 'ℹ️ Scheduler பக்கத்தில் நிகழ்வுகளைச் சேர்க்கவும்.';
+      return;
     }
 
     if (currentSlideIdx >= upcomingDays.length) currentSlideIdx = 0;
@@ -779,6 +748,7 @@
   }
 
   function updateActiveHeader() {
+    if (upcomingDays.length === 0) return;
     const day = upcomingDays[currentSlideIdx];
     if (!day) return;
 
@@ -799,7 +769,6 @@
       `📅 நாள் ${currentSlideIdx + 1}/${upcomingDays.length} • மொத்தம் ${totalEvents} நிகழ்வுகள் (அடுத்த 10 நாட்கள்)`;
   }
 
-  // Circular looping navigation so buttons ALWAYS work
   function moveSlide(delta) {
     if (upcomingDays.length <= 1) return;
     currentSlideIdx = (currentSlideIdx + delta + upcomingDays.length) % upcomingDays.length;
@@ -840,22 +809,24 @@
   }
 
   async function loadLiveSchedule() {
+    let loaded = false;
+
     // 1. Check shared domain localStorage first
     try {
       const saved = localStorage.getItem(SCHEDULER_STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
         if (parsed && Array.isArray(parsed.days) && parsed.days.length > 0) {
-          upcomingDays = filterNext10Days(parsed.days);
-          renderSlides();
+          const filtered = filterNext10Days(parsed.days);
+          if (filtered.length > 0) {
+            upcomingDays = filtered;
+            currentSlideIdx = 0;
+            renderSlides();
+            loaded = true;
+          }
         }
       }
     } catch (e) {}
-
-    if (upcomingDays.length === 0) {
-      upcomingDays = filterNext10Days(FALLBACK_DAYS);
-      renderSlides();
-    }
 
     // 2. Fetch live data from the Scheduler Google Apps Script Web App
     try {
@@ -868,9 +839,14 @@
           upcomingDays = filtered;
           currentSlideIdx = 0;
           renderSlides();
+          loaded = true;
         }
       }
     } catch (err) {}
+
+    if (!loaded) {
+      renderSlides();
+    }
   }
 
   if (document.readyState === 'loading') {
@@ -883,8 +859,7 @@
     loadLiveSchedule();
   }
 })();
-</script>
-    
+</script>    
     <!-- 6 Quick Access Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       
