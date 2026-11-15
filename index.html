@@ -643,52 +643,7 @@
   const SCHEDULER_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzEHfDkelY5TRX3vIjAbsVABZdBY6mWFZNQzO-rKdBgOk5KmWlxi3f8xADOiaHJN16X/exec';
   const SCHEDULER_STORAGE_KEY = 'agmhss_vertical_tamil_poster_v4';
 
-  // Default fallback schedule split by individual dates so Prev/Next buttons slide smoothly
-  const FALLBACK_DAYS = [
-    {
-      isoDate: '2026-11-16',
-      dateDisplay: '16.11.2026',
-      dayName: 'திங்கட்கிழமை',
-      tag: 'தேர்வு வாரம்',
-      events: [
-        {
-          icon: '📝',
-          time: 'காலை 9.30 மணி',
-          title: 'தஞ்சாவூர் மாவட்டம் — இரண்டாம் இடைப்பருவத் தேர்வுகள் தொடக்கம் (Second Mid Term Exams | Nov 16–20)',
-          venue: 'அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்'
-        }
-      ]
-    },
-    {
-      isoDate: '2026-11-17',
-      dateDisplay: '17.11.2026',
-      dayName: 'செவ்வாய்க்கிழமை',
-      tag: 'தேர்வு நாள் 2',
-      events: [
-        {
-          icon: '🎓',
-          time: 'காலை 9.30 மணி',
-          title: 'இரண்டாம் இடைப்பருவத் தேர்வுத் தொடர்ச்சி (Second Mid Term Exams - Day 2)',
-          venue: 'AGMHSS பட்டீஸ்வரம்'
-        }
-      ]
-    },
-    {
-      isoDate: '2026-11-18',
-      dateDisplay: '18.11.2026 – 20.11.2026',
-      dayName: 'புதன் முதல் வெள்ளி வரை',
-      tag: 'தேர்வு வாரம்',
-      events: [
-        {
-          icon: '📝',
-          time: 'காலை 9.30 மணி',
-          title: 'இரண்டாம் இடைப்பருவத் தேர்வுகள் (நவம்பர் 18 முதல் 20 வரை)',
-          venue: 'AGMHSS பட்டீஸ்வரம்'
-        }
-      ]
-    }
-  ];
-
+  
   let upcomingDays = [];
   let currentSlideIdx = 0;
 
