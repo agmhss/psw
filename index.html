@@ -285,8 +285,593 @@
       </div>
     </div>
 
-    <!--schedule-->
-    <a href="Find-Class/schedule.html"</a>
+    <!-- ==========================================
+     AGMHSS LIVE UPCOMING EVENTS SLIDER CARD
+     (Matches Class Calculator Card Style & Size)
+     ========================================== -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@600;700;800&family=Noto+Sans+Tamil:wght@400;500;600;700;800&display=swap');
+
+  .agmhss-sched-card {
+    font-family: 'Noto Sans Tamil', sans-serif;
+    background: linear-gradient(155deg, #4338ca 0%, #2563eb 52%, #1d4ed8 100%);
+    border: 4px solid #facc15;
+    border-radius: 26px;
+    box-shadow: 0 14px 34px rgba(29, 78, 216, 0.35);
+    width: 100%;
+    max-width: 390px;
+    margin: 20px auto;
+    padding: 22px 18px 20px;
+    position: relative;
+    box-sizing: border-box;
+    color: #ffffff;
+    text-align: center;
+    user-select: none;
+  }
+
+  /* Decorative top-right icon like the butterfly */
+  .agmhss-sched-deco {
+    position: absolute;
+    top: -16px;
+    right: 18px;
+    font-size: 30px;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
+    transform: rotate(10deg);
+    pointer-events: none;
+  }
+
+  /* Top Yellow Pill Badge */
+  .agmhss-sched-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #fbbf24;
+    color: #1e293b;
+    font-weight: 800;
+    font-size: 13px;
+    padding: 6px 16px;
+    border-radius: 999px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.18);
+    margin-bottom: 10px;
+  }
+
+  /* Main Card Heading */
+  .agmhss-sched-heading {
+    font-family: 'Baloo Thambi 2', 'Noto Sans Tamil', sans-serif;
+    font-size: 21px;
+    font-weight: 800;
+    line-height: 1.35;
+    margin: 0 0 14px 0;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+
+  /* Frosted Inner Glass Container */
+  .agmhss-sched-glass {
+    background: rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    padding: 14px 12px;
+    text-align: left;
+  }
+
+  /* Date & Day Header inside Glass */
+  .agmhss-day-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    background: #ffffff;
+    color: #1e293b;
+    padding: 10px 12px;
+    border-radius: 14px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+    margin-bottom: 12px;
+  }
+
+  .agmhss-date-badge {
+    background: #3b0764;
+    color: #fde047;
+    font-weight: 800;
+    font-size: 13px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    white-space: nowrap;
+  }
+
+  .agmhss-day-name {
+    font-weight: 800;
+    font-size: 14px;
+    color: #1e1b4b;
+    flex: 1;
+    text-align: center;
+  }
+
+  .agmhss-day-tag {
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #f59e0b;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  /* Horizontal Slider Viewport & Vertically Scrollable Event Box */
+  .agmhss-slider-viewport {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+  }
+
+  .agmhss-slider-track {
+    display: flex;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    width: 100%;
+  }
+
+  .agmhss-slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    padding: 2px;
+  }
+
+  /* Scrollable area for hidden/long contents */
+  .agmhss-events-scroll {
+    max-height: 195px;
+    overflow-y: auto;
+    padding-right: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .agmhss-events-scroll::-webkit-scrollbar {
+    width: 5px;
+  }
+  .agmhss-events-scroll::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 99px;
+  }
+  .agmhss-events-scroll::-webkit-scrollbar-thumb {
+    background: #facc15;
+    border-radius: 99px;
+  }
+
+  /* Individual Event Parchment Item */
+  .agmhss-event-item {
+    background: linear-gradient(180deg, #fffdf5 0%, #fef3c7 100%);
+    border: 2px solid #f59e0b;
+    border-radius: 14px;
+    padding: 10px 12px;
+    color: #0f172a;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+  }
+
+  .agmhss-event-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+
+  .agmhss-time-pill {
+    background: #f3e8ff;
+    color: #581c87;
+    border: 1px solid #d8b4fe;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 6px;
+  }
+
+  .agmhss-venue-pill {
+    background: #fef3c7;
+    color: #78350f;
+    border: 1px solid #fcd34d;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 6px;
+  }
+
+  .agmhss-event-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: #0f172a;
+    margin: 0;
+    white-space: pre-line;
+    word-break: break-word;
+  }
+
+  /* Golden Control Bar (Matches "வகுப்பைக் கண்டுபிடி!" button) */
+  .agmhss-nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .agmhss-nav-btn {
+    background: linear-gradient(180deg, #facc15 0%, #eab308 100%);
+    color: #0f172a;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-family: inherit;
+    font-size: 13.5px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.15s ease, opacity 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .agmhss-nav-btn:active {
+    transform: scale(0.96);
+  }
+
+  .agmhss-nav-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .agmhss-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .agmhss-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.4);
+    transition: all 0.25s ease;
+    cursor: pointer;
+  }
+
+  .agmhss-dot.active {
+    width: 20px;
+    background: #facc15;
+  }
+
+  /* Bottom DarkTeal Status Box (Matches "---" Result Box in Calculator) */
+  .agmhss-bottom-status {
+    margin-top: 12px;
+    background: #134e4a;
+    border: 2px solid #5eead4;
+    border-radius: 14px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    color: #ecfdf5;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .agmhss-bottom-link {
+    color: #fde047;
+    text-decoration: none;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+  .agmhss-bottom-link:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="agmhss-sched-card" id="agmhssLivePosterCard">
+  <!-- Top Right Floating Badge -->
+  <div class="agmhss-sched-deco">🗓️</div>
+
+  <!-- Yellow Pill Header -->
+  <div class="agmhss-sched-pill">
+    <span>📢</span>
+    <span>பள்ளி நிகழ்வுகள் பலகை</span>
+  </div>
+
+  <!-- Main Title -->
+  <h2 class="agmhss-sched-heading">
+    🏛️ வரவிருக்கும் பள்ளி நிகழ்வுகள் &amp; சுற்றறிக்கைகள்!
+  </h2>
+
+  <!-- Inner Frosted Glass Box -->
+  <div class="agmhss-sched-glass">
+    
+    <!-- Dynamic Day Banner -->
+    <div class="agmhss-day-banner">
+      <span class="agmhss-date-badge" id="schedActiveDate">--.--.----</span>
+      <span class="agmhss-day-name" id="schedActiveDay">ஏற்றுகிறது...</span>
+      <span class="agmhss-day-tag" id="schedActiveTag">நிகழ்வு</span>
+    </div>
+
+    <!-- Touch-Slideable & Vertically Scrollable Viewport -->
+    <div class="agmhss-slider-viewport" id="schedSliderViewport">
+      <div class="agmhss-slider-track" id="schedSliderTrack">
+        <!-- Slides injected automatically by JS -->
+      </div>
+    </div>
+
+    <!-- Yellow Navigation Buttons & Slide Dots -->
+    <div class="agmhss-nav-bar">
+      <button type="button" class="agmhss-nav-btn" id="schedPrevBtn" onclick="moveSchedSlide(-1)">
+        ◀ முந்தைய
+      </button>
+
+      <div class="agmhss-dots" id="schedDotsContainer"></div>
+
+      <button type="button" class="agmhss-nav-btn" id="schedNextBtn" onclick="moveSchedSlide(1)">
+        அடுத்த ▶
+      </button>
+    </div>
+
+    <!-- Bottom Teal Box (Matches Class Calculator Output Box) -->
+    <div class="agmhss-bottom-status">
+      <span id="schedSummaryCounter">📊 நிகழ்வுகள் ஏற்றப்படுகின்றன...</span>
+      <a href="https://agmhss.github.io/scheduler" target="_blank" class="agmhss-bottom-link">
+        முழு போஸ்டர் ↗
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function() {
+  // Same Apps Script URL & Storage Key used in agmhss.github.io/scheduler
+  const SCHEDULER_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzEHfDkelY5TRX3vIjAbsVABZdBY6mWFZNQzO-rKdBgOk5KmWlxi3f8xADOiaHJN16X/exec';
+  const SCHEDULER_STORAGE_KEY = 'agmhss_vertical_tamil_poster_v4';
+
+  // Fallback upcoming days from your scheduler file
+  const FALLBACK_DAYS = [
+    {
+      isoDate: '2026-11-13',
+      dateDisplay: '13.11.2026',
+      dayName: 'வெள்ளிக்கிழமை',
+      tag: 'சிறப்பு நிகழ்வு',
+      events: [
+        {
+          icon: '🗣️',
+          time: 'காலை 9.30 மணி',
+          title: 'தமிழ் பேச்சு எங்கள் உயிர் மூச்சு — மேல்நிலை முதுகலை தமிழ் ஆசிரியர்கள் பயிற்சி\nCake Distribution',
+          venue: 'புனித அந்தோணியார் மேல்நிலைப்பள்ளி, தஞ்சாவூர்'
+        }
+      ]
+    },
+    {
+      isoDate: '2026-11-14',
+      dateDisplay: '14.11.2026',
+      dayName: 'சனிக்கிழமை',
+      tag: 'குழந்தைகள் தினம்',
+      events: [
+        {
+          icon: '🧪',
+          time: 'காலை 9.00 மணி',
+          title: 'AI வேதியியல் பயிற்சி - நாள் 2 (AI Chemistry Day 2) & குழந்தைகள் தின விழா',
+          venue: 'பட்டீஸ்வரம் / சாஸ்த்ரா வல்லம்'
+        }
+      ]
+    },
+    {
+      isoDate: '2026-11-16',
+      dateDisplay: '16.11.2026 – 20.11.2026',
+      dayName: 'திங்கள் - வெள்ளி',
+      tag: 'தேர்வு வாரம்',
+      events: [
+        {
+          icon: '📝',
+          time: 'காலை 9.30 மணி',
+          title: 'தஞ்சாவூர் மாவட்டம் — இரண்டாம் இடைப்பருவத் தேர்வுகள் (Second Mid Term Exams | Nov 16–20)',
+          venue: 'அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்'
+        },
+        {
+          icon: '🎓',
+          time: 'நவம்பர் 17',
+          title: 'இரண்டாம் இடைப்பருவத் தேர்வுத் தொடர்ச்சி',
+          venue: 'AGMHSS பட்டீஸ்வரம்'
+        }
+      ]
+    }
+  ];
+
+  let upcomingDays = [];
+  let currentSlideIdx = 0;
+
+  function parseIso(raw) {
+    if (!raw) return null;
+    const s = String(raw).trim();
+    const m1 = s.match(/^(20\d{2})-(\d{1,2})-(\d{1,2})/);
+    if (m1) return `${m1[1]}-${m1[2].padStart(2,'0')}-${m1[3].padStart(2,'0')}`;
+    const m2 = s.match(/(\d{1,2})[.\/-](\d{1,2})[.\/-](20\d{2})/);
+    if (m2) return `${m2[3]}-${m2[2].padStart(2,'0')}-${m2[1].padStart(2,'0')}`;
+    return null;
+  }
+
+  function filterNextDays(daysArray) {
+    if (!Array.isArray(daysArray) || daysArray.length === 0) return [];
+    const todayIso = new Date().toISOString().slice(0, 10);
+
+    const normalized = daysArray
+      .map(d => ({
+        ...d,
+        isoDate: parseIso(d.isoDate) || parseIso(d.dateDisplay) || '9999-12-31'
+      }))
+      .sort((a, b) => a.isoDate.localeCompare(b.isoDate));
+
+    // Filter events from today onwards (or multi-day ranges like Nov 16-20)
+    const future = normalized.filter(d => {
+      if (d.isoDate >= todayIso) return true;
+      // Check if dateDisplay has a range ending in the future (e.g. 16.11.2026 – 20.11.2026)
+      const allDates = String(d.dateDisplay || '').match(/(\d{1,2})[.\/-](\d{1,2})[.\/-](20\d{2})/g);
+      if (allDates && allDates.length > 1) {
+        const lastIso = parseIso(allDates[allDates.length - 1]);
+        if (lastIso && lastIso >= todayIso) return true;
+      }
+      return false;
+    });
+
+    return future.length > 0 ? future : normalized.slice(-3);
+  }
+
+  function renderSlides() {
+    const track = document.getElementById('schedSliderTrack');
+    const dotsBox = document.getElementById('schedDotsContainer');
+    if (!track || !dotsBox) return;
+
+    track.innerHTML = '';
+    dotsBox.innerHTML = '';
+
+    if (upcomingDays.length === 0) {
+      upcomingDays = filterNextDays(FALLBACK_DAYS);
+    }
+
+    if (currentSlideIdx >= upcomingDays.length) currentSlideIdx = 0;
+
+    upcomingDays.forEach((day, idx) => {
+      const slide = document.createElement('div');
+      slide.className = 'agmhss-slide';
+
+      const scrollBox = document.createElement('div');
+      scrollBox.className = 'agmhss-events-scroll';
+
+      (day.events || []).forEach(ev => {
+        const item = document.createElement('div');
+        item.className = 'agmhss-event-item';
+        const cleanVenue = String(ev.venue || 'பட்டீஸ்வரம்').replace(/^📍\s*/, '');
+        item.innerHTML = `
+          <div class="agmhss-event-meta">
+            <span class="agmhss-time-pill">${ev.icon || '📌'} ${ev.time || 'காலை 9.30 மணி'}</span>
+            <span class="agmhss-venue-pill">📍 ${cleanVenue}</span>
+          </div>
+          <p class="agmhss-event-title"></p>
+        `;
+        item.querySelector('.agmhss-event-title').textContent = ev.title || '';
+        scrollBox.appendChild(item);
+      });
+
+      slide.appendChild(scrollBox);
+      track.appendChild(slide);
+
+      const dot = document.createElement('span');
+      dot.className = 'agmhss-dot' + (idx === currentSlideIdx ? ' active' : '');
+      dot.onclick = () => goToSchedSlide(idx);
+      dotsBox.appendChild(dot);
+    });
+
+    updateActiveHeader();
+  }
+
+  function updateActiveHeader() {
+    const day = upcomingDays[currentSlideIdx];
+    if (!day) return;
+
+    const track = document.getElementById('schedSliderTrack');
+    track.style.transform = `translateX(-${currentSlideIdx * 100}%)`;
+
+    document.getElementById('schedActiveDate').textContent = day.dateDisplay || day.isoDate;
+    document.getElementById('schedActiveDay').textContent = day.dayName || '';
+    const tagEl = document.getElementById('schedActiveTag');
+    tagEl.textContent = day.tag || 'நிகழ்வு';
+
+    document.getElementById('schedPrevBtn').disabled = currentSlideIdx === 0;
+    document.getElementById('schedNextBtn').disabled = currentSlideIdx === upcomingDays.length - 1;
+
+    const dots = document.querySelectorAll('#schedDotsContainer .agmhss-dot');
+    dots.forEach((d, i) => d.classList.toggle('active', i === currentSlideIdx));
+
+    const totalEvents = upcomingDays.reduce((acc, item) => acc + (item.events ? item.events.length : 0), 0);
+    document.getElementById('schedSummaryCounter').textContent =
+      `📅 நாள் ${currentSlideIdx + 1}/${upcomingDays.length} • மொத்தம் ${totalEvents} நிகழ்வுகள்`;
+  }
+
+  window.moveSchedSlide = function(delta) {
+    const next = currentSlideIdx + delta;
+    if (next >= 0 && next < upcomingDays.length) {
+      currentSlideIdx = next;
+      updateActiveHeader();
+    }
+  };
+
+  window.goToSchedSlide = function(index) {
+    currentSlideIdx = index;
+    updateActiveHeader();
+  };
+
+  // Touch swipe support (Left / Right)
+  function initSwipe() {
+    const viewport = document.getElementById('schedSliderViewport');
+    if (!viewport) return;
+    let startX = 0;
+    let startY = 0;
+
+    viewport.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', (e) => {
+      const diffX = e.changedTouches[0].clientX - startX;
+      const diffY = e.changedTouches[0].clientY - startY;
+      // Trigger horizontal slide only if horizontal swipe is wider than vertical scroll
+      if (Math.abs(diffX) > 45 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX < 0) window.moveSchedSlide(1);
+        else window.moveSchedSlide(-1);
+      }
+    }, { passive: true });
+  }
+
+  async function loadLiveSchedule() {
+    // 1. Check shared domain localStorage first (instant load if edited on same device)
+    try {
+      const saved = localStorage.getItem(SCHEDULER_STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && Array.isArray(parsed.days) && parsed.days.length > 0) {
+          upcomingDays = filterNextDays(parsed.days);
+          renderSlides();
+        }
+      }
+    } catch (e) {}
+
+    if (upcomingDays.length === 0) {
+      upcomingDays = filterNextDays(FALLBACK_DAYS);
+      renderSlides();
+    }
+
+    // 2. Fetch live data from the Scheduler Google Apps Script Web App
+    try {
+      const res = await fetch(SCHEDULER_WEB_APP_URL, { method: 'GET', redirect: 'follow' });
+      const data = await res.json();
+      const remoteDays = Array.isArray(data) ? data : (data && Array.isArray(data.days) ? data.days : []);
+      if (remoteDays.length > 0) {
+        upcomingDays = filterNextDays(remoteDays);
+        currentSlideIdx = 0;
+        renderSlides();
+      }
+    } catch (err) {
+      // Keeps localStorage or fallback data seamlessly
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initSwipe();
+    loadLiveSchedule();
+  });
+})();
+</script>
+
     
     <!-- 6 Quick Access Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
