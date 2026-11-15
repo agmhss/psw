@@ -284,7 +284,155 @@
         </div>
       </div>
     </div>
+<!-- START: ANNA GOVT MODEL HR SEC SCHOOL FORTHCOMING EVENTS CARD -->
+<div id="schoolEventsWidgetCard" class="sc-widget-card" style="max-width: 580px; margin: 0 auto; background: #ffffff; border-radius: 20px; box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.18), 0 0 0 1px rgba(226, 232, 240, 0.9); overflow: hidden; color: #1e293b; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;">
+  <div class="sc-widget-header" style="background: linear-gradient(135deg, #4f46e5 0%, #9333ea 50%, #ec4899 100%); padding: 22px 24px 18px; color: #ffffff; position: relative;">
+    <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.35); padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 8px;">
+      🔔 Live School Notice Board
+    </div>
+    <h2 style="margin: 0; font-size: 20px; font-weight: 800; line-height: 1.25;">ANNA GOVT MODEL HR SEC SCHOOL, PATTEESWARAM</h2>
+    <p style="margin: 4px 0 0; font-size: 12px; opacity: 0.9;">Forthcoming School Events, Circulars & Submission Deadlines</p>
+  </div>
 
+  <div style="display: flex; gap: 6px; padding: 12px 18px; background: #f8fafc; border-bottom: 1px solid #e2e8f0; overflow-x: auto;">
+    <button class="sc-tab-btn active" onclick="filterSchoolWidget('ALL', this)" style="border: 1px solid #cbd5e1; background: #4f46e5; color: #ffffff; padding: 6px 13px; border-radius: 999px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap;">All Notices</button>
+    <button class="sc-tab-btn" onclick="filterSchoolWidget('STUDENTS', this)" style="border: 1px solid #cbd5e1; background: #ffffff; color: #475569; padding: 6px 13px; border-radius: 999px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap;">🎓 Students</button>
+    <button class="sc-tab-btn" onclick="filterSchoolWidget('TEACHERS', this)" style="border: 1px solid #cbd5e1; background: #ffffff; color: #475569; padding: 6px 13px; border-radius: 999px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap;">👩‍🏫 Teachers & Staff</button>
+    <button class="sc-tab-btn" onclick="filterSchoolWidget('DEADLINES', this)" style="border: 1px solid #cbd5e1; background: #ffffff; color: #475569; padding: 6px 13px; border-radius: 999px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap;">⏳ Deadlines</button>
+  </div>
+
+  <div id="scWidgetList" style="padding: 16px; max-height: 460px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px;">
+    <!-- Injected dynamically via script -->
+  </div>
+
+  <div style="padding: 10px 18px; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #64748b;">
+    <span><a href="https://agmhss.github.io/scheduler" target="_blank" style="color: #4f46e5; text-decoration: none; font-weight: 600;">Open Full Scheduler ↗</a></span>
+    <strong style="color: #4f46e5;">Updated Live</strong>
+  </div>
+</div>
+
+<script>
+  const SC_WIDGET_EVENTS = [
+    {
+      id: 'e1',
+      icon: '🔬',
+      ref: 'CIR/2026/ACAD/412',
+      title: 'Annual Science Exhibition & Project Models Display',
+      dateStr: 'Exhibition Date',
+      timeStr: '09:30 AM',
+      dayNum: 16,
+      monthShort: 'Nov',
+      weekdayShort: 'Mon',
+      relLabel: 'Upcoming',
+      venue: 'Main Campus Auditorium',
+      audience: 'Students (Std 9-12) & Science Teachers',
+      category: 'Academic',
+      deadlineStr: '',
+      isStudent: true,
+      isTeacher: true
+    },
+    {
+      id: 'e2',
+      icon: '📝',
+      ref: 'CIR/2026/EXAM/089',
+      title: 'Internal Assessment & Practical Marks Portal Deadline',
+      dateStr: 'Cutoff Date',
+      timeStr: '05:00 PM',
+      dayNum: 15,
+      monthShort: 'Nov',
+      weekdayShort: 'Sun',
+      relLabel: 'Tomorrow',
+      venue: 'Examination Cell / ERP Portal',
+      audience: 'Teachers & HODs',
+      category: 'Examination',
+      deadlineStr: '15 Nov 2026, 05:00 PM',
+      isStudent: false,
+      isTeacher: true
+    },
+    {
+      id: 'e3',
+      icon: '🤝',
+      ref: 'CIR/2026/ADM/105',
+      title: 'Emergency Staff Council & Campus Safety Briefing',
+      dateStr: 'Today',
+      timeStr: '03:30 PM',
+      dayNum: 14,
+      monthShort: 'Nov',
+      weekdayShort: 'Sat',
+      relLabel: 'Today',
+      venue: 'Conference Hall A (Admin Block)',
+      audience: 'Teachers & Non-Teaching Staff',
+      category: 'Meeting',
+      deadlineStr: '',
+      isStudent: false,
+      isTeacher: true
+    }
+  ];
+
+  const SC_CAT_COLORS = {
+    'Examination': '#e11d48',
+    'Academic': '#2563eb',
+    'Meeting': '#d97706',
+    'Sports/Cultural': '#059669',
+    'Administrative': '#7c3aed'
+  };
+
+  function renderSchoolWidgetList(mode) {
+    const listEl = document.getElementById('scWidgetList');
+    const items = SC_WIDGET_EVENTS.filter(ev => {
+      if (mode === 'STUDENTS') return ev.isStudent;
+      if (mode === 'TEACHERS') return ev.isTeacher;
+      if (mode === 'DEADLINES') return Boolean(ev.deadlineStr);
+      return true;
+    });
+
+    if (items.length === 0) {
+      listEl.innerHTML = '<div style="text-align:center;padding:28px;color:#94a3b8;font-size:13px;">No forthcoming events in this view.</div>';
+      return;
+    }
+
+    listEl.innerHTML = items.map(ev => {
+      const stripe = SC_CAT_COLORS[ev.category] || '#4f46e5';
+      return `
+        <div style="display: flex; align-items: flex-start; gap: 14px; padding: 14px; border-radius: 14px; background: #ffffff; border: 1px solid #e2e8f0; border-left: 5px solid ${stripe};">
+          <div style="min-width: 56px; height: 62px; border-radius: 12px; background: linear-gradient(180deg, #1e1b4b 0%, #312e81 100%); color: #ffffff; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; flex-shrink: 0;">
+            <span style="font-size: 10px; font-weight: 800; text-transform: uppercase; color: #fcd34d;">${ev.monthShort}</span>
+            <span style="font-size: 20px; font-weight: 900; line-height: 1.1;">${ev.dayNum}</span>
+            <span style="font-size: 10px; opacity: 0.85; font-weight: 600;">${ev.weekdayShort}</span>
+          </div>
+          <div style="flex: 1; min-width: 0;">
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 5px;">
+              <span style="font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 6px; text-transform: uppercase; background: #ffe4e6; color: #be123c;">${ev.relLabel}</span>
+              <span style="font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 6px; text-transform: uppercase; background: #e0e7ff; color: #3730a3;">${ev.category}</span>
+              <span style="font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 6px; text-transform: uppercase; background: #fef3c7; color: #92400e;">👥 ${ev.audience}</span>
+            </div>
+            <h3 style="margin: 0 0 6px; font-size: 14px; font-weight: 700; color: #0f172a; line-height: 1.35;"><span style="margin-right:6px;">${ev.icon || '📌'}</span>${ev.title}</h3>
+            <div style="font-size: 12px; color: #475569; display: flex; flex-wrap: wrap; gap: 10px;">
+              <span>🕒 ${ev.timeStr}</span>
+              <span>📍 ${ev.venue}</span>
+            </div>
+            ${ev.deadlineStr ? `<div style="margin-top: 6px; font-size: 11px; font-weight: 700; color: #e11d48; background: #fff1f2; padding: 4px 8px; border-radius: 6px; display: inline-block;">⏳ Cutoff: ${ev.deadlineStr}</div>` : ''}
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function filterSchoolWidget(mode, btnEl) {
+    document.querySelectorAll('#schoolEventsWidgetCard .sc-tab-btn').forEach(b => {
+      b.style.background = '#ffffff';
+      b.style.color = '#475569';
+    });
+    if (btnEl) {
+      btnEl.style.background = '#4f46e5';
+      btnEl.style.color = '#ffffff';
+    }
+    renderSchoolWidgetList(mode);
+  }
+
+  renderSchoolWidgetList('ALL');
+</script>
+<!-- END: ANNA GOVT MODEL HR SEC SCHOOL FORTHCOMING EVENTS CARD -->
     <!-- 6 Quick Access Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       
