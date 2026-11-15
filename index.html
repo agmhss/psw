@@ -285,9 +285,9 @@
       </div>
     </div>
 
-    <!-- ==========================================
-     AGMHSS LIVE UPCOMING EVENTS SLIDER CARD
-     (Matches Class Calculator Card Style & Size)
+<!-- ==========================================
+     AGMHSS LIVE UPCOMING EVENTS SLIDER CARD (v2)
+     (Strict Containment, Active Loop Buttons, 10-Day Window)
      ========================================== -->
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@600;700;800&family=Noto+Sans+Tamil:wght@400;500;600;700;800&display=swap');
@@ -301,29 +301,20 @@
     width: 100%;
     max-width: 390px;
     margin: 20px auto;
-    padding: 22px 18px 20px;
+    padding: 20px 14px 16px;
     position: relative;
     box-sizing: border-box;
     color: #ffffff;
     text-align: center;
     user-select: none;
-  }
-
-  /* Decorative top-right icon like the butterfly */
-  .agmhss-sched-deco {
-    position: absolute;
-    top: -16px;
-    right: 18px;
-    font-size: 30px;
-    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
-    transform: rotate(10deg);
-    pointer-events: none;
+    overflow: hidden;
   }
 
   /* Top Yellow Pill Badge */
   .agmhss-sched-pill {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
     background: #fbbf24;
     color: #1e293b;
@@ -333,17 +324,20 @@
     border-radius: 999px;
     box-shadow: 0 3px 8px rgba(0,0,0,0.18);
     margin-bottom: 10px;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   /* Main Card Heading */
   .agmhss-sched-heading {
     font-family: 'Baloo Thambi 2', 'Noto Sans Tamil', sans-serif;
-    font-size: 21px;
+    font-size: 19px;
     font-weight: 800;
     line-height: 1.35;
-    margin: 0 0 14px 0;
+    margin: 0 0 12px 0;
     color: #ffffff;
     text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    word-break: break-word;
   }
 
   /* Frosted Inner Glass Container */
@@ -353,40 +347,48 @@
     -webkit-backdrop-filter: blur(8px);
     border: 1.5px solid rgba(255, 255, 255, 0.25);
     border-radius: 20px;
-    padding: 14px 12px;
+    padding: 12px 10px;
     text-align: left;
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 100%;
   }
 
-  /* Date & Day Header inside Glass */
+  /* Date & Day Header inside Glass - Stacked & Contained */
   .agmhss-day-banner {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    gap: 8px;
+    justify-content: center;
+    gap: 6px;
     background: #ffffff;
     color: #1e293b;
-    padding: 10px 12px;
+    padding: 10px;
     border-radius: 14px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.12);
     margin-bottom: 12px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .agmhss-day-top-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
   }
 
   .agmhss-date-badge {
     background: #3b0764;
     color: #fde047;
     font-weight: 800;
-    font-size: 13px;
+    font-size: 12.5px;
     padding: 4px 10px;
     border-radius: 8px;
-    white-space: nowrap;
-  }
-
-  .agmhss-day-name {
-    font-weight: 800;
-    font-size: 14px;
-    color: #1e1b4b;
-    flex: 1;
     text-align: center;
+    word-break: break-word;
   }
 
   .agmhss-day-tag {
@@ -394,13 +396,23 @@
     color: #92400e;
     border: 1px solid #f59e0b;
     font-size: 11px;
-    font-weight: 700;
-    padding: 2px 8px;
+    font-weight: 800;
+    padding: 3px 9px;
     border-radius: 999px;
-    white-space: nowrap;
+    text-align: center;
+    word-break: break-word;
   }
 
-  /* Horizontal Slider Viewport & Vertically Scrollable Event Box */
+  .agmhss-day-name {
+    font-weight: 800;
+    font-size: 13.5px;
+    color: #1e1b4b;
+    text-align: center;
+    word-break: break-word;
+    line-height: 1.3;
+  }
+
+  /* Horizontal Slider Viewport */
   .agmhss-slider-viewport {
     overflow: hidden;
     width: 100%;
@@ -415,25 +427,28 @@
 
   .agmhss-slide {
     min-width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
     padding: 2px;
   }
 
-  /* Scrollable area for hidden/long contents */
+  /* Vertically Scrollable Area for Long Contents */
   .agmhss-events-scroll {
-    max-height: 195px;
+    max-height: 210px;
     overflow-y: auto;
+    overflow-x: hidden;
     padding-right: 4px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    box-sizing: border-box;
   }
 
   .agmhss-events-scroll::-webkit-scrollbar {
     width: 5px;
   }
   .agmhss-events-scroll::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.15);
     border-radius: 99px;
   }
   .agmhss-events-scroll::-webkit-scrollbar-thumb {
@@ -441,21 +456,23 @@
     border-radius: 99px;
   }
 
-  /* Individual Event Parchment Item */
+  /* Individual Event Parchment Card */
   .agmhss-event-item {
     background: linear-gradient(180deg, #fffdf5 0%, #fef3c7 100%);
     border: 2px solid #f59e0b;
     border-radius: 14px;
-    padding: 10px 12px;
+    padding: 10px;
     color: #0f172a;
     box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+    box-sizing: border-box;
+    width: 100%;
   }
 
   .agmhss-event-meta {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     margin-bottom: 6px;
   }
 
@@ -465,8 +482,9 @@
     border: 1px solid #d8b4fe;
     font-size: 11px;
     font-weight: 800;
-    padding: 2px 8px;
+    padding: 2px 7px;
     border-radius: 6px;
+    word-break: break-word;
   }
 
   .agmhss-venue-pill {
@@ -475,27 +493,31 @@
     border: 1px solid #fcd34d;
     font-size: 11px;
     font-weight: 700;
-    padding: 2px 8px;
+    padding: 2px 7px;
     border-radius: 6px;
+    word-break: break-word;
   }
 
   .agmhss-event-title {
-    font-size: 13.5px;
+    font-size: 13px;
     font-weight: 700;
-    line-height: 1.4;
+    line-height: 1.45;
     color: #0f172a;
     margin: 0;
     white-space: pre-line;
     word-break: break-word;
+    overflow-wrap: anywhere;
   }
 
-  /* Golden Control Bar (Matches "வகுப்பைக் கண்டுபிடி!" button) */
+  /* Golden Control Bar (Always Active) */
   .agmhss-nav-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 8px;
     margin-top: 12px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .agmhss-nav-btn {
@@ -503,39 +525,42 @@
     color: #0f172a;
     border: none;
     border-radius: 12px;
-    padding: 10px 14px;
+    padding: 9px 13px;
     font-family: inherit;
-    font-size: 13.5px;
+    font-size: 13px;
     font-weight: 800;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    transition: transform 0.15s ease, opacity 0.15s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.22);
+    transition: transform 0.15s ease, background 0.15s ease;
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .agmhss-nav-btn:hover {
+    background: linear-gradient(180deg, #fde047 0%, #facc15 100%);
   }
 
   .agmhss-nav-btn:active {
-    transform: scale(0.96);
-  }
-
-  .agmhss-nav-btn:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
+    transform: scale(0.95);
   }
 
   .agmhss-dots {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     gap: 5px;
+    flex: 1;
+    min-width: 0;
   }
 
   .agmhss-dot {
     width: 8px;
     height: 8px;
     border-radius: 99px;
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.45);
     transition: all 0.25s ease;
     cursor: pointer;
   }
@@ -545,37 +570,28 @@
     background: #facc15;
   }
 
-  /* Bottom DarkTeal Status Box (Matches "---" Result Box in Calculator) */
+  /* Bottom DarkTeal Status Box */
   .agmhss-bottom-status {
     margin-top: 12px;
     background: #134e4a;
     border: 2px solid #5eead4;
     border-radius: 14px;
-    padding: 10px 12px;
+    padding: 9px 10px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 8px;
+    justify-content: center;
+    text-align: center;
     color: #ecfdf5;
     font-size: 12px;
     font-weight: 700;
-  }
-
-  .agmhss-bottom-link {
-    color: #fde047;
-    text-decoration: none;
-    font-weight: 800;
-    white-space: nowrap;
-  }
-  .agmhss-bottom-link:hover {
-    text-decoration: underline;
+    line-height: 1.35;
+    box-sizing: border-box;
+    width: 100%;
+    word-break: break-word;
   }
 </style>
 
 <div class="agmhss-sched-card" id="agmhssLivePosterCard">
-  <!-- Top Right Floating Badge -->
-  <div class="agmhss-sched-deco">🗓️</div>
-
   <!-- Yellow Pill Header -->
   <div class="agmhss-sched-pill">
     <span>📢</span>
@@ -590,11 +606,13 @@
   <!-- Inner Frosted Glass Box -->
   <div class="agmhss-sched-glass">
     
-    <!-- Dynamic Day Banner -->
+    <!-- Dynamic Day Banner (Strictly Contained) -->
     <div class="agmhss-day-banner">
-      <span class="agmhss-date-badge" id="schedActiveDate">--.--.----</span>
-      <span class="agmhss-day-name" id="schedActiveDay">ஏற்றுகிறது...</span>
-      <span class="agmhss-day-tag" id="schedActiveTag">நிகழ்வு</span>
+      <div class="agmhss-day-top-row">
+        <span class="agmhss-date-badge" id="schedActiveDate">--.--.----</span>
+        <span class="agmhss-day-tag" id="schedActiveTag">நிகழ்வு</span>
+      </div>
+      <div class="agmhss-day-name" id="schedActiveDay">ஏற்றுகிறது...</div>
     </div>
 
     <!-- Touch-Slideable & Vertically Scrollable Viewport -->
@@ -606,23 +624,20 @@
 
     <!-- Yellow Navigation Buttons & Slide Dots -->
     <div class="agmhss-nav-bar">
-      <button type="button" class="agmhss-nav-btn" id="schedPrevBtn" onclick="moveSchedSlide(-1)">
+      <button type="button" class="agmhss-nav-btn" id="schedPrevBtn">
         ◀ முந்தைய
       </button>
 
       <div class="agmhss-dots" id="schedDotsContainer"></div>
 
-      <button type="button" class="agmhss-nav-btn" id="schedNextBtn" onclick="moveSchedSlide(1)">
+      <button type="button" class="agmhss-nav-btn" id="schedNextBtn">
         அடுத்த ▶
       </button>
     </div>
 
-    <!-- Bottom Teal Box (Matches Class Calculator Output Box) -->
+    <!-- Bottom Teal Status Box -->
     <div class="agmhss-bottom-status">
       <span id="schedSummaryCounter">📊 நிகழ்வுகள் ஏற்றப்படுகின்றன...</span>
-      <a href="https://agmhss.github.io/scheduler" target="_blank" class="agmhss-bottom-link">
-        முழு போஸ்டர் ↗
-      </a>
     </div>
 
   </div>
@@ -630,56 +645,49 @@
 
 <script>
 (function() {
-  // Same Apps Script URL & Storage Key used in agmhss.github.io/scheduler
   const SCHEDULER_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzEHfDkelY5TRX3vIjAbsVABZdBY6mWFZNQzO-rKdBgOk5KmWlxi3f8xADOiaHJN16X/exec';
   const SCHEDULER_STORAGE_KEY = 'agmhss_vertical_tamil_poster_v4';
 
-  // Fallback upcoming days from your scheduler file
+  // Default fallback schedule split by individual dates so Prev/Next buttons slide smoothly
   const FALLBACK_DAYS = [
     {
-      isoDate: '2026-11-13',
-      dateDisplay: '13.11.2026',
-      dayName: 'வெள்ளிக்கிழமை',
-      tag: 'சிறப்பு நிகழ்வு',
-      events: [
-        {
-          icon: '🗣️',
-          time: 'காலை 9.30 மணி',
-          title: 'தமிழ் பேச்சு எங்கள் உயிர் மூச்சு — மேல்நிலை முதுகலை தமிழ் ஆசிரியர்கள் பயிற்சி\nCake Distribution',
-          venue: 'புனித அந்தோணியார் மேல்நிலைப்பள்ளி, தஞ்சாவூர்'
-        }
-      ]
-    },
-    {
-      isoDate: '2026-11-14',
-      dateDisplay: '14.11.2026',
-      dayName: 'சனிக்கிழமை',
-      tag: 'குழந்தைகள் தினம்',
-      events: [
-        {
-          icon: '🧪',
-          time: 'காலை 9.00 மணி',
-          title: 'AI வேதியியல் பயிற்சி - நாள் 2 (AI Chemistry Day 2) & குழந்தைகள் தின விழா',
-          venue: 'பட்டீஸ்வரம் / சாஸ்த்ரா வல்லம்'
-        }
-      ]
-    },
-    {
       isoDate: '2026-11-16',
-      dateDisplay: '16.11.2026 – 20.11.2026',
-      dayName: 'திங்கள் - வெள்ளி',
+      dateDisplay: '16.11.2026',
+      dayName: 'திங்கட்கிழமை',
       tag: 'தேர்வு வாரம்',
       events: [
         {
           icon: '📝',
           time: 'காலை 9.30 மணி',
-          title: 'தஞ்சாவூர் மாவட்டம் — இரண்டாம் இடைப்பருவத் தேர்வுகள் (Second Mid Term Exams | Nov 16–20)',
+          title: 'தஞ்சாவூர் மாவட்டம் — இரண்டாம் இடைப்பருவத் தேர்வுகள் தொடக்கம் (Second Mid Term Exams | Nov 16–20)',
           venue: 'அண்ணா அரசு மாதிரி மேல்நிலைப் பள்ளி, பட்டீஸ்வரம்'
-        },
+        }
+      ]
+    },
+    {
+      isoDate: '2026-11-17',
+      dateDisplay: '17.11.2026',
+      dayName: 'செவ்வாய்க்கிழமை',
+      tag: 'தேர்வு நாள் 2',
+      events: [
         {
           icon: '🎓',
-          time: 'நவம்பர் 17',
-          title: 'இரண்டாம் இடைப்பருவத் தேர்வுத் தொடர்ச்சி',
+          time: 'காலை 9.30 மணி',
+          title: 'இரண்டாம் இடைப்பருவத் தேர்வுத் தொடர்ச்சி (Second Mid Term Exams - Day 2)',
+          venue: 'AGMHSS பட்டீஸ்வரம்'
+        }
+      ]
+    },
+    {
+      isoDate: '2026-11-18',
+      dateDisplay: '18.11.2026 – 20.11.2026',
+      dayName: 'புதன் முதல் வெள்ளி வரை',
+      tag: 'தேர்வு வாரம்',
+      events: [
+        {
+          icon: '📝',
+          time: 'காலை 9.30 மணி',
+          title: 'இரண்டாம் இடைப்பருவத் தேர்வுகள் (நவம்பர் 18 முதல் 20 வரை)',
           venue: 'AGMHSS பட்டீஸ்வரம்'
         }
       ]
@@ -699,30 +707,77 @@
     return null;
   }
 
-  function filterNextDays(daysArray) {
-    if (!Array.isArray(daysArray) || daysArray.length === 0) return [];
-    const todayIso = new Date().toISOString().slice(0, 10);
+  // Expands grouped multi-event cards if an event has its own date like "நவம்பர் 17"
+  function expandGroupedEvents(daysArray) {
+    const expanded = [];
+    (daysArray || []).forEach(d => {
+      if (Array.isArray(d.events) && d.events.length > 1 && String(d.dateDisplay || '').includes('–')) {
+        const primaryEvents = [];
+        const secondaryEvents = [];
+        d.events.forEach(ev => {
+          if (/17/.test(String(ev.time || ''))) {
+            secondaryEvents.push(ev);
+          } else {
+            primaryEvents.push(ev);
+          }
+        });
+        if (primaryEvents.length > 0 && secondaryEvents.length > 0) {
+          expanded.push({
+            ...d,
+            isoDate: '2026-11-16',
+            dateDisplay: '16.11.2026',
+            dayName: 'திங்கட்கிழமை',
+            events: primaryEvents
+          });
+          expanded.push({
+            ...d,
+            isoDate: '2026-11-17',
+            dateDisplay: '17.11.2026',
+            dayName: 'செவ்வாய்க்கிழமை',
+            tag: 'தேர்வு தொடர்ச்சி',
+            events: secondaryEvents
+          });
+          return;
+        }
+      }
+      expanded.push(d);
+    });
+    return expanded;
+  }
 
-    const normalized = daysArray
+  // Filters schedule for Current Date to Next 10 Days
+  function filterNext10Days(daysArray) {
+    if (!Array.isArray(daysArray) || daysArray.length === 0) return [];
+    
+    const expandedList = expandGroupedEvents(daysArray);
+    const now = new Date();
+    const todayIso = new Date(now.getTime() - (now.getTimezoneOffset() * 60000)).toISOString().slice(0, 10);
+    const plus10 = new Date(now.getTime() + 10 * 86400000 - (now.getTimezoneOffset() * 60000));
+    const maxIso = plus10.toISOString().slice(0, 10);
+
+    const normalized = expandedList
       .map(d => ({
         ...d,
         isoDate: parseIso(d.isoDate) || parseIso(d.dateDisplay) || '9999-12-31'
       }))
       .sort((a, b) => a.isoDate.localeCompare(b.isoDate));
 
-    // Filter events from today onwards (or multi-day ranges like Nov 16-20)
-    const future = normalized.filter(d => {
-      if (d.isoDate >= todayIso) return true;
-      // Check if dateDisplay has a range ending in the future (e.g. 16.11.2026 – 20.11.2026)
+    const within10Days = normalized.filter(d => {
+      let startIso = d.isoDate;
+      let endIso = d.isoDate;
+
       const allDates = String(d.dateDisplay || '').match(/(\d{1,2})[.\/-](\d{1,2})[.\/-](20\d{2})/g);
       if (allDates && allDates.length > 1) {
-        const lastIso = parseIso(allDates[allDates.length - 1]);
-        if (lastIso && lastIso >= todayIso) return true;
+        const parsedFirst = parseIso(allDates[0]);
+        const parsedLast = parseIso(allDates[allDates.length - 1]);
+        if (parsedFirst) startIso = parsedFirst;
+        if (parsedLast) endIso = parsedLast;
       }
-      return false;
+
+      return endIso >= todayIso && startIso <= maxIso;
     });
 
-    return future.length > 0 ? future : normalized.slice(-3);
+    return within10Days.length > 0 ? within10Days : normalized;
   }
 
   function renderSlides() {
@@ -734,7 +789,7 @@
     dotsBox.innerHTML = '';
 
     if (upcomingDays.length === 0) {
-      upcomingDays = filterNextDays(FALLBACK_DAYS);
+      upcomingDays = filterNext10Days(FALLBACK_DAYS);
     }
 
     if (currentSlideIdx >= upcomingDays.length) currentSlideIdx = 0;
@@ -766,7 +821,7 @@
 
       const dot = document.createElement('span');
       dot.className = 'agmhss-dot' + (idx === currentSlideIdx ? ' active' : '');
-      dot.onclick = () => goToSchedSlide(idx);
+      dot.addEventListener('click', () => goToSlide(idx));
       dotsBox.appendChild(dot);
     });
 
@@ -778,39 +833,42 @@
     if (!day) return;
 
     const track = document.getElementById('schedSliderTrack');
-    track.style.transform = `translateX(-${currentSlideIdx * 100}%)`;
+    if (track) {
+      track.style.transform = `translateX(-${currentSlideIdx * 100}%)`;
+    }
 
     document.getElementById('schedActiveDate').textContent = day.dateDisplay || day.isoDate;
     document.getElementById('schedActiveDay').textContent = day.dayName || '';
-    const tagEl = document.getElementById('schedActiveTag');
-    tagEl.textContent = day.tag || 'நிகழ்வு';
-
-    document.getElementById('schedPrevBtn').disabled = currentSlideIdx === 0;
-    document.getElementById('schedNextBtn').disabled = currentSlideIdx === upcomingDays.length - 1;
+    document.getElementById('schedActiveTag').textContent = day.tag || 'நிகழ்வு';
 
     const dots = document.querySelectorAll('#schedDotsContainer .agmhss-dot');
     dots.forEach((d, i) => d.classList.toggle('active', i === currentSlideIdx));
 
     const totalEvents = upcomingDays.reduce((acc, item) => acc + (item.events ? item.events.length : 0), 0);
     document.getElementById('schedSummaryCounter').textContent =
-      `📅 நாள் ${currentSlideIdx + 1}/${upcomingDays.length} • மொத்தம் ${totalEvents} நிகழ்வுகள்`;
+      `📅 நாள் ${currentSlideIdx + 1}/${upcomingDays.length} • மொத்தம் ${totalEvents} நிகழ்வுகள் (அடுத்த 10 நாட்கள்)`;
   }
 
-  window.moveSchedSlide = function(delta) {
-    const next = currentSlideIdx + delta;
-    if (next >= 0 && next < upcomingDays.length) {
-      currentSlideIdx = next;
+  // Circular looping navigation so buttons ALWAYS work
+  function moveSlide(delta) {
+    if (upcomingDays.length <= 1) return;
+    currentSlideIdx = (currentSlideIdx + delta + upcomingDays.length) % upcomingDays.length;
+    updateActiveHeader();
+  }
+
+  function goToSlide(index) {
+    if (index >= 0 && index < upcomingDays.length) {
+      currentSlideIdx = index;
       updateActiveHeader();
     }
-  };
+  }
 
-  window.goToSchedSlide = function(index) {
-    currentSlideIdx = index;
-    updateActiveHeader();
-  };
+  function initControlsAndSwipe() {
+    const prevBtn = document.getElementById('schedPrevBtn');
+    const nextBtn = document.getElementById('schedNextBtn');
+    if (prevBtn) prevBtn.addEventListener('click', () => moveSlide(-1));
+    if (nextBtn) nextBtn.addEventListener('click', () => moveSlide(1));
 
-  // Touch swipe support (Left / Right)
-  function initSwipe() {
     const viewport = document.getElementById('schedSliderViewport');
     if (!viewport) return;
     let startX = 0;
@@ -824,29 +882,28 @@
     viewport.addEventListener('touchend', (e) => {
       const diffX = e.changedTouches[0].clientX - startX;
       const diffY = e.changedTouches[0].clientY - startY;
-      // Trigger horizontal slide only if horizontal swipe is wider than vertical scroll
-      if (Math.abs(diffX) > 45 && Math.abs(diffX) > Math.abs(diffY)) {
-        if (diffX < 0) window.moveSchedSlide(1);
-        else window.moveSchedSlide(-1);
+      if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX < 0) moveSlide(1);
+        else moveSlide(-1);
       }
     }, { passive: true });
   }
 
   async function loadLiveSchedule() {
-    // 1. Check shared domain localStorage first (instant load if edited on same device)
+    // 1. Check shared domain localStorage first
     try {
       const saved = localStorage.getItem(SCHEDULER_STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
         if (parsed && Array.isArray(parsed.days) && parsed.days.length > 0) {
-          upcomingDays = filterNextDays(parsed.days);
+          upcomingDays = filterNext10Days(parsed.days);
           renderSlides();
         }
       }
     } catch (e) {}
 
     if (upcomingDays.length === 0) {
-      upcomingDays = filterNextDays(FALLBACK_DAYS);
+      upcomingDays = filterNext10Days(FALLBACK_DAYS);
       renderSlides();
     }
 
@@ -856,22 +913,27 @@
       const data = await res.json();
       const remoteDays = Array.isArray(data) ? data : (data && Array.isArray(data.days) ? data.days : []);
       if (remoteDays.length > 0) {
-        upcomingDays = filterNextDays(remoteDays);
-        currentSlideIdx = 0;
-        renderSlides();
+        const filtered = filterNext10Days(remoteDays);
+        if (filtered.length > 0) {
+          upcomingDays = filtered;
+          currentSlideIdx = 0;
+          renderSlides();
+        }
       }
-    } catch (err) {
-      // Keeps localStorage or fallback data seamlessly
-    }
+    } catch (err) {}
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    initSwipe();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      initControlsAndSwipe();
+      loadLiveSchedule();
+    });
+  } else {
+    initControlsAndSwipe();
     loadLiveSchedule();
-  });
+  }
 })();
 </script>
-
     
     <!-- 6 Quick Access Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
